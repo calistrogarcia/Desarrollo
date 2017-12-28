@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head> 
+        
+   
+        
+    </h:head>
+<h:body>
+    <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
+    <ui:define name="contenido">
+                                
+                   <!--Formulario que permite la Busqueda-->
+    <p:tab id="tab_Buscar_Expediente" title="Buscar" titletip="Buscar Expediente" >
+        <h:form class="border_tittulo1" id="form_busc_Expediente" style="text-align:center;" styleClass="tamaño_fuente">
+              
+        <p:panel id="datBusExpediente" header="#{msg.LabelBusquedaExpedientes}" styleClass="border">
+            <p:fieldset   style="margin-bottom:20px;text-align: justify" >
+            <h:panelGrid columns="2">
+                <h:panelGrid columns="2">
+                    <img src="resources/imagenes/expediente-icon.png"/>
+                    <h:outputText value="Nro Expediente:"   />
+                </h:panelGrid>
+                <h:panelGroup>
+                <p:inputText id="nro_expediente"
+                             value="#{beanExpediente_Busqueda.objBuscarExpediente.nro}"
+                             maxlength="30"  validatorMessage="Validar" title="Expediente">                                     
+                </p:inputText>
+                <h:message for="nro_expediente" showDetail="false" showSummary="true"/>                                         
+                </h:panelGroup>  
+               
+                <h:panelGrid columns="2">
+                    <img src="resources/imagenes/user.png"/>
+                <h:outputText value="Recurrente:" />
+                </h:panelGrid>
+                <h:panelGroup>
+                <p:inputText id="recurrente"
+                             value="#{beanExpediente_Busqueda.objBuscarExpediente.cnombre}"
+                             maxlength="30" validatorMessage="Validar" title="Expediente"/>
+                <h:message for="recurrente" showDetail="false" showSummary="true"/> 
+                </h:panelGroup>
+                
+                <h:panelGrid columns="2">
+                    <img src="resources/imagenes/asunto.png"/>
+                <h:outputText value="Asunto:" />
+                </h:panelGrid>
+                <h:panelGroup>
+                <p:inputText id="asunto"
+                             value="#{beanExpediente_Busqueda.objBuscarExpediente.dasunto}"
+                             maxlength="30" validatorMessage="Validar" title="Expediente"/>
+                <h:message for="asunto" showDetail="false" showSummary="true"/> 
+                </h:panelGroup>
+                 
+                <h:panelGrid columns="2">
+                    <img src="resources/imagenes/referencia.png"/>
+                <h:outputText value="Referencia" />
+                </h:panelGrid>
+                <h:panelGroup>
+                <p:inputText id="registro"
+                             value="#{beanExpediente_Busqueda.objBuscarExpediente.observa}"
+                             maxlength="30" validatorMessage="Validar" title="Expediente"/>
+                <h:message for="referencia" showDetail="false" showSummary="true"/> 
+                </h:panelGroup>
+            </h:panelGrid>
+            </p:fieldset>  
+                <p></p>
+                                 <!--Generando Calendario--> 
+            <p:fieldset style="margin-bottom:20px;text-align: justify">
+                <h:outputText value="Rango de Fechas:"/>
+                 
+                <h:panelGrid columns="4" cellpadding="2">
+                  
+                     <h:outputText  value="#{msg.LabelIncio}" />
+                           
+                             <h:panelGroup>
+                            <p:calendar id="f_ini_t"  locale="es" navigator="true"
+                                        value="#{beanExpediente_Busqueda.objBuscarExpediente.fecha_inicial}"  
+                                        pattern="dd-MM-yyyy">   
+                            </p:calendar>
+                            <h:message for="f_ini_t" showDetail="true" showSummary="true"/>                                   
+                            </h:panelGroup> 
+                    
+ 
+                    <h:outputText  value="#{msg.LabelFin}" />
+                           <h:panelGroup>
+                            <p:calendar id="f_fin_t"  locale="es" navigator="true"
+                                        value="#{beanExpediente_Busqueda.objBuscarExpediente.fecha_final}"  
+                                        pattern="dd-MM-yyyy">   
+                             
+                            </p:calendar>
+                            <h:message for="f_fin_t" showDetail="true" showSummary="true"/>                                   
+                            </h:panelGroup> 
+
+       
+                </h:panelGrid>  
+               
+            </p:fieldset>
+                                <!--Ingresando los Botones--> 
+            <center>                        
+            <h:panelGrid columns="2" cellpadding="2"  cellspacing="2"  width="25%">
+                <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{beanExpediente_Busqueda.doiniciarBusquedaExpediente()}"  
+                                 value="#{msg.labelNuevo}" async="true" update="datBusExpediente"/>
+                <p:commandButton id="saveBtn" icon="ui-icon-search" actionListener="#{beanExpediente_Busqueda.doBuscarExpediente()}" 
+                                 value="#{msg.btnConsultar}" async="true" update="datBusExpediente"/>
+            </h:panelGrid>
+            </center>
+        
+            <p:blockUI block="datBusExpediente" trigger="saveBtn">                                               
+                                                Buscando... <br />
+                <p:graphicImage value="resources/imagenes/cargando1.gif" />   
+            </p:blockUI>
+            <br />     
+                                
+               <center>
+            
+                <h:panelGrid columns="2" >
+                <h:outputText styleClass="etiqueta_resultBusq" value="#{msg.labelCantidad}"/>
+                <h:outputText styleClass="etiqueta_resultBusq" value="#{beanExpediente_Busqueda.arrBusExpediente.size()}"/>
+               </h:panelGrid>
+                           
+               </center> 
+            
+            
+            <h:panelGrid columns="1"   cellpadding="0"  cellspacing="0"  border="0"  styleClass="width-table">
+
+              <!--Ingresando para la exportacion de Datos-->
+            <h:panelGrid columns="3" cellpadding="2"  cellspacing="2"  width="15%">
+                <h:panelGrid columns="2">
+                <img src="resources/imagenes/printer.png"/>
+                <h:commandLink id="reporte"  value="Imprimir" actionListener="#{beanExpediente_Reporte.verReporte2()}" title="Reporte de Expedientes Ingresados" />
+                </h:panelGrid> 
+                
+                <h:commandLink>
+                <p:graphicImage url="resources/imagenes/xls.png"/>
+                <p:dataExporter type="xls" target="resListadoExpediente" fileName="excel-Expediente" />           
+                </h:commandLink>
+            </h:panelGrid> 
+                          <!--JUDITH 05-04-17-->
+          
+                                  
+              <p:dataTable id="resListadoExpediente" value="#{beanExpediente_Busqueda.arrBusExpediente}" var="listExpediente" styleClass="order-table" paginator="true"
+                         rows="5" rowsPerPageTemplate="5,10,15,20,25,30,50" paginatorPosition="both" paginatorAlwaysVisible="true" >
+              
+                <p:column>
+                    <f:facet name="header">
+                    <h:outputText value="#{msg.labelN}"/>
+                    </f:facet>
+                    <h:outputText value="#{listExpediente.nro}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                    <h:outputText value="#{msg.labelExpediente}"/>
+                    </f:facet>
+                    <h:outputText value="#{listExpediente.dnumold}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                    <h:outputText value="#{msg.labelRecurrente}"/>
+                    </f:facet>
+                    <h:outputText value="#{listExpediente.cnombre}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                    <h:outputText value="#{msg.labelProcedimiento}"/>
+                    </f:facet>
+                    <h:outputText value="#{listExpediente.dasunto}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                    <h:outputText value="#{msg.LabelFechaRegistro}"/>
+                    </f:facet>
+                    <h:outputText value="#{listExpediente.ffecdoc1}"/>
+                </p:column>
+            </p:dataTable>
+            </h:panelGrid>
+                                         
+        </p:panel>
+      </h:form>
+    </p:tab>
+    </ui:define>
+    </ui:composition> 
+    </h:body>
+</html>

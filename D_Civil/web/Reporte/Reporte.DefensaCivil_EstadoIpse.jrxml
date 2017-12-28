@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte.DefensaCivil_ReporteExpedientesIpse" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="65b22f4d-6af0-4dfb-bb3f-3cebd3ac3856">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha_desde" class="java.lang.String"/>
+	<parameter name="fecha_hasta" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[exec sp_java_reporte_estadoexpedientesipse  @fecha_desde=$P{fecha_desde}, @fecha_hasta=$P{fecha_hasta}]]>
+	</queryString>
+	<field name="Expediente" class="java.lang.String"/>
+	<field name="Fecha_Ingreso" class="java.sql.Timestamp"/>
+	<field name="Nombres" class="java.lang.String"/>
+	<field name="Tipo_Ipse" class="java.lang.String"/>
+	<field name="Resuelto" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="199" y="10" width="193" height="20" uuid="818d9e02-8b0d-46e2-9f4b-f3fc0b449401"/>
+				<text><![CDATA[REPORTE DE EXPEDIENTES IPSE]]></text>
+			</staticText>
+			<image>
+				<reportElement x="22" y="0" width="100" height="50" uuid="94c00aed-5c4f-4b14-9582-d55c9331404e"/>
+				<imageExpression><![CDATA["C:\\D_Civil\\web\\Reporte\\smp.png"]]></imageExpression>
+			</image>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="455" y="10" width="100" height="20" uuid="0d0d8450-975c-438a-96e7-a4c53f304599"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="18" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="25" y="1" width="70" height="20" uuid="cda2b3bc-7044-423b-bcde-86a325839018"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Expediente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="107" y="2" width="79" height="20" uuid="542b20b7-c0c1-45d7-86c6-eae92f37d68a"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Ingreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="2" width="64" height="20" uuid="3e257ff8-4e0c-42c1-b4ef-813a60b68280"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="364" y="2" width="85" height="20" uuid="b4275ed0-35e4-43ff-ab1c-3afd2f25fabc"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Tipo Ipse]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="2" width="74" height="20" uuid="de5cc27c-e76c-462f-9b11-7b8c23508bee"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Resuelto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement x="25" y="5" width="70" height="20" uuid="9be97515-fb92-4927-91bd-5bd47a75e853"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Expediente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="5" width="79" height="20" uuid="e19fae86-63d0-4800-8650-77318fe29792"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Fecha_Ingreso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="193" y="5" width="159" height="20" uuid="663788fd-1ab3-4e3c-ac94-324a2c96a597"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="365" y="4" width="84" height="20" uuid="8e50a3ef-af3d-4790-b784-05b93378a3cb"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Tipo_Ipse}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="7" width="74" height="20" uuid="d8fede7a-a497-4c2e-8bf3-e0ce2b64eda0"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Resuelto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="522" y="34" width="27" height="20" uuid="04fbec1f-1724-4bbc-aa1c-0a419f4e74ed"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

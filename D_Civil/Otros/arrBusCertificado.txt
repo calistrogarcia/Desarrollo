@@ -1,0 +1,56 @@
+Busqueda Mediante Array 
+set y get
+
+ public void doiniciarBusquedaCertificado(){        
+                this.arrBusCertificado = new ArrayList<Certificado>();
+                this.objBuscarCertificado= new Certificado();
+
+ }
+
+
+ public ArrayList<Certificado> doBuscarCertificado(){   
+            
+           this.arrBusCertificado = new ArrayList<Certificado>();
+           this.arrBusCertificado=Certificado.getBuscaExpedientesPorcodigo(objBuscarCertificado);
+
+            return this.arrBusCertificado;    
+        }
+
+
+public String getSizeRegistrosCertificado() {
+
+            if(this.arrCertificado==null){
+              return "0";
+            }            
+         else{return "" + this.arrCertificado.size();
+            }             
+         }  
+
+        public String getSizeRegistrosBusCertificado() {
+
+            if(this.arrBusCertificado==null){
+              return "0";
+            }            
+         else{return "" + this.arrBusCertificado.size();
+            }             
+         } 
+
+
+// COMPARTIDO CON EL OTRO ARRAY
+ public String getSizeRegistrosCertificado() { 
+
+            if(this.arrCertificado==null){
+              return "0";
+            }            
+         else{return "" + this.arrCertificado.size();
+            }             
+         }  
+
+        public String getSizeRegistrosBusCertificado() {
+
+            if(this.arrBusCertificado==null){
+              return "0";
+            }            
+         else{return "" + this.arrBusCertificado.size();
+            }             
+         }  

@@ -1,0 +1,28 @@
+ Inicia Array 
+
+
+    public void doiniciarListadoCertificado(){
+       arrCertificado = new ArrayList<Certificado>();
+
+     }
+
+
+public ArrayList<Certificado> doListarCertificado(){   
+            this.doiniciarListadoCertificado();            
+            //Lista Certificado
+          // this.arrCertificado=Certificado.getBuscaExpedientesPorcodigo(objBuscarCertificado);
+            return this.arrCertificado;    
+        }
+
+
+ public String getSizeRegistrosCertificado() {
+
+            if(this.arrCertificado==null){
+              return "0";
+            }            
+         else{return "" + this.arrCertificado.size();
+            }             
+       }  
+
+
+   

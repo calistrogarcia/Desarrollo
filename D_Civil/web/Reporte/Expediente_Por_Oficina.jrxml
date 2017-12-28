@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ceda0dae-7289-4bb4-a624-844ce7863baa">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[exec [dbo].[usp_java_expedientes_por_oficina]
+ @CAREAS='015',@FECHAINI ='08-01-2014',    
+@FECHAFIN=' 11-01-2014']]>
+	</queryString>
+	<field name="DNUMOLD" class="java.lang.String"/>
+	<field name="CCONTRI" class="java.lang.String"/>
+	<field name="DCONTRI" class="java.lang.String"/>
+	<field name="FFECENV" class="java.sql.Timestamp"/>
+	<field name="CESTADO" class="java.lang.String"/>
+	<field name="DESTADO" class="java.lang.String"/>
+	<field name="CAREDES" class="java.lang.String"/>
+	<field name="DAREDES" class="java.lang.String"/>
+	<field name="CASUNTO" class="java.lang.String"/>
+	<field name="DASUNTO" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#00CCFF" uuid="3aa78bd7-c02e-481e-9628-2c133ba4f278"/>
+				<staticText>
+					<reportElement x="141" y="57" width="342" height="23" forecolor="#FFFFFF" uuid="9dbc8215-6b02-41af-b33a-b98b197bd85c"/>
+					<textElement textAlignment="Center">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[RELACIÓN DE EXPEDIENTES INGRESADOS POR OFICINA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="109" y="22" width="261" height="20" forecolor="#FFFFFF" uuid="07230c81-fa10-49e7-be59-0dd1f85eaef0"/>
+					<textElement>
+						<font size="12" isBold="false" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Municipalidad Distrital de San Martin de Porres]]></text>
+				</staticText>
+				<image>
+					<reportElement x="39" y="15" width="65" height="72" uuid="83c85de1-05c2-49ad-86d3-c77827a52c8f"/>
+					<imageExpression><![CDATA["Z:\\DCivil\\D_Civil\\web\\reporte\\smp.png"]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="ecbd5ced-c7e5-498a-9d20-f9f1d6104c4a"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="84" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="c646f9e4-1c58-4741-9914-1a88990ea2d4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº Exp.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="86" y="0" width="124" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="6b46cc32-6bb4-444d-b4b7-cd142c3be3d5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Recurrente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="212" y="0" width="69" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="7b51f5d6-470c-4855-9a6e-bd046f520a55"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[F. Envio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="388" y="0" width="61" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="4ca84d90-a436-4935-baf8-1bf69e45bae0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="283" y="0" width="103" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="b16943c6-bb86-4784-a217-a41aa222e0a8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Área de Origen]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="451" y="0" width="104" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="a5d65681-e338-44fb-8b10-451cceddc868"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Asunto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="23" width="555" height="1" uuid="ce584d46-2524-4eec-a3e7-e141a655ce45"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="84" height="20" uuid="ffe9d9c5-9fa5-4112-8f3e-e13115196c64"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DNUMOLD}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="86" y="0" width="124" height="20" uuid="77e7f2bd-3eb2-455b-ad36-00f593d85691"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DCONTRI}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="212" y="0" width="69" height="20" uuid="ba13d31f-3429-46b5-a009-59b64ddeefe5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FFECENV}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="388" y="0" width="61" height="20" uuid="1e302fd6-6840-4bb0-a0ff-356752edef16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DESTADO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="283" y="0" width="103" height="20" uuid="d47338b7-c3f2-4305-b585-f9cbaf665b41"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DAREDES}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="451" y="0" width="104" height="20" uuid="2496793a-2b1f-4bbd-9f02-63f402ab11e9"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DASUNTO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="15aef69b-6a1d-4405-9e36-d0f9368e4f46"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" al "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="88d97934-9bc3-4fe5-8a8a-728404fb03da"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="aa5d9d2d-2b7d-4ff5-a7a6-a9040e247418"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

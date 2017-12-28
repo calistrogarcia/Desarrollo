@@ -1,0 +1,12 @@
+telnet mail 25
+HELO mail.mdsmp.gob.pe
+MAIL FROM: cagarcia@mdsmp.gob.pe
+MAIL FROM: calistogarcia@hotmail.com
+RCPT TO: calistogarcia@hotmail.com
+DATA
+subject:
+.
+dos veces enter
+ESCRIBIR
+QUIT
+

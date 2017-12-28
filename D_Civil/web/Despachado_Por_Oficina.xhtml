@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>   
+    </h:head>
+ <h:body>
+    <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
+    <ui:define name="contenido">
+                              <!---Agregando Etiqueta de Titulo-->
+                           <h:outputText value="#{msg.LabelReporte}"/> 
+                
+    <p:tab id="tab_Buscar_ExpedienteDesO" title="Buscar" titletip="Buscar Expediente" >
+    <!-- Formulario que permite la Busqueda  -->    
+    <h:form class="border_titulo1" id="form_busc_ExpedienteDesO"   style="text-align : justify;">                
+        <p:panel id="datBusExpedienteDesO" header="#{msg.LabelExpDespPorOficina}" styleClass="border" style="text-align: center">
+            <!--Lista de Opciones de Ofina *09*05*17 **J**-->  
+        <center>
+        <fieldset>
+        <h:panelGrid columns="2">
+        <h:outputText value="#{msg.labelOficina}"/>
+            <h:panelGroup>
+                <p:selectOneMenu effect="fade"
+                                 filter="true"  filterMatchMode="contains"
+                                 required="true" id="cb_opc"
+                                 validatorMessage="#{msg.labelValidar}"
+                                 requiredMessage="#{msg.labelObli}"
+                                 value="#{beanDespachado_Por_Oficina.objBuscarExpedienteDesO.id_area}">
+                    <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                  itemValue="O"/>
+                    <f:selectItems value="#{Expediente.cargarComboAreas}"/>
+                </p:selectOneMenu>
+                <h:message for="cb_asoc" showDetail="false" showSummary="true"/>
+                                         
+            </h:panelGroup>
+        </h:panelGrid>   
+        <!--Rango de Fechas-->
+        <h:panelGrid columns="5" cellpadding="6"  cellspacing="2">
+            <img src="resources/imagenes/calendario.png"/> 
+            <h:panelGroup>
+                <h:outputText value="Envio Del:  "/>
+                <p:inputText  id="fechaI" required="true" requiredMessage="#{msg.labelObli}"
+                              maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{beanDespachado_Por_Oficina.objBuscarExpedienteDesO.fecha_ini}">
+                <f:validateLength minimum="0" maximum="30"/>
+                </p:inputText>
+                <h:message for="fechaI" showDetail="false" showSummary="true"/>                                    
+            </h:panelGroup>
+                    
+            <h:panelGroup>
+                <h:outputText value="Al:  "/>
+                <p:inputText id="fechaF" required="true" requiredMessage="#{msg.labelObli}"
+                             maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{beanDespachado_Por_Oficina.objBuscarExpedienteDesO.fecha_fin}"
+                >  
+                <f:validateLength minimum="0" maximum="30"/>
+                </p:inputText>
+                <h:message for="fechaF" showDetail="false" showSummary="true"/>                                    
+            </h:panelGroup>
+        </h:panelGrid>
+        </fieldset>
+        </center>   
+        <br/>   
+        <center>
+        <h:panelGrid columns="3" cellpadding="2"  cellspacing="2"  width="25%">
+            <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{beanDespachado_Por_Oficina.doiniciarBusquedaExpedienteDesO()}"  
+                             value="#{msg.labelNuevo}" async="true" update="datBusExpedienteDesO"/>
+            <p:commandButton id="saveBtn" icon="ui-icon-search" actionListener="#{beanDespachado_Por_Oficina.doBuscarExpedienteDesO()}"  
+                             value="#{msg.btnConsultar}" async="true" update="datBusExpedienteDesO"/>  
+        </h:panelGrid>
+        </center>
+                                        
+        <p:blockUI block="datBusExpedienteDesO" trigger="saveBtn">                                               
+                                Buscando... <br />
+            <p:graphicImage value="resources/imagenes/cargando1.gif" />   
+        </p:blockUI>
+        <br />
+        <center>
+        <h:panelGrid columns="2" >
+            <h:outputText styleClass="etiqueta_resultBusq" value="#{msg.labelCantidad}"/>
+            <h:outputText styleClass="etiqueta_resultBusq" value="#{beanDespachado_Por_Oficina.arrBusExpedienteDesO.size()}"/>               
+        </h:panelGrid> 
+          
+        <h:panelGrid columns="1"   cellpadding="0"  cellspacing="0" 
+                     border="0"  styleClass="width-table"> 
+         <!--Ingresando para la exportacion de Datos-->
+        <h:panelGrid columns="3" cellpadding="2"  cellspacing="2"  width="15%">
+            <h:panelGrid columns="2">
+            <img src="resources/imagenes/printer.png"/>
+            <h:commandLink id="reporte"  value="Imprimir" actionListener="#{beanExpediente_Reporte.verReporte6()}" title="Relación de Expedientes Despachados Por Oficina"/>
+            </h:panelGrid> 
+                
+            <h:commandLink>
+            <p:graphicImage url="resources/imagenes/xls.png"/>
+            <p:dataExporter type="xls" target="resListadoExpediente" fileName="excel-Expediente" />           
+            </h:commandLink>
+        </h:panelGrid>   
+         
+         <p:dataTable id="resListadoExpediente" value="#{beanDespachado_Por_Oficina.arrBusExpedienteDesO}" var="listExpediente"  styleClass="order-table" paginator="true"
+                     rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" paginatorPosition="both" paginatorAlwaysVisible="true">
+            <p:column>
+                <f:facet name="header">
+                <h:outputText value="#{msg.labelNroE}" />
+                </f:facet>
+                <h:outputText value="#{listExpediente.dnumold}"/>
+            </p:column> 
+                
+            <p:column>
+                <f:facet name="header">
+                <h:outputText value="#{msg.labelRecurrente}" />
+                </f:facet>
+                <h:outputText  value="#{listExpediente.dcontri}"/>
+            </p:column>   
+             
+            <p:column>
+                <f:facet name="header">
+                <h:outputText value="#{msg.labelFEnvio}" />
+                </f:facet>
+                <h:outputText  value="#{listExpediente.ffecenv}"/>
+            </p:column>
+                   
+            <p:column>
+                <f:facet name="header">
+                <h:outputText value="#{msg.LabelAreaDest}" />
+                </f:facet>
+                <h:outputText  value="#{listExpediente.daredes}"/>
+            </p:column>  
+              
+            <p:column>
+                <f:facet name="header">
+                <h:outputText value="#{msg.labelEstado}" />
+                </f:facet>
+                <h:outputText  value="#{listExpediente.destado}"/>
+            </p:column>  
+                   
+        </p:dataTable>    
+        </h:panelGrid>  
+        </center>
+        </p:panel>     
+
+    </h:form>
+    </p:tab> 
+   
+    </ui:define>
+    </ui:composition>
+ </h:body>
+</html>

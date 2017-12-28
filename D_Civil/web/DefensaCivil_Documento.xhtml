@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>   
+        <h:outputScript library="js" name="scrits.js"></h:outputScript>
+    </h:head>
+    <h:body>
+        <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
+            <ui:define name="contenido"><!---Agregando Etiqueta de Titulo-->
+                <h:outputText value="#{msg.LabelCertificado}"/> 
+                <p:tabView id="DocumentosTabView" dynamic="true" orientation="top" activeIndex="#{Beans_DefensaCivil_Certificado.activeTabIndex}">             
+
+                    <p:tab id="tab_certificados" title="Imprimir Resoluciones Ipse" titletip="Certificado" titleStyleClass="tamaño_fuente_tab" >
+                        <!-- Formulario que permite la Busqueda  -->    
+                        <h:form  id="form_imprimir_Certificados" class="border_titulo1"  style="text-align : justify;" styleClass="tamaño_fuente">    
+                            <p:growl globalOnly="true"  id="estimprimirCertificado" sticky="false"  showDetail="true"  />    
+                            <p:panel id="datimprimirCertificados" header="#{msg.LabelCertificado}" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel_02" style="margin-bottom:20px">
+                                <!--Lista de Opciones de Ofina *25*04*17 **J**-->  
+                                <center>
+                                    <br>
+                                    </br>
+
+                                    <h:panelGrid columns="2">
+                                        <h:outputText value="#{msg.labelNroE}"/>
+                                        <h:panelGroup>
+                                            <h:outputText value=" a Consultar "/>
+                                            <p:inputText  id="fechaI"
+                                                          required="true" requiredMessage="#{msg.labelObli}"
+                                                          maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.expediente}"
+                                                          >  
+                                                <f:validateLength minimum="0" maximum="30"/>
+                                            </p:inputText>
+                                            <h:message for="fechaI" showDetail="false" showSummary="true"/>                                    
+                                        </h:panelGroup> 
+
+                                    </h:panelGrid>  
+
+                                    <br></br>
+
+                                </center>
+
+                                <h:panelGrid columns="3" cellpadding="1"  cellspacing="1"  width="15%">
+                                    <h:panelGrid columns="2">
+                                        <img  src="resources/imagenes/printer.png"/>
+                                        <h:commandLink id="imprimir"  value="Imprimir_informacion" actionListener="#{Beans_DefensaCivil_Certificado.imprimir()}" title="Informacion"/>
+                                    </h:panelGrid> 
+
+                                </h:panelGrid> 
+
+                                <center>
+
+
+                                    <h:panelGrid columns="3" cellpadding="2"  cellspacing="2"  width="60%">
+
+                                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                                            <p:outputLabel for="ITPSE" value="CUMPLE ITPSE:" />
+                                            <p:selectOneRadio id="ITPSE" value="#{Beans_DefensaCivil_Certificado.tipo}"  layout="grid" columns="2">
+                                                <f:selectItem itemLabel="EXPOST" itemValue="1" />
+                                                <f:selectItem itemLabel="EXANTE" itemValue="2" />
+                                                <f:selectItem itemLabel="DETALLE" itemValue="3" />
+
+
+                                            </p:selectOneRadio>
+                                        </h:panelGrid>
+
+                                        <h:panelGrid columns="2" style="margin-bottom:20px" cellpadding="5">
+
+                                            <p:outputLabel for="ITPSEACTO" value="TIPO ACTO:" />
+                                            <p:selectOneRadio id="ITPSEACTO" value="#{Beans_DefensaCivil_Certificado.acto}"  layout="grid" columns="3" >
+
+                                                <f:selectItem itemLabel="RESOLUCION IMPROCEDENTE" itemValue="0"  />
+                                                <f:selectItem itemLabel="CERTIFICADO" itemValue="1"  />
+                                                <f:selectItem itemLabel="RESOLUCION" itemValue="2" />
+                                                <f:selectItem itemLabel="CARTA" itemValue="3" />
+                                                <f:selectItem itemLabel="OFICIO" itemValue="4" /> 
+
+
+                                            </p:selectOneRadio>
+
+                                        </h:panelGrid> 
+                                    </h:panelGrid>   
+
+                                </center>
+
+
+                            </p:panel>     
+                        </h:form>
+
+
+                        <h:form  id="formulario_busqueda_expedientes" class="border_titulo1"  style="text-align : justify;" styleClass="tamaño_fuente">    
+                            <p:growl globalOnly="true"  id="estRegCertificado" sticky="false"  showDetail="true"  />    
+                            <p:panel id="datBusCertificadoOfi" header="#{msg.LabelCertificado}" styleClass="border" style="text-align: center">
+                                <!--Lista de Opciones de Ofina *25*04*17 **J**-->  
+
+                                <h:panelGrid columns="1"   >
+
+                                    <div id="day" style="font-size: 12px">
+                                        Usuario
+                                        <p:clock  pattern="dd MMMM yy HH:mm:ss" mode="client" />                        
+
+                                    </div>
+
+                                </h:panelGrid> 
+                                <center>
+                                    <h:panelGrid columns="2"  >
+                                        <h:outputText value="#{msg.labelNroE}" />
+                                        <h:panelGroup>
+                                            <h:outputText value=" a Consultar "/>
+                                            <p:inputText  id="fechaI"
+                                                          required="true" requiredMessage="#{msg.labelObli}"
+                                                          maxlength="30" validatorMessage="#{msg.labelValidar}" 
+                                                          value="#{Beans_DefensaCivil_Certificado.objBuscarCertificado.nro_expediente}"
+                                                          >  
+                                                <f:validateLength minimum="0" maximum="30"/>
+                                            </p:inputText>
+                                            <h:message for="fechaI" showDetail="false" showSummary="true"/>                                    
+                                        </h:panelGroup>
+
+                                    </h:panelGrid>               
+                                    <!--BLOC-->
+                                    <br></br>
+
+                                </center>
+                                <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3" style="text-align: center;" width="30%">
+
+                                    <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{Beans_DefensaCivil_Certificado.doiniciarBusquedaReporteResoluciones()}"  
+                                                     value="#{msg.labelNuevo}" async="true" update="datBusCertificadoOfi"/>
+
+                                    <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{Beans_DefensaCivil_Certificado.doBuscarReporteResoluciones()}"  
+                                                     value="#{msg.btnConsultar}" async="true" update="datBusCertificadoOfi"/> 
+
+                                    <p:commandButton id="btgenerar" icon="ui-icon-arrowrefresh-1-s" actionListener="#{Beans_DefensaCivil_Certificado.dogenerarResoluciones()}"  
+                                                     value="#{msg.BtnGenerarExpedientes}" async="true" update="datBusCertificadoOfi"/>  
+
+
+
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="3" cellpadding="2"  cellspacing="2"  width="10%">
+
+                                    <h:panelGrid columns="2">
+                                        <img src="resources/imagenes/printer.png"/>
+                                        <h:commandLink id="reporte"  value="Imprimir" actionListener="#{BeanExpediente_Reporte.verReporteDefensaCivilCertificado()}" title="Certificados"/>
+                                    </h:panelGrid> 
+
+                                    <h:commandLink >
+                                        <p:graphicImage url="resources/imagenes/xls.png"/>
+                                        <p:dataExporter type="xls" target="resListadoCertificado" fileName="Informacion Certificado" />           
+                                    </h:commandLink>
+
+                                </h:panelGrid> 
+
+                                <p:blockUI block="datBusCertificadoOfi" trigger="saveBtn">   Buscando... <br />
+                                    <p:graphicImage value="resources/imagenes/cargando1.gif" />   
+                                </p:blockUI>
+
+                                <br />
+                                <center>
+                                    <h:panelGrid columns="2" >
+                                        <h:outputText styleClass="etiqueta_resultBusq" value="#{msg.labelCantidad}"/> 
+                                        <h:outputText styleClass="etiqueta_resultBusq" value="#{Beans_DefensaCivil_Certificado.arrBusReporteResoluciones.size()}"/>      
+                                    </h:panelGrid> 
+
+                                    <h:panelGrid columns="1"   cellpadding="0"  cellspacing="0" 
+                                                 border="0"  styleClass="width-table"> 
+
+                                        <p:dataTable id="resListadoCertificado" value="#{Beans_DefensaCivil_Certificado.arrBusReporteResoluciones}" var="listarDocumento"  styleClass="order-table" paginator="true"
+                                                     rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" paginatorPosition="both" paginatorAlwaysVisible="true">
+
+
+                                            <p:column style="width:32px;text-align: center">
+                                                <p:commandButton    oncomplete="PF('carDialog').show()" icon="ui-icon-search" title="View">  <!--update=":form:carDetail" -->
+                                                    <f:setPropertyActionListener value="#{car}" target="#{dtSelectionView.selectedCar}" />
+                                                </p:commandButton>
+                                            </p:column>
+
+
+                                            <p:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.labelRecurrente}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listarDocumento.contribuyente}"/>
+                                            </p:column>   
+
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelNombres}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listarDocumento.nombres}"/>
+                                            </p:column>  
+
+
+
+                                            <p:column filterBy="#{listarDocumento.nro_expediente}" filterMatchMode="contains">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.labelNroE}" />
+                                                </f:facet>
+                                                <h:outputText value="#{listarDocumento.nro_expediente}"/>
+                                            </p:column> 
+
+
+                                            <p:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelFecha}" />
+                                                </f:facet>
+                                                <h:outputText value="#{listarDocumento.fecha_expediente}"/>
+                                            </p:column> 
+
+
+                                            <p:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelNumeroResolucion}" />
+                                                </f:facet>
+                                                <h:outputText value="#{listarDocumento.numero_resolucion}"/>
+                                            </p:column> 
+
+
+                                            <p:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelGiro}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listarDocumento.objgiros.giro_detalle}"/>
+
+                                            </p:column> 
+
+                                            <p:column  >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelTipoLicencia}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listarDocumento.descripcion_tipo_licencia}"/>
+
+                                            </p:column>  
+
+
+                                            <p:column  >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.labelEstadoFiscalizacion}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listarDocumento.fiscalizaciones}"/>
+
+                                            </p:column> 
+
+                                            <p:column  >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelObservaciones}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listarDocumento.observaciones_seguridad}"/>
+
+                                            </p:column>  
+
+                                            <p:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelResultado}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listarDocumento.resultados}"/>
+
+                                            </p:column>  
+
+                                            <p:column  visible="false">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelCorrelativoExpedinete}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listarDocumento.correlativo_expediente}"/>
+
+                                            </p:column>  
+
+                                            <p:column rendered="false" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelEstadoDocumento}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listarDocumento.estado_documento}"/>
+
+                                            </p:column> 
+
+                                            <p:column  rendered="false" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelAnotacion}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listarDocumento.anotacion}"/>
+
+                                            </p:column> 
+
+                                            <p:column rendered="false" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelAreaDestino}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listarDocumento.area_final}"/>
+
+                                            </p:column> 
+
+                                            <p:column rendered="false" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.labelFolio}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listarDocumento.total_folios}"/>
+
+                                            </p:column> 
+
+                                            <p:column rendered="false"  >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelUsuarioModificacion}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listarDocumento.usuario_modificacion}"/>
+
+                                            </p:column> 
+
+                                            <p:column rendered="false" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelNumeroRegistro}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listarDocumento.numero_registro}"/>
+
+                                            </p:column> 
+
+                                            <p:column  rendered="false" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelObservaciones}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listarDocumento.observaciones}"/>
+
+                                            </p:column>      
+
+
+                                            <p:column exportable="false" >
+
+                                                <f:facet name="header">
+                                                    <center><h:outputText value="Resolver"/></center>
+                                                </f:facet>
+                                                <p:commandLink id="resolver" title="resolver" actionListener="#{Beans_DefensaCivil_Certificado.onClickBusq}" 
+                                                               value="Resolver" action="#{Beans_DefensaCivil_Certificado.modificarCertificado(listarDocumento)}"  
+                                                               async="true" update=":DocumentosTabView, :DocumentosTabView:form_Resolver_Documento"> 
+                                                    <f:attribute name="param" value="#{2}" /> 
+                                                </p:commandLink>                                                
+
+                                            </p:column>  
+
+
+
+                                        </p:dataTable>    
+                                    </h:panelGrid>  
+                                </center>
+                            </p:panel>     
+                        </h:form>
+                    </p:tab>
+
+
+                    <!-- Resolver Expediente-->
+
+                    <p:tab id="tab_Resolver_Certificado" title="Resolver Ipse" titletip="Resolver Expediente Ipse" titleStyleClass="tamaño_fuente_tab"  disabled="#{Beans_DefensaCivil_Certificado.bandMod}">
+
+                        <br>
+                        </br>
+
+
+                        <h:form  id="form_Resolver_Documento" class="border_titulo1" style="max-width: 55%; min-height: 30%" styleClass="tamaño_fuente">
+
+                            <p:growl globalOnly="true"  id="estModDocumentos" sticky="false"  showDetail="true"  />                                
+
+                            <p:panel id="resolverExpediente" header="#{msg.LabelResuelveExpediente}" 
+                                     toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel_02"  
+                                     >
+                                <div  style="left:  auto">
+                                    <p:graphicImage url="resources/imagenes/finalizar.png" width="50px"   />  
+                                </div>
+
+
+
+                                <br>
+                                </br>
+
+
+                                <h:panelGrid columns="2" >
+
+
+                                    <h:outputText value="#{msg.LabelCorrelativoExpedinete}"  style="margin-right:30px;"/>
+
+                                    <h:panelGroup>
+
+                                        <p:inputText id="identificacion"  required="true" requiredMessage="#{msg.labelObli}" size="20" disabled="true" 
+                                                     maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.correlativo_expediente}"                       >  
+                                            <f:validateLength minimum="0" maximum="30"/>
+                                        </p:inputText>
+
+                                        <h:message for="identificacion" showDetail="false" showSummary="true"/>                                    
+                                    </h:panelGroup>
+
+
+                                    <h:outputText value="#{msg.LabelEstadoDocumento}"  style="margin-right:30px;"/>
+
+                                    <h:panelGrid columns="2" style="margin-bottom:30px" cellpadding="5">
+                                        <h:panelGroup>                            
+                                            <p:selectOneMenu effect="fade"
+                                                             filter="true"  filterMatchMode="contains"
+                                                             required="true" id="estadodocumento"
+                                                             validatorMessage="#{msg.labelValidar}"
+                                                             requiredMessage="#{msg.labelObli}" value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.estado_documento}">
+
+                                                <f:selectItem itemLabel="#{msg.labelSeleccionar}" itemValue="O"/> 
+
+                                                <f:selectItem itemLabel="EN TRAMITE" itemValue="01" />
+                                                <f:selectItem itemLabel="EN PROCESO" itemValue="02" />
+                                                <f:selectItem itemLabel="RESUELTO" itemValue="03" />
+
+                                            </p:selectOneMenu>
+                                            <h:message for="estadodocumento" showDetail="false" showSummary="true"/>     
+                                        </h:panelGroup>
+                                    </h:panelGrid>   
+
+
+                                    <h:outputText value="#{msg.LabelAnotacion}"  style="margin-right:30px;"/>
+                                    <h:panelGroup>
+
+                                        <p:inputTextarea rows="3" cols="41" counter="contador" maxlength="250"
+
+                                                         required="true" requiredMessage="#{msg.labelObli}" autoResize="true" id="anotacion"
+                                                         counterTemplate="{0} #{msg.LabelContador}" value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.anotacion}">
+                                        </p:inputTextarea> 
+                                        <br />
+
+                                        <h:outputText id="contador"/>    
+
+                                        <h:message for="anotacion" showDetail="false" showSummary="true"/>                                    
+                                    </h:panelGroup>
+
+
+
+                                    <h:outputText value="#{msg.LabelArea}"  style="margin-right:30px;"/>
+
+                                    <h:panelGrid columns="2" style="margin-bottom:30px" cellpadding="5">
+                                        <h:panelGroup>                            
+                                            <p:selectOneMenu effect="fade"
+                                                             filter="true"  filterMatchMode="contains"
+                                                             required="true" id="areafinal"
+                                                             validatorMessage="#{msg.labelValidar}"
+                                                             requiredMessage="#{msg.labelObli}" value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.area_final}">
+
+                                                <f:selectItem itemLabel="#{msg.labelSeleccionar}" itemValue="O"/> 
+
+                                                <f:selectItem itemLabel="SUB GERENCIA DE DEFENSA CIVIL" itemValue="016" />
+                                                <f:selectItem itemLabel="SUB GERENCIA DE PROMOCION EMPRESARIAL" itemValue="007" />
+
+
+                                            </p:selectOneMenu>
+                                            <h:message for="areafinal1" showDetail="false" showSummary="true"/>     
+                                        </h:panelGroup>
+                                    </h:panelGrid>   
+
+
+
+                                    <h:outputText value="#{msg.labelFolio}"  style="margin-right:30px;"/>
+                                    <h:panelGroup>
+
+                                        <p:inputText id="Exp"  required="true" requiredMessage="#{msg.labelObli}" size="5" disabled="false"
+                                                     maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.total_folios}"
+                                                     >  
+                                            <f:validateLength minimum="0" maximum="250"/>
+                                        </p:inputText>
+
+                                        <h:message for="Exp" showDetail="false" showSummary="true"/>                                    
+                                    </h:panelGroup>
+
+
+                                    <h:outputText value="#{msg.LabelUsuarioModificacion}"  style="margin-right:30px;"/>
+                                    <h:panelGroup>
+
+                                        <p:inputText id="usuario_modificacion"  required="true" requiredMessage="#{msg.labelObli}" size="20" disabled="true"
+                                                     maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.usuario_modificacion}"
+                                                     >  
+                                            <f:validateLength minimum="0" maximum="250"/>
+                                        </p:inputText>
+
+                                        <h:message for="usuario_modificacion" showDetail="false" showSummary="true"/>                                    
+                                    </h:panelGroup>
+
+
+
+                                    <h:outputText value="#{msg.LabelNumeroRegistro}"  style="margin-right:30px;"/>
+                                    <h:panelGroup>
+
+                                        <p:inputText id="numero_registro"  required="true" requiredMessage="#{msg.labelObli}" size="20" disabled="false"
+                                                     maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.numero_registro}"
+                                                     >  
+                                            <f:validateLength minimum="0" maximum="250"/>
+                                        </p:inputText>
+
+                                        <h:message for="numero_registro" showDetail="false" showSummary="true"/>                                    
+                                    </h:panelGroup>
+
+
+                                    <h:outputText value="#{msg.LabelObservaciones}"  style="margin-right:30px;"/>
+                                    <h:panelGroup>
+
+                                        <p:inputTextarea rows="3" cols="41" counter="contador_01" maxlength="300"
+
+                                                         required="true" requiredMessage="#{msg.labelObli}" autoResize="true" id="observaciones"
+                                                         counterTemplate="{0} #{msg.LabelContador}" value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.observaciones}">
+                                        </p:inputTextarea> 
+                                        <br />
+
+                                        <h:outputText id="contador_01"/>    
+
+                                        <h:message for="observaciones" showDetail="false" showSummary="true"/>                                    
+                                    </h:panelGroup>
+
+
+                                </h:panelGrid>
+
+
+                                <br>
+                                </br>
+
+                                <h:panelGrid columns="3"  cellpadding="3"  cellspacing="6"  styleClass="panelColumns" columnClasses="labelOT, valueOT"  >
+                                  
+                                    <p:commandButton icon="ui-icon-triangle-1-w"  id="cancelEdit"
+                                                     actionListener="#{Beans_DefensaCivil_Certificado.desactivaTabResolverIpse()}"  immediate="true"  value="#{msg.labelCancelar}"  
+                                                     async="true" update=":DocumentosTabView, :DocumentosTabView:formulario_busqueda_expedientes" />
+
+
+                                    <p:commandButton id="btnresolver" icon="ui-icon-folder-open" actionListener="#{Beans_DefensaCivil_Certificado.doResolverExpediente()}"  
+                                                     value="#{msg.btnResolver}"  update=":DocumentosTabView, :DocumentosTabView:form_Resolver_Documento, estModDocumentos"/> 
+
+                                </h:panelGrid>  
+
+                                <p:blockUI block="resolverExpediente" trigger="cancelEdit">                                               
+                                    Cancelando la Actualización ... <br />
+                                    <p:graphicImage value="resources/imagenes/cargando.gif" />   
+                                </p:blockUI>
+
+                                <p:blockUI block="resolverExpediente" trigger="btnresolver">                                               
+                                    Actualizando... <br />
+                                    <p:graphicImage value="resources/imagenes/cargando.gif" />   
+                                </p:blockUI>
+
+
+
+                            </p:panel>
+
+                            <br>
+                            </br>
+
+
+
+                        </h:form>
+                    </p:tab> 
+
+
+
+                </p:tabView>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

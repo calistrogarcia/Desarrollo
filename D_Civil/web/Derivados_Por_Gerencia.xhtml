@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+    </h:head>
+    <h:body>
+    <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
+    <ui:define name="contenido">
+                           <!--JUDITH 09-05-17-->
+                        <!---Agregando Etiqueta de Titulo-->
+                        <h:outputText value="#{msg.LabelReporte}" style="font-weight: bold"/>
+      
+                    <!--Formulario que permite la Busqueda-->
+        <p:tab id="tab_Buscar_ExpedienteDerivG" title="Buscar" titletip="Buscar Expediente" >
+        <h:form class="border_tittulo1" id="form_busc_ExpedienteDerivG" style="text-align:center;">
+            <p:panel id="datBusExpedienteDerivG" header="#{msg.LabelExpDerivPorGerencias}" styleClass="border">
+                <!--Lista de Opciones de Ofina *09*05*17 **J**--> 
+                <fieldset>
+                <h:panelGrid columns="4">
+                <h:outputText value="Desde :"/>
+                    <h:panelGroup>
+                        <p:selectOneMenu effect="fade"
+                                         filter="true"  filterMatchMode="contains"
+                                         required="true" id="cb_opc1"
+                                         validatorMessage="#{msg.labelValidar}"
+                                         requiredMessage="#{msg.labelObli}"
+                                         value="#{beanDerivados_Por_Gerencia.objBuscarExpedienteDerivG.id_area}">
+                        <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                      itemValue="O1"/>
+                        <f:selectItems value="#{Expediente.cargarComboAreas}"/>
+                        </p:selectOneMenu>
+                        <h:message for="cb_asoc1" showDetail="false" showSummary="true"/>
+                    </h:panelGroup>
+                <h:outputText value="Hacia :"/>
+                    <h:panelGroup>
+                        <p:selectOneMenu effect="fade"
+                                         filter="true"  filterMatchMode="contains"
+                                         required="true" id="cb_opc2"
+                                         validatorMessage="#{msg.labelValidar}"
+                                         requiredMessage="#{msg.labelObli}"
+                                         value="#{beanDerivados_Por_Gerencia.objBuscarExpedienteDerivG.careas1}">
+                        <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                      itemValue="O2"/>
+                        <f:selectItems value="#{Expediente.cargarComboAreas2}"/>
+                        </p:selectOneMenu>
+                        <h:message for="cb_asoc2" showDetail="false" showSummary="true"/>
+                    </h:panelGroup>
+                </h:panelGrid>   
+                <br/>
+                                <!--Generando Calendario--> 
+                <h:panelGrid columns="4" cellpadding="2">
+                    <h:panelGroup>
+                        <h:outputText value="Fecha del: "/>
+                        <p:inputText id="nom_Trabajador"
+                                     required="true" requiredMessage="#{msg.labelObli}"
+                                     maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{beanDerivados_Por_Gerencia.objBuscarExpedienteDerivG.fecha_ini}"
+                        >  
+                        <f:validateLength minimum="0" maximum="30"/>
+                        </p:inputText>
+                        <h:message for="nom_Trabajador" showDetail="false" showSummary="true"/>                                    
+                    </h:panelGroup>
+                                         
+                    <h:panelGroup>
+                        <h:outputText value="Al: "/>
+                        <p:inputText id="nom_Trabajador2"
+                                     required="true" requiredMessage="#{msg.labelObli}"
+                                     maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{beanDerivados_Por_Gerencia.objBuscarExpedienteDerivG.fecha_fin}"
+                        >  
+                        <f:validateLength minimum="0" maximum="30"/>
+                        </p:inputText>
+                        <h:message for="nom_Trabajador2" showDetail="false" showSummary="true"/>                                    
+                    </h:panelGroup>
+                </h:panelGrid>   
+                </fieldset>
+                <br/>
+                <!--Ingresando los Botones--> 
+                <center>                      
+                <h:panelGrid columns="2" cellpadding="2"  cellspacing="2"  width="25%">
+                    <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{beanDerivados_Por_Gerencia.doiniciarBusquedaExpedienteDerivG()}"  
+                                     value="#{msg.labelNuevo}" async="true" update="datBusExpedienteDerivG"/>
+                    <p:commandButton id="saveBtn" icon="ui-icon-search" actionListener="#{beanDerivados_Por_Gerencia.doBuscarExpedienteDerivG()}" 
+                                     value="#{msg.btnConsultar}" async="true" update="datBusExpedienteDerivG"/>
+                </h:panelGrid>
+                </center>
+        
+                <p:blockUI block="datBusExpedienteDerivG" trigger="saveBtn">                                               
+                                Buscando... <br />
+                    <p:graphicImage value="resources/imagenes/cargando1.gif" />   
+                </p:blockUI>
+                <br />                        
+                                <!--JUDITH 05-04-17-->
+                <center>
+                
+                <h:panelGrid columns="2" >
+                <h:outputText styleClass="etiqueta_resultBusq" value="#{msg.labelCantidad}"/>
+                <h:outputText styleClass="etiqueta_resultBusq" value="#{beanDerivados_Por_Gerencia.arrBusExpedienteDerivG.size()}"/>
+                </h:panelGrid>
+        
+                <h:panelGrid columns="1"   cellpadding="0"  cellspacing="0" 
+                             border="0"  styleClass="width-table">
+                
+                <!--Ingresando para la exportacion de Datos-->
+                <h:panelGrid columns="3" cellpadding="2"  cellspacing="2"  width="15%">
+                    <h:panelGrid columns="2">
+                    <img src="resources/imagenes/printer.png"/>
+                    <h:commandLink id="reporte"  value="Imprimir" actionListener="#{beanExpediente_Reporte.verReporte9()}" title="Reporte de Expedientes Derivados Por Gerencia"/>
+                    </h:panelGrid> 
+                
+                    <h:commandLink>
+                    <p:graphicImage url="resources/imagenes/xls.png"/>
+                    <p:dataExporter type="xls" target="resListadoExpediente" fileName="excel-Expediente" />           
+                    </h:commandLink>
+                </h:panelGrid>
+            
+                <p:dataTable id="resListadoExpediente" value="#{beanDerivados_Por_Gerencia.arrBusExpedienteDerivG}" var="listExpediente" styleClass="order-table" paginator="true"
+                     rows="5" rowsPerPageTemplate="5,10,15,20,25,30,50" paginatorPosition="both" paginatorAlwaysVisible="true">
+            <p:column>
+                <f:facet name="header">
+                <h:outputText value="#{msg.LabelD}"/>
+                </f:facet>
+                <h:outputText value="#{listExpediente.ndocume}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                <h:outputText value="#{msg.labelNomraz}"/>
+                </f:facet>
+                <h:outputText value="#{listExpediente.cnombre}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                <h:outputText value="#{msg.LabelFechI}"/>
+                </f:facet>
+                <h:outputText value="#{listExpediente.ffecdoc1}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                <h:outputText value="#{msg.labelFolio}"/>
+                </f:facet>
+                <h:outputText value="#{listExpediente.nfolios}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                <h:outputText value="#{msg.labelImp}"/>
+                </f:facet>
+                <h:outputText value="#{listExpediente.flagimp}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                <h:outputText value="#{msg.labelMotivo}"/>
+                </f:facet>
+                <h:outputText value="#{listExpediente.flagimp}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{msg.labelTipo}"/>
+                </f:facet>
+                <h:outputText value="#{listExpediente.canexo}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                <h:outputText value="#{msg.labelDest}"/>
+                </f:facet>
+                <h:outputText value="#{listExpediente.c_hasta}"/>
+            </p:column>
+        </p:dataTable>
+                </h:panelGrid>
+                </center> 
+            </p:panel>
+
+        </h:form>
+        </p:tab>
+
+    </ui:define>
+    </ui:composition> 
+    </h:body>
+</html>

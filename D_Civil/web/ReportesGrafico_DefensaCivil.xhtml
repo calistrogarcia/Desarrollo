@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>   
+        <h:outputScript library="js" name="scrits.js"></h:outputScript>
+    </h:head>
+    <h:body>
+        <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
+            <ui:define name="contenido"><!---Agregando Etiqueta de Titulo-->
+         
+                  <p:tabView id="CertificadoTabView" dynamic="true" orientation="top" >             
+                       <p:tab id="tab_graficos" title="Graficos Visuales" titletip="Graficos" >
+                               <!-- Formulario que permite la Busqueda  -->    
+      
+                     <h:panelGrid columns="4" cellpadding="2"  cellspacing="2"  width="80%">               
+                      <h:form  id="formulario_graficos" class="border_titulo1" style="text-align : justify;"  > 
+                              <p:growl globalOnly="true"  id="Listargraficos" sticky="false"  showDetail="true"  />    
+                              <p:panel id="informacion" header="#{msg.LabelCertificado}" styleClass="border" style="text-align: center">
+                                      
+                                
+                                  
+                                  
+                                         <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3"   styleClass="panelColumns" columnClasses="labelOT, valueOT"  >
+                                             <p:commandButton value="Graficar!" icon="ui-icon-document"  style=" color: aquamarine" actionListener="#{beans_DefensaCivil_GraficoExpedientes.listar()}" update="torta_01" />
+
+                                           
+                                     
+                                        
+                                         </h:panelGrid>
+                                           
+                                         <h:panelGroup id="torta_01" layout="block" >
+                                             <p:chart type="pie" model="#{beans_DefensaCivil_GraficoExpedientes.pieModel}" style="width:400px;height:300px" rendered="#{beans_DefensaCivil_GraficoExpedientes.pieModel != null}"/>
+          
+                                         </h:panelGroup>
+                              </p:panel>
+                             </h:form>
+                              
+                                  <br>    
+                                  </br>
+                                
+                                  
+                              <h:form  id="formulario_graficosipse" class="border_titulo2" style="text-align : justify;"  > 
+                               <p:growl globalOnly="true"  id="Listargraficosipse" sticky="false"  showDetail="true"  />    
+                                  <p:panel id="informacion" header="#{msg.LabelExpedientesIpse}" styleClass="border" style="text-align: center">
+                                      
+                                         <h:panelGrid columns="4"  cellpadding="3"  cellspacing="6"   styleClass="panelColumns" columnClasses="labelOT1, valueOT1"  >
+                                         
+                                             
+                                             <p:commandButton value="Listar!" icon="ui-icon-document" style=" color: aquamarine" actionListener="#{beans_DefensaCivil_GraficoExpedientes.listaripse()}" update="torta_02" />
+
+                                             
+                                         </h:panelGrid>
+                                      
+                                         <h:panelGroup id="torta_02" layout="block" >
+                                             <p:chart type="pie" model="#{beans_DefensaCivil_GraficoExpedientes.pieModel}" style="width:400px;height:300px" rendered="#{beans_DefensaCivil_GraficoExpedientes.pieModel != null}"/>
+
+                                        </h:panelGroup>
+                                  </p:panel>
+                              </h:form>
+                      
+                 
+                                  
+                              <h:form  id="formulario_graficosipse1" class="border_titulo2" style="text-align : justify;"  > 
+                               <p:growl globalOnly="true"  id="Listargraficosipse1" sticky="false"  showDetail="true"  />    
+                                  <p:panel id="informacion1" header="#{msg.LabelExpedientesIpse}" styleClass="border" style="text-align:  center">
+                                      
+                                         <h:panelGrid columns="4"  cellpadding="3"  cellspacing="6"   styleClass="panelColumns" columnClasses="labelOT1, valueOT1"  >
+                                         
+                                             <p:commandButton value="Listar!" icon="ui-icon-document" style=" color: aquamarine" actionListener="#{beans_DefensaCivil_GraficoExpedientes.listaripse()}" update="torta_03" />
+                                            
+                                             
+                                         </h:panelGrid>
+                                      
+                                         <h:panelGroup id="torta_03" layout="block" >
+                                             <p:chart type="pie" model="#{beans_DefensaCivil_GraficoExpedientes.pieModel}" style="width:400px;height:300px" rendered="#{beans_DefensaCivil_GraficoExpedientes.pieModel != null}"/>
+          
+                                        </h:panelGroup>
+                                  </p:panel>
+                               </h:form>
+                     
+                              
+                    </h:panelGrid>
+                               
+                                <br>
+                               </br>
+                              
+            
+                            <h:form  id="Busquedapersonalizada" class="border_titulo2" style="text-align : justify;"  >    
+
+                             <p:growl globalOnly="true"  id="buscar" sticky="false"  showDetail="true"  />    
+                               <p:panel id="infor" header="#{msg.LabelCertificado}" styleClass="border" style="text-align: center">
+                               
+                                     <h:panelGroup>
+                                         
+                                          <h:panelGrid columns="4"  cellpadding="3"  cellspacing="6"   styleClass="panelColumns" columnClasses="labelOT1, valueOT2"  >
+                                         
+                                              <p:commandButton value="Barras!" icon="ui-icon-document" style=" color: aquamarine"  actionListener="#{beans_DefensaCivil_GraficoExpedientes.personalizado()}" update="panel_01" />
+                                             
+                                         </h:panelGrid>
+                                      
+                                         <h:panelGroup id="panel_01" layout="block" >
+                                             <p:chart type="bar" model="#{beans_DefensaCivil_GraficoExpedientes.barModel}" style="width:1500px;height:500px" rendered="#{beans_DefensaCivil_GraficoExpedientes.barModel != null}"/>
+          
+                                        </h:panelGroup>
+                                         
+                                     </h:panelGroup>
+                                        
+                               
+                               </p:panel>  
+ 
+                            </h:form> 
+                               
+                               <br>
+                               </br>
+                               
+                         <h:form  id="BusquedaIpse" class="border_titulo0" style="text-align : justify;"  >    
+
+                             <p:growl globalOnly="true"  id="buscar_ipse" sticky="false"  showDetail="true"  />    
+                               <p:panel id="infor" header="#{msg.LabelEstadoExpedientesIpse}" styleClass="border"  style="max-width: 40%; min-height: 60%">
+                               
+                                     <h:panelGrid columns="4" cellpadding="1" cellspacing="15"> 
+
+
+                            <h:panelGrid columns="2">
+
+                                 <h:panelGroup>
+                                     <h:outputText value="Desde"/>
+                                     <p:inputText  id="fecha_desde" size="9"
+                                                             required="true" requiredMessage="#{msg.labelObli}"
+                                                             maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{beanExpediente_Reporte.fecha_desde}"
+                                                             >  
+                                    <f:validateLength minimum="0" maximum="30"/>
+                                    </p:inputText>
+                                    <h:message for="fecha_desde" showDetail="false" showSummary="true"/>                                    
+                                 </h:panelGroup> 
+                            </h:panelGrid> 
+
+
+                             <h:panelGrid columns="2">
+
+                                 <h:panelGroup>
+                                     <h:outputText value="Hasta"/>
+                                     <p:inputText  id="fecha_hasta" size="9"
+                                                             required="true" requiredMessage="#{msg.labelObli}"
+                                                             maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{beanExpediente_Reporte.fecha_hasta}"
+                                                             >  
+                                    <f:validateLength minimum="0" maximum="30"/>
+                                    </p:inputText>
+                                    <h:message for="fecha_hasta" showDetail="false" showSummary="true"/>                                    
+                                 </h:panelGroup> 
+                            </h:panelGrid>  
+
+                            <img src="resources/imagenes/printer.png"/>
+                                            <h:commandLink id="reporte"  value="Imprimir" actionListener="#{BeanExpediente_Reporte.imprimir()}" title="Reporte"/>  
+                                     
+                             </h:panelGrid> 
+  
+                               </p:panel>  
+ 
+                       </h:form> 
+                                 
+                        </p:tab> 
+                  </p:tabView>
+           </ui:define>
+       </ui:composition>
+    </h:body>
+</html>

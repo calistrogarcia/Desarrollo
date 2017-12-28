@@ -1,0 +1,103 @@
+<p:growl globalOnly="true" id="estRegSupervisor_01"   sticky="false"    showDetail="true"/>  <!--Habilitando Mensajes Por defecto-->
+                           <p:dialog header="" widgetVar="dlg" resizable="false">
+                           <p:panel id="panel_actualizar_inspector" header="#{msg.LabelRegistrosupervisor}" styleClass="border"  rendered ="true" >
+                               <!--separa en numero de columnas que le demos-->
+                                <h:panelGrid columns="4" cellpadding="5" cellspacing="15"> 
+                                    <h:outputText value="#{msg.LabelApellidoPaterno}"  />
+                                    <h:panelGroup>                                                                                                                                                            
+                                        <p:inputText id="apellido_patermo_1"  
+                                                 required="true" requiredMessage="#{msg.labelObli}"
+                                                 maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Supervisor.objSupervisorReg.apellido_paterno}"
+                                                 >  
+                                    <f:validateLength minimum="0" maximum="30"/>
+                                    </p:inputText>
+                                        
+                                    <h:message for="apellido_patermo_1" showDetail="false" showSummary="true"/>                                    
+                                    </h:panelGroup>
+                                    
+                                    <h:outputText value="#{msg.LabelApellidoMaterno}" />
+                                    <h:panelGroup>                                                                                                                                                            
+                                    <p:inputText id="apellido_materno_1"
+                                                 required="true" requiredMessage="#{msg.labelObli}"
+ 
+                                                 maxlength="30" validatorMessage="#{msg.labelValidar}" value="#{Beans_DefensaCivil_Supervisor.objSupervisorReg.apellido_materno}"
+                                                 >  
+                                    <f:validateLength minimum="0" maximum="30"/>
+                                    
+                                    </p:inputText>
+                                    <h:message for="apellido_materno_1" showDetail="false" showSummary="true"/>                                    
+                                    </h:panelGroup>
+     
+                                    
+                                    <h:outputText value="#{msg.LabelNombres}"/>
+                                   
+                                    
+                                    <h:panelGroup>                                                                                                                                                            
+                                    <p:inputText id="nombres_1"
+                                                 required="true" requiredMessage="#{msg.labelObli}"
+ 
+                                                 maxlength="30" validatorMessage="#{msg.labelValidar}" value="#{Beans_DefensaCivil_Supervisor.objSupervisorReg.nombres}"
+                                                 >  
+                                    <f:validateLength minimum="0" maximum="30"/>
+                                    
+                                    
+                                    </p:inputText>
+                                    <h:message for="nombres_1" showDetail="false" showSummary="true"/>                                    
+                                    </h:panelGroup>
+                                    
+  
+                                    <h:outputText  value="#{msg.labelDni}"/>           
+                                         <p:inputMask id="dni_1"  
+                                           
+                                                      mask="99999999"  value="#{Beans_DefensaCivil_Supervisor.objSupervisorReg.nro_dni}"> 
+                                         </p:inputMask>
+                                    <h:outputText value="#{msg.LabelDireccion}"/>
+                                   
+                                    
+                                    <h:panelGroup>                                                                                                                                                            
+                                    <p:inputText id="direccion_1"
+                                                 required="true" requiredMessage="#{msg.labelObli}"
+ 
+                                                 maxlength="30" validatorMessage="#{msg.labelValidar}" value="#{Beans_DefensaCivil_Supervisor.objSupervisorReg.direccion}"
+                                                 >  
+                                    <f:validateLength minimum="0" maximum="30"/>
+                                    
+                                    
+                                    </p:inputText>
+                                    <h:message for="direccion_1" showDetail="false" showSummary="true"/>                                    
+                                    </h:panelGroup>
+                                    
+                                     
+                                      
+                                    <h:outputText  value="#{msg.LabelTelefono}"/>           
+                                         <p:inputMask id="telefono_1"  
+                                           
+                                                      mask="99999999"  value="#{Beans_DefensaCivil_Supervisor.objSupervisorReg.telefono}"> 
+                                     </p:inputMask>
+                                    
+                                    
+                                    <h:outputText value="#{msg.LabelEmail}"/>
+                                   
+                                    
+                                    <h:panelGroup>                                                                                                                                                            
+                                    <p:inputText id="correo_1"
+                                                 required="true" requiredMessage="#{msg.labelObli}"
+ 
+                                                 maxlength="30" validatorMessage="#{msg.labelValidar}" value="#{Beans_DefensaCivil_Supervisor.objSupervisorReg.correo}"
+                                                 >  
+                                    <f:validateLength minimum="0" maximum="30"/>
+                                    
+                                    
+                                    </p:inputText>
+                                    <h:message for="correo_1" showDetail="false" showSummary="true"/>                                    
+                                    </h:panelGroup>
+                                    
+                                   
+                                    
+                                    <p:commandButton actionListener="#{Beans_DefensaCivil_Supervisor.doRegSupervisor()}" 
+                                                     value="#{msg.LabelRegistrar}" update="form_reg_Supervisor_01_1"/>                                
+                              
+                                </h:panelGrid>
+                            </p:panel>  
+                              
+                          </p:dialog> 

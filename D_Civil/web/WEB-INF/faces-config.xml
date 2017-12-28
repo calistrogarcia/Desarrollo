@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    
+    <application>
+    
+        <locale-config>
+        <default-locale>es</default-locale>
+        <supported-locale>en</supported-locale>
+        </locale-config>
+        
+        <resource-bundle>
+            <base-name>utils.Etquetas</base-name>
+            <var>msg</var>
+        </resource-bundle>
+        
+     </application>
+    
+       <managed-bean>
+        <managed-bean-name>Expediente</managed-bean-name>
+        <managed-bean-class>Modelo.Expediente</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+       </managed-bean>
+  
+       <managed-bean>
+        <managed-bean-name>Giro</managed-bean-name>
+        <managed-bean-class>Modelo.Giro</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+       </managed-bean>
+       
+       <managed-bean>
+        <managed-bean-name>Certificado</managed-bean-name>
+        <managed-bean-class>Modelo.Certificado</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+       </managed-bean>
+       
+       <managed-bean>
+        <managed-bean-name>Asignar</managed-bean-name>
+        <managed-bean-class>Modelo.Asignar</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+       </managed-bean>
+       
+       <managed-bean>
+        <managed-bean-name>Estado</managed-bean-name>
+        <managed-bean-class>Modelo.Estado</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+       </managed-bean>
+       
+       <managed-bean>
+        <managed-bean-name>Documento</managed-bean-name>
+        <managed-bean-class>Modelo.Documento</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+       </managed-bean>
+       
+       <managed-bean>
+        <managed-bean-name>Turno</managed-bean-name>
+        <managed-bean-class>Modelo.Turno</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+       </managed-bean>
+       
+       <managed-bean>
+        <managed-bean-name>Multa</managed-bean-name>
+        <managed-bean-class>Modelo.Multa</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+       </managed-bean>
+       
+       
+       <managed-bean>
+        <managed-bean-name>Area</managed-bean-name>
+        <managed-bean-class>Modelo.Area</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+       </managed-bean>
+       
+       <managed-bean>
+        <managed-bean-name>Sancion</managed-bean-name>
+        <managed-bean-class>Modelo.Sancion</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+       </managed-bean>
+       
+        <managed-bean>
+        <managed-bean-name>Grupo</managed-bean-name>
+        <managed-bean-class>Modelo.Grupo</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+       </managed-bean>
+       
+   
+   
+        
+       <managed-bean>
+        <managed-bean-name>bgaleria</managed-bean-name>
+        <managed-bean-class>utils.GalleriaBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+       </managed-bean>
+        
+        
+         <managed-bean>
+        <managed-bean-name>bAsunto</managed-bean-name>
+        <managed-bean-class>Beans.BeanExpediente_Por_Asunto</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+        
+        
+        
+        <managed-bean>
+        <managed-bean-name>Beans_DefensaCivil_Certificado</managed-bean-name>
+        <managed-bean-class>Beans.Beans_DefensaCivil_Certificado</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        </managed-bean>
+
+        <managed-bean>
+        <managed-bean-name>Beans_DefensaCivil_Turno</managed-bean-name>
+        <managed-bean-class>Beans.Beans_DefensaCivil_Turno</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        
+        </managed-bean>
+        
+        
+        <managed-bean>
+        <managed-bean-name>Beans_DefensaCivil_Supervisor</managed-bean-name>
+        <managed-bean-class>Beans.Beans_DefensaCivil_Supervisor</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        
+        </managed-bean>
+        
+        <managed-bean>
+        <managed-bean-name>Beans_DefensaCivil_AsignarExpedientes</managed-bean-name>
+        <managed-bean-class>Beans.Beans_DefensaCivil_AsignarExpedientes</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        
+        </managed-bean>
+        
+        
+        <managed-bean>
+        <managed-bean-name>BeanExpediente_Reporte</managed-bean-name>
+        <managed-bean-class>Beans.BeanExpediente_Reporte</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        
+        </managed-bean>
+        
+        
+        <managed-bean>
+        <managed-bean-name>Bean_DefensaCivil_Upload</managed-bean-name>
+        <managed-bean-class>Beans_DefensaCivil_Upload</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        
+        </managed-bean>
+        
+        <managed-bean>
+        <managed-bean-name>Bean_Tramite_Expediente</managed-bean-name>
+        <managed-bean-class>Beans.Beans_Tramite_Expediente</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        
+        </managed-bean>
+        
+        
+         <managed-bean>
+        <managed-bean-name>beanExpediente_Por_Fecha</managed-bean-name>
+        <managed-bean-class>Beans.BeanExpediente_Por_Fecha</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        
+        </managed-bean>
+        
+        
+        <managed-bean>
+        <managed-bean-name>BeansDetalle_Economico</managed-bean-name>
+        <managed-bean-class>Beans.BeansDetalle_Economico</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        </managed-bean>
+        
+        
+        <managed-bean>
+        <managed-bean-name>Beans_Fiscalizacion_Multas</managed-bean-name>
+        <managed-bean-class>Beans.Beans_Fiscalizacion_Multas</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        </managed-bean>
+        
+        
+        
+        
+</faces-config>

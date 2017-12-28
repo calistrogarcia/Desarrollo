@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+
+    <f:view contentType="text/html">
+
+
+        <h:head>
+            <title>
+                <ui:insert name="title">Defensa Civil</ui:insert>
+            </title>
+            <h:outputStylesheet library="css" name="estilo.css">
+
+
+            </h:outputStylesheet>
+
+            <meta http-equiv="Expires" content="0" />
+            <meta http-equiv="Pragma" content="no-cache" />
+            <script type="text/javascript">
+                {
+                    if (history.forward(1))
+                        location.replace(history.forward(1))
+                }
+            </script>
+
+        </h:head>
+
+        <h:body onload="#{BeanUsuario_Logeo.validarSesion()}" >
+
+            <div align="center" cellpadding="0" cellspacing="0" width="1000px" style=" color:  lime"  > 
+
+                <p:layout fullPage="true" ><!--para referanciar un estilo a aparte se usa stylaclass style="width:1850px;height:950px; -->  
+
+                    <p:layoutUnit styleClass="border" position="north" size="60" resizable="true" closable="true" collapsible="true" effect="drop" >    
+
+
+
+                        <h:panelGrid styleClass="encabezado"> 
+                            <h:outputText value="#{msg.LabelTitulo}"  styleClass="titulocabecera"  />              
+                        </h:panelGrid> 
+
+                    </p:layoutUnit>
+
+                    <p:layoutUnit  styleClass="border" position="south"  size="40" resizable="true" closable="true" collapsible="true">   
+                        <div align="center" class="derechos">
+                            <h:outputText value="#{msg.LabelDireccionEntidad}"/>
+
+                        </div>
+                    </p:layoutUnit>
+
+                    <p:layoutUnit styleClass="tamaño_fuente" position="west" size="220"  header="#{msg.LabelMenu}"  
+                                  resizable="true" closable="true" collapsible="true" effect="drop" >
+
+                        <ui:insert name="menu">
+                            <ui:include src="/WEB-INF/faces/Menu/MenuPrincipal.xhtml"/>
+                        </ui:insert>
+
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="center">
+
+                        <ui:insert  name="contenido"><!--para las paginas hijas pueda insertar el contenido q desee , en la hija uso define-->
+
+                        </ui:insert>
+
+                    </p:layoutUnit>
+                </p:layout>
+            </div>
+        </h:body>
+    </f:view>
+</html>
+

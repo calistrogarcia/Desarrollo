@@ -1,0 +1,67 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 26-oct-2017, 15:52:33
+    Author     : Administrador
+*/
+
+
+.cabeceraTabla{
+  
+  background: aquamarine;
+}
+
+.cabeceraTabla_1{
+  
+  background: lightyellow;
+}
+
+.cabeceraTablarojo{
+ 
+    background: #FA8072;
+          
+}
+
+.cabeceraTablaplomo{
+    
+    background: darkgrey; 
+    
+}
+
+.tamaño_fuente{
+    
+    font-size: 11px;
+    font-family: 'Arial', 'Times New Roman'
+     
+}
+
+.tamaño_botones{
+    font: small serif;
+}
+
+
+.tamaño_fuente_tab{
+    
+    font-size: 13px;
+    font-family: 'Arial', 'Times New Roman'
+    
+    
+}
+
+.tamaño_fuente_login{
+    
+    font-size: 13px;
+    font-family: 'Arial', 'Times New Roman'   
+}
+
+#contenedor{
+  
+  width: 100px;
+    
+ /* display: inline-block;
+   min-width: 100%;*/
+}
+

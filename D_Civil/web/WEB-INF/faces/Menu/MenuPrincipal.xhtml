@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+     
+     
+    <head>
+    </head>
+    <body>
+        <ui:component >
+            <h:form>
+                
+                <!--<lef>
+                <h:panelGrid id="users" cellpadding="4"  columns="2" >
+                   <h:outputLabel id="usuario" value="Usuario: " style=" text-align:  left"/>    
+                    <h:outputLabel id="user"  value="crgarcia"/>    
+                </h:panelGrid>
+                 
+                </lef> -->
+ 
+                <p:panelMenu style="width: auto;text-align: left; font: small serif">
+
+                    
+                        <p:submenu label="Licencias"  icon="ui-icon-extlink">   
+                              
+                            <p:menuitem value="Licencia Comercial"  style="margin-top:0"
+                                         url="Promocion_Empresarial_Licencias.jsf"  icon="ui-icon-document">               
+                             </p:menuitem>
+                            
+                        </p:submenu>
+                        
+                        
+                          <p:submenu label="Defensa Civil"  icon="ui-icon-extlink"> 
+                               
+                             <p:menuitem value="Inspector"  style="margin-top:0"
+                                         url="DefensaCivil_Supervisor.jsf"  icon="ui-icon-document">               
+                             </p:menuitem>
+                              
+                              <p:menuitem value="Turno"  style="margin-top:0"
+                                         url="DefensaCivil_Turno.jsf"  icon="ui-icon-document">               
+                             </p:menuitem>
+                              
+                              
+                             <p:menuitem value="Expedientes" 
+                                        url="DefensaCivil_AsignarExpedientes.jsf"  icon="ui-icon-document">               
+                             </p:menuitem>
+
+                              <p:menuitem value="Certificado"  style="margin-top:0"
+                                         url="DefensaCivil_Certificado.jsf"  icon="ui-icon-document">               
+                             </p:menuitem>
+                             <p:menuitem value="Documentos" 
+                                        url="DefensaCivil_Documento.jsf"  icon="ui-icon-document">               
+                             </p:menuitem>
+ 
+                             <p:menuitem value="Graficos" 
+                                        url="ReportesGrafico_DefensaCivil.jsf"  icon="ui-icon-document">               
+                             </p:menuitem> 
+                             
+                             
+                              
+                        </p:submenu> 
+                        
+                         <p:submenu label="Tramite Documentario"  icon="ui-icon-extlink"> 
+                               
+                             <p:menuitem value="Busqueda Expedientes"  style="margin-top:0"
+                                         url="Expediente_Busqueda.jsf"  icon="ui-icon-document">               
+                             </p:menuitem>
+                              
+                              <p:menuitem value="Exp. Por Fecha"  style="margin-top:0"
+                                         url="Expediente_Por_Fecha.jsf"  icon="ui-icon-document">               
+                             </p:menuitem>
+
+                              <p:menuitem value="Exp. Por oficina"  style="margin-top:0"
+                                         url="Expediente_Por_Oficina.jsf"  icon="ui-icon-document">               
+                             </p:menuitem>
+                             <p:menuitem value="Exp. por Asunto" 
+                                        url="Expediente_Por_Asuntos.jsf"  icon="ui-icon-document">               
+                             </p:menuitem>
+                             <p:menuitem value="Exp. Recurrentes" 
+                                        url="Expediente_Por_Recurrente.jsf"  icon="ui-icon-document">               
+                             </p:menuitem> 
+                             
+                             <p:menuitem value="Exp. Recepcionado" 
+                                        url="Recepcionado_Por_Oficina.jsf"  icon="ui-icon-document">               
+                             </p:menuitem> 
+                             
+                             <p:menuitem value="Exp. Resuelto" 
+                                        url="Resuelto_Por_Oficina.jsf"  icon="ui-icon-document">               
+                             </p:menuitem> 
+                             
+                             <p:menuitem value="Tramite por Oficina" 
+                                        url="Tramite_Por_Oficina.jsf"  icon="ui-icon-document">               
+                             </p:menuitem> 
+                             
+                              <p:menuitem value="Tramite por Tecnico" 
+                                        url="Tramite_Por_Tecnico.jsf"  icon="ui-icon-document">               
+                             </p:menuitem> 
+                                                 
+                        </p:submenu>
+                        
+                        
+                        
+                         <p:submenu label="Multas Administrativas"  icon="ui-icon-extlink"> 
+                              <p:menuitem value="Fiscalizacion Administrativa" 
+                                        url="Fiscalizacion_Administrativa_Multas.jsf"  icon="ui-icon-document">               
+                             </p:menuitem> 
+                                                 
+                        </p:submenu>
+                    
+                        <p:submenu label="Detalle Economico"  icon="ui-icon-extlink"> 
+                              <p:menuitem value="Estado Cuenta" 
+                                        url="Detalle_Economico.jsf"  icon="ui-icon-document">               
+                             </p:menuitem> 
+                                                 
+                        </p:submenu>  
+                        
+                        <p:submenu label="Caja"  icon="ui-icon-extlink"> 
+                              <p:menuitem value="Pagos" 
+                                        url="Tesoreria_Caja.jsf"  icon="ui-icon-document">               
+                             </p:menuitem> 
+                                                 
+                        </p:submenu>
+                        
+                        
+               
+                        <p:submenu label="#{beanUsuario_Logeo.clase_usuario.descripcion}" icon="ui-icon-extlink">  
+                             <p:menuitem value="#{msg.LabelCerrar}" actionListener="#{beanUsuario_Logeo.salirSistema()}"/>                                   
+                         </p:submenu>
+
+                     </p:panelMenu>
+ 
+            </h:form> 
+        </ui:component>
+    </body>
+</html>

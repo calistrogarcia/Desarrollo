@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Certificado" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="57e2111d-6d42-4dc1-b62e-bc601b13738e">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="expediente" class="java.lang.String"/>
+	<parameter name="tipo" class="java.lang.String"/>
+	<parameter name="acto" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[exec usp_java_certificados_resoluciones_consultas @DNUMOLD=$P{expediente}, @TIPO=$P{tipo},
+ @ACTO=$P{acto}]]>
+	</queryString>
+	<field name="expediente" class="java.lang.String"/>
+	<field name="fecha_expediente" class="java.sql.Timestamp"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="nombres_apellidos" class="java.lang.String"/>
+	<field name="asunto" class="java.lang.String"/>
+	<field name="area_verificada" class="java.lang.String"/>
+	<field name="area_final" class="java.lang.String"/>
+	<field name="razon_social" class="java.lang.String"/>
+	<field name="representante_legal" class="java.lang.String"/>
+	<field name="direccion" class="java.lang.String"/>
+	<field name="nombre_Inspector" class="java.lang.String"/>
+	<field name="aforo" class="java.lang.Integer"/>
+	<field name="giro_detalle" class="java.lang.String"/>
+	<field name="descripcion_tipo_licencia" class="java.lang.String"/>
+	<field name="numero_identidad" class="java.lang.String"/>
+	<field name="estado_fiscalizacion" class="java.lang.Integer"/>
+	<field name="observaciones_seguridad" class="java.lang.String"/>
+	<field name="Numero_Certificado" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="123" splitType="Stretch">
+			<staticText>
+				<reportElement x="130" y="70" width="340" height="20" uuid="7cb4cf14-4ee3-4364-bec7-03d7f1eab213"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CERTIFICADO DE INSPECCION TECNICA DE SEGURIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="90" width="340" height="19" uuid="43cd17d0-ae6f-4fb2-b3f4-b2a067f3763a"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[	EN EDIFICACIONES BASICA EX POST ]]></text>
+			</staticText>
+			<image>
+				<reportElement x="240" y="0" width="91" height="51" uuid="0dedc447-3283-4679-b276-ccf2d54dc29a"/>
+				<imageExpression><![CDATA["C:\\D_Civil\\web\\Reporte\\smp.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="187" y="5" width="215" height="20" uuid="22582992-2348-4e89-8b88-4f1a8de95ceb"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{Numero_Certificado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="106" splitType="Stretch">
+			<staticText>
+				<reportElement x="63" y="18" width="433" height="16" uuid="56f1cb4f-9749-4004-bc62-4f14112ad1cf"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[El organo  ejecutante de la Municipalidad  Distrital de  San Martin de Porres, en cumplimiento de]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="33" width="433" height="14" uuid="cb4cfb25-de24-48db-b27e-649985c878dd"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[lo establecido en el D.S. N° 058-2014-PCM, ha realizado la Inspeccion Tecnica de Seguridad en ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="46" width="433" height="14" uuid="7ecfef29-7b4d-4dac-aafc-2dc697df7082"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Edificaciones de tipo BASICA EX POST a las edificaciones, locales, establecimiento.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="176" y="69" width="200" height="17" uuid="64f04758-7207-41ad-a623-118e766aea98"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombres_apellidos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="115" y="69" width="61" height="17" uuid="521af352-ed6b-4986-9149-f71d86a5cd6d"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="390" splitType="Stretch">
+			<staticText>
+				<reportElement x="64" y="6" width="66" height="17" uuid="9b49b842-08e6-4f1d-ac22-c41139df68ab"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Ubicado en :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="23" width="341" height="17" uuid="b5233250-ef4b-4e07-aadc-688d6071132f"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Distrito de San martin de Porres, Provincia Lima, Departamento Lima]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="39" width="77" height="15" uuid="45613daa-846a-4be0-8137-2845cd28305e"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Solicitado por : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="64" width="433" height="14" uuid="5d1556b1-ba74-4137-bbe4-78a5c274ee60"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[el que suscribe CERTIFICA que el objeto de inspeccion antes señalado CUMPLE, con la norma_]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="78" width="433" height="14" uuid="33e2d508-135a-4e85-b3fc-119904e422c0"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[tiva vigente en materia de seguridad en edificaciones.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="98" width="177" height="14" uuid="faa7146f-fd6f-4c8c-9203-88f3259409b9"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Capacidad maxima de Edificaciones :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="275" y="98" width="48" height="15" uuid="ceef3e89-055c-4232-b3fe-137c5443d05e"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[personas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="112" width="144" height="14" uuid="29e6942d-7d4e-4b01-bfab-82301068441c"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Giro ocupada de la edificacion :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="64" y="144" width="157" height="14" uuid="355cab92-74bf-469e-b9d9-b8dfff4ef028"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Area ocupada de la edificacion :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="171" width="78" height="17" uuid="bd26d356-d3a6-4a04-a4f2-162d51ea5b83"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Expediente N° : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="64" y="209" width="154" height="21" uuid="48e4859f-6169-4f7a-8d76-cd93328bae3f"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[VIGENCIA: INDETERMINADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="263" y="212" width="233" height="18" uuid="d00c5e12-d051-4861-af28-c2d447d9a339"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[LUGAR : DISTRITO DE SAN MARTIN DE PORRES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="267" y="240" width="134" height="21" uuid="35a2944c-64ee-4ebc-9b45-a25195370005"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[FECHA DE EXPEDICION:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="141" y="171" width="77" height="20" uuid="db87b8dc-4232-4617-8d3c-30606a497e9b"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{expediente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="157" y="6" width="339" height="20" uuid="b2cbd334-5881-480b-9069-5e8542e4d216"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="147" y="39" width="200" height="17" uuid="e847bdee-a030-445a-8f42-b1f0efca5b2a"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombres_apellidos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="246" y="144" width="48" height="14" uuid="afc5651e-8a37-48c6-9952-8d8e383139ff"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[m2]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="63" y="125" width="436" height="14" uuid="ef06c558-390b-4541-a71b-d58b992fb749"/>
+				<textFieldExpression><![CDATA[$F{giro_detalle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="294" y="171" width="202" height="20" uuid="3901094c-6ee2-4489-a102-f5fd9063d370"/>
+				<textFieldExpression><![CDATA[$F{Numero_Certificado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="239" y="97" width="36" height="15" uuid="21755c98-b9d2-4d94-a54d-b74c5c586831"/>
+				<textFieldExpression><![CDATA[$F{aforo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="219" y="143" width="29" height="15" uuid="561f8efc-f95f-4635-bc11-1adcbcd4be2a"/>
+				<textFieldExpression><![CDATA[$F{area_verificada}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="65" splitType="Stretch">
+			<staticText>
+				<reportElement x="46" y="27" width="452" height="8" uuid="df2929cb-ac1b-4841-91f0-a0cd12bb392c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="5" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA["El presente Certificado ITSE, no constituye autorizacion alguna para el funcionamiento del objeto de la presente Inspeccion"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="36" width="24" height="9" uuid="1f92a2e8-30c6-4e18-b53c-1e280ec360a7"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="5" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Nota:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="43" width="452" height="8" uuid="850a1c0e-ca22-426a-afa3-3963c24c2791"/>
+				<textElement>
+					<font fontName="Arial" size="4" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[- DE ACUERDO A LAS NORMAS VIGENTES, EL PRESENTE CERTIFICADO DEBERA SER FIRMADO POR LA AUTORIDAD COMPETENTE.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="50" width="452" height="8" uuid="245d2bd5-a9b0-4de5-9adb-33a88442b571"/>
+				<textElement>
+					<font fontName="Arial" size="4" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[- ESTE CERTIFICADO DEBERA COLOCARSE EN UN LUGAR VISIBLE DENTRO DE LA EDIFICACION. LOCAL, ESTABLECIMIENTO O INSTALACION.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="56" width="452" height="8" uuid="0971b4b2-dcb2-49f6-8d9d-6cce5647b1dd"/>
+				<textElement>
+					<font fontName="Arial" size="4" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[- CUALQUIER TACHA O ENMENDADURA INVALIDA EL PRESENTE CERTIFICADO.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="535" y="45" width="20" height="20" uuid="b9485d5a-0fba-4f6b-903a-62325cc4a8c3"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="13" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="8" splitType="Stretch"/>
+	</summary>
+</jasperReport>

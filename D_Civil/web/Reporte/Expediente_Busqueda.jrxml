@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="077e3c4a-05df-42a5-b547-8f49fc2435fb">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[exec [dbo].[pxLista_java_Expediente] 
+@valor01='',
+@valor02='18-05-08',
+@valor03='18-05-08']]>
+	</queryString>
+	<field name="nro" class="java.lang.Integer"/>
+	<field name="dnumold" class="java.lang.String"/>
+	<field name="cnombre" class="java.lang.String"/>
+	<field name="dasunto" class="java.lang.String"/>
+	<field name="ffecdoc" class="java.lang.String"/>
+	<field name="d_hasta" class="java.lang.String"/>
+	<field name="nfolios" class="java.lang.Integer"/>
+	<field name="observa" class="java.lang.String"/>
+	<field name="ccontri" class="java.lang.String"/>
+	<field name="dtipdoc" class="java.lang.String"/>
+	<field name="ffecrec" class="java.sql.Timestamp"/>
+	<field name="destado" class="java.lang.String"/>
+	<field name="dnrodoc" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#00CCFF" uuid="73655853-b388-4f71-b151-7bbfc47aa5ce"/>
+				<staticText>
+					<reportElement x="187" y="54" width="252" height="23" forecolor="#FFFFFF" uuid="ca6eee95-4a2b-4654-8de1-931e83439a6e"/>
+					<textElement textAlignment="Center">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[LISTADO DE EXPEDIENTES INGRESADOS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="119" y="14" width="279" height="20" forecolor="#FFFFFF" uuid="8ebc3d16-05dc-4b97-a0bf-df5634b1640d"/>
+					<textElement>
+						<font size="12" isBold="false" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Municipalidad Distrital San Martin de Porres]]></text>
+				</staticText>
+				<image>
+					<reportElement x="42" y="11" width="74" height="77" uuid="453dcb86-7c32-4e8d-9de6-5d681be01807"/>
+					<imageExpression><![CDATA["Z:\\DCivil\\D_Civil\\web\\reporte\\smp.png"]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="17474e87-9b23-4668-8431-f79f8fafb401"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="22" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="6b488386-fb1d-4dd2-9873-5880a4e7418d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="23" y="0" width="77" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="b7254ad7-791f-4c2a-bfac-2dcdd36466c1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Expediente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="101" y="0" width="143" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="6bd291d3-18cc-4221-91f1-e358e86cc87c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Recurrente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="245" y="0" width="114" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="5ccee3dd-886a-4827-afba-5b170f307770"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Asunto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="360" y="0" width="73" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="9238aa97-871c-45ff-aa0a-8c9b43737d96"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[F. Ingreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="434" y="0" width="121" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="0d7d9701-4129-46bf-823f-d45ae49a2383"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Área Actual]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="22" width="555" height="1" uuid="0bac1338-0b39-400f-aaa4-6d47cced2768"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="22" height="20" uuid="d0c98687-2ebd-451a-ab4f-d7aca4c8410b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="23" y="0" width="77" height="20" uuid="47d53c9a-ea62-4dd8-b993-d948da82407b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dnumold}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="101" y="0" width="143" height="20" uuid="b99a2f7a-5385-48ed-9780-c6686b599b23"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cnombre}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="245" y="0" width="114" height="20" uuid="93d98e57-f400-4db9-926e-7faddddca339"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dasunto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="360" y="0" width="73" height="20" uuid="194b7195-7951-45cc-8549-e557458db158"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ffecdoc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="434" y="0" width="121" height="20" uuid="e13ef774-0509-4969-8b15-dd78d78d0769"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d_hasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="a391c21d-792d-4e24-af21-d9a0bcb80438"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pàgina "+$V{PAGE_NUMBER}+" al"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="47cb9e73-2728-4bac-abfe-b7474ff088d6"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="9957937c-17d4-4799-9518-c83006a54281"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

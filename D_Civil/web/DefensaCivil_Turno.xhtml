@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <h:outputScript library="js" name="scrits.js"></h:outputScript>
+    </h:head>
+    <h:body>
+        <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
+            <ui:define name="contenido">
+                <h:outputText value="#{msg.LabelRegistroTurnos}" style="font-weight: bold"/>                                           
+                <p:tabView id="TurnoTabView" dynamic="true" orientation="top" activeIndex="#{Beans_DefensaCivil_Turno.activeTabIndex}"  >   
+                
+                    <br>
+
+                    </br>
+
+                    <p:tab id="tab_registrar" title="#{msg.LabelRegistroTurnos}"  titleStyleClass="tamaño_fuente_tab">
+
+                        <h:form id="form_reg_Turno" style="max-width: 80%; min-height: 60%"  styleClass="tamaño_fuente">
+                            <p:growl globalOnly="true"  id="estRegTurno" sticky="false"  showDetail="true"  />                                
+
+                            <br>
+                            </br>
+
+                            <p:panel id="datGenTurno" header="#{msg.LabelRegistroTurnos}" styleClass="border">
+                                <h:panelGrid columns="6" cellpadding="5" cellspacing="15">
+
+                                    <h:outputText value="#{msg.LabelDescripcion}" />
+
+                                    <h:panelGroup>
+                                        <p:selectOneMenu id="nombre_turno"   
+                                                         effect="fade"   required="true" 
+                                                         value="#{Beans_DefensaCivil_Turno.objTurnoReg.nombre}">
+                                            <f:selectItem  itemLabel="#{msg.labelEleccion}"  
+                                                           itemValue="" />
+                                            <f:selectItem  itemLabel="#{msg.LabelManana}"  
+                                                           itemValue="mañana" />
+
+                                            <f:selectItem  itemLabel="#{msg.LabelTarde}"  
+                                                           itemValue="tarde" />
+
+                                            <f:selectItem  itemLabel="#{msg.LabelNoche}"  
+                                                           itemValue="noche" />
+
+                                        </p:selectOneMenu>
+                                    </h:panelGroup> 
+
+
+                                    <h:outputText  value="#{msg.LabelIncio}" />
+
+                                    <h:panelGroup>
+                                        <p:calendar id="incio_turno"  locale="es" navigator="true"
+                                                    value="#{Beans_DefensaCivil_Turno.objTurnoReg.inicio_turno}"  
+                                                    pattern="dd/MM/yyyy HH:mm:ss">   
+
+                                        </p:calendar>
+                                        <h:message for="incio_turno" showDetail="true" showSummary="true"/>                                   
+                                    </h:panelGroup> 
+
+                                    <h:outputText  value="#{msg.LabelFin}" />
+                                    <h:panelGroup>
+                                        <p:calendar id="fin_turno"  locale="es" navigator="true" 
+                                                    value="#{Beans_DefensaCivil_Turno.objTurnoReg.fin_turno}"   pattern="dd/MM/yyyy HH:mm:ss" >  
+
+                                        </p:calendar>
+                                        <h:message for="fin_turno" showDetail="true" showSummary="true"/>                                   
+                                    </h:panelGroup> 
+
+                                 
+                                    <p:commandButton actionListener="#{Beans_DefensaCivil_Turno.doRegTurno()}" value="#{msg.LabelRegistrar}" update="form_reg_Turno,estRegTurno"/> 
+
+                                </h:panelGrid>
+
+
+                            </p:panel>
+                        </h:form>
+
+                    </p:tab>
+                </p:tabView>   
+
+            </ui:define>
+        </ui:composition> 
+
+    </h:body>
+</html>

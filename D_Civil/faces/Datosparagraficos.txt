@@ -1,0 +1,13 @@
+                                   <h:panelGrid columns="2"  >
+                                       <h:outputText value="#{msg.LabelCodigoContribuyente}" />
+                                            <h:panelGroup>
+                            
+                                                    <p:inputText  id="contribuyente"
+                                                      required="true" requiredMessage="#{msg.labelObli}"
+                                                      maxlength="30" validatorMessage="#{msg.labelValidar}" 
+                                                      value="#{beans_DefensaCivil_GraficoExpedientes.objBuscarContribuye.codigocontribuyente}">  
+                                                     <f:validateLength minimum="0" maximum="30"/>
+                                                     </p:inputText>
+                                                <h:message for="contribuyente" showDetail="false" showSummary="true"/>                                    
+                                           </h:panelGroup>
+                                      </h:panelGrid>

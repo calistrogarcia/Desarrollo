@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Resolucion" pageWidth="576" pageHeight="842" columnWidth="536" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="914238a7-15b9-465f-a8ba-b6ccc7ab7044">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="expediente" class="java.lang.String"/>
+	<parameter name="tipo" class="java.lang.String"/>
+	<parameter name="acto" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[exec usp_java_certificados_resoluciones_consultas @DNUMOLD=$P{expediente}, @TIPO=$P{tipo} ,
+ @ACTO=$P{acto}]]>
+	</queryString>
+	<field name="expediente" class="java.lang.String"/>
+	<field name="fecha_expediente" class="java.lang.String"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="nombres_apellidos" class="java.lang.String"/>
+	<field name="asunto" class="java.lang.String"/>
+	<field name="area_declarada" class="java.lang.String"/>
+	<field name="area_final" class="java.lang.String"/>
+	<field name="razon_social" class="java.lang.String"/>
+	<field name="representante_legal" class="java.lang.String"/>
+	<field name="direccion" class="java.lang.String"/>
+	<field name="nombre_Inspector" class="java.lang.String"/>
+	<field name="aforo" class="java.lang.Integer"/>
+	<field name="giro_detalle" class="java.lang.String"/>
+	<field name="descripcion_tipo_licencia" class="java.lang.String"/>
+	<field name="numero_identidad" class="java.lang.String"/>
+	<field name="estado_fiscalizacion" class="java.lang.Integer"/>
+	<field name="observaciones_seguridad" class="java.lang.String"/>
+	<field name="Numero_Certificado" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="119" y="29" width="158" height="16" uuid="f2766227-dd97-4dee-8efc-01f60ded1cdb"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[RESOLUCION DE SUB GERENCIA N° ]]></text>
+			</staticText>
+			<image>
+				<reportElement x="43" y="0" width="97" height="50" uuid="4e2cce9d-ab8e-48fb-9d0c-6a795c763906"/>
+				<imageExpression><![CDATA["C:\\D_Civil\\web\\Reporte\\smp.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="195" y="0" width="149" height="20" uuid="9e97f6e1-93d5-4589-9f6a-6524266224b1"/>
+				<text><![CDATA[" Año  del Buen Ciudadano"]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="276" y="28" width="214" height="17" uuid="56a62c53-b7fd-4877-8485-e65c2c590de8"/>
+				<textFieldExpression><![CDATA[$F{Numero_Certificado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="706" splitType="Stretch">
+			<staticText>
+				<reportElement x="44" y="159" width="468" height="15" uuid="27e58a38-715e-4694-83ae-86dc50b95ffc"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[organo  de gobierno local,  que  goza  de  plena  autonomia politica,  economica y  administrativa  en los ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="174" width="468" height="15" uuid="0f15b295-8084-47eb-9723-908541b622e0"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[asuntos de  su  competencia  y  accionar se  ciñe a lo dispuesto por las normas reglamentarias sobre la ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="188" width="468" height="15" uuid="ddd0aed7-cc35-48e1-b0f1-d7f37625d7f4"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[materia , dentro de lo riguroso respecto a los derechos constitucionales y legales.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="202" width="468" height="15" uuid="72c56f3d-bb46-4636-87f7-01a555030157"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Que, el articulo 93 de la Ordenanza 387MDMSP Reglamento de Organizacion y Funciones de la Munici_]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="216" width="468" height="15" uuid="c8898f39-ace3-49f5-8e9e-1a46ac5c1c8b"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[palidad, establece que la Sub Gerencia  de  Defensa Civil es la  Unidad Organica encargada de ejecutar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="230" width="468" height="15" uuid="042832c7-94ff-46c3-9e5f-d11f9e91d776"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[los procedimientos de de Inspeccion Tecnica de Seguridad  en  Edificaciones de Competencia  Local  y ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="244" width="468" height="15" uuid="06562b52-9484-4dd4-b951-2d08a8892bb5"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[esta a cargo de la Sub Gerencia de defensa Civil.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="316" width="468" height="15" uuid="5303c1c5-bbf6-4625-b3c0-209dd3b0ba9f"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[en sus ambitos de Jurisdiccion respectiva.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="274" width="468" height="15" uuid="1b6bc5ab-d367-4ea0-ba30-949b8a190486"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Que, la Tercera Disposicion Complementaria Final, del Decreto N° 048-2011-PCM,  Reglamento de Ley ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="288" width="468" height="15" uuid="0a530f34-5052-43ad-b690-c0e933c203fa"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[N° 29664 que crea el Sistema Nacional de Gestion de Riesgo de Desastres,señala que las Inspecciones ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="302" width="468" height="15" uuid="1d28aaed-61a7-441c-b595-a78ad548b6dc"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Tecnicas de  Seguridad en Defensa Civil  son ejecutadas  por  los  Gobiernos locales Regionales en sus ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="344" width="468" height="15" uuid="760d5875-ff9a-4f7f-9fd5-dcc08b2ba007"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Que, mediante el decreto Supremo N° 058-2014-PCM, se aprueba el reglamento de Inspecciones Tec_]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="358" width="468" height="15" uuid="f477d806-34e0-4708-82ff-782c1314f7bb"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[nicas de seguridad en Edificaciones que tiene por objeto establecer y regular los procedimientos Tecni_]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="372" width="468" height="15" uuid="dbd15b37-31de-43f5-83a3-0c11986aa33c"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[cos y administrativos referidos a las inspecciones Tecnicas de Seguridad en Edificaciones - ITSE.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="401" width="468" height="15" uuid="e13f13d0-ebb6-48f1-baaf-07dc04e60e8b"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Que las Inspecciones Tecnicas de Seguidad de EX ANTE se  ejecutan a los objetos  de inspeccion que ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="415" width="468" height="15" uuid="9b179e1a-eb42-4c0a-ba5c-27593b6e0b42"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[se encuentran señalados en el articulo 9.2  del Decreto Supremo N° 058-2014 vPCM y que las caracte_]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="429" width="468" height="15" uuid="dd57f234-1ba0-4fe7-b5b3-f24f6944d75b"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[risticas  presentan un nivel de  complejidad menor. Dicha inspeccion consiste en la verificacion del cum_]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="443" width="468" height="15" uuid="e9e5163a-1f5a-4282-be27-046b82927913"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[plimiento, imcimplimiento de la normatividad en la materia de seguridad de edificaciones.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="487" width="468" height="15" uuid="c5fbd168-eb84-49a9-96f5-c2aa165c5b93"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[glamento de  Inspecciones Tecnicas de  Seguridad  en Edificaciones,  la Sub Gerencia de Defensa Civil]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="501" width="468" height="15" uuid="b3f41982-b889-4eac-a69a-32d1e4b1268e"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[admitio a tramite de solicitud de ITSE EX ANTE, ejecutandose, conforme al procedimiento indicado en el]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="473" width="468" height="15" uuid="e38af494-80fb-4b04-84f7-a15e83b79960"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Que conforme, a lo establecido en el Decreto Supremo en el Decreto Supremo N° 058-2014 PCM, Re_]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="516" width="468" height="15" uuid="12a45ec1-6078-428d-a0df-c4689c02ccb6"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[citado Reglamento ITSE,cuyos resultado se encuentra  contenido en el informe Tecnico de seguridad de]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="530" width="468" height="15" uuid="cacb0b1d-8c40-4ded-a146-e5cec2135d03"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[edificaciones, siendo procedente dar por finalizado el procedimiento ITSE.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="558" width="468" height="15" uuid="bbc6afdf-33cf-4f76-9310-d64ff38fad56"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Que, Mediante el  Informe  de Verificacion de Condiciones de  Seguridad declaradas ITSE BASICA EX -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="572" width="468" height="15" uuid="cd40ce85-38eb-4a70-a920-9a56fdf148cb"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[ANTE, en el Local del  administrado se  determino que NO CUMPLE,  con la   Declaracione Jurada de ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="587" width="466" height="15" uuid="e1c2cc89-d5dd-4f63-a2ae-977a451cdaa3"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[de Observancia de Condiciones de Seguridad Consistente en lo Siguiente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="145" width="468" height="15" uuid="8ef21233-32ba-4be8-bb21-4405a4ca4833"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[titucion Politica del estado y el Articulo II de la Ley Organica de  Municipalidades  -  Ley N° 27972 es un ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="131" width="467" height="15" uuid="fd13bb80-894d-4319-9099-b6b28afe7421"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Que, la Municipalidad de San Martin de Porres, conforme a lo establecido en el articulo 194° de la Cons-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="111" width="75" height="14" uuid="67f8798c-7599-4c7b-a769-34c5988521df"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CONSIDERANDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="11" width="48" height="14" uuid="fa9dd4f4-ba90-43b2-b7ad-2a64cd0688a2"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[VISTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="31" width="63" height="15" uuid="e6cdb4be-6c82-4df6-9f1d-c3eb4afde249"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[El expediente ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="181" y="32" width="130" height="15" uuid="4f2f8e3f-457a-43de-9f7a-7e2b4065a28c"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[y demas actuados, de fecha ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="31" width="63" height="15" uuid="bc6fb95c-4493-4fe5-9b31-45b56cb498c3"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[presentado:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="45" width="117" height="15" uuid="5be6fce9-5cdc-42a7-9ed0-d1a1cdf40033"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[, quien solicita Certificado ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="60" width="466" height="15" uuid="e5aa0fb7-99bc-41d0-aea3-2c4a640e70f5"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[de Inspeccion  Tecnica de  en Seguridad en edificaciones de Basica EX POST, para su local ubicado en: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="74" width="158" height="15" uuid="aeba5285-ecc8-4097-b861-7e8a312073a7"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Provincia y Departamento de Lima]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="88" width="49" height="15" uuid="0b54f185-7b48-4200-96a4-8032b8102359"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Con Giro:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="111" y="31" width="100" height="15" uuid="14f01acf-bc93-4ffb-9861-25147e471202"/>
+				<textFieldExpression><![CDATA[$F{expediente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="31" width="72" height="15" uuid="39981790-e188-4fb9-b093-bb7fbcdc3e6f"/>
+				<textFieldExpression><![CDATA[$F{fecha_expediente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="46" width="351" height="14" uuid="dc5b25bc-33f7-4444-85c9-9b87008e4339"/>
+				<textFieldExpression><![CDATA[$F{nombres_apellidos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="74" width="307" height="15" uuid="229fc064-3ba1-420b-952d-77c779bcb518"/>
+				<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="359" y="1" width="100" height="19" uuid="1fb1c013-0114-46b4-93a6-be861d6003e2"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[San Martin de Porres]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="468" y="1" width="49" height="19" uuid="312a83a7-075d-4968-af9a-8bd73a17d85b"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="88" width="419" height="15" uuid="d3ff1f3f-13f2-49db-99d7-9bb6ab3d9db8"/>
+				<textFieldExpression><![CDATA[$F{giro_detalle}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="45" y="612" width="466" height="80" uuid="ec21c995-ed99-4d0d-9db8-a490f700063a"/>
+			</rectangle>
+			<textField>
+				<reportElement x="46" y="612" width="465" height="80" uuid="cc1bb498-473f-4c65-a9b1-a8adf05b10b2"/>
+				<textFieldExpression><![CDATA[$F{observaciones_seguridad}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="413">
+			<staticText>
+				<reportElement x="46" y="16" width="466" height="15" uuid="16f43b3b-7696-4d60-9b7b-c3314aedc67d"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Que, el Numeral 2 del Articulo 34° del citado Reglamento de Inspecciones, establece que el procedimi_]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="30" width="466" height="15" uuid="57baeec5-9054-40ca-a507-d3073bbe7f71"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[ento, de  Itpse Finaliza con la  Resolucion emitida por  el  organo ejecutant, de Inspeccion NO CUMPLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="44" width="466" height="15" uuid="cd307d8a-ff80-49be-83d1-4360d2456dda"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[con  las  normas  de  Seguridad  de  edificaciones,  por consiguiente NO corresponde emitir Certificado ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="58" width="466" height="15" uuid="71d3a5f0-6761-4bc5-b7c7-3504d3ea6dad"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[ITSE DE EX ANTE.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="88" width="466" height="15" uuid="f9bfe0f0-4cf1-43e6-923c-328d78027bf6"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Que, estando a lo dispuesto y de conformidad con el articulo 39° tercer parrafo de la ley N° 27972,  ley ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="150" width="466" height="15" uuid="a2bf825f-bb0d-471e-b9b2-02f6b6f03a93"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[RESULVE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="102" width="466" height="15" uuid="3354201f-5b50-41ae-afe3-8fab39a7bb6f"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Organica de Municipalidades, y conforme a las atribuciones conferidas en el articulo 95 numeral 17 del]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="116" width="466" height="15" uuid="140cd7cb-bdef-4cc9-8aaf-5bad50b63648"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Reglamento de Organizacion y Funciones de la Municipalidad Distrital de San Martin de Porres.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="180" width="111" height="15" uuid="69e91164-e588-4479-b0b7-665f63498ee9"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[ARTICULO PRIMERO.-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="158" y="180" width="63" height="15" uuid="8878292f-cdfc-4194-b745-e1fb9bc05e50"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DENEGAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="180" width="293" height="15" uuid="765c4236-a819-48d5-a577-615b42e3c890"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[el Certificado de Inspeccion Tecnica en Edificaciones de BASICA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="194" width="61" height="15" uuid="50692cd6-17e9-4ec1-bc70-9510ea91aeb6"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[EX ANTE, a]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="208" width="466" height="15" uuid="487d70d2-b950-42b6-a47f-7320b2a3dea7"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[por los argumentos expuestos, en la parte considerativa de  la presente resolucion,  dando por finalizado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="222" width="466" height="15" uuid="9b72184c-a26e-4e8a-b400-5d33375e54bd"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[el procedimiento de ITSE, recomendado a usted se sirva reiniciar la solicitud de obtencion del Certificado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="236" width="466" height="15" uuid="fa1657a0-bf98-4562-b927-516de6e7b227"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[de Inspeccion Tecnica de Seguridad de Edificaciones,  Teniendo en Consideracion que no contar con el ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="250" width="466" height="15" uuid="ce39c9b5-0a9c-43de-8766-1f09da2cbd94"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[mismo constituye una falta considerada en el RAS, vigente de esta Corporacion.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="158" y="283" width="74" height="15" uuid="1f89bec0-28cf-4981-9d46-8304b1361fb1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[NOTIFICAR  A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="298" width="265" height="15" uuid="e0be8fb0-3108-4de7-8232-d939128737b9"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[el contenido de la presente resolucion.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="283" width="111" height="15" uuid="01fba590-86ac-4fe1-b98d-1bc2085f34d0"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[ARTICULO SEGUNDO.-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="351" width="234" height="15" uuid="5ef0939c-2590-411d-a528-fd9f3b592b2b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[REGISTRESE, COMUNIQUESE Y CUMPLASE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="104" y="194" width="409" height="15" uuid="d6301eb2-0873-4d8a-98c4-56006f84c631"/>
+				<textFieldExpression><![CDATA[$F{nombres_apellidos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="231" y="283" width="282" height="15" uuid="5dd08da6-6fb3-4767-b1dc-d01134481870"/>
+				<textFieldExpression><![CDATA[$F{nombres_apellidos}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="169" y="2" width="204" height="10" uuid="b4c6c96d-5587-4207-97be-794563809a58"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[Sub Gerencia de Defensa Civil de la Municipalidad Distrital de San Martin de Porres ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="12" width="272" height="10" uuid="6e172e82-ff88-450b-820c-a340610a66a2"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[Av. Los Proceres  S/N - San Martin de Porres www,mdsmp.gob.pe Telf: 200-2500-Anexo 1603; Directo 209-600]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="17" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="12" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,54 @@
+ <p:panel >
+                    <p:panelMenu style="width:250px;"    >
+
+                          <p:submenu label="Menu Desplegable"  icon="ui-icon-extlink"> 
+                          -
+                            <p:menuitem value="Tramite" 
+                                        url="TramiteDocumentario_Documento.jsf">               
+                            </p:menuitem> 
+                              
+                             <p:menuitem value="Supervisor" 
+                                        url="DefensaCivil_Supervisor.jsf">               
+                             </p:menuitem>
+                             <p:menuitem value="Tuno" 
+                                        url="DefensaCivil_Turno.jsf">             
+                             </p:menuitem>  
+                             <p:menuitem value="Certificado" 
+                                        url="DefensaCivil_Certificado.jsf">               
+                             </p:menuitem>
+                             <p:menuitem value="Documentos" 
+                                        url="DefensaCivil_Documento.jsf">               
+                             </p:menuitem>
+                   
+                        <p:submenu label="Reportes" >
+                            <p:menuitem value ="Busqueda De Expedientes" 
+                                            url="Expediente_Busqueda.jsf" icon="ui-icon-search"/>
+                            <p:menuitem value ="Expedientes Ingresados Por Fecha"
+                                            url="Expediente_Por_Fecha.jsf" icon="ui-icon-document"/>
+                            <p:menuitem value="Expedientes Ingresados Por Oficina"
+                                            url="Expediente_Por_Oficina.jsf" icon="ui-icon-document"/>
+                            <p:menuitem value="Expedientes Ingresados Por Asuntos"
+                                            url="Expediente_Por_Asuntos.jsf" icon="ui-icon-document"/>
+                            <p:menuitem value="Expedientes Ingresados Por Recurrente"
+                                            url="Expediente_Por_Recurrente.jsf" icon="ui-icon-document"/>
+                            <p:menuitem value="Expedientes En Tramite Por Oficina"
+                                            url="Tramite_Por_Oficina.jsf" icon="ui-icon-document"/>
+                            <p:menuitem value="Expedientes Recepcionados Por Oficina"
+                                            url="Recepcionado_Por_Oficina.jsf" icon="ui-icon-document"/>
+                            <p:menuitem value="Expedientes Despachados Por Oficina"
+                                            url="Despachado_Por_Oficina.jsf" icon="ui-icon-document"/>
+                            <p:menuitem value="Expedientes Resueltos Por Oficina"
+                                            url="Resuelto_Por_Oficina.jsf" icon="ui-icon-document"/>
+                            <p:menuitem value="Expedientes Derivados Por Gerencias"
+                                            url="Derivados_Por_Gerencia.jsf" icon="ui-icon-document"/>
+                            <p:menuitem value="Expedientes En Tramite Por Tecnico"
+                                            url="Tramite_Por_Tecnico.jsf" icon="ui-icon-document"/>
+                           
+                           </p:submenu>  
+                       
+                        </p:submenu>
+                            
+                     </p:panelMenu>
+ 
+                </p:panel>
+                 

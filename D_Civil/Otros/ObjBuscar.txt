@@ -1,0 +1,34 @@
+-set y get 
+
+  public void doiniciarObjBusCertificado(){
+                  
+                this.objBuscarCertificado=new Certificado();
+ }
+       
+
+  public void doiniciarBusquedaCertificado(){        
+                this.arrBusCertificado = new ArrayList<Certificado>();
+                this.objBuscarCertificado= new Certificado();
+
+  }   
+
+
+
+// Asignado en Busquedas de array...
+ public ArrayList<Certificado> doListarCertificado(){   
+            this.doiniciarListadoCertificado();            
+            //Lista Certificado
+          // this.arrCertificado=Certificado.getBuscaExpedientesPorcodigo(objBuscarCertificado);
+            return this.arrCertificado;    
+ }    
+
+
+public ArrayList<Certificado> doBuscarCertificado(){   
+            
+           this.arrBusCertificado = new ArrayList<Certificado>();
+           this.arrBusCertificado=Certificado.getBuscaExpedientesPorcodigo(objBuscarCertificado);
+
+            return this.arrBusCertificado;    
+        }
+
+

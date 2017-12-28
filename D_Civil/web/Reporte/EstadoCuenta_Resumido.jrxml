@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7d692942-988d-4b85-9e81-c8916937d792">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[exec sp_java_consulta_cuenta_prueba @ccontri ='000100',  @ctiptri ='IP', @canoini ='2015', @canofin ='2016']]>
+	</queryString>
+	<field name="codigo_contribuyente" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="direccion_fiscal" class="java.lang.String"/>
+	<field name="codigo_predio" class="java.lang.String"/>
+	<field name="anio_deuda" class="java.lang.String"/>
+	<field name="periodo_deuda" class="java.lang.String"/>
+	<field name="monto_insoluto" class="java.lang.Double"/>
+	<field name="gasto_administrativo" class="java.lang.Double"/>
+	<field name="estado_cuenta" class="java.lang.String"/>
+	<field name="fecha_registro" class="java.sql.Timestamp"/>
+	<field name="hora" class="java.lang.String"/>
+	<field name="fecha_pago" class="java.sql.Timestamp"/>
+	<field name="numero_recibo" class="java.lang.String"/>
+	<field name="descuento" class="java.lang.Double"/>
+	<field name="monto_reajuste" class="java.lang.Double"/>
+	<field name="interes" class="java.lang.Double"/>
+	<field name="numero_valor" class="java.lang.String"/>
+	<field name="numero_coactivo" class="java.lang.String"/>
+	<field name="numero_fraccionamiento" class="java.lang.String"/>
+	<field name="numero_expediente" class="java.lang.String"/>
+	<field name="numero_resolucion" class="java.lang.String"/>
+	<field name="tipo_tributo" class="java.lang.String"/>
+	<variable name="TotalDeuda" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{monto_insoluto}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="6" y="6" width="147" height="13" uuid="56256173-b717-444c-ac6f-7f1d58a7769c"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Municipalidad de San Martin de Porres]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="16" width="116" height="15" uuid="c488666b-b376-43d6-8dad-ab7eba889b9a"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sub Gerencia de Fiscalizacion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="36" width="291" height="20" uuid="69cbf890-2813-4d23-911c-a0c58512d4f7"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Estado de Cuenta Corriente (Deudas) - Resumen por Tributos :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="174" y="56" width="38" height="20" uuid="ef3b0d28-2a3d-45cc-a06e-90dd1d269601"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Desde: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="423" y="36" width="100" height="20" uuid="6c7b1e45-61e7-45de-bc9e-97278e6f4b17"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo_tributo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="49" splitType="Stretch">
+			<staticText>
+				<reportElement x="56" y="6" width="76" height="20" uuid="0339cc5b-8ccb-4f15-a8bd-8115e07d6ee0"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contribuyente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="56" y="21" width="85" height="15" uuid="0e2dda07-7400-4272-950f-a527929eaeb8"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Direccion Fiscal :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="181" y="7" width="332" height="14" uuid="0f307520-b4fa-489a-b586-1bfb3f10d78f"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="141" y="7" width="40" height="14" uuid="4f556c1f-c7a5-4cfc-947e-d21921d1ce9f"/>
+				<textFieldExpression><![CDATA[$F{codigo_contribuyente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="141" y="21" width="372" height="15" uuid="527a0348-c034-495c-9ea4-7a99f4357171"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{direccion_fiscal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="54" y="2" width="42" height="20" uuid="53ed5145-2091-4c67-ac08-94717a65084f"/>
+				<text><![CDATA[Periodo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="107" y="2" width="48" height="20" uuid="18c389de-2386-4699-964b-74f9ec59c6a8"/>
+				<text><![CDATA[Tributo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="188" y="2" width="37" height="19" uuid="12ed610b-f7a6-4c04-85d3-970084a705c3"/>
+				<text><![CDATA[Insoluto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="248" y="1" width="33" height="20" uuid="10f1a3ec-befe-4310-b4b3-3799d7872a2e"/>
+				<text><![CDATA[Dscto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="2" width="39" height="19" uuid="4a1d4e48-5743-45b1-a634-d9cf53eef6a3"/>
+				<text><![CDATA[Emision]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="2" width="50" height="19" uuid="639c3912-83aa-4101-9845-b265526b47db"/>
+				<text><![CDATA[Insol. Reaj]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="419" y="2" width="38" height="19" uuid="fedd2d78-d8bd-4fd2-bfac-b1f8b633907d"/>
+				<text><![CDATA[Interes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="471" y="2" width="31" height="19" uuid="f6818ba6-72cc-4cc7-bb3f-8ce84e47829c"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="54" y="1" width="42" height="15" uuid="2c932f3e-d90f-4b6b-b513-d7b1ea58fa27"/>
+				<textFieldExpression><![CDATA[$F{anio_deuda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="1" width="49" height="15" uuid="22cca2c5-26d4-4715-a816-4fc0a0c85a4f"/>
+				<textFieldExpression><![CDATA[$F{tipo_tributo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="295" y="2" width="39" height="15" uuid="6769f075-4641-46a9-9b30-3cef70d1bceb"/>
+				<textFieldExpression><![CDATA[$F{gasto_administrativo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="2" width="50" height="15" uuid="00cd69bf-d135-4e69-acb0-eaac6615abfa"/>
+				<textFieldExpression><![CDATA[$F{monto_reajuste}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="419" y="2" width="38" height="15" uuid="9bbe64b0-2e71-43c2-b3e1-c836f56ff8dd"/>
+				<textFieldExpression><![CDATA[$F{interes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="471" y="2" width="47" height="15" uuid="b56bf2e8-b24e-48c6-9d5b-d313e075b164"/>
+				<textFieldExpression><![CDATA[$F{monto_insoluto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="53" y="0" width="100" height="20" uuid="219c803b-5433-4088-afb8-e34a4aac0714"/>
+				<text><![CDATA[Total : ]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;(#;##0.00)" isBlankWhenNull="true">
+				<reportElement x="469" y="0" width="31" height="20" uuid="43747fda-7a73-4925-9dc7-7f030f7b1171"/>
+				<textElement textAlignment="Right">
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TotalDeuda}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
