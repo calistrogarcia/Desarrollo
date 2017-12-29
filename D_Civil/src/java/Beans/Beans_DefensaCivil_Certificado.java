@@ -80,7 +80,7 @@ public class Beans_DefensaCivil_Certificado {
 
    
   
-    private int id_legajo = 1012;
+    private int id_legajo=1028;
 
     public int getId_legajo() {
         return id_legajo;

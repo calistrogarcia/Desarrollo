@@ -23,9 +23,12 @@ public class Direccion implements Serializable {
     private String zona;
     private String nombre_zona;
     private String manzana;
-    private String lote;
-    private String numero_fiscal;
+    private String lote; 
+    private String numero;
     private String numero_departamento;
+    private String numero_interior;
+    private String letra;
+    private String bloque; 
     private String referencia;
     private String detalle_direccion;
     
@@ -123,12 +126,12 @@ public class Direccion implements Serializable {
         this.lote = lote;
     }
 
-    public String getNumero_fiscal() {
-        return numero_fiscal;
+    public String getNumero() {
+        return numero;
     }
 
-    public void setNumero_fiscal(String numero_fiscal) {
-        this.numero_fiscal = numero_fiscal;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
     public String getNumero_departamento() {
@@ -137,6 +140,30 @@ public class Direccion implements Serializable {
 
     public void setNumero_departamento(String numero_departamento) {
         this.numero_departamento = numero_departamento;
+    }
+
+    public String getNumero_interior() {
+        return numero_interior;
+    }
+
+    public void setNumero_interior(String numero_interior) {
+        this.numero_interior = numero_interior;
+    }
+
+    public String getLetra() {
+        return letra;
+    }
+
+    public void setLetra(String letra) {
+        this.letra = letra;
+    }
+
+    public String getBloque() {
+        return bloque;
+    }
+
+    public void setBloque(String bloque) {
+        this.bloque = bloque;
     }
 
     public String getReferencia() {

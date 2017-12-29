@@ -13,9 +13,11 @@
         </locale-config>
         
         <resource-bundle>
-            <base-name>utils.Etquetas</base-name>
+            <base-name>utils.Espanol</base-name>
             <var>msg</var>
         </resource-bundle>
+        
+       
         
      </application>
     
@@ -175,8 +177,9 @@
         <managed-bean-class>Beans.Beans_Fiscalizacion_Multas</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
         </managed-bean>
-        
-        
-        
-        
+    <managed-bean>
+        <managed-bean-name>beansRegistro_Informacion_Personal</managed-bean-name>
+        <managed-bean-class>Beans.BeansRegistro_Informacion_Personal</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>

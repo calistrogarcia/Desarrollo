@@ -16,277 +16,276 @@ and open the template in the editor.
     <h:body>
         <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
             <ui:define name="contenido"><!---Agregando Etiqueta de Titulo-->
-                <h:outputText value="#{msg.labelExpediente}"/> 
-  <p:tabView id="DocumentoTabView" dynamic="true" orientation="top" activeIndex="#{Bean_Tramite_Expediente.activeTabIndex}">             
-   
- 
-   <p:tab id="tab_Buscar_DocumentoOfi" title="Buscar" titletip="Buscar Documento" >
-     <!-- Formulario que permite la Busqueda  -->    
-     <h:form  id="form_busc_DocumentoOfi" class="border_titulo1"  style="text-align : justify;">    
-       <p:growl globalOnly="true"  id="estRegDocumento" sticky="false"  showDetail="true"  />    
-       <p:panel id="datBusDocumentoOfi" header="#{msg.LabelExpediente}" styleClass="border" style="text-align: center">
-            <!--Lista de Opciones de Ofina *25*04*17 **J**-->  
-  
-            <h:panelGrid columns="1"   >
-              
-                <div id="day" style="font-size: 12px">
-                    Usuario
-                    <p:clock  pattern="dd MMMM yy HH:mm:ss" mode="client" />                        
-    
-                </div>
-                
-             <br></br>   
-                
-            </h:panelGrid>
-           <!--   <center> -->
-           <div style="width: 1100px;">
                
-               <div style="float: left">
-                <h:panelGrid columns="2"  >
-                    <h:outputText value="#{msg.LabelConsultarExpediente}" />
-                    <h:panelGroup  style="">
-                                  <p:inputText  id="fechaI"
-                                                 required="true" requiredMessage="#{msg.labelObli}"
-                                                 maxlength="30" validatorMessage="#{msg.labelValidar}" 
-                                                 value="#{Bean_Tramite_Expediente.objBuscarDocumento.numero_Expediente}"
-                                   >  
-                                  <f:validateLength minimum="0" maximum="30"/>
-                                  </p:inputText>
-                                  <h:message for="fechaI" showDetail="false" showSummary="true"/>      
-                    </h:panelGroup>  
-                    
-                    
-                </h:panelGrid> 
-             </div>
-               
-            
-              
-             </div>    
-            <!--BLOC-->
-            
-            <br> 
-            
-            </br> 
-            
+                <p:tabView id="DocumentoTabView" dynamic="true" orientation="top" activeIndex="#{Bean_Tramite_Expediente.activeTabIndex}" styleClass="tamaño_fuente_tab">             
 
-           <h:panelGrid columns="3"  cellpadding="2"  cellspacing="2" style="text-align: center;" width="100%">
-                    <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{Bean_Tramite_Expediente.doiniciarBusquedaDocumento()}"  
-                                     value="#{msg.labelNuevo}" async="true" update="datBusDocumentoOfi"/>
-                    
-                    <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{Bean_Tramite_Expediente.doBuscarDocumento()}"  
-                                     value="#{msg.btnConsultar}" async="true" update="datBusDocumentoOfi"/>  
-            </h:panelGrid>
-             
-            
-              <p:blockUI block="datBusDocumentoOfi" trigger="saveBtn">   Buscando... <br />
-                               <p:graphicImage value="resources/imagenes/cargando1.gif" />   
-              </p:blockUI>
-            
-            
-                <br />
-            <center>
-                
-             <h:panelGrid columns="2" >
-                      <h:outputText styleClass="etiqueta_resultBusq" value="#{msg.labelCantidad}"/>
-                       <h:outputText styleClass="etiqueta_resultBusq" value="#{Bean_Tramite_Expediente.arrBusDocumento.size()}"/>               
-            </h:panelGrid> 
-          
-             <h:panelGrid columns="1"   cellpadding="0"  cellspacing="0" 
-                                                    border="0"  styleClass="width-table"> 
-         
-             <p:dataTable id="resListadoDocumento" value="#{Bean_Tramite_Expediente.arrBusDocumento}" var="listDocumento"  styleClass="order-table" paginator="true"
-                                                    rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" paginatorPosition="both" paginatorAlwaysVisible="true">
-            
-              
-                 <p:column style=" max-width: 1000px">
-                <f:facet name="header">
-                    <h:outputText value="#{msg.LabelFecha}" />
-                </f:facet>
-                  <h:outputText  value="#{listDocumento.fecha_ingreso_Expediente}"/>
-              </p:column>   
-                
-                 <p:column visible="false">
-                <f:facet name="header">
-                    <h:outputText value="#{msg.LabelHora}" />
-                </f:facet>
-                   <h:outputText  value="#{listDocumento.hora_ingreso_Expediente}"/>
-              </p:column>  
 
-              <p:column>
-                <f:facet name="header">
-                    <h:outputText value="#{msg.LabelTipoDocumento}" />
-                </f:facet>
-                  <h:outputText value="#{listDocumento.tipo_Expediente}"/>
-              </p:column> 
-                
-            <p:column>
-                <f:facet name="header">
-                <h:outputText value="#{msg.labelAsunto}" />
-                </f:facet>
-                <h:outputText  value="#{listDocumento.asunto_Expediente}"/>
-            </p:column>  
-               
-             <p:column  >
-                <f:facet name="header">
-                    <h:outputText value="#{msg.LabelCodigoRecurrente}" />
-                </f:facet>
-                 <h:outputText  value="#{listDocumento.codigo_recurrente}"/>
-            </p:column>  
-              
-              
-            <p:column  >
-                <f:facet name="header">
-                    <h:outputText value="#{msg.labelFolio}" />
-                </f:facet>
-                <h:outputText  value="#{listDocumento.numero_folios_Expediente}"/>
-            </p:column>  
-              
-              <p:column  >
-                <f:facet name="header">
-                    <h:outputText value="#{msg.LabelAreaDestino}" />
-                </f:facet>
-                  <h:outputText  value="#{listDocumento.area_destino_documento}"/>
-            
-            </p:column>    
-              
-           <p:column  >
-                <f:facet name="header">
-                    <h:outputText value="#{msg.LabelNumeroIdentidad}" />
-                </f:facet>
-               <h:outputText  value="#{listDocumento.numero_identidad_recurrente}"/>
-            
-            </p:column>  
-              
-            <p:column >
-                <f:facet name="header">
-                    <h:outputText value="#{msg.LabelTipoReferencia}" />
-                  </f:facet>
-                <h:outputText  value="#{listDocumento.tipo_referencia_Expediente}"/>
-            
-            </p:column>  
-            
+                    <p:tab id="tab_Buscar_DocumentoOfi" title="Buscar" titletip="Buscar Documento"  titleStyleClass="tamaño_fuente_tab" >
+                        <!-- Formulario que permite la Busqueda  -->    
+                        <h:form  id="form_busc_DocumentoOfi" class="border_titulo1"  style="text-align : justify;" styleClass="tamaño_fuente">    
+                            <p:growl globalOnly="true"  id="estRegDocumento" sticky="false"  showDetail="true"  />    
+                            <p:panel id="datBusDocumentoOfi" header="#{msg.LabelSeccionTramiteDocumentario}" styleClass="border" style="text-align: center">
+                                <!--Lista de Opciones de Ofina *25*04*17 ****-->  
 
-           <p:column >
-                <f:facet name="header">
-                    <h:outputText value="#{msg.LabelObservaciones}" />
-                  </f:facet>
-               <h:outputText  value="#{listDocumento.observaciones_Expediente}"/>
-            
-            </p:column>  
-              
-             <p:column >
-             <f:facet name="header">
-                 <h:outputText value="#{msg.FechaResuelto}" />
-                  </f:facet>
-                 <h:outputText  value="#{listDocumento.fecha_resuelto_Expediente}"/>
-            
-            </p:column> 
-              
-           <p:column  >
-             <f:facet name="header">
-                 <h:outputText value="#{msg.LabelNumeroRegistro}" />
-                  </f:facet>
-               <h:outputText  value="#{listDocumento.numero_registro_Expediente}"/>
-            
-            </p:column> 
-              
-            <p:column  >
-             <f:facet name="header">
-                 <h:outputText value="#{msg.LabelCantidadFolios}" />
-                  </f:facet>
-                <h:outputText  value="#{listDocumento.cantidad_folios_resuelto}"/>
-            
-            </p:column>  
-              
-           <p:column  >
-             <f:facet name="header">
-                 <h:outputText value="#{msg.LabelResultado}" />
-                  </f:facet>
-               <h:outputText  value="#{listDocumento.expediente_resuleve_tramite}"/>
-            
-            </p:column>      
-              
-  
-           <p:column  >
-             <f:facet name="header">
-                 <h:outputText value="#{msg.LabelObservaciones}" />
-                  </f:facet>
-               <h:outputText  value="#{listDocumento.observaciones_resultado_Expediente}"/>
-            
-            </p:column> 
-             
-          
-           <p:column style="width:32px;text-align: center">
-             <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="ui-icon-search" title="View">
-                <f:setPropertyActionListener value="#{car}" target="#{dtSelectionView.selectedCar}" />
-            </p:commandButton>
-           </p:column>
-                 
-                 
-               <!--  
-                 
-               <p:column exportable="false" >
-                                               
-                      <f:facet name="header">
-                         <center><h:outputText value="Editar"/></center>
-                               </f:facet>
-                             <p:commandLink id="editar" title="editar" actionListener="#{Beans_DefensaCivil_Documento.onClickBusq}" 
-                                                 value="Editar" action="#{Beans_DefensaCivil_Documento.modificarDocumento(listDocumento)}"  
-                                       async="true" update=":DocumentoTabView, :DocumentoTabView:form_mod_Documento"> 
-                                    <f:attribute name="param" value="#{2}" /> 
-                             </p:commandLink>                                                
-                                            
-                     </p:column>  
-              
-                 
-                     <p:column exportable="false"  >
-                       <center>
-                             <f:facet name="header">
-                             <h:outputText value="Imprimir Documento"/>
-                             </f:facet>
-                         
-                        
-                           <h:panelGrid columns="1">
-                              
-                               <img  src="resources/imagenes/printer.png" style="text-align: center"/>
-                                <h:commandLink id="reporte_certificado"  value="Documento" actionListener="#{BeanExpediente_Reporte.verReporteDefensaCivilDocumento()}" 
-                                               title="Documentos" style="text-align: center" />
-                              </h:panelGrid> 
-                       </center>
-                       
-                     </p:column>  
-              
-              
-              
-              
-                     <p:column exportable="false"  >
-                       <center>
-                             <f:facet name="header">
-                             <h:outputText value="Imprimir Resolucion"/>
-                             </f:facet>
-                         
-                        
-                           <h:panelGrid columns="1">
-                              
-                               <img  src="resources/imagenes/printer.png" style="text-align: center"/>
-                                <h:commandLink id="reporte_resolucion"  value="Resolucion" actionListener="#{BeanExpediente_Reporte.verReporteDefensaCivilResolucion()}" 
-                                               title="Resoluciones" style="text-align: center" />
-                              </h:panelGrid> 
-                       </center>
-                       
-                     </p:column>   -->
-              
-                   </p:dataTable>    
-                 </h:panelGrid>  
-               </center>
-              </p:panel>     
-            </h:form>
-          </p:tab>
-              
-  
-              </p:tabView>
+                                <h:panelGrid columns="1"   >
+
+                                    <div id="day" style="font-size: 12px">
+                                        Usuario
+                                        <p:clock  pattern="dd MMMM yy HH:mm:ss" mode="client" />                        
+
+                                    </div>
+
+                                    <br></br>   
+
+                                </h:panelGrid>
+                                <!--   <center> -->
+                                <div style="width: 1100px;">
+
+                                    <div style="float: left">
+                                        <h:panelGrid columns="2"  >
+                                            <h:outputText value="#{msg.LabelConsultarExpediente}" />
+                                            <h:panelGroup  style="">
+                                                <p:inputText  id="fechaI"
+                                                              required="true" requiredMessage="#{msg.labelObli}"
+                                                              maxlength="30" validatorMessage="#{msg.labelValidar}" 
+                                                              value="#{Bean_Tramite_Expediente.objBuscarDocumento.numero_Expediente}"
+                                                              >  
+                                                    <f:validateLength minimum="0" maximum="30"/>
+                                                </p:inputText>
+                                                <h:message for="fechaI" showDetail="false" showSummary="true"/>      
+                                            </h:panelGroup>  
+
+
+                                        </h:panelGrid> 
+                                    </div>
+
+
+
+                                </div>    
+                                <!--BLOC-->
+
+                                <br> 
+
+                                </br> 
+
+
+                                <h:panelGrid columns="3"  cellpadding="2"  cellspacing="2" style="text-align: center;" width="100%">
+                                    <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{Bean_Tramite_Expediente.doiniciarBusquedaDocumento()}"  
+                                                     value="#{msg.labelNuevo}" async="true" update="datBusDocumentoOfi"/>
+
+                                    <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{Bean_Tramite_Expediente.doBuscarDocumento()}"  
+                                                     value="#{msg.btnConsultar}" async="true" update="datBusDocumentoOfi"/>  
+                                </h:panelGrid>
+
+
+                                <p:blockUI block="datBusDocumentoOfi" trigger="saveBtn">   Buscando... <br />
+                                    <p:graphicImage value="resources/imagenes/cargando1.gif" />   
+                                </p:blockUI>
+
+
+                                <br />
+                                <center>
+
+                                    <h:panelGrid columns="2" >
+                                        <h:outputText styleClass="etiqueta_resultBusq" value="#{msg.labelCantidad}"/>
+                                        <h:outputText styleClass="etiqueta_resultBusq" value="#{Bean_Tramite_Expediente.arrBusDocumento.size()}"/>               
+                                    </h:panelGrid> 
+
+                                    <h:panelGrid columns="1"   cellpadding="0"  cellspacing="0" 
+                                                 border="0"  styleClass="width-table"> 
+
+                                        <p:dataTable id="resListadoDocumento" value="#{Bean_Tramite_Expediente.arrBusDocumento}" var="listDocumento"  styleClass="order-table" paginator="true"
+                                                     rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" paginatorPosition="both" paginatorAlwaysVisible="true">
+
+
+                                            <p:column style=" max-width: 1000px">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelFecha}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listDocumento.fecha_ingreso_Expediente}"/>
+                                            </p:column>   
+
+                                            <p:column visible="false">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelHora}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listDocumento.hora_ingreso_Expediente}"/>
+                                            </p:column>  
+
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelTipoDocumento}" />
+                                                </f:facet>
+                                                <h:outputText value="#{listDocumento.tipo_Expediente}"/>
+                                            </p:column> 
+
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.labelAsunto}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listDocumento.asunto_Expediente}"/>
+                                            </p:column>  
+
+                                            <p:column  >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelCodigoRecurrente}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listDocumento.codigo_recurrente}"/>
+                                            </p:column>  
+
+
+                                            <p:column  >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.labelFolio}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listDocumento.numero_folios_Expediente}"/>
+                                            </p:column>  
+
+                                            <p:column  >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelAreaDestino}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listDocumento.area_destino_documento}"/>
+
+                                            </p:column>    
+
+                                            <p:column  >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelNumeroIdentidad}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listDocumento.numero_identidad_recurrente}"/>
+
+                                            </p:column>  
+
+                                            <p:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelTipoReferencia}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listDocumento.tipo_referencia_Expediente}"/>
+
+                                            </p:column>  
+
+
+                                            <p:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelObservaciones}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listDocumento.observaciones_Expediente}"/>
+
+                                            </p:column>  
+
+                                            <p:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.FechaResuelto}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listDocumento.fecha_resuelto_Expediente}"/>
+
+                                            </p:column> 
+
+                                            <p:column  >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelNumeroRegistro}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listDocumento.numero_registro_Expediente}"/>
+
+                                            </p:column> 
+
+                                            <p:column  >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelCantidadFolios}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listDocumento.cantidad_folios_resuelto}"/>
+
+                                            </p:column>  
+
+                                            <p:column  >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelResultado}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listDocumento.expediente_resuleve_tramite}"/>
+
+                                            </p:column>      
+
+
+                                            <p:column  >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelObservaciones}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{listDocumento.observaciones_resultado_Expediente}"/>
+
+                                            </p:column> 
+
+                              <!-- 
+                                            <p:column style="width:32px;text-align: center">
+                                                <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="ui-icon-search" title="View">
+                                                    <f:setPropertyActionListener value="{car}" target="{dtSelectionView.selectedCar}" />
+                                                </p:commandButton>
+                                            </p:column>
+
+
+                                           
+                                              
+                                            <p:column exportable="false" >
+                                                                            
+                                                   <f:facet name="header">
+                                                      <center><h:outputText value="Editar"/></center>
+                                                            </f:facet>
+                                                          <p:commandLink id="editar" title="editar" actionListener="{Beans_DefensaCivil_Documento.onClickBusq}" 
+                                                                              value="Editar" action="{Beans_DefensaCivil_Documento.modificarDocumento(listDocumento)}"  
+                                                                    async="true" update=":DocumentoTabView, :DocumentoTabView:form_mod_Documento"> 
+                                                                 <f:attribute name="param" value="{2}" /> 
+                                                          </p:commandLink>                                                
+                                                                         
+                                                  </p:column>  
+                                           
+                                              
+                                                  <p:column exportable="false"  >
+                                                    <center>
+                                                          <f:facet name="header">
+                                                          <h:outputText value="Imprimir Documento"/>
+                                                          </f:facet>
+                                                      
+                                                     
+                                                        <h:panelGrid columns="1">
+                                                           
+                                                            <img  src="resources/imagenes/printer.png" style="text-align: center"/>
+                                                             <h:commandLink id="reporte_certificado"  value="Documento" actionListener="{BeanExpediente_Reporte.verReporteDefensaCivilDocumento()}" 
+                                                                            title="Documentos" style="text-align: center" />
+                                                           </h:panelGrid> 
+                                                    </center>
+                                                    
+                                                  </p:column>  
+                                           
+                                           
+                                           
+                                           
+                                                  <p:column exportable="false"  >
+                                                    <center>
+                                                          <f:facet name="header">
+                                                          <h:outputText value="Imprimir Resolucion"/>
+                                                          </f:facet>
+                                                      
+                                                     
+                                                        <h:panelGrid columns="1">
+                                                           
+                                                            <img  src="resources/imagenes/printer.png" style="text-align: center"/>
+                                                             <h:commandLink id="reporte_resolucion"  value="Resolucion" actionListener="{BeanExpediente_Reporte.verReporteDefensaCivilResolucion()}" 
+                                                                            title="Resoluciones" style="text-align: center" />
+                                                           </h:panelGrid> 
+                                                    </center>
+                                                    
+                                                  </p:column>   -->
+
+                                        </p:dataTable>    
+                                    </h:panelGrid>  
+                                </center>
+                            </p:panel>     
+                        </h:form>
+                    </p:tab>
+
+
+                </p:tabView>
             </ui:define>
         </ui:composition>
     </h:body>
 </html>
-      
