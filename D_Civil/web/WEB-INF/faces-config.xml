@@ -88,6 +88,13 @@
         <managed-bean-scope>request</managed-bean-scope>
        </managed-bean>
        
+       
+        <managed-bean>
+        <managed-bean-name>Postal</managed-bean-name>
+        <managed-bean-class>Modelo.Postal</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+       </managed-bean>
+       
    
    
         
@@ -178,7 +185,7 @@
         <managed-bean-scope>view</managed-bean-scope>
         </managed-bean>
     <managed-bean>
-        <managed-bean-name>beansRegistro_Informacion_Personal</managed-bean-name>
+        <managed-bean-name>BeansRegistro_Informacion_Personal</managed-bean-name>
         <managed-bean-class>Beans.BeansRegistro_Informacion_Personal</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>

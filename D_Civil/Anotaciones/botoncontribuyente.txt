@@ -1,0 +1,12 @@
+    <!--
+                                                <f:facet name="header">
+                                                    <center><h:outputText value="Editar"/></center>
+                                                </f:facet>  
+                                             
+                                              <p:commandButton  id="ed" icon="ui-icon-pencil" type="button" onclick="PF('dlg2').show();"  
+                                                                 actionListener="{BeansRegistro_Informacion_Personal.onClickBusq}" 
+                                                                 action="{BeansRegistro_Informacion_Personal.modificarContribuyente(lista_contribuyente)}"
+                                                                 async="true" update=":TabView_contribuyentes, :TabView_contribuyentes"/>
+                                                
+                                                  <f:attribute name="param" value="{2}" /> 
+                                         </p:column>  -->

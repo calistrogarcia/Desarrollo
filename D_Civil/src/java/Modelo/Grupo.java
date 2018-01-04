@@ -39,6 +39,7 @@ public class Grupo implements Serializable {
 
     public void setCodigo_grupo(String codigo_grupo) {
         this.codigo_grupo = codigo_grupo;
+        
     }
 
     public String getMedida_complementaria() {
@@ -83,6 +84,79 @@ public class Grupo implements Serializable {
         return arrayGrupo;
 
     }
+  
+  
+  public  ArrayList<SelectItem> getCargarTipoPersona() {
+
+        ArrayList<SelectItem> arrayTipoPersona = new ArrayList<SelectItem>();
+        Grupo obj = null;
+        Connection conexion = null;
+        ResultSet rs = null;
+        try {
+
+            conexion = Controlador_Sql.darConexionBD();
+            CallableStatement st = conexion.prepareCall("{call dbo.sp_java_tipo_persona()}");
+            rs = st.executeQuery();
+
+            if (rs.next()) {
+                do {
+                    arrayTipoPersona.add(new SelectItem(rs.getString("codigo_tipo_persona"), rs.getString("nombre_tipo_persona")));
+
+                } while (rs.next());
+
+            }
+            rs.close();
+            st.close();
+            conexion.close();
+
+        } catch (Exception error) {
+            System.out.println("Error en el metodo por: "
+                    + error.getMessage());
+            error.printStackTrace();
+        }
+
+        return arrayTipoPersona;
+
+    }
+  
+  
+  
+    
+  public  ArrayList<SelectItem> getCargarTipoDocumento() {
+
+        ArrayList<SelectItem> arrayTipoDocumento = new ArrayList<SelectItem>();
+        Grupo obj = null;
+        Connection conexion = null;
+        ResultSet rs = null;
+        try {
+
+            conexion = Controlador_Sql.darConexionBD();
+            CallableStatement st = conexion.prepareCall("{call dbo.sp_java_tipo_documento()}");
+            rs = st.executeQuery();
+
+            if (rs.next()) {
+                do {
+                    arrayTipoDocumento.add(new SelectItem(rs.getString("codigo_tipo_documento"), rs.getString("nombre_tipo_documento")));
+
+                } while (rs.next());
+
+            }
+            rs.close();
+            st.close();
+            conexion.close();
+
+        } catch (Exception error) {
+            System.out.println("Error en el metodo por: "
+                    + error.getMessage());
+            error.printStackTrace();
+        }
+
+        return arrayTipoDocumento;
+
+    }
+  
+  
+  
     
     
    

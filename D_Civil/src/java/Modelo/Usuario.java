@@ -22,6 +22,7 @@
         private int id_tipo_usuario;
         private String descripcion;
 
+      
 
         public int getId_usuario() {
                 return id_usuario;

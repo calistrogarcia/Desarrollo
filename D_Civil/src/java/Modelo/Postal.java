@@ -6,6 +6,11 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -33,6 +38,41 @@ public class Postal implements Serializable{
     }
     
    
+     public  ArrayList<SelectItem> getCargarPostal() {
+
+        ArrayList<SelectItem> arrayPostal = new ArrayList<SelectItem>();
+        Grupo obj = null;
+        Connection conexion = null;
+        ResultSet rs = null;
+        try {
+
+            conexion = Controlador_Sql.darConexionBD();
+            CallableStatement st = conexion.prepareCall("{call dbo.sp_java_postal()}");
+            rs = st.executeQuery();
+
+            if (rs.next()) {
+                do {
+                    arrayPostal.add(new SelectItem(rs.getString("codigo_postal"), rs.getString("nombre_postal")));
+
+                } while (rs.next());
+
+            }
+            rs.close();
+            st.close();
+            conexion.close();
+
+        } catch (Exception error) {
+            System.out.println("Error en el metodo por: "
+                    + error.getMessage());
+            error.printStackTrace();
+        }
+
+        return arrayPostal;
+
+    }
+  
+  
+  
     
     
 }

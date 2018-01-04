@@ -31,7 +31,7 @@ public class Direccion implements Serializable {
     private String bloque; 
     private String referencia;
     private String detalle_direccion;
-    
+    private String cuadra;
 
     
     public Direccion(){
@@ -180,6 +180,14 @@ public class Direccion implements Serializable {
 
     public void setDetalle_direccion(String detalle_direccion) {
         this.detalle_direccion = detalle_direccion;
+    }
+
+    public String getCuadra() {
+        return cuadra;
+    }
+
+    public void setCuadra(String cuadra) {
+        this.cuadra = cuadra;
     }
     
   

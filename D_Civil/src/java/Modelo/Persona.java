@@ -8,6 +8,8 @@ package Modelo;
 import java.io.Serializable;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -44,6 +46,15 @@ public class Persona implements Serializable {
     private String numero_celular_conjuge;
     private String correo_conyuge;
     private String observacion;
+    private String fecha_registro;
+    private String nombre_usuario_registro;
+    private String nombre_usuario_modificacion;
+    private String usuario_modificacion;
+    private String fecha_modificacion;
+    private String nombre_tipo_persona;
+    private String nombre_tipo_documento;
+   
+   
    
     private int edad;
     private String direccion_fiscal;
@@ -55,6 +66,66 @@ public class Persona implements Serializable {
     Area ObjArea = new Area();
 
    
+    
+    
+    public String getNombre_tipo_documento() {
+        return nombre_tipo_documento;
+    }
+
+    public void setNombre_tipo_documento(String nombre_tipo_documento) {
+        this.nombre_tipo_documento = nombre_tipo_documento;
+    }
+
+    
+    public String getNombre_tipo_persona() {
+        return nombre_tipo_persona;
+    }
+
+    public void setNombre_tipo_persona(String nombre_tipo_persona) {
+        this.nombre_tipo_persona = nombre_tipo_persona;
+    }
+
+    
+    public String getNombre_usuario_registro() {
+        return nombre_usuario_registro;
+    }
+
+    public void setNombre_usuario_registro(String nombre_usuario_registro) {
+        this.nombre_usuario_registro = nombre_usuario_registro;
+    }
+
+    public String getNombre_usuario_modificacion() {
+        return nombre_usuario_modificacion;
+    }
+
+    public void setNombre_usuario_modificacion(String nombre_usuario_modificacion) {
+        this.nombre_usuario_modificacion = nombre_usuario_modificacion;
+    }
+    
+    public String getFecha_modificacion() {
+        return fecha_modificacion;
+    }
+
+    public void setFecha_modificacion(String fecha_modificacion) {
+        this.fecha_modificacion = fecha_modificacion;
+    }
+
+    public String getFecha_registro() {
+        return fecha_registro;
+    }
+
+    public void setFecha_registro(String fecha_registro) {
+        this.fecha_registro = fecha_registro;
+    }
+
+    public String getUsuario_modificacion() {
+        return usuario_modificacion;
+    }
+
+    public void setUsuario_modificacion(String usuario_modificacion) {
+        this.usuario_modificacion = usuario_modificacion;
+    }
+
     
     public String getNumero_celular_representante() {
         return numero_celular_representante;
@@ -947,7 +1018,124 @@ public class Persona implements Serializable {
     }
 
     
+    public static ArrayList<Persona> BuscarContribuyente(Persona ObjBuscarContribuyente) {
+
+        ArrayList<Persona> arr = null;
+        ResultSet rs = null;
+        Persona obj = null;
+        Connection conexion = null;
+
+        try {
+            conexion = Controlador_Sql.darConexionBD();
+            conexion.setAutoCommit(false);
+            conexion = Controlador_Sql.darConexionBD();
+            CallableStatement st = conexion.prepareCall("{call sp_java_buscar_contribuyente(?)}");
+
+            if (ObjBuscarContribuyente.getCodigo_contribuyente() != null) {
+                if (ObjBuscarContribuyente.getCodigo_contribuyente().length() > 0) {
+                    st.setString(1, ObjBuscarContribuyente.getCodigo_contribuyente());
+
+                } else {
+                    st.setString(1, null);
+                }
+            } else {
+                st.setString(1, null);
+            }
+
+
+            rs = st.executeQuery();
+            if (rs.next()) {
+                arr = new ArrayList<Persona>();
+                do {
+
+                    obj = new Persona();
+
+                    obj.setCodigo_contribuyente(rs.getString("CCONTRI"));
+                    obj.setTipo_persona(rs.getString("CTIPPER"));
+                    obj.setTipo_documento(rs.getString("CTIPDOC"));
+                    obj.setNumero_documento(rs.getString("DTIPDOC"));
+                    obj.setApellido_paterno(rs.getString("DPATERN"));
+                    obj.setApellido_materno(rs.getString("DMATERN"));
+                    obj.setNombre_contribuyente(rs.getString("DNOMBRE"));
+                    obj.setNombres_apellidos(rs.getString("CNOMBRE"));
+                   
+                    Postal ObjPostal = new Postal();
+                    ObjPostal.setCodigo_postal(rs.getString("CPOSTAL"));
+                    ObjPostal.setNombre_postal(rs.getString("DPOSTAL"));
+                    
+                    Direccion ObjDireccion = new Direccion();
+                    
+                    ObjDireccion.setCodigo_via(rs.getString("CCODVIA")); 
+                    ObjDireccion.setTipo_habilitacion(rs.getString("DTIPURB"));
+                    ObjDireccion.setHabilitacion(rs.getString("DNOMURB"));
+                    ObjDireccion.setTipo_via(rs.getString("DTIPVIA"));
+                    ObjDireccion.setNombre_via(rs.getString("DNOMVIA"));
+                    ObjDireccion.setNumero(rs.getString("DNROFIS"));
+                    ObjDireccion.setNumero_departamento(rs.getString("DDEPFIS"));
+                    ObjDireccion.setNumero_interior(rs.getString("DINTFIS"));
+                    ObjDireccion.setLetra(rs.getString("DLETFIS"));
+                    ObjDireccion.setBloque(rs.getString("DBLOFIS"));
+                    ObjDireccion.setManzana(rs.getString("DMZAFIS"));
+                    ObjDireccion.setLote(rs.getString("DLOTFIS"));
+                    ObjDireccion.setReferencia(rs.getString("DREFERE"));
+                    ObjDireccion.setBloque(rs.getString("DBLOFIS"));
+                    ObjDireccion.setNombre_zona(rs.getString("DNOMZON"));
+                    ObjDireccion.setCuadra(rs.getString("CUADRA"));
+                    
+
+                    obj.setObjDireccion(ObjDireccion);
+                    
+                    obj.setNumero_telefono_contribuyente(rs.getString("DNUMTEL"));
+                    obj.setNumero_fax_contribuyente(rs.getString("DNUMFAX"));
+                    obj.setCorreo_contribuyente(rs.getString("DE_MAIL"));
+                    obj.setUsuario_registro(rs.getString("CUSUARI"));
+                    obj.setFecha_registro(rs.getString("F_FECHA"));
+                    obj.setUsuario_modificacion(rs.getString("CUSUMOD"));
+                    obj.setFecha_modificacion(rs.getString("FFECMOD"));
+                    obj.setHora_registro(rs.getString("D_HORAS"));
+                    obj.setUsuario_red(rs.getString("DUSURED"));
+                    obj.setFecha_nacimiento(rs.getString("FECNACI"));
+
+                    obj.setNombre_usuario_registro(rs.getString("DUSUARI"));
+                    obj.setNombre_usuario_modificacion(rs.getString("DUSUMOD"));
+                    obj.setNombre_tipo_persona(rs.getString("DTIPPER"));
+                    obj.setNombre_tipo_documento(rs.getString("DDOCUME"));
+                    obj.setNombre_representante(rs.getString("nombre_representante"));
+                    obj.setTipo_documento_representante(rs.getString("tipo_Doc_representante"));
+                    obj.setNumero_documento_representante(rs.getString("numero_doc_representante"));
+                    obj.setNumero_telefono_fijo_representante(rs.getString("fijo_representante"));
+                    obj.setNumero_celular_representante(rs.getString("cel_representante"));
+                    obj.setCorreo_representante(rs.getString("correo_representante"));
+                    obj.setNombre_conyuge(rs.getString("nombre_conyuge"));
+                    obj.setTipo_documento_conjuge(rs.getString("tipo_Doc_conyuge"));
+                    obj.setNumero_documento_conjuge(rs.getString("numero_Doc_conyuge"));
+                    obj.setNumero_telefono_conjuge(rs.getString("fijo_conyuge"));
+                    obj.setNumero_celular_conjuge(rs.getString("cel_conyuge"));
+                    obj.setCorreo_conyuge(rs.getString("correo_conyuge"));
+                    obj.setNumero_celular(rs.getString("dnumcelular"));
+                    obj.setDireccion_fiscal(rs.getString("direccion_fiscal"));
+                    
+                    
+                             
+
+                    arr.add(obj);
+
+                } while (rs.next());
+            }
+            st.execute();
+            // st.close();
+            conexion.setAutoCommit(true);
+            conexion.close();
+        } catch (Exception error) {
+            System.out.println("Error en el metodo por: " + error.getMessage());
+            error.printStackTrace();
+        }
+        return arr;
+    }
     
+   
+   
+   
     
     
 }

@@ -324,6 +324,15 @@ public class Prueba_SP {
     }
     
     
+    public static void buscarpersona() {
+
+       Persona c = new Persona();
+        c.setCodigo_contribuyente("327556");
+        
+        System.out.print(Persona.BuscarContribuyente(c).size());
+
+    }
+    
     
     
     
@@ -358,7 +367,8 @@ public class Prueba_SP {
        // detalle_cuenta();
        
        //buscarInfractor();
-       cargarAreas();
+      //cargarAreas();
+      buscarpersona();
     }
 
 }

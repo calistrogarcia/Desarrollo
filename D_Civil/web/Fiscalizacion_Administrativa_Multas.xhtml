@@ -19,29 +19,16 @@
                     <p:tab id="tab_multas_administrativas" title="Multas Administrativas" titletip="Multas Administrativas"  
                            titleStyleClass="tamaño_fuente_tab">
 
-                        <h:form  id="form_multas_administrativas" class="border_titulo1"  styleClass="tamaño_fuente">  
-
-                           
-         
-
- 
-                            
+                        <h:form  id="form_multas_administrativas" class="border_titulo1"  styleClass="tamaño_fuente">                            
                             <p:growl globalOnly="true"  id="growl_multas_administrativas" sticky="false"  showDetail="true"  />    
                            
-                            <p:panel id="panel_multas_administrativas" header="#{msg.LabelmultasAdministrativas}">
+                            <p:panel id="panel_multas_administrativas" header="#{msg.LabelmultasAdministrativas}" style=" text-align:  left">
 
                                 <br>
                                 </br>
 
                                 <p:fieldset   style="margin-bottom:20px;" >
-
-
-
-
-
                                     <center>
-
-
                                         <h:panelGrid columns="4" style="margin-bottom:20px" cellpadding="5">
 
 
@@ -49,8 +36,7 @@
 
                                                 <p:outputLabel for="consultar_multa" value="TIPO ACTO:" />
                                                 <p:selectOneRadio id="consultar_multa" value="#{Beans_Fiscalizacion_Multas.objMultaBusq.tipo_busqueda}"  layout="grid" columns="3" >
-
-
+                                                   
                                                     <f:selectItem itemLabel="Codigo" itemValue="1"  />
                                                     <f:selectItem itemLabel="Multa" itemValue="2" />
                                                     <f:selectItem itemLabel="Nombre" itemValue="3" />  <!-- Validar Datos --> 
@@ -230,9 +216,9 @@
 
                             <p:commandButton value="Registro" onclick="PF('dlg').show();" type="button" icon="ui-icon-extlink" />
 
-                            <p:dialog header="#{msg.LabelRegistroMultas}" widgetVar="dlg" 
+                            <p:dialog widgetVar="dlg" 
                                       closable="true" minimizable="true"  draggable="true" resizable="true" responsive="true"
-                                      closeOnEscape="true" footer="Municipalidad De San Martin de Porres" >  
+                                      closeOnEscape="true" footer="Municipalidad De San Martin de Porres"  styleClass="tamaño_fuente">  
 
                               <br>
                                 </br>
@@ -243,7 +229,7 @@
                          
                                 <br>
                                 </br>
-                            <p:panelGrid  styleClass="ui-responsive"> 
+                         <p:panelGrid  styleClass="ui-responsive"  > 
 
                                                       
                                  <h:panelGrid columns="5" cellspacing="1" cellpadding="1"  width="80%"   >                                 
@@ -1345,8 +1331,7 @@
                            
                                 <br>
                                 </br>
-                       
-                   
+  
                                 
                 </p:panelGrid>   
                                
@@ -1355,11 +1340,7 @@
 
                                <br>
                                 </br>
-                                
-                                
-                                       
-                             
-
+ 
                                 <h:panelGrid columns="3"  cellpadding="3"  cellspacing="6"  styleClass="panelColumns" columnClasses="labelOT, valueOT"  >
 
                                     <p:commandButton icon="ui-icon-triangle-1-w"  id="btncancelar"

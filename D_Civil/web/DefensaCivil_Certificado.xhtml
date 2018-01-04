@@ -22,11 +22,11 @@ and open the template in the editor.
                 <p:tabView id="CertificadoTabView" dynamic="true" orientation="top" activeIndex="#{Beans_DefensaCivil_Certificado.activeTabIndex}" style="text-align: left" >  
 
 
-                    <p:tab id="tab_Buscar_CertificadoOfi" title="Expediente Ipse" titletip="Buscar Certificado" titleStyleClass="tamaño_fuente_tab">
+                    <p:tab id="tab_Buscar_CertificadoOfi" title="Expediente Ipse" titletip="Buscar Certificado" titleStyleClass="tamaño_fuente_tab" >
                         <!-- Formulario que permite la Busqueda  -->    
                         <h:form  id="form_busc_CertificadoOfi" class="border_titulo1"  styleClass="tamaño_fuente">    
                             <p:growl globalOnly="true"  id="estRegCertificado" sticky="false"  showDetail="true"  />    
-                            <p:panel id="datBusCertificadoOfi" header="#{msg.LabelCertificado}"    >
+                            <p:panel id="datBusCertificadoOfi" header="#{msg.LabelCertificado}"  style=" text-align:  left"  >
                                 <!--Lista de Opciones de Ofina *25*04*17 **J**-->  
 
                                 <h:panelGrid columns="1"   >

@@ -25,17 +25,11 @@ and open the template in the editor.
                         <!-- Formulario que permite la Busqueda  -->    
                         <h:form  id="form_detalle_economico" class="border_titulo1"  styleClass="tamaño_fuente">    
                             <p:growl globalOnly="true"  id="growldetalle_economico" sticky="false"  showDetail="true"  />    
-                            <p:panel id="panel_detalle_economico" header="#{msg.LabelDetalleEconomico}" >
+                            <p:panel id="panel_detalle_economico" header="#{msg.LabelDetalleEconomico}" style=" text-align:  left" >
                                 <!--Lista de Opciones de Ofina *25*04*17 **J**-->  
-
-                                 
-                                
-                                <p:fieldset   style="margin-bottom:20px;" >
-                                    
-                               
-           
                  
-                                        
+                                <p:fieldset   style="margin-bottom:20px;" >
+  
                                        <h:panelGrid columns="2" cellpadding="5">
                                               <h:outputText value="#{msg.LabelEstadoTributo}"  style="margin-right:0px;"/>
                                         <h:panelGroup>                            
