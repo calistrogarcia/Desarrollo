@@ -38,6 +38,37 @@ and open the template in the editor.
      
 }
 
+.color_letra_licencia_cese{
+   
+     color: blue;
+     
+}
+
+.color_letra_licencia_vigente{
+   
+    color: #000000;
+     
+}
+
+
+.color_letra_licencia_anulado{
+   
+    color: #FF0000;
+     
+}
+
+.color_letra_licencia_revocatoria{
+   
+    color: green;
+     
+}
+
+
+.color_letra_licencia_improcedente{
+   
+    color: maroon;
+     
+}
 
 
 

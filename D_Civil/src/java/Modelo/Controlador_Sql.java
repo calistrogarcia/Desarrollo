@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
  * @author Calistro
  */
 
-
 public class Controlador_Sql {
 
     
@@ -33,7 +32,9 @@ public class Controlador_Sql {
     }
    
     public static Connection darConexionBD(){
+        
         Connection conexion = null;
+        
         try{
             Class.forName(driverJDBC);
             conexion = DriverManager.getConnection(getURLBD());
@@ -51,12 +52,14 @@ public class Controlador_Sql {
        
     
          Connection conexion = null;
+         
         try{
 
             System.out.println("Cadena de Conexion" + Controlador_Sql.getURLBD());
             conexion = Controlador_Sql.darConexionBD();
             System.out.println(conexion);
             System.out.println(conexion.getCatalog());
+            
             conexion.close();
         }catch(Exception error){
             System.out.println("Error por: " + error.getMessage());

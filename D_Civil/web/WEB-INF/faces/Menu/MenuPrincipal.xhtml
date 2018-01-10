@@ -11,16 +11,12 @@
     <head>
     </head>
     <body>
-        <ui:component >
+        <ui:composition >
             <h:form>
                 
-                <!--<lef>
-                <h:panelGrid id="users" cellpadding="4"  columns="2" >
-                   <h:outputLabel id="usuario" value="Usuario: " style=" text-align:  left"/>    
-                    <h:outputLabel id="user"  value="crgarcia"/>    
-                </h:panelGrid>
-                 
-                </lef> -->
+             
+             
+                            
  
                 <p:panelMenu style="width: auto;text-align: left; font: small serif"> 
 
@@ -30,6 +26,8 @@
                             <p:menuitem value="Registro Administrados"  style="margin-top:0"
                                          url="Registro_InformacionPersonal.jsf"  icon="ui-icon-zoomin">               
                              </p:menuitem>
+                           
+                        
                             
                         </p:submenu>
                     
@@ -141,13 +139,16 @@
                         
                         
                
-                        <p:submenu label="#{beanUsuario_Logeo.clase_usuario.descripcion}" icon="ui-icon-extlink">  
+                    <p:submenu label="#{beanUsuario_Logeo.clase_usuario.descripcion}"  icon="ui-icon-extlink"> 
                              <p:menuitem value="#{msg.LabelCerrar}" actionListener="#{beanUsuario_Logeo.salirSistema()}"/>                                   
                          </p:submenu>
 
                      </p:panelMenu>
  
             </h:form> 
-        </ui:component>
+        </ui:composition>
     </body>
 </html>
+
+
+ <!--label="{beanUsuario_Logeo.clase_usuario.id_tipo_usuario}"-->

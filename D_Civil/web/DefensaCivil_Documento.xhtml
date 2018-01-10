@@ -18,8 +18,8 @@ and open the template in the editor.
     <h:body>
         <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
             <ui:define name="contenido"><!---Agregando Etiqueta de Titulo-->
-                <h:outputText value="#{msg.LabelCertificado}"/> 
-                <p:tabView id="DocumentosTabView" dynamic="true" orientation="top" activeIndex="#{Beans_DefensaCivil_Certificado.activeTabIndex}">             
+              
+                <p:tabView id="DocumentosTabView" style=" text-align:  left" dynamic="true" orientation="top" activeIndex="#{Beans_DefensaCivil_Certificado.activeTabIndex}">             
 
                     <p:tab id="tab_certificados" title="Imprimir Resoluciones Ipse" titletip="Certificado" titleStyleClass="tamaño_fuente_tab" >
                         <!-- Formulario que permite la Busqueda  -->    
@@ -28,9 +28,19 @@ and open the template in the editor.
                             <p:panel id="datimprimirCertificados" header="#{msg.LabelCertificado}" 
                                      toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel_02" style="margin-bottom:20px; text-align:  left">
                                 <!--Lista de Opciones de Ofina *25*04*17 **J**-->  
+                                
+                                
+                                      
+                                        <img  src="resources/imagenes/ecologico.png" style="text-align: center" height="20px"/>
+                                        <h:outputText value="#{msg.LabelSensibilizacionEcologica}"  style=" color: green"  />
+                                   
+                                
+                                
                                 <center>
                                     <br>
                                     </br>
+                                    
+                               
 
                                     <h:panelGrid columns="2">
                                         <h:outputText value="#{msg.labelNroE}"/>
@@ -50,6 +60,8 @@ and open the template in the editor.
                                     <br></br>
 
                                 </center>
+                                
+                               
 
                                 <h:panelGrid columns="3" cellpadding="1"  cellspacing="1"  width="15%">
                                     <h:panelGrid columns="2">
@@ -151,6 +163,7 @@ and open the template in the editor.
                                 <h:panelGrid columns="3" cellpadding="2"  cellspacing="2"  width="10%">
 
                                     <h:panelGrid columns="2">
+                    
                                         <img src="resources/imagenes/printer.png"/>
                                         <h:commandLink id="reporte"  value="Imprimir" actionListener="#{BeanExpediente_Reporte.verReporteDefensaCivilCertificado()}" title="Certificados"/>
                                     </h:panelGrid> 
@@ -189,7 +202,7 @@ and open the template in the editor.
 
                                             <p:column >
                                                 <f:facet name="header">
-                                                    <h:outputText value="#{msg.labelRecurrente}" />
+                                                    <h:outputText value="#{msg.LabelNombres}" />
                                                 </f:facet>
                                                 <h:outputText  value="#{listarDocumento.contribuyente}"/>
                                             </p:column>   

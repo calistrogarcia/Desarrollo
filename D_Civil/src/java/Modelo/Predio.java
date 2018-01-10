@@ -14,8 +14,21 @@ import java.io.Serializable;
 public class Predio implements Serializable{
     
     private  String codigo_predio;
+    private  String direccion_predio;
+    private  String estado_predio;
 
    
+    
+    
+    public String getDireccion_predio() {
+        return direccion_predio;
+    }
+
+    public void setDireccion_predio(String direccion_predio) {
+        this.direccion_predio = direccion_predio;
+    }
+    
+
     
     public String getCodigo_predio() {
         return codigo_predio;
@@ -23,6 +36,14 @@ public class Predio implements Serializable{
 
     public void setCodigo_predio(String codigo_predio) {
         this.codigo_predio = codigo_predio;
+    }
+
+    public String getEstado_predio() {
+        return estado_predio;
+    }
+
+    public void setEstado_predio(String estado_predio) {
+        this.estado_predio = estado_predio;
     }
     
     

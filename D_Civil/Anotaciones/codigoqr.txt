@@ -1,0 +1,4 @@
+com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(
+new com.google.zxing.qrcode.QRCodeWriter().encode(
+$F{Numero_Certificado},
+com.google.zxing.BarcodeFormat.QR_CODE,300,300))

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -28,7 +29,10 @@ import utils.Mensaje;
 //@Named(value = "beanUsuario_Logeo")
 //@ViewScoped
 
-@ManagedBean
+@ManagedBean(name="beanUsuario_Logeo")
+//@SessionScoped
+
+//@SessionScoped
 
 public class BeanUsuario_Logeo {
 
@@ -37,8 +41,21 @@ public class BeanUsuario_Logeo {
    private boolean usuarioLogeado;
    private boolean flagPassIguales;
    private String  nombre_user;
-   private String  clave_user;   
+   private String  clave_user;  
+   private String  variable_nombre;
 
+  
+   
+   
+   
+   public String getVariable_nombre() {
+        return variable_nombre;
+    }
+
+    public void setVariable_nombre(String variable_nombre) {
+        this.variable_nombre = variable_nombre;
+    }
+   
     public boolean isUsuarioLogeado() {
         return usuarioLogeado;
     }
@@ -82,19 +99,26 @@ public class BeanUsuario_Logeo {
     
     
 
-    public String loginUsuario(){
+    public String loginUsuario() throws Exception{
       
      String outcome = null;       
         flagPassIguales=false;
         try{            
         FacesContext contex = FacesContext.getCurrentInstance();                                        
-            if(clase_usuario!=null){
+         
+        
+        if(clase_usuario!=null){
                 
                 clase_usuario=this.validar(this.nombre_user, encriptaCadenas.getStringMessageDigest(this.clave_user,encriptaCadenas.MD5));                
                
                 if(clase_usuario != null){          //  
-                   Mensaje.addMensajeInfo("Usuario logeado correctamente");
-                    usuarioLogeado = true; 
+                    
+                    
+                    variable_nombre=clase_usuario.getDescripcion();
+                    
+                    
+                   Mensaje.addMensajeInfo("Usuario logeado correctamente"); usuarioLogeado = true; 
+
                     contex.getExternalContext().getSessionMap().put("usuario",clase_usuario);                       
                     contex.getExternalContext().getSessionMap().put("isSesionAlive", usuarioLogeado);                                                                                         
                     outcome=Constantes.PAGE_INGRESO_JSF;                    
@@ -133,18 +157,27 @@ public class BeanUsuario_Logeo {
      
      ResultSet rs=null; 
      Connection conexion = null;
-     Usuario user=null;       
+     Usuario user=null;     
+     
+     
         try{               
            conexion = Controlador_Sql.darConexionBD();
             CallableStatement st = conexion.prepareCall ("{call dbo.sp_java_validarUsuario(?,?)}"); 
+            
             st.setString(1,us);                   
-            st.setString(2,pass);             
+            st.setString(2,pass);
+            
+            
             rs = st.executeQuery();
             if(rs.next()){
                 user = new Usuario();
-                user.setNombre_usuario(us);
-                user.setId_tipo_usuario(rs.getInt("id_tipo_usuario"));
-                user.setDescripcion(rs.getString("descripcion"));
+                
+               user.setNombre_usuario(us);
+               
+               user.setUsuario(rs.getString("usuario"));
+               user.setId_tipo_usuario(rs.getInt("id_tipo_usuario"));
+               user.setDescripcion(rs.getString("descripcion"));
+                
                 rs.close();                
                 conexion.close();                
             }
@@ -176,8 +209,7 @@ public class BeanUsuario_Logeo {
 public void validarSesion() {        
         FacesContext contex = FacesContext.getCurrentInstance();
         try {
-            if (contex.getExternalContext().getSessionMap().get("isSesionAlive") == null
-                    | contex.getExternalContext().getSessionMap().get("isSesionAlive").
+            if (contex.getExternalContext().getSessionMap().get("isSesionAlive") == null | contex.getExternalContext().getSessionMap().get("isSesionAlive").
                     toString().trim().equals("false")) {
                 contex.getExternalContext().redirect("login.jsf");
                 contex.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,  "Autenticacion", "El usuario No existe !!"));

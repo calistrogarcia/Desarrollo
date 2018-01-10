@@ -1,0 +1,13 @@
+Crear Pool Conexiones
+
+en el asadmin de glasfish
+--crear el pool 
+create-jdbc-connection-pool --datasourceclassname com.sqlserver.jdbc.jdbc4.optional.SqlserverSource PollConexion
+--crear el resource
+create-jdbc-connection --connectionpoolid PollConexion jdbc/sqlservercom
+
+jdbc:sqlserver://192.168.0.11:1433;databaseName=integralsmp
+jdbc:sqlserver://192.168.0.11:1433;databaseName=integralsmp
+
+
+DataSource Classname com.microsoft.sqlserver.jdbc.SQLServerConnectionPoolDataSource

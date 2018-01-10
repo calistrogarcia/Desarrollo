@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <head>
+    </head>
+    <body>
+        <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
+            <ui:define name="contenido">
+            
+        <p:growl globalOnly="true"  id="growl_contribuyente" sticky="false"  showDetail="true"  />    
+
+                        <h:form  id="form_contribuyente" class="border_titulo1"  styleClass="tamaño_fuente">  
+
+                            
+
+                                <br>
+                                </br>
+
+                                <p:fieldset   style="margin-bottom:20px;" >
+                                    <center>
+                                        <h:panelGrid columns="4" style="margin-bottom:20px" cellpadding="5">
+
+
+                                            <h:panelGrid columns="3"  cellspacing="3" >
+
+                                                <p:graphicImage url="resources/imagenes/contribuyente.png" height="25px"   />
+                                                <h:outputText value="#{msg.LabelCodigoRecurrente}" style=" font: small serif" />
+                                                <h:panelGroup>
+
+                                                    <p:autoComplete id="id_auto" value="#{BeansRegistro_Informacion_Personal.objContribuyenteBusq.codigo_contribuyente}"
+                                                                    completeMethod="#{BeansRegistro_Informacion_Personal.autoCompletarBusqueda}"
+                                                                    required="true" requiredMessage="#{msg.labelObli}"
+                                                                    maxlength="6" validatorMessage="#{msg.labelValidar}"   > 
+
+                                                        <f:validateLength minimum="0" maximum="6"/>
+                                                    </p:autoComplete>  
+                                                </h:panelGroup>
+                                            </h:panelGrid>  
+
+
+
+
+                                        </h:panelGrid>
+                                        <!--BLOC-->
+                                    </center>
+                                    <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3"  width="17%" >
+                                        <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{BeansRegistro_Informacion_Personal.doiniciarBusquedaContribuyente()}"  
+                                                         value="#{msg.labelNuevo}"  async="true" update="form_contribuyente" />
+                                        <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{BeansRegistro_Informacion_Personal.doBuscarContribuyente()}"  
+                                                         value="#{msg.btnConsultar}"  async="true" update="form_contribuyente" />  
+                                    </h:panelGrid>
+                                </p:fieldset>
+                            
+                                                        
+                             
+                                <center>
+                                    <h:panelGrid columns="2" >
+                                        <h:outputText styleClass="etiqueta_resultBusq" value="#{msg.labelCantidad}"/>
+                                        <h:outputText styleClass="etiqueta_resultBusq" value="#{BeansRegistro_Informacion_Personal.arrBusContribuyente.size()}"/>               
+                                    </h:panelGrid> 
+                                   
+                                </center>
+
+                                        
+                                            
+                                            <p:growl id="msgs" showDetail="true" />
+
+                                            <p:dataTable id="table_contribuyente" value="#{BeansRegistro_Informacion_Personal.arrBusContribuyente}" 
+                                                         var="lista_contribuyente"  styleClass="order-table" paginator="true"
+                                                         rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" 
+                                                         paginatorPosition="both" paginatorAlwaysVisible="true" >
+
+
+                                                <p:column style="width:3%;text-align: center">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{msg.LabelCodigoContribuyente}" />
+                                                    </f:facet>
+                                                    <h:outputText  value="#{lista_contribuyente.codigo_contribuyente}"/>
+                                                </p:column> 
+
+
+                                                <p:column style="width:6%;text-align: center">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{msg.LabelNombres}" />
+                                                    </f:facet>
+                                                    <h:outputText  value="#{lista_contribuyente.nombres_apellidos}"/>
+                                                </p:column>  
+
+                                                <p:column style="width:3%;text-align: center">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{msg.LabelDocumetoIdentidad}" />
+                                                    </f:facet>
+                                                    <h:outputText  value="#{lista_contribuyente.numero_documento}"/>
+                                                </p:column>
+
+                                                <p:column style="width:5%;text-align: center">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{msg.LabelFechaNacimiento}" />
+                                                    </f:facet>
+                                                    <h:outputText  value="#{lista_contribuyente.fecha_nacimiento}"/>
+                                                </p:column>
+
+                                                <p:column style="width:3%;text-align: center">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{msg.LabelNumeroCelular}" />
+                                                    </f:facet>
+                                                    <h:outputText  value="#{lista_contribuyente.numero_celular}"/>
+                                                </p:column>
+
+
+
+                                                <p:column style="width:4%;text-align: center">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{msg.LabelCorreo}" />
+                                                    </f:facet>
+                                                    <h:outputText  value="#{lista_contribuyente.correo_contribuyente}"/>
+                                                </p:column>
+
+
+                                                <p:column style="width:9%;text-align: center">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{msg.LabelDireccionFiscal}" />
+                                                    </f:facet>
+                                                    <h:outputText  value="#{lista_contribuyente.direccion_fiscal}"/>
+                                                </p:column>
+
+
+                                                <p:column  style="width:12%;text-align: center">
+
+                                                    <p:commandButton  id="btnSeleccionar"  update=":formUpdate"  oncomplete="PF('DialogoUsuario').show()"   icon="ui-icon-search"  title="Editar">
+
+                                                      
+                                                        <f:setPropertyActionListener  value="#{lista_contribuyente}" target="#{BeansRegistro_Informacion_Personal.seleccionado}" />
+
+                                                    </p:commandButton>
+
+                                                </p:column>
+                                            </p:dataTable> 
+
+                                          </h:form> 
+                                            
+                                            <h:form id="formUpdate">
+                                            <p:dialog header="Car Info" widgetVar="DialogoUsuario" modal="false" showEffect="fade" hideEffect="fade" resizable="false">
+                                                <p:outputPanel id="carDetail" style="text-align:center;">
+                                                    <h:panelGrid  columns="2"  columnClasses="label,value">
+                 
+                                                        
+                                                     <h:outputText value="Cod:" />
+                                                          <p:inputText id="ides" value="#{BeansRegistro_Informacion_Personal.seleccionado.codigo_contribuyente}" />
+                                                        
+                                                        <h:outputText value="Id:" />
+                                                      <p:inputText id="id" value="#{BeansRegistro_Informacion_Personal.seleccionado.apellido_materno}" />
+
+                                                     
+                                                    </h:panelGrid>
+                                                </p:outputPanel>
+                                            </p:dialog> 
+                                                
+                                            </h:form>   
+                            
+
+                   
+                        
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

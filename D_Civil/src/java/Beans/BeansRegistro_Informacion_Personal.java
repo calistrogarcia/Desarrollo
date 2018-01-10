@@ -6,6 +6,7 @@
 package Beans;
 
 import Modelo.Persona;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.faces.event.ActionEvent;
 import utils.Mensaje;
@@ -16,7 +17,7 @@ import org.primefaces.event.UnselectEvent;
  *
  * @author Administrador
  */
-public class BeansRegistro_Informacion_Personal {
+public class BeansRegistro_Informacion_Personal implements Serializable {
 
     private Persona objContribuyenteReg;
     private Persona objContribuyenteMod;

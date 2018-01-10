@@ -184,9 +184,15 @@
         <managed-bean-class>Beans.Beans_Fiscalizacion_Multas</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
         </managed-bean>
+        
     <managed-bean>
         <managed-bean-name>BeansRegistro_Informacion_Personal</managed-bean-name>
         <managed-bean-class>Beans.BeansRegistro_Informacion_Personal</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>BeansPromocion_Empresarial_Licencias</managed-bean-name>
+        <managed-bean-class>Beans.BeansPromocion_Empresarial_Licencias</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
 </faces-config>

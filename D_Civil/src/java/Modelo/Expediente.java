@@ -39,7 +39,7 @@ public class Expediente implements Serializable{
    
    private String ccorrel;
    private String ctipdoc;
-   private String dnumold; 
+   private String numero_expediente; 
    private Date ffecdoc;
    private String ffecdoc1;
    private String dhordoc;
@@ -481,13 +481,14 @@ public class Expediente implements Serializable{
         this.ctipdoc = ctipdoc;
     }
 
-    public String getDnumold() {
-        return dnumold;
+    public String getNumero_expediente() {
+        return numero_expediente;
     }
 
-    public void setDnumold(String dnumold) {
-        this.dnumold = dnumold;
+    public void setNumero_expediente(String numero_expediente) {
+        this.numero_expediente = numero_expediente;
     }
+
 
     public Date getFfecdoc() {
         return ffecdoc;
@@ -875,9 +876,9 @@ public class Expediente implements Serializable{
               st.setString(1, null);
           }
          
-          if(obj_t.getDnumold()!=null){/*Valido la informacion set*/
-                   if(obj_t.getDnumold().length()>0){
-                       st.setString(2,obj_t.getDnumold());
+          if(obj_t.getNumero_expediente()!=null){/*Valido la informacion set*/
+                   if(obj_t.getNumero_expediente().length()>0){
+                       st.setString(2,obj_t.getNumero_expediente());
                        
                    }else{
                     st.setString(2, null);
@@ -1471,7 +1472,7 @@ public class Expediente implements Serializable{
                     obj = new Expediente();
 
                     obj.setNro(rs.getString("nro"));
-                    obj.setDnumold(rs.getString("dnumold")); 
+                    obj.setNumero_expediente(rs.getString("dnumold")); 
                     obj.setCnombre(rs.getString("cnombre"));
                     obj.setDasunto(rs.getString("dasunto")); 
                     obj.setFfecdoc1(rs.getString("ffecdoc"));   
@@ -1549,7 +1550,7 @@ public class Expediente implements Serializable{
 
                     obj = new Expediente();
 
-                    obj.setDnumold(rs.getString("DNUMOLD")); 
+                    obj.setNumero_expediente(rs.getString("DNUMOLD")); 
                     obj.setCcontri(rs.getString("CCONTRI"));
                     obj.setDcontri(rs.getString("DCONTRI")); 
                     obj.setFfecenv(rs.getDate("FFECENV"));   
@@ -1685,7 +1686,7 @@ public class Expediente implements Serializable{
 
                     obj = new Expediente();
 
-                    obj.setDnumold(rs.getString("DNUMOLD")); 
+                    obj.setNumero_expediente(rs.getString("DNUMOLD")); 
                     obj.setFfecdoc1(rs.getString("FFECDOC"));
                     obj.setCasunto(rs.getString("CASUNTO")); 
                     obj.setDasunto(rs.getString("DASUNTO")); 
@@ -1758,7 +1759,7 @@ public class Expediente implements Serializable{
 
                     obj = new Expediente();
 
-                    obj.setDnumold(rs.getString("DNUMOLD")); 
+                    obj.setNumero_expediente(rs.getString("DNUMOLD")); 
                     obj.setCcontri(rs.getString("CCONTRI"));
                     obj.setDcontri(rs.getString("DCONTRI")); 
                     obj.setFfecenv(rs.getDate("FFECENV"));   
@@ -1833,7 +1834,7 @@ public class Expediente implements Serializable{
                     obj = new Expediente();
                     
                     obj.setFfecdoc1(rs.getString("FFECDOC"));
-                    obj.setDnumold(rs.getString("DNUMOLD"));
+                    obj.setNumero_expediente(rs.getString("DNUMOLD"));
                     obj.setXfecha1(rs.getString("XFECHA"));
                     obj.setC_hasta(rs.getString("C_HASTA")); 
                     obj.setFfecenv1(rs.getString("FFECENV"));  
@@ -1901,7 +1902,7 @@ public class Expediente implements Serializable{
                     obj = new Expediente();
                     
                     obj.setDtipdoc(rs.getString("dtipdoc"));
-                    obj.setDnumold(rs.getString("dnumold"));
+                    obj.setNumero_expediente(rs.getString("dnumold"));
                     obj.setFfecdoc1(rs.getString("ffecdoc"));
                     obj.setCnombre(rs.getString("drecurre")); 
                     obj.setnombre_area(rs.getString("dareact"));  
@@ -1979,7 +1980,7 @@ public class Expediente implements Serializable{
 
                     obj = new Expediente();
 
-                    obj.setDnumold(rs.getString("DNUMOLD")); 
+                    obj.setNumero_expediente(rs.getString("DNUMOLD")); 
                     obj.setFfecdoc1(rs.getString("FFECDOC"));
                     obj.setFfecrec1(rs.getString("FFECREC")); 
                     obj.setDnombre(rs.getString("DNOMBRE"));   
@@ -2141,7 +2142,7 @@ public class Expediente implements Serializable{
 
                     obj = new Expediente();
 
-                    obj.setDnumold(rs.getString("DNUMOLD")); 
+                    obj.setNumero_expediente(rs.getString("DNUMOLD")); 
                     obj.setFfecdoc1(rs.getString("FFECDOC"));
 //                    obj.setFfecdoc1(rs.getString("fecingr")); 
                     obj.setC_hasta(rs.getString("C_HASTA"));   
@@ -2307,7 +2308,7 @@ public class Expediente implements Serializable{
 
                     obj.setnombre_area(rs.getString("nombre_area")); 
                     obj.setCcorrel(rs.getString("CCORREL"));
-                    obj.setDnumold(rs.getString("DNUMOLD")); 
+                    obj.setNumero_expediente(rs.getString("DNUMOLD")); 
                     obj.setFfecdoc1(rs.getString("FFECDOC"));   
                     obj.setCcontri(rs.getString("CCONTRI"));
                     obj.setDnombre(rs.getString("DNOMBRE"));
@@ -2343,36 +2344,4 @@ public class Expediente implements Serializable{
     }
   
 
-//  public static ArrayList<Areas> getCargarAreas(){
-//      ArrayList<Areas> arr=null;
-//      Area obj=null;
-//      Connection conexion = null;
-//      ResultSet rs = null;
-//     try{
-//       conexion = Controlador_Sql.darConexionBD();
-//       CallableStatement st = null;
-//       st= conexion.prepareCall( "{call dbo.usp__java_lista_area()}");
-//        rs = st.executeQuery();
-//        if (rs.next()){
-//         arr= new ArrayList<Areas>();
-//         do{
-//              obj =new Area();
-//              obj.setCareas(rs.getString("CAREAS"));
-//              obj.setnombre_area(rs.getString("nombre_area"));
-//              obj.setNordens(rs.getString("NORDENS"));
-//
-//              arr.add(obj);
-//       } while (rs.next());
-//       }
-//
-//       rs.close();
-//       st.close();
-//       conexion.close();
-//       }catch(Exception error){
-//                     System.out.println("Error en el metodo por: " + error.getMessage());
-//                     error.printStackTrace();
-//                 }
-//        return arr;  
-//  }
-  
 }

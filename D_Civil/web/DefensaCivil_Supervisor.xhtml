@@ -12,7 +12,7 @@
         <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
             <ui:define name="contenido"><!--como esta es pagina hija de TemplatePagina se usa defina con el mismo nombre del insert de la plantilla -->
 
-                <p:tabView id="SupervisorTabView" dynamic="true" orientation="top" activeIndex="#{Beans_DefensaCivil_Supervisor.activeTabIndex}" >       
+                <p:tabView id="SupervisorTabView"  style=" text-align:  left" dynamic="true" orientation="top" activeIndex="#{Beans_DefensaCivil_Supervisor.activeTabIndex}" >       
 
                     <p:tab id="tab_registrar" title="#{msg.LabelRegistrosupervisor}" titleStyleClass="tamaño_fuente_tab" >   <!--para el bloque de registrar,quite el rendered-->  
                         <!--ingresando un formulario-->

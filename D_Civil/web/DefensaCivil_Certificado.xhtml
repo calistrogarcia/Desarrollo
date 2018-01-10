@@ -39,7 +39,8 @@ and open the template in the editor.
 
 
                                 </h:panelGrid> 
-
+                                
+  
                                 <center>
 
                                     <h:panelGrid columns="2"  >
@@ -128,9 +129,9 @@ and open the template in the editor.
                                                 <h:outputText  value="#{listCertificado.numero_identificacion}"/>
                                             </p:column>  
 
-                                            <p:column style="width:3%;text-align: center">
+                                            <p:column style="width:4%;text-align: center">
                                                 <f:facet name="header">
-                                                    <h:outputText value="#{msg.labelRecurrente}" />
+                                                    <h:outputText value="#{msg.LabelCodigoContribuyente}" />
                                                 </f:facet>
                                                 <h:outputText  value="#{listCertificado.contribuyente}"/>
                                             </p:column>   
@@ -144,7 +145,7 @@ and open the template in the editor.
 
 
 
-                                            <p:column filterBy="#{listCertificado.nro_expediente}" filterMatchMode="contains" style="width:7%;text-align: center">
+                                            <p:column filterBy="#{listCertificado.nro_expediente}" filterMatchMode="contains" style="width:9%;text-align: center">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.labelNroE}" />
                                                 </f:facet>
@@ -158,7 +159,7 @@ and open the template in the editor.
                                                 <h:outputText  value="#{listCertificado.asunto}"/>
                                             </p:column>  
 
-                                            <p:column style="width:3%;text-align: center">
+                                            <p:column style="width:6%;text-align: center">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.labelAreaDeclarada}" style="text-align: center"/>
                                                 </f:facet>
@@ -283,7 +284,7 @@ and open the template in the editor.
 
                                             </p:column>  
 
-                                            <p:column  >
+                                            <p:column   >
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.labelEstado}" />
                                                 </f:facet>
@@ -307,23 +308,7 @@ and open the template in the editor.
                                                 <h:outputText  value="#{listCertificado.area_verificada}"/>
 
                                             </p:column>
-                                            
-                                            
-                                            <p:column >
-                                                <f:facet name="header">
-                                                
-                                                </f:facet>
-                                                <h:outputText  value="#{listCertificado.objboton.estado_boton}">
-                                                 
-                                                  
-                                               
-                                                </h:outputText>
-
-                                            </p:column>
-
-
-
-
+      
                                             <p:column exportable="false" >
 
                                                 <f:facet name="header">

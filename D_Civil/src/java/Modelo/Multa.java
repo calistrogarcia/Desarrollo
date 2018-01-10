@@ -500,6 +500,7 @@ public class Multa implements Serializable {
         try {
             conexion = Controlador_Sql.darConexionBD();
             conexion.setAutoCommit(false);
+            
             conexion = Controlador_Sql.darConexionBD();
             CallableStatement st = conexion.prepareCall("{call sp_java_multas_administrativas(?,?)}");
 
@@ -576,7 +577,7 @@ public class Multa implements Serializable {
                     obj.setReclamo_expediente(rs.getString("crecexp"));
 
                     Usuario ObjUsuario = new Usuario();
-                    ObjUsuario.setUsuario(rs.getString("cusutra"));
+                    ObjUsuario.setNombre_usuario(rs.getString("cusutra"));
                     obj.setObjUsuario(ObjUsuario);
 
                     obj.setFecha_registro(rs.getString("dfectra"));
@@ -891,10 +892,10 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.ObjUsuario.getUsuario() != null) {
+            if (ObjEditarMulta.ObjUsuario.getNombre_usuario() != null) {
 
-                if (ObjEditarMulta.ObjUsuario.getUsuario().length() > 0) {
-                    st.setString(16, ObjEditarMulta.ObjUsuario.getUsuario());
+                if (ObjEditarMulta.ObjUsuario.getNombre_usuario().length() > 0) {
+                    st.setString(16, ObjEditarMulta.ObjUsuario.getNombre_usuario());
                 } else {
                     st.setString(16, null);
                 }
@@ -1444,10 +1445,10 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.ObjUsuario.getUsuario() != null) {
+            if (ObjRegistrar.ObjUsuario.getNombre_usuario() != null) {
 
-                if (ObjRegistrar.ObjUsuario.getUsuario().length() > 0) {
-                    st.setString(16, ObjRegistrar.ObjUsuario.getUsuario());
+                if (ObjRegistrar.ObjUsuario.getNombre_usuario().length() > 0) {
+                    st.setString(16, ObjRegistrar.ObjUsuario.getNombre_usuario());
                 } else {
                     st.setString(16, null);
                 }

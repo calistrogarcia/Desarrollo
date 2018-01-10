@@ -10,6 +10,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -53,6 +54,7 @@ public class Persona implements Serializable {
     private String fecha_modificacion;
     private String nombre_tipo_persona;
     private String nombre_tipo_documento;
+    private Date fecha_nacimientos;
    
    
    
@@ -65,8 +67,16 @@ public class Persona implements Serializable {
     Direccion ObjDireccion= new Direccion();
     Area ObjArea = new Area();
 
-   
     
+    
+    
+    public Date getFecha_nacimientos() {
+        return fecha_nacimientos;
+    }
+
+    public void setFecha_nacimientos(Date fecha_nacimientos) {
+        this.fecha_nacimientos = fecha_nacimientos;
+    }
     
     public String getNombre_tipo_documento() {
         return nombre_tipo_documento;
@@ -1017,7 +1027,6 @@ public class Persona implements Serializable {
         return true;
     }
 
-    
     public static ArrayList<Persona> BuscarContribuyente(Persona ObjBuscarContribuyente) {
 
         ArrayList<Persona> arr = null;
@@ -1063,6 +1072,9 @@ public class Persona implements Serializable {
                     ObjPostal.setCodigo_postal(rs.getString("CPOSTAL"));
                     ObjPostal.setNombre_postal(rs.getString("DPOSTAL"));
                     
+                    obj.setObjPostal(ObjPostal);
+                    
+                    
                     Direccion ObjDireccion = new Direccion();
                     
                     ObjDireccion.setCodigo_via(rs.getString("CCODVIA")); 
@@ -1094,7 +1106,7 @@ public class Persona implements Serializable {
                     obj.setFecha_modificacion(rs.getString("FFECMOD"));
                     obj.setHora_registro(rs.getString("D_HORAS"));
                     obj.setUsuario_red(rs.getString("DUSURED"));
-                    obj.setFecha_nacimiento(rs.getString("FECNACI"));
+                    obj.setFecha_nacimientos(rs.getDate("FECNACI"));
 
                     obj.setNombre_usuario_registro(rs.getString("DUSUARI"));
                     obj.setNombre_usuario_modificacion(rs.getString("DUSUMOD"));

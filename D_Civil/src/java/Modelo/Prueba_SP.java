@@ -212,7 +212,7 @@ public class Prueba_SP {
         m.setResolucion_anulacion("");
         m.setReclamo_expediente("");
         m.setEstado_multa("");
-        m.ObjUsuario.setUsuario("P25");
+   //     m.ObjUsuario.setUsuario("P25");
         m.setCodigo_sancion("");
         m.setDetalle_sanacion("");
         m.setObservacion("PROBANDOyy");
@@ -334,6 +334,18 @@ public class Prueba_SP {
     }
     
     
+     public static void BuscarLicenciaFuncionamiento() {
+
+       Licencia c = new Licencia();
+      
+        c.setTipo_busqueda("1");
+        c.setConsulta("111001");
+        
+        System.out.print(Licencia.BuscarLicenciaFuncionamiento(c).size());
+
+    }
+    
+    
     
     
 
@@ -368,7 +380,8 @@ public class Prueba_SP {
        
        //buscarInfractor();
       //cargarAreas();
-      buscarpersona();
+     // buscarpersona();
+      BuscarLicenciaFuncionamiento();
     }
 
 }
