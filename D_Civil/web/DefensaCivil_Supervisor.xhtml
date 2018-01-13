@@ -29,7 +29,7 @@
                             </h:panelGrid>
 
 
-                            <p:growl globalOnly="true" id="estRegSupervisor_01"   sticky="false"    showDetail="true"/>  <!--Habilitando Mensajes Por defecto-->
+                    <p:growl globalOnly="true" id="estRegSupervisor_01"   sticky="false"    showDetail="true"/>  <!--Habilitando Mensajes Por defecto-->
 
                             <p:dialog header="" widgetVar="dlg" resizable="false">
                                 <p:panel id="panel_registrar_inspector" header="#{msg.LabelRegistrosupervisor}" styleClass="tamaño_fuente" > 
@@ -104,7 +104,7 @@
                                         <h:outputText  value="#{msg.LabelTelefono}"/>           
                                         <p:inputMask id="telefono"  
 
-                                                     mask="99999999"  value="#{Beans_DefensaCivil_Supervisor.objSupervisorReg.telefono}"> 
+                                                      mask="(999) 999-9999" value="#{Beans_DefensaCivil_Supervisor.objSupervisorReg.telefono}"> 
                                         </p:inputMask>
 
 
@@ -407,7 +407,7 @@
 
                     <p:tab id="tab_Editar_inspector" title="Modificar" titletip="Modificar Inspector"  disabled="#{Beans_DefensaCivil_Supervisor.bandMod}" titleStyleClass="tamaño_fuente_tab" >
 
-                        <h:form  id="form_actualizar_inspector" class="border_titulo1" style="max-width: 70%; min-height: 50%" styleClass="tamaño_fuente" >
+                        <h:form  id="form_actualizar_inspector" class="border_titulo1" style="max-width: 40%; min-height: 50%" styleClass="tamaño_fuente" >
 
                             <p:growl globalOnly="true" id="growlActualizarInspector"   sticky="false"    showDetail="true"/> 
 
@@ -488,7 +488,7 @@
                                     <h:outputText  value="#{msg.LabelTelefono}"/>           
                                     <p:inputMask id="telefono_1"  
 
-                                                 mask="9999999"  value="#{Beans_DefensaCivil_Supervisor.objSupervisorMod.telefono}"> 
+                                                mask="(999) 999-9999"  value="#{Beans_DefensaCivil_Supervisor.objSupervisorMod.telefono}"> 
                                     </p:inputMask>
 
 

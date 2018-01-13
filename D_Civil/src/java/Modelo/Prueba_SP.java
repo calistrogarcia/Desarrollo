@@ -344,7 +344,31 @@ public class Prueba_SP {
         System.out.print(Licencia.BuscarLicenciaFuncionamiento(c).size());
 
     }
+     
+     
+     
+     public static void BuscarSancion() {
+
+       Multa c = new Multa();
+      
+       c.setTipo_busqueda_sancion("1");
+       c.setConsulta_sancion("GDU482");
+        
+        System.out.print(Multa.BuscarInfraccionSancion(c).size());
+
+    }
     
+     
+       public static void Reporte_Expedientes_Fechas(){
+
+       Expediente e = new Expediente();
+//      
+//      e.setX("2016-01-01");
+//      e.setY("2016-12-31");
+        
+        System.out.print(Expediente.BuscaReporteExpedientesPorFecha(e).size());
+
+    }
     
     
     
@@ -381,7 +405,12 @@ public class Prueba_SP {
        //buscarInfractor();
       //cargarAreas();
      // buscarpersona();
-      BuscarLicenciaFuncionamiento();
+     //  BuscarLicenciaFuncionamiento();
+    
+     //  BuscarSancion();
+     
+     Reporte_Expedientes_Fechas();
+            
     }
 
 }

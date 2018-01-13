@@ -9,6 +9,7 @@
 package Modelo;
 
 import java.io.Serializable;
+import Modelo.Persona;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.util.Date;
@@ -27,31 +28,26 @@ import java.text.ParseException;
  */
 public class Expediente implements Serializable{
     
+  
    private String estado =null;
    private Date fecha_inicio;
    private Date fecha_fin;
-   
-   
-   
-   
-   private Date fecha_inicial;
-   private Date fecha_final;
-   
-   private String ccorrel;
-   private String ctipdoc;
+   private String area_inicio;
+   private String area_final;
+   private String correlativo_expediente;
+   private String tipo_documento;
    private String numero_expediente; 
-   private Date ffecdoc;
-   private String ffecdoc1;
-   private String dhordoc;
-   private int nfolios;
-   private String ccontri;
-   private String casunto;
-   private int ndiatra;
-   private Date fresuel;
-   private String observa;
+   private Date fecha_presentacion_expediente;
+   private String fecha_presentacion_expediente1;
+   private String hora_expediente;
+   private int numero_folios;
+   private String codigo_contribuyente;
+   private String asunto_expediente;
+   private int dias_tupa;
+   private Date fecha_expediente_resuelto;
    private Date ffintra;
    private String dnrodoc;
-   private String cestado;
+   private String estado_expediente;
    private  byte limpres;
    private String cusumod;
    private String cusuari;
@@ -66,10 +62,10 @@ public class Expediente implements Serializable{
    private String drefere;
    private String dmotanu;
    private String fpassok;
-   private String ccorreltmp;
+   private String correlativo_expedientetmp;
    private String dnumoldtmp;
    private String nregistro;
-   private String nobsevres;
+   private String observacion;
    //06-04-17 *J*
    private String ndocume;
    private String dcontri;
@@ -130,355 +126,96 @@ public class Expediente implements Serializable{
   private String dusrenv;
   private String dusrrec;
   
-  
+    
   private String nresuel;
   private int ntramit;
-  
+  private String fecha_resuelto_expediente_reporte;
+ 
 
-
-  public Date getFecha_inicial() {
-        return fecha_inicial;
-    }
-
-    public void setFecha_inicial(Date fecha_inicial) {
-        this.fecha_inicial = fecha_inicial;
-    }
-
-    public Date getFecha_final() {
-        return fecha_final;
-    }
-
-    public void setFecha_final(Date fecha_final) {
-        this.fecha_final = fecha_final;
-    }
-
-  
-  public String getNresuel() {
-        return nresuel;
-    }
-
-    public void setNresuel(String nresuel) {
-        this.nresuel = nresuel;
-    }
+ 
+  Persona ObjPersona = new Persona();
 
    
 
-    public int getNtramit() {
-        return ntramit;
+    public String getArea_inicio() {
+        return area_inicio;
     }
 
-    public void setNtramit(int ntramit) {
-        this.ntramit = ntramit;
+    public void setArea_inicio(String area_inicio) {
+        this.area_inicio = area_inicio;
+    }
+
+    public String getArea_final() {
+        return area_final;
+    }
+
+    public void setArea_final(String area_final) {
+        this.area_final = area_final;
     }
   
-  
-
-    public String getDusrenv() {
-        return dusrenv;
+  public void setAsunto_expediente(String asunto_expediente) {
+        this.asunto_expediente = asunto_expediente;
     }
 
-    public void setDusrenv(String dusrenv) {
-        this.dusrenv = dusrenv;
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
     }
 
-    public String getDusrrec() {
-        return dusrrec;
-    }
-
-    public void setDusrrec(String dusrrec) {
-        this.dusrrec = dusrrec;
-    }
-  
-
-    public String getXtecreci() {
-        return xtecreci;
-    }
-
-    public void setXtecreci(String xtecreci) {
-        this.xtecreci = xtecreci;
-    }
- 
-    public int getEdt() {
-        return edt;
-    }
-
-    public void setEdt(int edt) {
-        this.edt = edt;
-    }
-
-    public String getDdocdrv() {
-        return ddocdrv;
-    }
-
-    public void setDdocdrv(String ddocdrv) {
-        this.ddocdrv = ddocdrv;
-    }
-
-    public String getXcodtecn() {
-        return xcodtecn;
-    }
-
-    public void setXcodtecn(String xcodtecn) {
-        this.xcodtecn = xcodtecn;
-    }
-  
-    public String getMmotobs() {
-        return mmotobs;
-    }
-
-    public void setMmotobs(String mmotobs) {
-        this.mmotobs = mmotobs;
-    }
- 
-    public String getHorrecexp() {
-        return horrecexp;
-    }
-
-    public void setHorrecexp(String horrecexp) {
-        this.horrecexp = horrecexp;
-    }
-  
-    public String getXtecnico() {
-        return xtecnico;
-    }
-
-    public void setXtecnico(String xtecnico) {
-        this.xtecnico = xtecnico;
-    }
-  
-    public String getNorden() {
-        return norden;
-    }
-
-    public void setNorden(String norden) {
-        this.norden = norden;
-    }
-
-    public String getNrpendi() {
-        return nrpendi;
-    }
-
-    public void setNrpendi(String nrpendi) {
-        this.nrpendi = nrpendi;
-    }
-
-    public String getNrrecep() {
-        return nrrecep;
-    }
-
-    public void setNrrecep(String nrrecep) {
-        this.nrrecep = nrrecep;
-    }
-
-    public String getC_hasta_Deriva() {
-        return c_hasta_Deriva;
-    }
-
-    public void setC_hasta_Deriva(String c_hasta_Deriva) {
-        this.c_hasta_Deriva = c_hasta_Deriva;
-    }
-
-    public String getDusuari_deriva() {
-        return dusuari_deriva;
-    }
-
-    public void setDusuari_deriva(String dusuari_deriva) {
-        this.dusuari_deriva = dusuari_deriva;
-    }
-
-    public String getXfecha1() {
-        return xfecha1;
-    }
-
-    public void setXfecha1(String xfecha1) {
-        this.xfecha1 = xfecha1;
-    }
-
-    public String getCareas1() {
+   public String getCareas1() {
         return careas1;
     }
 
     public void setCareas1(String careas1) {
         this.careas1 = careas1;
     }
- 
-    public String getOpcion() {
-        return opcion;
+
+    public Persona getObjPersona() {
+        return ObjPersona;
     }
 
-    public void setOpcion(String opcion) {
-        this.opcion = opcion;
-    }
-  
-    public String getFfecrec1() {
-        return ffecrec1;
-    }
-
-    public void setFfecrec1(String ffecrec1) {
-        this.ffecrec1 = ffecrec1;
-    }
-
-    public String getC_desde() {
-        return c_desde;
-    }
-
-    public void setC_desde(String c_desde) {
-        this.c_desde = c_desde;
+    public void setObjPersona(Persona ObjPersona) {
+        this.ObjPersona = ObjPersona;
     }
 
 
-    public int getFlagimp() {
-        return flagimp;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setFlagimp(int flagimp) {
-        this.flagimp = flagimp;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
-    public String getNordens() {
-        return nordens;
+    public Date getFecha_inicio() {
+        return fecha_inicio;
     }
 
-    public void setNordens(String nordens) {
-        this.nordens = nordens;
+    public void setFecha_inicio(Date fecha_inicio) {
+        this.fecha_inicio = fecha_inicio;
     }
 
-    public String getFfecenv1() {
-        return ffecenv1;
+    public Date getFecha_fin() {
+        return fecha_fin;
     }
 
-    public void setFfecenv1(String ffecenv1) {
-        this.ffecenv1 = ffecenv1;
+    public void setFecha_fin(Date fecha_fin) {
+        this.fecha_fin = fecha_fin;
     }
 
- //27-04-17**J**
-
-    public String getC_hasta() {
-        return c_hasta;
+    public String getCorrelativo_expediente() {
+        return correlativo_expediente;
     }
 
-    public void setC_hasta(String c_hasta) {
-        this.c_hasta = c_hasta;
-    }
- 
-    public String getCnombre() {
-        return cnombre;
+    public void setCorrelativo_expediente(String correlativo_expediente) {
+        this.correlativo_expediente = correlativo_expediente;
     }
 
-    public void setCnombre(String cnombre) {
-        this.cnombre = cnombre;
+    public String getTipo_documento() {
+        return tipo_documento;
     }
 
-    public String getD_hasta() {
-        return d_hasta;
-    }
-
-    public void setD_hasta(String d_hasta) {
-        this.d_hasta = d_hasta;
-    }
-
-    public String getDtipdoc() {
-        return dtipdoc;
-    }
-
-    public void setDtipdoc(String dtipdoc) {
-        this.dtipdoc = dtipdoc;
-    }
-
-    public Date getFfecrec() {
-        return ffecrec;
-    }
-
-    public void setFfecrec(Date ffecrec) {
-        this.ffecrec = ffecrec;
-    }
-
-    public String getDestado() {
-        return destado;
-    }
-
-    public void setDestado(String destado) {
-        this.destado = destado;
-    }
-
-    public String getNro() {
-        return nro;
-    }
-
-    public void setNro(String nro) {
-        this.nro = nro;
-    }
-
-    public String getFfecdoc1() {
-        return ffecdoc1;
-    }
-
-    public void setFfecdoc1(String ffecdoc1) {
-        this.ffecdoc1 = ffecdoc1;
-    }
-  //----
-    public String getNdocume() {
-        return ndocume;
-    }
-
-    public void setNdocume(String ndocume) {
-        this.ndocume = ndocume;
-    }
-
-    public String getDcontri() {
-        return dcontri;
-    }
-
-    public void setDcontri(String dcontri) {
-        this.dcontri = dcontri;
-    }
-
-    public String getDoficin() {
-        return doficin;
-    }
-
-    public void setDoficin(String doficin) {
-        this.doficin = doficin;
-    }
-
-    public String getCanexo() {
-        return canexo;
-    }
-
-    public void setCanexo(String canexo) {
-        this.canexo = canexo;
-    }
-
-    public String getDasunto() {
-        return dasunto;
-    }
-
-    public void setDasunto(String dasunto) {
-        this.dasunto = dasunto;
-    }
-
-    public Date getDfecdoc() {
-        return dfecdoc;
-    }
-
-    public void setDfecdoc(Date dfecdoc) {
-        this.dfecdoc = dfecdoc;
-    }
-
-    public String getCcorrel() {
-        return ccorrel;
-    }
-
-    public void setCcorrel(String ccorrel) {
-        this.ccorrel = ccorrel;
-    }
-
-    public String getCtipdoc() {
-        return ctipdoc;
-    }
-
-    public void setCtipdoc(String ctipdoc) {
-        this.ctipdoc = ctipdoc;
+    public void setTipo_documento(String tipo_documento) {
+        this.tipo_documento = tipo_documento;
     }
 
     public String getNumero_expediente() {
@@ -489,69 +226,68 @@ public class Expediente implements Serializable{
         this.numero_expediente = numero_expediente;
     }
 
-
-    public Date getFfecdoc() {
-        return ffecdoc;
+    public Date getFecha_presentacion_expediente() {
+        return fecha_presentacion_expediente;
     }
 
-    public void setFfecdoc(Date ffecdoc) {
-        this.ffecdoc = ffecdoc;
+    public void setFecha_presentacion_expediente(Date fecha_presentacion_expediente) {
+        this.fecha_presentacion_expediente = fecha_presentacion_expediente;
     }
 
-    public String getDhordoc() {
-        return dhordoc;
+    public String getFecha_presentacion_expediente1() {
+        return fecha_presentacion_expediente1;
     }
 
-    public void setDhordoc(String dhordoc) {
-        this.dhordoc = dhordoc;
+    public void setFecha_presentacion_expediente1(String fecha_presentacion_expediente1) {
+        this.fecha_presentacion_expediente1 = fecha_presentacion_expediente1;
     }
 
-    public int getNfolios() {
-        return nfolios;
+    public String getHora_expediente() {
+        return hora_expediente;
     }
 
-    public void setNfolios(int nfolios) {
-        this.nfolios = nfolios;
+    public void setHora_expediente(String hora_expediente) {
+        this.hora_expediente = hora_expediente;
     }
 
-    public String getCcontri() {
-        return ccontri;
+    public int getNumero_folios() {
+        return numero_folios;
     }
 
-    public void setCcontri(String ccontri) {
-        this.ccontri = ccontri;
+    public void setNumero_folios(int numero_folios) {
+        this.numero_folios = numero_folios;
     }
 
-    public String getCasunto() {
-        return casunto;
+    public String getCodigo_contribuyente() {
+        return codigo_contribuyente;
     }
 
-    public void setCasunto(String casunto) {
-        this.casunto = casunto;
+    public void setCodigo_contribuyente(String codigo_contribuyente) {
+        this.codigo_contribuyente = codigo_contribuyente;
     }
 
-    public int getNdiatra() {
-        return ndiatra;
+    public String getAsunto_expediente() {
+        return asunto_expediente;
     }
 
-    public void setNdiatra(int ndiatra) {
-        this.ndiatra = ndiatra;
+    public void setCasunto(String asunto_expediente) {
+        this.asunto_expediente = asunto_expediente;
     }
 
-    public Date getFresuel() {
-        return fresuel;
+    public int getDias_tupa() {
+        return dias_tupa;
     }
 
-    public void setFresuel(Date fresuel) {
-        this.fresuel = fresuel;
+    public void setDias_tupa(int dias_tupa) {
+        this.dias_tupa = dias_tupa;
     }
 
-    public String getObserva() {
-        return observa;
+    public Date getFecha_expediente_resuelto() {
+        return fecha_expediente_resuelto;
     }
 
-    public void setObserva(String observa) {
-        this.observa = observa;
+    public void setFecha_expediente_resuelto(Date fecha_expediente_resuelto) {
+        this.fecha_expediente_resuelto = fecha_expediente_resuelto;
     }
 
     public Date getFfintra() {
@@ -570,12 +306,12 @@ public class Expediente implements Serializable{
         this.dnrodoc = dnrodoc;
     }
 
-    public String getCestado() {
-        return cestado;
+    public String getEstado_expediente() {
+        return estado_expediente;
     }
 
-    public void setCestado(String cestado) {
-        this.cestado = cestado;
+    public void setEstado_expediente(String estado_expediente) {
+        this.estado_expediente = estado_expediente;
     }
 
     public byte getLimpres() {
@@ -690,12 +426,12 @@ public class Expediente implements Serializable{
         this.fpassok = fpassok;
     }
 
-    public String getCcorreltmp() {
-        return ccorreltmp;
+    public String getCorrelativo_expedientetmp() {
+        return correlativo_expedientetmp;
     }
 
-    public void setCcorreltmp(String ccorreltmp) {
-        this.ccorreltmp = ccorreltmp;
+    public void setCorrelativo_expedientetmp(String correlativo_expedientetmp) {
+        this.correlativo_expedientetmp = correlativo_expedientetmp;
     }
 
     public String getDnumoldtmp() {
@@ -714,54 +450,117 @@ public class Expediente implements Serializable{
         this.nregistro = nregistro;
     }
 
-    public String getNobsevres() {
-        return nobsevres;
+    public String getObservacion() {
+        return observacion;
     }
 
-    public void setNobsevres(String nobsevres) {
-        this.nobsevres = nobsevres;
+    public void setObservacioncion(String observacion) {
+        this.observacion = observacion;
     }
 
-    public String getEstado() {
-        return estado;
+    public String getNdocume() {
+        return ndocume;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setNdocume(String ndocume) {
+        this.ndocume = ndocume;
     }
 
-    public Date getFecha_inicio() {
-        return fecha_inicio;
+    public String getDcontri() {
+        return dcontri;
     }
 
-    public void setFecha_inicio(Date fecha_inicio) {
-        this.fecha_inicio = fecha_inicio;
+    public void setDcontri(String dcontri) {
+        this.dcontri = dcontri;
     }
 
-    public Date getFecha_fin() {
-        return fecha_fin;
+    public String getDoficin() {
+        return doficin;
     }
 
-    public void setFecha_fin(Date fecha_fin) {
-        this.fecha_fin = fecha_fin;
+    public void setDoficin(String doficin) {
+        this.doficin = doficin;
     }
 
-    public String getId_area() {
-        return id_area;
+    public String getCanexo() {
+        return canexo;
     }
 
-    public void setId_area(String id_area) {
-        this.id_area = id_area;
+    public void setCanexo(String canexo) {
+        this.canexo = canexo;
     }
 
-    public String getNombre_area() {
-        return nombre_area;
+    public String getDasunto() {
+        return dasunto;
     }
 
-    public void setNombre_area(String nombre_area) {
-        this.nombre_area = nombre_area;
+    public void setDasunto(String dasunto) {
+        this.dasunto = dasunto;
     }
-  
+
+    public Date getDfecdoc() {
+        return dfecdoc;
+    }
+
+    public void setDfecdoc(Date dfecdoc) {
+        this.dfecdoc = dfecdoc;
+    }
+
+    public String getCnombre() {
+        return cnombre;
+    }
+
+    public void setCnombre(String cnombre) {
+        this.cnombre = cnombre;
+    }
+
+    public String getD_hasta() {
+        return d_hasta;
+    }
+
+    public void setD_hasta(String d_hasta) {
+        this.d_hasta = d_hasta;
+    }
+
+    public String getDtipdoc() {
+        return dtipdoc;
+    }
+
+    public void setDtipdoc(String dtipdoc) {
+        this.dtipdoc = dtipdoc;
+    }
+
+    public Date getFfecrec() {
+        return ffecrec;
+    }
+
+    public void setFfecrec(Date ffecrec) {
+        this.ffecrec = ffecrec;
+    }
+
+    public String getFfecrec1() {
+        return ffecrec1;
+    }
+
+    public void setFfecrec1(String ffecrec1) {
+        this.ffecrec1 = ffecrec1;
+    }
+
+    public String getDestado() {
+        return destado;
+    }
+
+    public void setDestado(String destado) {
+        this.destado = destado;
+    }
+
+    public String getNro() {
+        return nro;
+    }
+
+    public void setNro(String nro) {
+        this.nro = nro;
+    }
 
     public Date getFfecenv() {
         return ffecenv;
@@ -769,6 +568,14 @@ public class Expediente implements Serializable{
 
     public void setFfecenv(Date ffecenv) {
         this.ffecenv = ffecenv;
+    }
+
+    public String getFfecenv1() {
+        return ffecenv1;
+    }
+
+    public void setFfecenv1(String ffecenv1) {
+        this.ffecenv1 = ffecenv1;
     }
 
     public String getCaredes() {
@@ -786,13 +593,37 @@ public class Expediente implements Serializable{
     public void setDaredes(String daredes) {
         this.daredes = daredes;
     }
-//28-04-17 **J**
-    public String getCareas() {
+
+    public String getC_hasta() {
+        return c_hasta;
+    }
+
+    public void setC_hasta(String c_hasta) {
+        this.c_hasta = c_hasta;
+    }
+
+    public String getC_desde() {
+        return c_desde;
+    }
+
+    public void setC_desde(String c_desde) {
+        this.c_desde = c_desde;
+    }
+
+    public String getId_area() {
         return id_area;
     }
 
-    public void setCareas(String id_area) {
+    public void setId_area(String id_area) {
         this.id_area = id_area;
+    }
+
+    public String getNombre_area1() {
+        return careas1;
+    }
+
+    public void setNombre_area1(String careas1) {
+        this.careas1 = careas1;
     }
 
     public String getDareact() {
@@ -810,14 +641,22 @@ public class Expediente implements Serializable{
     public void setXfecha(Date xfecha) {
         this.xfecha = xfecha;
     }
-     public String getnombre_area() {
+
+    public String getXfecha1() {
+        return xfecha1;
+    }
+
+    public void setXfecha1(String xfecha1) {
+        this.xfecha1 = xfecha1;
+    }
+
+    public String getNombre_area() {
         return nombre_area;
     }
 
-    public void setnombre_area(String nombre_area) {
+    public void setNombre_area(String nombre_area) {
         this.nombre_area = nombre_area;
     }
-   //05-05-17 **J**
 
     public String getFectrami() {
         return fectrami;
@@ -850,6 +689,168 @@ public class Expediente implements Serializable{
     public void setObserut(String obserut) {
         this.obserut = obserut;
     }
+
+    public String getNrpendi() {
+        return nrpendi;
+    }
+
+    public void setNrpendi(String nrpendi) {
+        this.nrpendi = nrpendi;
+    }
+
+    public String getNrrecep() {
+        return nrrecep;
+    }
+
+    public void setNrrecep(String nrrecep) {
+        this.nrrecep = nrrecep;
+    }
+
+    public String getC_hasta_Deriva() {
+        return c_hasta_Deriva;
+    }
+
+    public void setC_hasta_Deriva(String c_hasta_Deriva) {
+        this.c_hasta_Deriva = c_hasta_Deriva;
+    }
+
+    public String getDusuari_deriva() {
+        return dusuari_deriva;
+    }
+
+    public void setDusuari_deriva(String dusuari_deriva) {
+        this.dusuari_deriva = dusuari_deriva;
+    }
+
+    public String getNorden() {
+        return norden;
+    }
+
+    public void setNorden(String norden) {
+        this.norden = norden;
+    }
+
+    public int getFlagimp() {
+        return flagimp;
+    }
+
+    public void setFlagimp(int flagimp) {
+        this.flagimp = flagimp;
+    }
+
+    public String getNordens() {
+        return nordens;
+    }
+
+    public void setNordens(String nordens) {
+        this.nordens = nordens;
+    }
+
+    public String getOpcion() {
+        return opcion;
+    }
+
+    public void setOpcion(String opcion) {
+        this.opcion = opcion;
+    }
+
+    public String getXtecnico() {
+        return xtecnico;
+    }
+
+    public void setXtecnico(String xtecnico) {
+        this.xtecnico = xtecnico;
+    }
+
+    public String getHorrecexp() {
+        return horrecexp;
+    }
+
+    public void setHorrecexp(String horrecexp) {
+        this.horrecexp = horrecexp;
+    }
+
+    public String getMmotobs() {
+        return mmotobs;
+    }
+
+    public void setMmotobs(String mmotobs) {
+        this.mmotobs = mmotobs;
+    }
+
+    public String getXcodtecn() {
+        return xcodtecn;
+    }
+
+    public void setXcodtecn(String xcodtecn) {
+        this.xcodtecn = xcodtecn;
+    }
+
+    public String getDdocdrv() {
+        return ddocdrv;
+    }
+
+    public void setDdocdrv(String ddocdrv) {
+        this.ddocdrv = ddocdrv;
+    }
+
+    public int getEdt() {
+        return edt;
+    }
+
+    public void setEdt(int edt) {
+        this.edt = edt;
+    }
+
+    public String getXtecreci() {
+        return xtecreci;
+    }
+
+    public void setXtecreci(String xtecreci) {
+        this.xtecreci = xtecreci;
+    }
+
+    public String getDusrenv() {
+        return dusrenv;
+    }
+
+    public void setDusrenv(String dusrenv) {
+        this.dusrenv = dusrenv;
+    }
+
+    public String getDusrrec() {
+        return dusrrec;
+    }
+
+    public void setDusrrec(String dusrrec) {
+        this.dusrrec = dusrrec;
+    }
+
+    public String getNresuel() {
+        return nresuel;
+    }
+
+    public void setNresuel(String nresuel) {
+        this.nresuel = nresuel;
+    }
+
+    public int getNtramit() {
+        return ntramit;
+    }
+
+    public void setNtramit(int ntramit) {
+        this.ntramit = ntramit;
+    }
+
+    public String getFecha_resuelto_expediente_reporte() {
+        return fecha_resuelto_expediente_reporte;
+    }
+
+    public void setFecha_resuelto_expediente_reporte(String fecha_resuelto_expediente_reporte) {
+        this.fecha_resuelto_expediente_reporte = fecha_resuelto_expediente_reporte;
+    }
+  
+ 
     
     // calistro: Registro de Expedientes
     
@@ -865,9 +866,9 @@ public class Expediente implements Serializable{
          ("{call [dbo].[usp_java_documento_new_update] (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,)}"); 
           conexion.setAutoCommit(false);
     
-           if(obj_t.ctipdoc!=null){/*Valido la informacion set*/
-                   if(obj_t.ctipdoc.length()>0){
-                       st.setString(1,obj_t.getCtipdoc());
+           if(obj_t.tipo_documento!=null){/*Valido la informacion set*/
+                   if(obj_t.tipo_documento.length()>0){
+                       st.setString(1,obj_t.getTipo_documento());
                        
                    }else{
                     st.setString(1, null);
@@ -890,9 +891,9 @@ public class Expediente implements Serializable{
           
           /*----------------posicion 2*/
           
-          if(obj_t.getFfecdoc()!=null){/*Valido la informacion set*/
+          if(obj_t.getFecha_presentacion_expediente()!=null){/*Valido la informacion set*/
                   
-                       st.setDate(3, (java.sql.Date) obj_t.getFfecdoc());
+                       st.setDate(3, (java.sql.Date) obj_t.getFecha_presentacion_expediente());
       
           }else{
                     st.setDate(3, null);
@@ -902,9 +903,9 @@ public class Expediente implements Serializable{
           
           
          
-          if(obj_t.getDhordoc()!=null){   /**Valido la informacion set*/
-                   if(obj_t.getDhordoc().length()>0){
-                       st.setString(4,obj_t.getDhordoc());
+          if(obj_t.getHora_expediente()!=null){   /**Valido la informacion set*/
+                   if(obj_t.getHora_expediente().length()>0){
+                       st.setString(4,obj_t.getHora_expediente());
                        
                    }else{
                     st.setString(4, null);
@@ -913,9 +914,9 @@ public class Expediente implements Serializable{
               st.setString(4, null);
           }
           
-          if(obj_t.getNfolios() > 0){/**Valido la informacion set*/
-                   if(obj_t.getNfolios()>0){
-                       st.setInt(5,obj_t.getNfolios());
+          if(obj_t.getNumero_folios()> 0){/**Valido la informacion set*/
+                   if(obj_t.getNumero_folios()>0){
+                       st.setInt(5,obj_t.getNumero_folios());
                        
                    }else{
                     st.setInt(5, 0);
@@ -925,9 +926,9 @@ public class Expediente implements Serializable{
           }
           //-------------------------------------------------------------------------------
           
-           if(obj_t.getCcontri()!=null){/***Valido la informacion set*/
-                   if(obj_t.getCcontri().length()>0){
-                       st.setString(6,obj_t.getCcontri());
+           if(obj_t.getCodigo_contribuyente()!=null){/***Valido la informacion set*/
+                   if(obj_t.getCodigo_contribuyente().length()>0){
+                       st.setString(6,obj_t.getCodigo_contribuyente());
                        
                    }else{
                     st.setString(6, null);
@@ -938,9 +939,9 @@ public class Expediente implements Serializable{
          
           //-------------------------------------------------------
            
-          if(obj_t.getCasunto()!=null){/*Valido la informacion set*/
-                   if(obj_t.getCasunto().length()>0){
-                       st.setString(7,obj_t.getCasunto());
+          if(obj_t.getAsunto_expediente()!=null){/*Valido la informacion set*/
+                   if(obj_t.getAsunto_expediente().length()>0){
+                       st.setString(7,obj_t.getAsunto_expediente());
                        
                    }else{
                     st.setString(7, null);
@@ -951,9 +952,9 @@ public class Expediente implements Serializable{
            
              //-------------------------------------------------------
                   
-            if(obj_t.getNdiatra() > 0){/**Valido la informacion set*/
-                   if(obj_t.getNdiatra()>0){
-                       st.setInt(8,obj_t.getNdiatra());  
+            if(obj_t.getDias_tupa() > 0){/**Valido la informacion set*/
+                   if(obj_t.getDias_tupa()>0){
+                       st.setInt(8,obj_t.getDias_tupa());  
                    }else{
                     st.setInt(8, 0);
                     }
@@ -964,9 +965,9 @@ public class Expediente implements Serializable{
                   
                //-------------------------------------------------------       
                   
-               if(obj_t.getFresuel()!=null){/*Valido la informacion set*/
+               if(obj_t.getFecha_expediente_resuelto()!=null){/*Valido la informacion set*/
                   
-                       st.setDate(9, (java.sql.Date) obj_t.getFresuel());
+                       st.setDate(9, (java.sql.Date) obj_t.getFecha_expediente_resuelto());
       
           }else{
                     st.setDate(9, null);
@@ -975,9 +976,9 @@ public class Expediente implements Serializable{
          
             //-------------------------------------------------------
            
-         if(obj_t.getObserva()!=null){/*Valido la informacion set*/
-                   if(obj_t.getObserva().length()>0){
-                       st.setString(10,obj_t.getObserva());
+         if(obj_t.getObservacion()!=null){/*Valido la informacion set*/
+                   if(obj_t.getObservacion().length()>0){
+                       st.setString(10,obj_t.getObservacion());
                        
                    }else{
                     st.setString(10, null);
@@ -1013,9 +1014,9 @@ public class Expediente implements Serializable{
         //-------------------------------------------------------      
 
         
-        if(obj_t.getCestado()!=null){/*Valido la informacion set*/
-                   if(obj_t.getCestado().length()>0){
-                       st.setString(13,obj_t.getCestado());
+        if(obj_t.getEstado_expediente()!=null){/*Valido la informacion set*/
+                   if(obj_t.getEstado_expediente().length()>0){
+                       st.setString(13,obj_t.getEstado_expediente());
                        
                    }else{
                     st.setString(13, null);
@@ -1217,9 +1218,9 @@ public class Expediente implements Serializable{
                   
    //-------------------------------------------------------      
           
-         if(obj_t.getCcorreltmp()!=null){/*Valido la informacion set*/
-                   if(obj_t.getCcorreltmp().length()>0){
-                       st.setString(28,obj_t.getCcorreltmp());
+         if(obj_t.getCorrelativo_expedientetmp()!=null){/*Valido la informacion set*/
+                   if(obj_t.getCorrelativo_expedientetmp().length()>0){
+                       st.setString(28,obj_t.getCorrelativo_expedientetmp());
                        
                    }else{
                     st.setString(28, null);
@@ -1254,9 +1255,9 @@ public class Expediente implements Serializable{
               st.setString(31, null);
           }     
             
-         if(obj_t.getNobsevres()!=null){/*Valido la informacion set*/
-                   if(obj_t.getNobsevres().length()>0){
-                       st.setString(32,obj_t.getNobsevres());
+         if(obj_t.getObservacion()!=null){/*Valido la informacion set*/
+                   if(obj_t.getObservacion().length()>0){
+                       st.setString(32,obj_t.getObservacion());
                        
                    }else{
                     st.setString(32, null);
@@ -1305,11 +1306,11 @@ public class Expediente implements Serializable{
               obj.setNdocume(rs.getString("NDOCUME"));
               obj.setDcontri(rs.getString("DCONTRI"));
               obj.setDoficin(rs.getString("DOFICIN"));
-              obj.setNfolios(rs.getInt("NFOLIOS"));
+              obj.setNumero_folios(rs.getInt("NFOLIOS"));
               obj.setCanexo(rs.getString("CANEXO"));
               obj.setDasunto(rs.getString("DASUNTO"));
-              obj.setCcorrel(rs.getString("CCORREL"));
-              obj.setCestado(rs.getString("CESTADO"));
+              obj.setCorrelativo_expediente(rs.getString("CCORREL"));
+              obj.setEstado_expediente(rs.getString("CESTADO"));
               obj.setDfecdoc(rs.getDate("DFECDOC"));
 
               arr.add(obj);
@@ -1406,11 +1407,11 @@ public class Expediente implements Serializable{
               obj.setNdocume(rs.getString("NDOCUME"));
               obj.setDcontri(rs.getString("DCONTRI"));
               obj.setDoficin(rs.getString("DOFICIN"));
-              obj.setNfolios(rs.getInt("NFOLIOS"));
+              obj.setNumero_folios(rs.getInt("NFOLIOS"));
               obj.setCanexo(rs.getString("CANEXO"));
               obj.setDasunto(rs.getString("DASUNTO"));
-              obj.setCcorrel(rs.getString("CCORREL"));
-              obj.setCestado(rs.getString("CESTADO"));
+              obj.setCorrelativo_expediente(rs.getString("CCORREL"));
+              obj.setEstado_expediente(rs.getString("CESTADO"));
               obj.setDfecdoc(rs.getDate("DFECDOC"));
                  
               arr.add(obj);
@@ -1445,19 +1446,19 @@ public class Expediente implements Serializable{
             st.setString(1, busc.getCnombre());
 
              
-          if(busc.getFecha_inicial()!=null){
+          if(busc.getFecha_inicio()!=null){
               
                    //    st.setTimestamp(2,new java.sql.Timestamp(TurnoDf.getDnitur().getTime()));                    
-                       st.setDate(2,new java.sql.Date(busc.getFecha_inicial().getTime()));
+                       st.setDate(2,new java.sql.Date(busc.getFecha_inicio().getTime()));
           }else{
                             st.setDate(2, null);
           }
             
           
-            if(busc.getFecha_final()!=null){
+            if(busc.getFecha_fin()!=null){
               
                    //    st.setTimestamp(2,new java.sql.Timestamp(TurnoDf.getDnitur().getTime()));                    
-                       st.setDate(3,new java.sql.Date(busc.getFecha_final().getTime()));
+                       st.setDate(3,new java.sql.Date(busc.getFecha_fin().getTime()));
           }else{
                             st.setDate(3, null);
           }
@@ -1475,11 +1476,11 @@ public class Expediente implements Serializable{
                     obj.setNumero_expediente(rs.getString("dnumold")); 
                     obj.setCnombre(rs.getString("cnombre"));
                     obj.setDasunto(rs.getString("dasunto")); 
-                    obj.setFfecdoc1(rs.getString("ffecdoc"));   
+                    obj.setFecha_presentacion_expediente1(rs.getString("fecha_presentacion_expediente"));   
                     obj.setD_hasta(rs.getString("d_hasta"));
-                    obj.setNfolios(rs.getInt("nfolios"));
-                    obj.setObserva(rs.getString("observa"));
-                    obj.setCcontri(rs.getString("ccontri"));
+                    obj.setNumero_folios(rs.getInt("numero_folios"));
+                    obj.setObservacioncion(rs.getString("observa"));
+                    obj.setCodigo_contribuyente(rs.getString("codigo_contribuyente"));
                     obj.setDtipdoc(rs.getString("dtipdoc"));
                     obj.setFfecrec(rs.getDate("ffecrec"));
                     obj.setDestado(rs.getString("destado"));
@@ -1497,7 +1498,7 @@ public class Expediente implements Serializable{
             System.out.println("Error en el metodo por: " + error.getMessage());
             error.printStackTrace();
         }
-        return arr;
+        return (ArrayList<Expediente>) arr;
     }
   
   //JUDITH: BUSQUEDA DE EXPEDIENTES INGRESADOS POR OFICINA
@@ -1515,9 +1516,9 @@ public class Expediente implements Serializable{
 
             CallableStatement st = conexion.prepareCall("{call dbo.sp_java_expedientes_despachados_por_oficina(?,?,?)}");
             
-            if (ofic.getCareas()!=null){
-                   if (ofic.getCareas().length() > 0) {
-                    st.setString(1, ofic.getCareas());
+            if (ofic.getNombre_area()!=null){
+                   if (ofic.getNombre_area().length() > 0) {
+                    st.setString(1, ofic.getNombre_area());
 
                 } else {
                     st.setString(1, null);
@@ -1551,10 +1552,10 @@ public class Expediente implements Serializable{
                     obj = new Expediente();
 
                     obj.setNumero_expediente(rs.getString("DNUMOLD")); 
-                    obj.setCcontri(rs.getString("CCONTRI"));
+                    obj.setCodigo_contribuyente(rs.getString("CCONTRI"));
                     obj.setDcontri(rs.getString("DCONTRI")); 
                     obj.setFfecenv(rs.getDate("FFECENV"));   
-                    obj.setCestado(rs.getString("CESTADO"));
+                    obj.setEstado_expediente(rs.getString("CESTADO"));
                     obj.setDestado(rs.getString("DESTADO"));
                     obj.setCaredes(rs.getString("CAREDES"));
                     obj.setDaredes(rs.getString("DAREDES"));
@@ -1660,7 +1661,7 @@ public class Expediente implements Serializable{
             conexion = Controlador_Sql.darConexionBD();
             CallableStatement st = conexion.prepareCall("{call dbo.sp_java_expedientes_por_recurrente(?,?,?)}");
             
-            st.setString(1, bus.getCcontri());
+            st.setString(1, bus.getCodigo_contribuyente());
 
            if (bus.getFecha_inicio() != null) {
 
@@ -1687,10 +1688,10 @@ public class Expediente implements Serializable{
                     obj = new Expediente();
 
                     obj.setNumero_expediente(rs.getString("DNUMOLD")); 
-                    obj.setFfecdoc1(rs.getString("FFECDOC"));
+                    obj.setFecha_presentacion_expediente1(rs.getString("FFECDOC"));
                     obj.setCasunto(rs.getString("CASUNTO")); 
                     obj.setDasunto(rs.getString("DASUNTO")); 
-                    obj.setCareas(rs.getString("CAREAS"));   
+                    obj.setNombre_area(rs.getString("CAREAS"));   
                     obj.setDareact(rs.getString("DAREACT"));
                     obj.setDtipdoc(rs.getString("DTIPDOC"));
                     obj.setDestado(rs.getString("DESTADO"));
@@ -1725,9 +1726,9 @@ public class Expediente implements Serializable{
             CallableStatement st = conexion.prepareCall("{call dbo.sp_java_expedientes_despachados_por_oficina(?,?,?)}");
             
        
-                if (desp.getCareas()!=null){
-                   if (desp.getCareas().length() > 0) {
-                    st.setString(1, desp.getCareas());
+                if (desp.getNombre_area()!=null){
+                   if (desp.getNombre_area().length() > 0) {
+                    st.setString(1, desp.getNombre_area());
 
                 } else {
                     st.setString(1, null);
@@ -1760,10 +1761,10 @@ public class Expediente implements Serializable{
                     obj = new Expediente();
 
                     obj.setNumero_expediente(rs.getString("DNUMOLD")); 
-                    obj.setCcontri(rs.getString("CCONTRI"));
+                    obj.setCodigo_contribuyente(rs.getString("CCONTRI"));
                     obj.setDcontri(rs.getString("DCONTRI")); 
                     obj.setFfecenv(rs.getDate("FFECENV"));   
-                    obj.setCestado(rs.getString("CESTADO"));
+                    obj.setEstado_expediente(rs.getString("CESTADO"));
                     obj.setDestado(rs.getString("DESTADO"));
                     obj.setCaredes(rs.getString("CAREDES"));
                     obj.setDaredes(rs.getString("DAREDES"));
@@ -1800,9 +1801,9 @@ public class Expediente implements Serializable{
             CallableStatement st = conexion.prepareCall("{call sp_java_expedientes_resueltos_por_oficina(?,?,?)}");
             
          
-            if (resul.getCareas()!=null){
-                   if (resul.getCareas().length() > 0) {
-                    st.setString(1, resul.getCareas());
+            if (resul.getNombre_area()!=null){
+                   if (resul.getNombre_area().length() > 0) {
+                    st.setString(1, resul.getNombre_area());
 
                 } else {
                     st.setString(1, null);
@@ -1833,7 +1834,7 @@ public class Expediente implements Serializable{
 
                     obj = new Expediente();
                     
-                    obj.setFfecdoc1(rs.getString("FFECDOC"));
+                    obj.setFecha_presentacion_expediente1(rs.getString("FFECDOC"));
                     obj.setNumero_expediente(rs.getString("DNUMOLD"));
                     obj.setXfecha1(rs.getString("XFECHA"));
                     obj.setC_hasta(rs.getString("C_HASTA")); 
@@ -1841,7 +1842,7 @@ public class Expediente implements Serializable{
                     obj.setFfecrec1(rs.getString("FFECREC"));
                     obj.setFectrami(rs.getString("FECTRAMI"));
                     obj.setDnombre(rs.getString("DNOMBRE"));
-                    obj.setnombre_area(rs.getString("DAREAS"));
+                    obj.setNombre_area(rs.getString("DAREAS"));
                     obj.setD_hasta(rs.getString("DHASTA"));
                     obj.setDnomusu(rs.getString("DNOMUSU"));
                     obj.setObserut(rs.getString("obserut"));
@@ -1903,14 +1904,14 @@ public class Expediente implements Serializable{
                     
                     obj.setDtipdoc(rs.getString("dtipdoc"));
                     obj.setNumero_expediente(rs.getString("dnumold"));
-                    obj.setFfecdoc1(rs.getString("ffecdoc"));
+                    obj.setFecha_presentacion_expediente1(rs.getString("fecha_presentacion_expediente"));
                     obj.setCnombre(rs.getString("drecurre")); 
-                    obj.setnombre_area(rs.getString("dareact"));  
+                    obj.setNombre_area(rs.getString("dareact"));  
                     obj.setDestado(rs.getString("destado")); 
                     obj.setDasunto(rs.getString("dasunto"));
                     obj.setXfecha1(rs.getString("xfecha"));
-                    obj.setCasunto(rs.getString("casunto"));
-                    obj.setObserva(rs.getString("observa"));
+                    obj.setCasunto(rs.getString("asunto_expediente"));
+                    obj.setObservacioncion(rs.getString("observa"));
                     obj.setDnomusu(rs.getString("dnomusu"));
                     obj.setDrefere(rs.getString("drefere"));
                      obj.setNresuel(rs.getString("nresuel"));
@@ -1948,9 +1949,9 @@ public class Expediente implements Serializable{
             CallableStatement st = conexion.prepareCall("{call dbo.sp_java_expediente_recepcionados_oficina(?,?,?)}");
            
 
-            if (ofic.getCareas()!=null){
-                   if (ofic.getCareas().length() > 0) {
-                    st.setString(1, ofic.getCareas());
+            if (ofic.getNombre_area()!=null){
+                   if (ofic.getNombre_area().length() > 0) {
+                    st.setString(1, ofic.getNombre_area());
 
                 } else {
                     st.setString(1, null);
@@ -1981,10 +1982,10 @@ public class Expediente implements Serializable{
                     obj = new Expediente();
 
                     obj.setNumero_expediente(rs.getString("DNUMOLD")); 
-                    obj.setFfecdoc1(rs.getString("FFECDOC"));
+                    obj.setFecha_presentacion_expediente1(rs.getString("FFECDOC"));
                     obj.setFfecrec1(rs.getString("FFECREC")); 
                     obj.setDnombre(rs.getString("DNOMBRE"));   
-                    obj.setCcontri(rs.getString("CCONTRI"));
+                    obj.setCodigo_contribuyente(rs.getString("CCONTRI"));
                     obj.setDasunto(rs.getString("DASUNTO"));
                     obj.setObserut(rs.getString("obserut"));
                     obj.setFfecenv(rs.getDate("ffecenv"));
@@ -2037,9 +2038,9 @@ public class Expediente implements Serializable{
             }
               // DESDE
 
-            if (g.getCareas()!=null){
-                   if (g.getCareas().length() > 0) {
-                    st.setString(3, g.getCareas());
+            if (g.getNombre_area()!=null){
+                   if (g.getNombre_area().length() > 0) {
+                    st.setString(3, g.getNombre_area());
 
                 } else {
                     st.setString(3, null);
@@ -2047,9 +2048,9 @@ public class Expediente implements Serializable{
             }
 
            //HASTA 
-              if (g.getCareas1()!=null){
-                   if (g.getCareas1().length() > 0) {
-                    st.setString(4, g.getCareas1());
+              if (g.getNombre_area1()!=null){
+                   if (g.getNombre_area1().length() > 0) {
+                    st.setString(4, g.getNombre_area1());
 
                 } else {
                     st.setString(4, null);
@@ -2066,8 +2067,8 @@ public class Expediente implements Serializable{
 
                     obj.setNdocume(rs.getString("ndocume")); 
                     obj.setCnombre(rs.getString("nomraz"));
-                    obj.setFfecdoc1(rs.getString("fecingr")); 
-                    obj.setNfolios(rs.getInt("folio"));   
+                    obj.setFecha_presentacion_expediente1(rs.getString("fecingr")); 
+                    obj.setNumero_folios(rs.getInt("folio"));   
                     obj.setFlagimp(rs.getInt("flagimp"));
                     obj.setDasunto(rs.getString("motivo"));
                     obj.setCanexo(rs.getString("anex"));
@@ -2106,7 +2107,7 @@ public class Expediente implements Serializable{
 
             CallableStatement st = conexion.prepareCall("{call dbo.sp_java_expedientes_tramite_por_oficina (?,?,?,?)}");
            
-            st.setString(1,tramO.getCareas()); 
+            st.setString(1,tramO.getNombre_area()); 
             
             
              if (tramO.getFecha_inicio() != null) {
@@ -2143,8 +2144,8 @@ public class Expediente implements Serializable{
                     obj = new Expediente();
 
                     obj.setNumero_expediente(rs.getString("DNUMOLD")); 
-                    obj.setFfecdoc1(rs.getString("FFECDOC"));
-//                    obj.setFfecdoc1(rs.getString("fecingr")); 
+                    obj.setFecha_presentacion_expediente1(rs.getString("FFECDOC"));
+//                    obj.setFecha_presentacion_expediente1(rs.getString("fecingr")); 
                     obj.setC_hasta(rs.getString("C_HASTA"));   
                     obj.setFfecenv1(rs.getString("FFECENV"));
                     obj.setD_horas(rs.getString("DHORAENV"));
@@ -2152,7 +2153,7 @@ public class Expediente implements Serializable{
                     obj.setFectrami(rs.getString("FECTRAMI"));
                     obj.setDasunto(rs.getString("DASUNTO"));
                     obj.setDnombre(rs.getString("DNOMBRE"));
-                    obj.setnombre_area(rs.getString("ADESDE"));
+                    obj.setNombre_area(rs.getString("ADESDE"));
                     obj.setD_hasta(st.getString("DAREAS"));
                     obj.setDnomusu(st.getString("DNOMUSU"));
                     obj.setObserut(st.getString("obserut"));
@@ -2245,6 +2246,7 @@ public class Expediente implements Serializable{
     }
   
    //JUDITH: BUSQUEDA DE EXPEDIENTES EN TRAMITE POR TECNICO 12-05-17 
+  
   public static ArrayList<Expediente> getBuscaExpedienteEnTramitePorTecnico(Expediente t){
 
         ArrayList<Expediente> arr = null;
@@ -2261,9 +2263,9 @@ public class Expediente implements Serializable{
          
             // AREA
 
-            if (t.getCareas()!=null){
-                   if (t.getCareas().length() > 0) {
-                    st.setString(1, t.getCareas());
+            if (t.getNombre_area()!=null){
+                   if (t.getNombre_area().length() > 0) {
+                    st.setString(1, t.getNombre_area());
 
                 } else {
                     st.setString(1, null);
@@ -2271,6 +2273,7 @@ public class Expediente implements Serializable{
             }
             
          //TECNICO
+         
             if (t.getXtecnico() != null) {/*Valido la informacion set*/
                 if (t.getXtecnico().length() > 0) {
                     st.setString(2, t.getXtecnico());
@@ -2306,11 +2309,11 @@ public class Expediente implements Serializable{
 
                     obj = new Expediente();
 
-                    obj.setnombre_area(rs.getString("nombre_area")); 
-                    obj.setCcorrel(rs.getString("CCORREL"));
+                    obj.setNombre_area(rs.getString("nombre_area")); 
+                    obj.setCorrelativo_expediente(rs.getString("CCORREL"));
                     obj.setNumero_expediente(rs.getString("DNUMOLD")); 
-                    obj.setFfecdoc1(rs.getString("FFECDOC"));   
-                    obj.setCcontri(rs.getString("CCONTRI"));
+                    obj.setFecha_presentacion_expediente1(rs.getString("FFECDOC"));   
+                    obj.setCodigo_contribuyente(rs.getString("CCONTRI"));
                     obj.setDnombre(rs.getString("DNOMBRE"));
                     obj.setDasunto(rs.getString("DASUNTO"));
                     obj.setFfecrec1(rs.getString("FECRECEXP"));
@@ -2324,7 +2327,7 @@ public class Expediente implements Serializable{
                     obj.setDdocdrv(rs.getString("DDOCDRV"));
                     obj.setEdt(rs.getInt("edt"));
                     obj.setXtecreci(rs.getString("XTECRECI"));
-                    obj.setNfolios(rs.getInt("nfolios"));
+                    obj.setNumero_folios(rs.getInt("numero_folios"));
                     obj.setDusrenv(rs.getString("dusrenv"));
                     obj.setDusrrec(rs.getString("dusrrec"));
  
@@ -2344,4 +2347,85 @@ public class Expediente implements Serializable{
     }
   
 
+  
+   public static ArrayList<Expediente> BuscaReporteExpedientesPorFecha(Expediente ObjReporteExpedientes){  
+
+        ArrayList<Expediente> arr = null;
+        ResultSet rs = null;
+        Expediente obj = null;
+        Connection conexion = null;
+
+        try {
+            conexion = Controlador_Sql.darConexionBD();
+            conexion.setAutoCommit(false);
+            conexion = Controlador_Sql.darConexionBD();
+
+            CallableStatement st = conexion.prepareCall("{call dbo.sp_java_reporte_Expedientes_Por_Fecha(?,?)}");
+         
+//         
+//       
+            if (ObjReporteExpedientes.getFecha_inicio() != null) {
+
+                st.setDate(1, new java.sql.Date(ObjReporteExpedientes.getFecha_inicio().getTime()));
+
+            } else {
+                st.setDate(1, null);
+            }
+
+            
+            if (ObjReporteExpedientes.getFecha_fin() != null) {
+
+                st.setDate(2, new java.sql.Date(ObjReporteExpedientes.getFecha_fin().getTime()));
+
+            } else {
+                st.setDate(2, null);
+            }
+            
+
+             
+            rs = st.executeQuery();
+            if (rs.next()) {
+                arr = new ArrayList<Expediente>();
+                do {
+
+                    obj = new Expediente();
+
+                    obj.setEstado_expediente(rs.getString("Estado_Expediente"));
+                    obj.setNumero_expediente(rs.getString("Numero_Expediente")); 
+                    
+                    Persona ObjPersona = new Persona();
+                    ObjPersona.setNombre_contribuyente(rs.getString("Nombre_Recurrente"));
+                    obj.setObjPersona(ObjPersona);
+
+                    obj.setAsunto_expediente(rs.getString("Asunto_Expediente"));
+                    obj.setArea_inicio(rs.getString("Area_Inicio"));
+                    obj.setArea_final(rs.getString("Area_Final"));
+                    obj.setDias_tupa(rs.getInt("Dias_Tupa"));
+                    obj.setFecha_presentacion_expediente1(rs.getString("Fecha_Presentacion_Expediente"));
+                    obj.setFecha_resuelto_expediente_reporte(rs.getString("Fecha_Resuelto_Expediente"));
+                    obj.setObservacion(rs.getString("Detalle_Expediente"));
+                  
+ 
+                   arr.add(obj);
+
+                } while (rs.next());
+            }
+            st.execute();
+            // st.close();
+            conexion.setAutoCommit(true);
+            conexion.close();
+        } catch (Exception error) {
+            System.out.println("Error en el metodo por: " + error.getMessage());
+            error.printStackTrace();
+        }
+        return arr;
+  
+  
+  
+  
+  
+   }
+  
+  
+  
 }

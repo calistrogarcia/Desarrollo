@@ -25,6 +25,9 @@ import javax.faces.model.SelectItem;
 public class Multa implements Serializable {
 
     // variables para reporte de multas
+    
+    private String tipo_busqueda_sancion;
+    private String consulta_sancion;
     private String numero_funcion;
     private String id_unico_multa;
     private String tipo_busqueda;
@@ -82,6 +85,24 @@ public class Multa implements Serializable {
     Grupo ObjGrupo = new Grupo();
 
    
+    
+    
+    
+    public String getTipo_busqueda_sancion() {
+        return tipo_busqueda_sancion;
+    }
+
+    public void setTipo_busqueda_sancion(String tipo_busqueda_sancion) {
+        this.tipo_busqueda_sancion = tipo_busqueda_sancion;
+    }
+
+    public String getConsulta_sancion() {
+        return consulta_sancion;
+    }
+
+    public void setConsulta_sancion(String consulta_sancion) {
+        this.consulta_sancion = consulta_sancion;
+    }
     
     public Grupo getObjGrupo() {
         return ObjGrupo;
@@ -639,6 +660,80 @@ public class Multa implements Serializable {
         }
         return arr;
     }
+    
+    
+    
+   public static ArrayList<Multa> BuscarInfraccionSancion(Multa ObjInfracionSancion) {
+
+        ArrayList<Multa> arr = null;
+        ResultSet rs = null;
+        Multa obj = null;
+        Connection conexion = null;
+
+        try {
+            conexion = Controlador_Sql.darConexionBD();
+            conexion.setAutoCommit(false);
+            
+            conexion = Controlador_Sql.darConexionBD();
+            CallableStatement st = conexion.prepareCall("{call dbo.sp_java_regimen_aplicacion_sanciones_tabla(?,?)}");
+
+            if (ObjInfracionSancion.getTipo_busqueda_sancion() != null) {
+                if (ObjInfracionSancion.getTipo_busqueda_sancion().length() > 0) {
+                    st.setString(1, ObjInfracionSancion.getTipo_busqueda_sancion());
+
+                } else {
+                    st.setString(1, null);
+                }
+            } else {
+                st.setString(1, null);
+            }
+
+            if (ObjInfracionSancion.getConsulta_sancion()!= null) {
+                if (ObjInfracionSancion.getConsulta_sancion().length() > 0) {
+                    st.setString(2, ObjInfracionSancion.getConsulta_sancion());
+
+                } else {
+                    st.setString(2, null);
+                }
+            } else {
+                st.setString(2, null);
+            }
+
+            rs = st.executeQuery();
+            if (rs.next()) {
+                arr = new ArrayList<Multa>();
+                do {
+
+                    obj = new Multa();
+
+                 
+
+                    Sancion ObjSancion = new Sancion();
+
+                    ObjSancion.setCodigo_sancion(rs.getString("codigo_sancion"));
+                    ObjSancion.setNombre_sancion(rs.getString("nombre_sancion"));
+                    ObjSancion.setTasa_sancion(rs.getString("tasa_sancion"));
+
+                    obj.setObjSancion(ObjSancion);
+
+                   
+
+                    arr.add(obj);
+
+                } while (rs.next());
+            }
+            st.execute();
+            // st.close();
+            conexion.setAutoCommit(true);
+            conexion.close();
+        } catch (Exception error) {
+            System.out.println("Error en el metodo por: " + error.getMessage());
+            error.printStackTrace();
+        }
+        return arr;
+    }
+    
+    
     
     
      public static ArrayList<Multa> BuscarInfractor(Multa ObjBusquedaInfractor) {

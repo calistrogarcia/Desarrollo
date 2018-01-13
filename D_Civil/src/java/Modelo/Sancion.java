@@ -20,6 +20,7 @@ public class Sancion implements Serializable {
     
    private String codigo_sancion;
    private String nombre_sancion;
+   private String tasa_sancion;
 
  
 
@@ -39,6 +40,17 @@ public class Sancion implements Serializable {
     public void setNombre_sancion(String nombre_sancion) {
         this.nombre_sancion = nombre_sancion;
     }
+
+    public String getTasa_sancion() {
+        return tasa_sancion;
+    }
+
+    public void setTasa_sancion(String tasa_sancion) {
+        this.tasa_sancion = tasa_sancion;
+    }
+    
+    
+    
    
    
       public ArrayList<SelectItem> getCargarSacionRas() {
@@ -70,8 +82,5 @@ public class Sancion implements Serializable {
 
         return arraySancion;
     } 
-   
-    
-    
-    
+     
 }

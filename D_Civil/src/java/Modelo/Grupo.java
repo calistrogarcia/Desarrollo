@@ -156,6 +156,39 @@ public class Grupo implements Serializable {
     }
   
   
+    public  ArrayList<SelectItem> getCargarTipoAutorizacionMunicipal() {
+
+        ArrayList<SelectItem> arrayTipoAutorizacionMunicipal = new ArrayList<SelectItem>();
+        Grupo obj = null;
+        Connection conexion = null;
+        ResultSet rs = null;
+        try {
+
+            conexion = Controlador_Sql.darConexionBD();
+            CallableStatement st = conexion.prepareCall("{call sp_java_tipo_autorizacion_municipal()}");
+            rs = st.executeQuery();
+
+            if (rs.next()) {
+                do {
+                    arrayTipoAutorizacionMunicipal.add(new SelectItem(rs.getString("Codigo_autorizacion"), rs.getString("tipo_autorizacion")));
+
+                } while (rs.next());
+
+            }
+            rs.close();
+            st.close();
+            conexion.close();
+
+        } catch (Exception error) {
+            System.out.println("Error en el metodo por: "
+                    + error.getMessage());
+            error.printStackTrace();
+        }
+
+        return arrayTipoAutorizacionMunicipal;
+
+    }
+  
   
     
     

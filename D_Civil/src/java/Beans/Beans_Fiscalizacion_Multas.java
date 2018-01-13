@@ -65,12 +65,17 @@ public class Beans_Fiscalizacion_Multas {
     private Multa objMultaMod;
     private Multa objMultaBusq;
     private Multa ObjMultaBuqInfractor;
+    private Multa ObjMultaBuqSancionMulta;
+    private Multa ObjSeleccion;
     
   
     private ArrayList<Multa> arrMulta = null;
     private ArrayList<Multa> arrBusMulta = null;
     private ArrayList<Multa> arrMultaInfractor = null;
     private ArrayList<Multa> arrBusMultaInfractor = null;
+    private ArrayList<Multa> arrMultaSancion = null;
+    private ArrayList<Multa> arrBusMultaSancion = null;
+    
    
 
     //TabView
@@ -82,6 +87,16 @@ public class Beans_Fiscalizacion_Multas {
     //Bandera que apunta si el usuario al realizar un clik sobre el link de busquedad o listado total
     private String puntAnt;
 
+   
+    
+    public Multa getObjSeleccion() {
+        return ObjSeleccion;
+    }
+
+    public void setObjSeleccion(Multa ObjSeleccion) {
+        this.ObjSeleccion = ObjSeleccion;
+    }
+   
     public Multa getObjMultaReg() {
         return objMultaReg;
     }
@@ -186,6 +201,30 @@ public class Beans_Fiscalizacion_Multas {
         this.arrBusMultaInfractor = arrBusMultaInfractor;
     }
 
+    public Multa getObjMultaBuqSancionMulta() {
+        return ObjMultaBuqSancionMulta;
+    }
+
+    public void setObjMultaBuqSancionMulta(Multa ObjMultaBuqSancionMulta) {
+        this.ObjMultaBuqSancionMulta = ObjMultaBuqSancionMulta;
+    }
+
+    public ArrayList<Multa> getArrMultaSancion() {
+        return arrMultaSancion;
+    }
+
+    public void setArrMultaSancion(ArrayList<Multa> arrMultaSancion) {
+        this.arrMultaSancion = arrMultaSancion;
+    }
+
+    public ArrayList<Multa> getArrBusMultaSancion() {
+        return arrBusMultaSancion;
+    }
+
+    public void setArrBusMultaSancion(ArrayList<Multa> arrBusMultaSancion) {
+        this.arrBusMultaSancion = arrBusMultaSancion;
+    }
+    
 
     //Inicializaciones
     public void doiniciarRegistroMulta() {
@@ -234,6 +273,23 @@ public class Beans_Fiscalizacion_Multas {
     public void doiniciarListadoInfractorMulta() {
         arrMultaInfractor = new ArrayList<Multa>();
     }
+    
+    
+    
+     //Iniciallzaciones  
+    public void doiniciarObjBusSancionMulta() {
+        this.ObjMultaBuqSancionMulta = new Multa();
+    }
+
+
+    //Iniciallzaciones
+    public void doiniciarBusquedaSancionMulta() {
+        this.arrBusMultaSancion = new ArrayList<Multa>();
+        this.ObjMultaBuqSancionMulta = new Multa();
+
+    }
+    
+    
 
     public Beans_Fiscalizacion_Multas() {
 
@@ -242,6 +298,8 @@ public class Beans_Fiscalizacion_Multas {
             doiniciarRegistroMulta();
             doiniciarModificarMulta();
             doiniciarBusquedaMultaInfractor();
+            doiniciarBusquedaSancionMulta();
+            
             
 
         } catch (Exception e) {
@@ -338,6 +396,26 @@ public class Beans_Fiscalizacion_Multas {
             return "" + this.arrBusMultaInfractor.size();
         }
     }
+    
+    
+     // Buscar Infraccion de Multa
+    
+      public ArrayList<Multa> doBuscarSancionMulta() {
+
+        this.arrBusMultaSancion = new ArrayList<Multa>();
+        this.arrBusMultaSancion = Multa.BuscarInfraccionSancion(ObjMultaBuqSancionMulta);
+        return this.arrBusMultaSancion;
+
+    }
+
+    public String getSizeRegistrosSancionMulta() {
+        if (this.arrBusMultaSancion == null) {
+            return "0";
+        } else {
+            return "" + this.arrBusMultaSancion.size();
+        }
+    }
+    
     
     
 

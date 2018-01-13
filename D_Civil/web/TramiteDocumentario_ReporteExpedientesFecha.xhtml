@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>   
+        <h:outputScript library="js" name="scrits.js"></h:outputScript>
+
+
+    </h:head>
+    <h:body>
+        <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
+            <ui:define name="contenido"><!---Agregando Etiqueta de Titulo-->
+
+                <p:tabView id="ReportesTabView" dynamic="true" orientation="top" activeIndex="#{Beans_DefensaCivil_Certificado.activeTabIndex}" style="text-align: left" >  
+
+
+                    <p:tab id="tab_reportes" title="Expediente Ipse" titletip="Buscar Certificado" titleStyleClass="tamaño_fuente_tab" >
+                        <!-- Formulario que permite la Busqueda  -->    
+                        <h:form  id="form_reportes" class="border_titulo1"  styleClass="tamaño_fuente">    
+                            <p:growl globalOnly="true"  id="estRegCertificado" sticky="false"  showDetail="true"  />    
+                            <p:panel id="panel_reportes" header="#{msg.LabelCertificado}"  style=" text-align:  left"  >
+                                <!--Lista de Opciones de Ofina *25*04*17 **J**-->  
+
+                             
+
+                        <p:fieldset   style="margin-bottom:20px;" >
+                                
+                                <h:panelGrid columns="4" cellpadding="2">
+                                    <img src="resources/imagenes/calendario.png"/>
+                                    <h:outputText value=" Reporte Anual Totalizado:"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="4" cellpadding="2">
+                                    
+           
+                              
+                                    <h:panelGroup>
+                                        <h:outputText value=" Del:  "/>
+                                        <p:calendar id="fecha_inicial"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}" locale="es" navigator="true" showOn="button"
+                                                    value="#{beanExpediente_Por_Fecha.objBuscarExpedienteReportePorFecha.fecha_inicio}" 
+                                                    pattern="dd/MM/yyyy">   
+                                        </p:calendar>
+                                        <h:message for="fecha_inicial" showDetail="true" showSummary="true"/>                                   
+                                    </h:panelGroup>
+                                    
+                                    
+
+                                    <h:panelGroup>
+                                        <h:outputText value="Al:  "/>
+                                        <p:calendar id="fecha_final"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}" locale="es" navigator="true" showOn="button"
+                                                    value="#{beanExpediente_Por_Fecha.objBuscarExpedienteReportePorFecha.fecha_fin}"   
+                                                    pattern="dd/MM/yyyy">   
+                                        </p:calendar>
+                                        <h:message for="fecha_final" showDetail="true" showSummary="true"/>  
+                                                                     
+                                    </h:panelGroup> 
+                                    
+                                  <!--Ingresando los Botones-->  
+                                </h:panelGrid>   
+                               
+                           </p:fieldset>
+                                    
+                                    
+                                  
+
+                                <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3" style="text-align: center;" width="17%"  >
+
+                                    <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{beanExpediente_Por_Fecha.doiniciarObjBusReporteExpedientesFecha()}"  
+                                                     value="#{msg.labelNuevo}"  async="true" update="panel_reportes"  />
+
+                                    <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{beanExpediente_Por_Fecha.doBuscarReporteExpedientesPorFecha()}"  
+                                                     value="#{msg.btnConsultar}"  async="true" update="panel_reportes" />  
+
+
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="3" cellpadding="2"  cellspacing="2"  width="10%">
+
+                                    <h:commandLink >
+                                        <p:graphicImage url="resources/imagenes/xls.png"/>
+                                        <p:dataExporter type="xls" target="resListadoCertificado" fileName="Informacion Certificado" />           
+                                    </h:commandLink>
+
+                                </h:panelGrid> 
+
+                                <p:blockUI block="panel_reportes" trigger="saveBtn">   Buscando... <br />
+                                    <p:graphicImage value="resources/imagenes/cargando1.gif" />   
+                                </p:blockUI>
+
+
+                                <center>
+                                    <h:panelGrid columns="2" >
+                                        <h:outputText styleClass="etiqueta_resultBusq" value="#{msg.labelCantidad}"/>
+                                        <h:outputText styleClass="etiqueta_resultBusq" value="#{beanExpediente_Por_Fecha.arrBusExpedienteReportePorFecha.size()}"/>               
+                                    </h:panelGrid> 
+
+                                    <h:panelGrid columns="1"   cellpadding="0"  cellspacing="0" 
+                                                 border="0"  styleClass="width-table"> 
+
+                                        <p:dataTable id="resListadoCertificado" value="#{beanExpediente_Por_Fecha.arrBusExpedienteReportePorFecha}"  
+                                                     var="Listado_Expedientes"  styleClass="order-table" paginator="true" lazy="true"
+                                                     rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" 
+                                                     paginatorPosition="both" paginatorAlwaysVisible="true"
+                                                     style="tamaño_fuente"
+                                                   
+
+                                                     >
+
+
+                                            <p:column style="width:9%;text-align: center">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelEstadoExpediente}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{Listado_Expedientes.estado_expediente}"/>
+                                            </p:column>  
+
+
+                                            <p:column rendered="true" style="width:7%;text-align: center" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.labelExpediente}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{Listado_Expedientes.numero_expediente}"/>
+                                            </p:column>  
+
+                                            <p:column style="width:4%;text-align: center">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelDiasTupa}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{Listado_Expedientes.dias_tupa}"/>
+                                            </p:column>   
+
+                                            <p:column style="width:10%;text-align: center">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelFecharecepcion}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{Listado_Expedientes.fecha_presentacion_expediente1}" />
+                                            </p:column>  
+
+
+
+                                            <p:column filterBy="#{Listado_Expedientes.fecha_expediente_resuelto}" filterMatchMode="contains" style="width:9%;text-align: center">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.FechaResuelto}" />
+                                                </f:facet>
+                                                <h:outputText value="#{Listado_Expedientes.fecha_resuelto_expediente_reporte}"/>
+                                            </p:column> 
+
+                                            <p:column style="width:20%;text-align: left">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelNombres}" style="text-align: center"/>
+                                                </f:facet>
+                                                <h:outputText  value="#{Listado_Expedientes.objPersona.nombre_contribuyente}"/>
+                                            </p:column>  
+
+                                            <p:column style="width:6%;text-align: center">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.labelAsunto}" style="text-align: center"/>
+                                                </f:facet>
+                                                <h:outputText  value="#{Listado_Expedientes.asunto_expediente}"/>
+                                            </p:column>  
+
+
+                                            <p:column  >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.labelAreaOrigen}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{Listado_Expedientes.area_inicio}"/>
+                                            </p:column>  
+
+                                            <p:column rendered="true" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelAreaFinal}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{Listado_Expedientes.area_final}"/>
+
+                                            </p:column>    
+
+                                            <p:column rendered="true" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.Observaciones}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{Listado_Expedientes.observacion}"/>
+
+                                            </p:column>  
+                                            
+                                        </p:dataTable>    
+                                    </h:panelGrid>  
+                                </center>
+                            </p:panel>  
+
+                            <p:resizable for="panel_reportes" animate="true" effect="swing" effectDuration="normal"/>
+
+                        </h:form>
+
+
+                    </p:tab> 
+
+
+
+                </p:tabView>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

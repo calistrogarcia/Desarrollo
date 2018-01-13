@@ -16,181 +16,7 @@
                 <p:tabView id="TabView_multas_Licencia" style=" text-align:  left" dynamic="true" orientation="top" activeIndex="#{BeansPromocion_Empresarial_Licencias.activeTabIndex}" >       
 
 
-                    <p:tab id="tab_multas_Licencia" title="Licencias" titletip="Licencias"  
-                           titleStyleClass="tamaño_fuente_tab">
-
-                        <h:form  id="form_multas_Licencia" class="border_titulo1"  styleClass="tamaño_fuente">                            
-                            <p:growl globalOnly="true"  id="growl_multas_administrativas" sticky="false"  showDetail="true"  />    
-
-                            <p:panel id="panel_multas_Licencia" header="#{msg.LabelLicenciaFuncionamiento}" style=" text-align:  left">
-
-                                <br>
-                                </br>
-
-                                <p:fieldset   style="margin-bottom:20px;" >
-                                    <center>
-                                        <h:panelGrid columns="5" style="margin-bottom:20px" cellpadding="5">
-
-
-                                            <h:panelGrid columns="2"  style=" align-content: flex-start" cellpadding="5">
-
-                                                <p:outputLabel for="consultar_multa" value="Consultar Con:" style=" font: small serif; "/>
-                                                <p:selectOneRadio id="consultar_multa" value="#{BeansPromocion_Empresarial_Licencias.objLicenciaBusq.tipo_busqueda}"  layout="grid" columns="5" >
-
-                                                    <f:selectItem itemLabel="Nombres" itemValue="0"  />
-                                                    <f:selectItem itemLabel="Codigo Recurrente" itemValue="1"  /> 
-                                                    <f:selectItem itemLabel="N° Expediente" itemValue="2" />
-                                                    <f:selectItem itemLabel="N° Licencia" itemValue="3" />  <!-- Validar Datos --> 
-
-
-                                                </p:selectOneRadio>
-
-                                            </h:panelGrid> 
-
-                                            <h:panelGrid columns="2"  cellspacing="3" >
-
-                                                <h:panelGroup>
-
-                                                    <p:inputText  id="Consulta" value="#{BeansPromocion_Empresarial_Licencias.objLicenciaBusq.consulta}"
-                                                                  >
-
-                                                    </p:inputText>
-                                                    <h:message for="consultas" showDetail="false" showSummary="true"/>                                    
-                                                </h:panelGroup>
-
-                                            </h:panelGrid>    
-
-                                        </h:panelGrid>
-
-
-                                        <!--BLOC-->
-                                    </center>
-
-
-
-
-                                    <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3"  width="17%" >
-
-                                        <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{BeansPromocion_Empresarial_Licencias.doiniciarBusquedaLicencia()}"  
-                                                         value="#{msg.labelNuevo}"  async="true" update="panel_multas_Licencia" />
-
-                                        <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{BeansPromocion_Empresarial_Licencias.doBuscarLicenciaFuncionamiento()}"  
-                                                         value="#{msg.btnConsultar}"  async="true" update="panel_multas_Licencia" />  
-
-
-                                    </h:panelGrid>
-
-                                </p:fieldset>
-
-                                <p:blockUI block="panel_multas_Licencia" trigger="saveBtn">   Buscando... <br />
-                                    <p:graphicImage value="resources/imagenes/cargando1.gif" />   
-                                </p:blockUI>
-
-                                <h:panelGrid columns="6"  cellpadding="2"  cellspacing="2"  width="10%" >
-
-                                    <h:outputText value="#{msg.LabelLeyenda}" style="margin-right:30px;"/>
-                                    <h:outputText value="#{msg.LabelCese}" styleClass="color_letra_licencia_cese"   style="margin-right:30px;"/>
-                                    <h:outputText value="#{msg.LabelAnulado}"  styleClass="color_letra_licencia_anulado"  style="margin-right:30px;"/>
-                                    <h:outputText value="#{msg.LabelRevocatoria}"  styleClass="color_letra_licencia_revocatoria"  style="margin-right:30px;"/>
-                                    <h:outputText value="#{msg.LabelActivo}" styleClass="color_letra_licencia_vigente"  style="margin-right:30px;"/>
-                                    <h:outputText value="#{msg.LabelImprocedente}"  styleClass="color_letra_licencia_improcedente"   style="margin-right:30px;"/>
-
-
-                                </h:panelGrid> 
-
-
-                                <center>
-                                    <h:panelGrid columns="2" >
-                                        <h:outputText styleClass="etiqueta_resultBusq" value="#{msg.labelCantidad}"/>
-                                        <h:outputText styleClass="etiqueta_resultBusq" value="#{BeansPromocion_Empresarial_Licencias.arrBusLicencia.size()}"/>               
-                                    </h:panelGrid> 
-
-
-
-
-                                    <h:panelGrid columns="1"   cellpadding="0"  cellspacing="0" 
-                                                 border="0"  styleClass="width-table"> 
-
-                                        <p:dataTable id="table_Licencia" value="#{BeansPromocion_Empresarial_Licencias.arrBusLicencia}" 
-                                                     var="lista_licencia_funcionamiento"  styleClass="order-table" paginator="true"
-                                                     rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" 
-                                                     paginatorPosition="both" paginatorAlwaysVisible="true"
-                                                     rowStyleClass="#{lista_licencia_funcionamiento.estado eq '0'  ? 'color_letra_licencia_anulado'   : null}
-                                                     #{lista_licencia_funcionamiento.estado eq '1'  ? 'color_letra_licencia_vigente'   : null} 
-                                                     #{lista_licencia_funcionamiento.estado eq '2'  ? 'color_letra_licencia_cese'   : null}
-                                                     #{lista_licencia_funcionamiento.estado eq '3'  ? 'color_letra_licencia_vigente'   : null}
-                                                     #{lista_licencia_funcionamiento.estado eq '4'  ? 'color_letra_licencia_revocatoria'   : null}
-                                                     #{lista_licencia_funcionamiento.estado eq '5'  ? 'color_letra_licencia_improcedente'   : null}">
-
-
-
-                                            <p:column style="width:9%;text-align: center" sortBy="#{lista_licencia_funcionamiento.objExpediente.numero_expediente}">
-                                                <f:facet name="header">
-                                                    <h:outputText value="#{msg.LabelNumeroExpediente}" />
-                                                </f:facet>
-                                                <h:outputText  value="#{lista_licencia_funcionamiento.objExpediente.numero_expediente}"/>
-                                            </p:column>  
-
-                                            <p:column style="width:9%;text-align: center">
-                                                <f:facet name="header">
-                                                    <h:outputText value="#{msg.LabelNumeroLicencia}" />
-                                                </f:facet>
-                                                <h:outputText  value="#{lista_licencia_funcionamiento.numero_licencia}"  />
-                                            </p:column>   
-
-                                            <p:column style="width:15%;text-align: center">
-                                                <f:facet name="header">
-                                                    <h:outputText value="#{msg.LabelFechaLicencia}" />
-                                                </f:facet>
-                                                <h:outputText  value="#{lista_licencia_funcionamiento.fecha_licencia}" />
-                                            </p:column>  
-
-                                            <p:column filterBy="#{lista_licencia_funcionamiento.objPersona.nombre_contribuyente}" filterMatchMode="contains"  style="width:17%;text-align: center">
-                                                <f:facet name="header">
-                                                    <h:outputText value="#{msg.LabelNombres}" />
-                                                </f:facet>
-                                                <h:outputText value="#{lista_licencia_funcionamiento.objPersona.nombre_contribuyente}"/>
-                                            </p:column> 
-
-                                            <p:column style="width:10%;text-align: left">
-                                                <f:facet name="header">
-                                                    <h:outputText value="#{msg.LabelGiro}" style="text-align: center"/>
-                                                </f:facet>
-                                                <h:outputText  value="#{lista_licencia_funcionamiento.objGiros.giro_detalle}"/>
-                                            </p:column>  
-
-
-                                            <p:column exportable="false"  style="width:5%;text-align: center">
-
-                                                <f:facet name="header">
-                                                    <center><h:outputText value="Editar"/></center>
-                                                </f:facet>
-
-
-                                                <p:commandButton id="editar" title="Editar" actionListener="#{BeansPromocion_Empresarial_Licencias.onClickBusq}" 
-                                                                 value="Editar" action="#{BeansPromocion_Empresarial_Licencias.modificarLicencia(lista_licencia_funcionamiento)}"
-                                                                 async="true" update=":TabView_multas_Licencia, :TabView_multas_Licencia" icon="ui-icon-disk"  
-                                                                 >
-                                                    <f:attribute name="param" value="#{2}" /> 
-
-                                                </p:commandButton>
-
-                                            </p:column>
-
-
-
-                                        </p:dataTable> 
-
-                                    </h:panelGrid>  
-                                </center>
-
-
-
-                            </p:panel>  
-
-                        </h:form>     
-
-                    </p:tab>
+               
 
 
                     <p:tab id="tab_editar_licencia" title="Editar Licencia" titletip="Editar"  disabled="#{BeansPromocion_Empresarial_Licencias.bandMod}" titleStyleClass="tamaño_fuente_tab">
@@ -204,41 +30,32 @@
 
                                 <p:accordionPanel multiple="true">
                                     <p:tab title="Solicitud Declaracion I">
-                                        
-                                        
-                                        <center>
-                                      
+                                        <center>                                     
                                         <p:panelGrid  styleClass="ui-responsive"> 
-
-                                            <h:outputLabel value="#{msg.LabelDatosInfractor}"  style=" margin-left: 0%;color: blue" />
-
+                                            <h:outputLabel value="#{msg.LabelDatosTipoAutorizacionMunicipal}"  style=" margin-left: 0%;color: blue" />
                                             <br>
                                             </br>
-
-
-
-
+                                            
                                             <h:panelGrid columns="4" cellspacing="1" cellpadding="1"  width="80%"   >
 
-                                                <h:panelGrid columns="1"  >
+                                                
+                                                <h:panelGrid columns="1">
 
-                                                    <h:outputLabel value="#{msg.LabelCodigoContribuyente}"  />
-                                                    <h:panelGroup > 
-
-                                                        <p:inputText id="codigo_contribuyente" style=" margin-left: 0%"  size="10"  
-                                                                     required="true" requiredMessage="#{msg.labelObli}"
-                                                                     maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                     value="#{Beans_Fiscalizacion_Multas.objMultaMod.objPersona.codigo_contribuyente}" 
-                                                                     >  
-                                                            <f:validateLength minimum="0" maximum="30"/>
-
-                                                        </p:inputText>
-
-
-                                                        <h:message for="codigo_contribuyente" showDetail="false" showSummary="true"/>                                    
-                                                    </h:panelGroup>  
-
-                                                </h:panelGrid>
+                                                    <h:outputText value="#{msg.LabelDatosTipoAutorizacionMunicipal}" style="width: 10% "/>
+                                                    <h:panelGroup>
+                                                        <p:selectOneMenu effect="fade"
+                                                                         filter="true"  filterMatchMode="contains" autoWidth="false" style=" width: 30%"  
+                                                                         required="true" id="tipo_autorizacion"
+                                                                         validatorMessage="#{msg.labelValidar}"
+                                                                         requiredMessage="#{msg.labelObli}"
+                                                                         value="#{Beans_Fiscalizacion_Multas.objMultaMod.objSancion.codigo_sancion}">
+                                                            <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                          itemValue="O"/>
+                                                            <f:selectItems value="#{Grupo.cargarTipoAutorizacionMunicipal}"/>
+                                                        </p:selectOneMenu>
+                                                        <h:message for="tipo_autorizacion" showDetail="false" showSummary="true"/>
+                                                    </h:panelGroup>
+                                                </h:panelGrid>   
 
 
 
@@ -662,7 +479,7 @@
                                                     <h:outputLabel value="#{msg.LabelObservacion}"  style="width: 100% "  />
                                                     <h:panelGroup> 
 
-                                                        <p:inputText id="editar_multa_observacion" required="true" requiredMessage="#{msg.labelObli}"  size="74" style=" width: 100%"
+                                                        <p:inputText id="editar_multa_observacion" required="true" requiredMessage="#{msg.labelObli}"  size="10" style=" width: 100%"
                                                                      maxlength="30" validatorMessage="#{msg.labelValidar}"  
                                                                      value="#{Beans_Fiscalizacion_Multas.objMultaMod.observacion}"  
                                                                      >  
@@ -707,28 +524,31 @@
                                                 </h:panelGrid>    
 
 
-
-
-                                                <h:panelGrid columns="1"  >
+                                                <h:panelGrid columns="2"  >
 
                                                     <h:outputLabel value="#{msg.LabelNumeroInforme}"  style="width: 100% " />
-                                                    <h:panelGroup> 
+                                                    <div class="ui-g-12 ui-md-4">
+                                                        <div class="ui-inputgroup">
 
-                                                        <p:inputText id="editar_multa_numero_informe" required="true" requiredMessage="#{msg.labelObli}"  size="40" style=" width: 100%"
-                                                                     maxlength="15" validatorMessage="#{msg.labelValidar}"  
-                                                                     value="#{Beans_Fiscalizacion_Multas.objMultaMod.numero_informe}"  
-                                                                     >  
-                                                            <f:validateLength minimum="0" maximum="30"/>
-                                                        </p:inputText>
+                                                            <p:inputText id="editar_multa_numero_informe" required="true" requiredMessage="#{msg.labelObli}"  size="5" style=" width: 100%"
+                                                                         maxlength="15" validatorMessage="#{msg.labelValidar}"  
+                                                                         value="#{Beans_Fiscalizacion_Multas.objMultaMod.numero_informe}"  
+                                                                         >  
+                                                                <f:validateLength minimum="0" maximum="30"/>
+                                                            </p:inputText>
 
-                                                        <h:message for="editar_multa_numero_informe" showDetail="false" showSummary="true"/>                                    
-                                                    </h:panelGroup>  
+                                                            <p:commandButton type="button" onclick="PF('dlg2').show();" icon="ui-icon-arrow-4-diag"  /> 
+
+                                                            <h:message for="editar_multa_numero_informe" showDetail="false" showSummary="true"/>  
+
+
+                                                        </div>
+                                                    </div>
 
                                                 </h:panelGrid>
 
-
                                             </h:panelGrid>  
-
+  
                                             <br>
                                             </br>
 
@@ -747,8 +567,213 @@
                                               </center>
                                         
                                             
+                                        <h:form id="form_infraciones" >
+
+
+                                            <p:dialog header="Modal Dialog" widgetVar="dlg2" modal="false" height="500" width="700" responsive="true">
+
+
+
+                                                <h:form  id="form_busc_CertificadoOfi" class="border_titulo1"  styleClass="tamaño_fuente">
+
+                                                    <p:growl globalOnly="true"  id="estRegCertificado" sticky="false"  showDetail="true"  />    
+                                                    <p:panel id="datBusCertificadoOfi" header="#{msg.LabelCertificado}" styleClass="border" style="text-align: center" >
+                                                        <!--Lista de Opciones de Ofina *25*04*17 **J**-->  
+
+                                                        <h:panelGrid columns="1"   >
+
+
+                                                        </h:panelGrid> 
+                                                        <center>
+                                                            <h:panelGrid columns="2"  >
+                                                                <h:outputText value="#{msg.labelDni}" />
+                                                                <h:panelGroup>
+                                                                    <h:outputText value=" a Consultar "/>
+                                                                    <p:inputText  id="nro_dni"
+
+                                                                                  value="#{Beans_DefensaCivil_Supervisor.objBuscarSupervisor.nro_dni}"
+                                                                                  >  
+
+                                                                    </p:inputText>
+                                                                    <h:message for="nro_dni" showDetail="false" showSummary="true"/>                                    
+                                                                </h:panelGroup>
+
+                                                            </h:panelGrid>               
+                                                            <!--BLOC-->
+                                                            <br></br>
+
+                                                        </center>
+                                                        <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3" style="text-align: center;" width="17%">
+
+                                                            <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{Beans_DefensaCivil_Supervisor.doiniciarBusquedaSupervisor()}"  
+                                                                             value="#{msg.labelNuevo}" async="true" update="datBusCertificadoOfi"/>
+
+                                                            <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{Beans_DefensaCivil_Supervisor.doBuscarSupervisor()}"  
+                                                                             value="#{msg.btnConsultar}" async="true" update="datBusCertificadoOfi">  
+
+                                                                <p:confirm message="Esta Seguro de Consultar ?" header="Aviso"  icon="ui-icon-alert"/>
+
+                                                            </p:commandButton>
+
+                                                            <p:confirmDialog global="true" styleClass="tamaño_fuente">
+
+                                                                <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
+                                                                <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+
+
+                                                            </p:confirmDialog>
+
+
+                                                        </h:panelGrid>
+
+                                                      
+
+                                                        <p:blockUI block="datBusCertificadoOfi" trigger="saveBtn">   Buscando... <br />
+                                                            <p:graphicImage value="resources/imagenes/cargando1.gif" />   
+                                                        </p:blockUI>
+
+                                                        <br />
+                                                        <center>
+                                                            <h:panelGrid columns="2" >
+                                                                <h:outputText styleClass="etiqueta_resultBusq" value="#{msg.labelCantidad}"/>
+                                                                <h:outputText styleClass="etiqueta_resultBusq" value="#{Beans_DefensaCivil_Supervisor.arrBusSupervisor.size()}"/>               
+                                                            </h:panelGrid> 
+
+                                                        </center>
+
+
+                                                        <style type="text/css">
+                                                            .colored {
+                                                                background-color: #FF0000;
+                                                                color: #FFFFFF;
+                                                            }
+                                                        </style>    
+
+                                                        <h:form id="form">
+
+                                                            <p:dataTable id="resListadoCertificado" value="#{Beans_DefensaCivil_Supervisor.arrBusSupervisor}" var="listaInspector"  
+                                                                         selectionMode="multiple" rowKey="#{listaInspector.nro_dni}" selection="#{Beans_DefensaCivil_Supervisor.listaInspectores}"
+
+                                                                         styleClass="order-table" paginator="true"
+                                                                         rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" 
+                                                                         paginatorPosition="both" paginatorAlwaysVisible="true"
+                                                                         rowStyleClass="tamaño_fuente"
+                                                                         >
+
+
+                                                                <f:facet name="header">
+                                                                    Inspectores de Defensa Civil
+                                                                </f:facet>       
+
+                                                                <p:column style="width:100px;text-align: center"  >
+                                                                    <f:facet name="header">
+                                                                        <h:outputText value="#{msg.labelDni}" />
+                                                                    </f:facet>
+                                                                    <h:outputText  value="#{listaInspector.nro_dni}"/>
+                                                                </p:column>  
+
+                                                                <p:column style="width:300px;text-align: center"  filterBy="#{listaInspector.apellido_paterno}" filterMatchMode="contains" rendered="true">
+                                                                    <f:facet name="header">
+                                                                        <h:outputText value="#{msg.LabelNombres}" />
+                                                                    </f:facet>
+                                                                    <h:outputText  value="#{listaInspector.apellido_materno}"/>
+                                                                </p:column>   
+
+
+                                                                <p:column style="width:300px;text-align: center"  filterBy="#{listaInspector.apellidos_nombres}" filterMatchMode="contains" rendered="true">
+                                                                    <f:facet name="header">
+                                                                        <h:outputText value="#{msg.LabelNombres}" />
+                                                                    </f:facet>
+                                                                    <h:outputText  value="#{listaInspector.nombres}"/>
+                                                                </p:column>   
+
+
+                                                                <p:column style="width:32px;text-align: center">
+
+                                                                    <p:commandButton    oncomplete="PF('carDialog').show()" icon="ui-icon-search" title="View">
+                                                                        <f:setPropertyActionListener value="#{listaInspector}" target="#{Beans_DefensaCivil_Supervisor.inspector}" />
+                                                                    </p:commandButton>
+
+                                                                </p:column>
+
+
+                                                                <f:facet name="footer">
+                                                                    <p:commandButton process="resListadoCertificado"  
+                                                                                     icon="ui-icon-search"  value="Ver" oncomplete="PF('multiCarDialog').show()" />
+                                                                </f:facet>
+
+                                                            </p:dataTable> 
+
+                                                        </h:form>
+
+
+                                                        <h:form id="mostrar">
+                                                            <p:dialog header="Inspectores" widgetVar="carDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false">
+
+                                                                <p:outputPanel id="carDetail" style="text-align:center;">
+
+                                                                    <h:panelGrid columns="2" rendered="#{not empty Beans_DefensaCivil_Supervisor.inspector}" columnClasses="label,value">
+
+                                                                        <f:facet name="header">
+                                                                            <h:outputText value="Datos"/> 
+                                                                        </f:facet> 
+
+                                                                        <h:outputText value="#{msg.labelDni}"/>
+                                                                        <h:outputText value="#{Beans_DefensaCivil_Supervisor.inspector.nro_dni}" />
+
+                                                                        <h:outputText value="#{msg.LabelNombres}"/>
+                                                                        <h:outputText value="#{Beans_DefensaCivil_Supervisor.inspector.apellidos_nombres}" />
+
+                                                                        <h:outputText value="#{msg.LabelTelefono}"/>
+                                                                        <h:outputText value="#{Beans_DefensaCivil_Supervisor.inspector.telefono}" />
+
+                                                                        <h:outputText value="#{msg.LabelDireccion}"/>
+                                                                        <h:outputText value="#{Beans_DefensaCivil_Supervisor.inspector.direccion}" />
+
+                                                                    </h:panelGrid>
+
+                                                                </p:outputPanel>
+
+                                                            </p:dialog> 
+
+
+                                                        </h:form>
+
+                                                        <h:form id="seleccionados" >
+
+
+                                                            <p:dialog header="Lista" widgetVar="multiCarDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false" width="220">
+                                                                <p:outputPanel id="multiCarDetail" style="text-align:center;">
+                                                                    <ui:repeat value="#{Beans_DefensaCivil_Supervisor.listaInspectores}" var="lista">
+
+                                                                        <h:outputText value="#{lista.nro_dni} - #{lista.apellidos_nombres}" style="display:block"/>
+                                                                    </ui:repeat>
+                                                                </p:outputPanel>
+                                                            </p:dialog>
+
+                                                        </h:form>    
+
+
+
+                                                    </p:panel>
+
+                                                </h:form> 
+
+                                            
+                                            
+                                            </p:dialog> 
+                                            
+                                            
+                                            
+                                        </h:form> 
+                                        
+                                        
+                                        
                                             
                                     </p:tab>
+                                    
+                                    
+                                    
                                     <p:tab title="Solicitud Declaracion II">
                                         <h:panelGrid columns="2" cellpadding="10">
                                             <p:graphicImage name="demo/images/godfather/godfather2.jpg" />
