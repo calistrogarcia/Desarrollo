@@ -13,53 +13,84 @@
         <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
             <ui:define name="contenido">
 
-
-
-
+ 
                 <p:tab id="tab_contribuyente" title="#{msg.LabelSeccionContribuyentes}" titletip="#{msg.LabelSeccionContribuyentes}"  
                        titleStyleClass="tamaño_fuente_tab">
-
-
 
 
                     <p:growl globalOnly="true"  id="growl_contribuyente" sticky="false"  showDetail="true"  />   
 
                     <h:form  id="form_contribuyente" class="border_titulo1"  styleClass="tamaño_fuente">  
 
-                        <br>
-                        </br>
+                    
 
-                        <p:fieldset   style="margin-bottom:20px;" >
+                        <p:fieldset  id="fieldsetBusqueda"  style="margin-bottom:20px;color: #5cb85c; text-align:  left" legend="Datos de Contribuyente"  >
                             <center>
-                                <h:panelGrid columns="4" style="margin-bottom:20px" cellpadding="5">
+                                <h:panelGrid columns="4" style="margin-bottom:20px" cellpadding="5" >
 
 
-                                    <h:panelGrid columns="3"  cellspacing="3" >
+                                    <h:panelGrid columns="4"  cellspacing="3" >
 
-                                        <p:graphicImage url="resources/imagenes/contribuyente.png" height="25px"   />
-                                        <h:outputText value="#{msg.LabelCodigoRecurrente}" style=" font: small serif" />
+                                       
+                                     <p:graphicImage url="resources/imagenes/contribuyente.png" height="45px"   />    
+                                        
+                                           <h:panelGrid columns="2"  style=" align-content: flex-start" cellpadding="5">
+
+                                                <p:outputLabel for="busqueda" value="Buscar Por:" />
+                                                <p:selectOneRadio id="busqueda" value="#{BeansRegistro_Informacion_Personal.objContribuyenteBusq.tipo_busqueda}"  layout="grid" columns="3" >
+
+                                                    <f:selectItem itemLabel="Codigo" itemValue="1"  />
+                                                    <f:selectItem itemLabel="Doc. Identidad" itemValue="2" />
+                                                    <f:selectItem itemLabel="Nombre" itemValue="3" />  <!-- Validar Datos --> 
+
+
+                                                </p:selectOneRadio>
+
+                                            </h:panelGrid> 
+                                        
+                                     
+                                        <h:outputText value="#{msg.LabelCodigoRecurrente}" />
+                                        
+                                        
                                         <h:panelGroup>
+                                            <p:inputText  id="buscar_codigo_recurrente" 
+                                                          value="#{BeansRegistro_Informacion_Personal.objContribuyenteBusq.consulta}"
+                                                          required="true" requiredMessage="#{msg.labelObli}"
+                                                          maxlength="30" validatorMessage="#{msg.labelValidar}" 
+                                                          >
 
-                                            <p:autoComplete id="id_auto" value="#{BeansRegistro_Informacion_Personal.objContribuyenteBusq.codigo_contribuyente}"
-                                                            completeMethod="#{BeansRegistro_Informacion_Personal.autoCompletarBusqueda}"
-                                                            required="true" requiredMessage="#{msg.labelObli}"
-                                                            maxlength="6" validatorMessage="#{msg.labelValidar}"   > 
+                                                <f:validateLength minimum="0" maximum="30"/>
+                                            </p:inputText>
+                                            <h:message for="buscar_codigo_recurrente" showDetail="false" showSummary="true"/>       
 
-                                                <f:validateLength minimum="0" maximum="6"/>
-                                            </p:autoComplete>  
+
                                         </h:panelGroup>
                                     </h:panelGrid>  
 
                                 </h:panelGrid>
                                 <!--BLOC-->
                             </center>
+                            
+                            
+                   
+                                
+                           
                             <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3"  width="17%" >
                                 <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{BeansRegistro_Informacion_Personal.doiniciarBusquedaContribuyente()}"  
                                                  value="#{msg.labelNuevo}"  async="true" update="form_contribuyente" />
                                 <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{BeansRegistro_Informacion_Personal.doBuscarContribuyente()}"  
                                                  value="#{msg.btnConsultar}"  async="true" update="form_contribuyente" />  
                             </h:panelGrid>
+   
                         </p:fieldset>
+                        
+                              
+                        
+                        <p:blockUI block="fieldsetBusqueda" trigger="saveBtn">   Buscando... <br />
+                                    <p:graphicImage value="resources\imagenes\cargando.gif" />   
+                         </p:blockUI>
+                        
+                        
 
 
                         <h:panelGrid columns="2" >
@@ -83,7 +114,7 @@
                             </p:column> 
 
 
-                            <p:column style="width:6%;text-align: center">
+                            <p:column filterBy="#{lista_contribuyente.nombres_apellidos}" filterMatchMode="contains"   style="width:6%;text-align: center">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.LabelNombres}" />
                                 </f:facet>
@@ -144,7 +175,8 @@
 
 
                     </h:form>
-
+                    
+                                  
 
                     <h:form id="formUpdate">
 
@@ -317,9 +349,74 @@
                                             </h:panelGrid>
 
                                         </h:panelGrid>
+                                        
+                                        
+                                        
+                                           <h:panelGrid columns="5" cellspacing="4" cellpadding="2"  width="95%" >
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroTelefono}"  style="width: 100% "/>
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_numero_telefono_recurrente" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.numero_telefono_contribuyente}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_numero_telefono_recurrente" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+                                           <h:panelGrid columns="1"  >
+                                               <h:outputLabel value="#{msg.LabelNumeroFax}"  style="width: 100% "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_fax_contribuyente" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.numero_fax_contribuyente}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_fax_contribuyente" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+                                               
+                                               
+                                               
+                                               
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroCelular}" style="width: 100% " />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_numero_celular_recurrente" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.numero_celular}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_numero_celular_recurrente" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
 
 
 
+                                           
+
+
+                                        </h:panelGrid>     
+                                        
+                                        
 
                                         <h:panelGrid columns="4" cellspacing="2" cellpadding="2"  width="99%"  >
 
@@ -347,14 +444,29 @@
                                             <h:panelGrid columns="1"  >   
                                                 <h:outputText value="#{msg.LabelFechaNacimiento}" />
 
-                                                <h:panelGroup>
+                                           
 
-                                                    <p:calendar id="Editar_fecha_nacimiento"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}"
-                                                                locale="es" navigator="true" showOn="button"  size="15" 
-                                                                value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.fecha_nacimiento}" 
-                                                                pattern="yyyy-MM-dd">   
-                                                    </p:calendar>
-                                                    <h:message for="Editar_fechas_nacimiento" showDetail="true" showSummary="true"/>                                   
+                                                      <h:panelGroup>
+                                                    
+                                                    
+                                                    <p:inputMask id="editar_fecha_nacimiento"  
+
+                                                                 mask="9999-99-99"  
+                                                                 required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}"
+                                                                 size="15" 
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.fecha_nacimiento}" > 
+                                                        
+                                                         <f:convertDateTime pattern="YYYY/MM/DD" />
+ 
+                                                        
+                                                    </p:inputMask>
+                                                    
+                                                      <h:message for="editar_fecha_nacimiento" showDetail="true" showSummary="true"/>      
+
+                                                                    
+                                                    <p:watermark  value="YYYY/MM/DD" for="editar_fecha_nacimiento" />
+                                                    
+                                                    
                                                 </h:panelGroup>
 
 
@@ -868,7 +980,7 @@
 
 
                                                 <h:panelGroup>
-                                                    <p:inputTextarea rows="4" cols="60" counter="referenciando" maxlength="650"                      
+                                                    <p:inputTextarea rows="8" cols="60" counter="referenciando" maxlength="650"                      
 
                                                                      autoResize="true" id="Editar_referencia"
                                                                      counterTemplate="{0} #{msg.LabelContador}" 
@@ -1094,6 +1206,72 @@
                                         </h:panelGrid>
 
 
+                                          <h:panelGrid columns="5" cellspacing="4" cellpadding="2"  width="95%" >
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroTelefono}"  style="width: 100% "/>
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Registrar_numero_telefono_recurrente" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.numero_telefono_contribuyente}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Registrar_numero_telefono_recurrente" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+                                           <h:panelGrid columns="1"  >
+                                               <h:outputLabel value="#{msg.LabelNumeroFax}"  style="width: 100% "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Registrar_fax_contribuyente" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.numero_fax_contribuyente}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Registrar_fax_contribuyente" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+                                               
+                                               
+                                               
+                                               
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroCelular}" style="width: 100% " />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Registrar_numero_celular_recurrente" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.numero_celular}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Registrar_numero_celular_recurrente" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+
+                                           
+
+
+                                        </h:panelGrid>       
+                                        
+                                        
+                                        
 
 
                                         <h:panelGrid columns="4" cellspacing="2" cellpadding="2"  width="99%"  >
@@ -1123,13 +1301,19 @@
                                                 <h:outputText value="#{msg.LabelFechaNacimiento}" />
 
                                                 <h:panelGroup>
+                                                    
+                                                    
+                                                    <p:inputMask id="registro_fecha_nacimiento"  
 
-                                                    <p:calendar id="registro_fecha_nacimiento"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}"
-                                                                locale="es" navigator="true" showOn="button"  size="15" 
-                                                                value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.fecha_nacimiento}" 
-                                                                pattern="dd/MM/yyyy">   
-                                                    </p:calendar>
-                                                    <h:message for="registro_fechas_nacimiento" showDetail="true" showSummary="true"/>                                   
+                                                                 mask="99/99/9999" 
+                                                                 required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}"
+                                                                 size="15" 
+                                                                value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.fecha_nacimiento}" > 
+                                                    </p:inputMask>
+                                                    
+                                                      <h:message for="registro_fechas_nacimiento" showDetail="true" showSummary="true"/>      
+
+                                                                               
                                                 </h:panelGroup>
 
 
@@ -1694,6 +1878,9 @@
 
                 </p:tab>
 
+
+                              
+                                      
 
 
             </ui:define>

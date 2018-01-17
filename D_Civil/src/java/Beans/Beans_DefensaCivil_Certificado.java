@@ -902,6 +902,8 @@ public class Beans_DefensaCivil_Certificado {
     }
 
     //--------------------Desactivar cuando se ejecuta evento de cancelar -------------------------------------------------
+    
+    
     public String desactivaTabModificarIpse() {
 
         this.bandMod = true;
@@ -928,6 +930,43 @@ public class Beans_DefensaCivil_Certificado {
         return null;
     }
 
+    
+   
+     //--------------------Desactivar cuando se ejecuta evento de cancelar -------------------------------------------------
+    
+    
+    public String desactivaVistaConsultaArchivos() {
+
+        this.bandMod = true;
+
+        //Pregunta si la Detalle Mostrada Proviene de una Busqueda Simple:2 o de un listado total:1 
+        if (puntAnt.compareTo("2") == 0) {
+
+            this.doBuscarCertificado();
+            this.activeTabIndex = Constantes.TAB_BUSQUEDA;
+        } else {
+
+            if (puntAnt.compareTo("1") == 0) {
+                // this.doListarCertificado();
+
+                this.doiniciarModificarCertificado();
+                this.activeTabIndex = Constantes.TAB_MODIFICAR;
+
+                //this.activeTabIndex=Constantes.TAB_ELIMINAR;
+            }
+        }
+
+        Mensaje.guardarMensajeExito("Cancelar, Editar Ipse !!!", "Inspeccion Tecnica de Seguridad");
+
+        return null;
+    }
+
+    
+    
+    
+    
+    
+    
     //--------------------------------------------------------------------------------------------------------------------
     public String desactivaTabResolverIpse() {
 

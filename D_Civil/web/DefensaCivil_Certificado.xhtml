@@ -1030,6 +1030,11 @@ and open the template in the editor.
 
                                 <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3"  width="17%" >
 
+                                   
+                                     <p:commandButton icon="ui-icon-triangle-1-w"  id="cancelar_editar"
+                                                      actionListener="#{Beans_DefensaCivil_Certificado.desactivaVistaConsultaArchivos}"  immediate="true"  value="#{msg.labelCancelar}"  
+                                                         async="true" update=":CertificadoTabView, :CertificadoTabView:form_buscar_informacion_virtual" />
+                                    
                                     <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{Beans_DefensaCivil_Certificado.doiniciarBusquedaArchivoVirtual()}"  
                                                      value="#{msg.labelNuevo}"  async="true" update="panel_informacion_virtual" />
 

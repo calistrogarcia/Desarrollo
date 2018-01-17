@@ -370,6 +370,46 @@ public class Prueba_SP {
 
     }
     
+       
+       
+       
+        public static void registarRecurrente() {
+
+        Certificado cer = new Certificado();
+        cer.setNro_expediente("41391-01-2017");
+        cer.setArea("SUBG. DE DEFENSA CIVIL");
+        cer.setContribuyente("322354");
+        cer.setNombres("TORRE QUISPE JORGE LUIS");
+        cer.setRazon_social("");
+        cer.setRepresentante_legal("");
+        cer.setDireccion("");
+        cer.setAsunto("INSPECCIÓN TÉCNICA BÁSICA DE SEGURIDAD EN DEFENSA CIVIL EX POST HASTA 100 M2 Y CAPACIDAD DE ALMACENAMIENTO NO MAYORA 30% DEL ÁREA TOTAL DEL LOCAL APLICABLE, ENTRE OTROS PARA: • CASO DE DENEGATORIA DE");
+        cer.setObservaciones_seguridad("yyyy");
+
+        cer.setArea_declarada("45");
+        cer.setNombre_inspector("Garcia Garcia Mariano");
+        cer.setAforo(7);
+        cer.Objgiros.setGiro_detalle("CULTIVO DE ESPECIAS DE FRUTO EJEMPLO: CLAVOS DE OLOR");
+
+        cer.setAnotaciones("SOLICITA LA OPINION FAVORABLE DE DEFENSA "
+                + "CIVIL PARA LA AUTORIZACION DE LOS ELEMENTOS "
+                + "DE SEGURIDAD - REJAS POR LA INSEGURIDAD,"
+                + " ROBOS Y FUMONES QUE SE ENCUENTRAN "
+                + "UBICADOS DENTRO DE LA ZONA");
+        cer.setId_tipo_licencia(1);
+        cer.setDireccion_verificada("Direccion los Jasminez");
+        cer.setEstado_fiscalizacion(1);
+        cer.setResultado(0);
+
+        if (Certificado.MoficardatosParaCertificado(cer)) {
+            System.out.println("ok");
+        } else {
+            System.out.println("no");
+        }
+
+    }
+    
+    
     
     
 

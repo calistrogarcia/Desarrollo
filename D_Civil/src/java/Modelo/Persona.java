@@ -18,6 +18,8 @@ import java.util.Date;
  */
 public class Persona implements Serializable {
 
+    private String tipo_busqueda;
+    private String consulta;
     private String codigo_contribuyente;  
     private String tipo_persona;
     private String tipo_documento;
@@ -54,8 +56,7 @@ public class Persona implements Serializable {
     private String fecha_modificacion;
     private String nombre_tipo_persona;
     private String nombre_tipo_documento;
-    private Date fecha_nacimientos;
-   
+    
    
    
     private int edad;
@@ -67,17 +68,26 @@ public class Persona implements Serializable {
     Direccion ObjDireccion= new Direccion();
     Area ObjArea = new Area();
 
+   
     
     
-    
-    public Date getFecha_nacimientos() {
-        return fecha_nacimientos;
+    public String getTipo_busqueda() {
+        return tipo_busqueda;
     }
 
-    public void setFecha_nacimientos(Date fecha_nacimientos) {
-        this.fecha_nacimientos = fecha_nacimientos;
+    public void setTipo_busqueda(String tipo_busqueda) {
+        this.tipo_busqueda = tipo_busqueda;
     }
-    
+
+    public String getConsulta() {
+        return consulta;
+    }
+
+    public void setConsulta(String consulta) {
+        this.consulta = consulta;
+    }
+
+
     public String getNombre_tipo_documento() {
         return nombre_tipo_documento;
     }
@@ -430,7 +440,7 @@ public class Persona implements Serializable {
         try {
             conexion = Controlador_Sql.darConexionBD();
             CallableStatement st
-                    =  conexion.prepareCall("{call dbo.sp_java_registrar_contribuyente (?,?,?,?,?,?,?,?)}");
+                    =  conexion.prepareCall("{call dbo.sp_java_registrar_contribuyente (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
             conexion.setAutoCommit(false);
 
             if (ObjPersona.getTipo_persona() != null) {
@@ -544,9 +554,20 @@ public class Persona implements Serializable {
             }
             
              
-            if (ObjPersona.ObjDireccion.getTipo_via() != null) {
-                if (ObjPersona.ObjDireccion.getTipo_via().length() > 0) {
-                    st.setString(11, ObjPersona.ObjDireccion.getTipo_via());
+//            if (ObjPersona.ObjDireccion.getTipo_via() != null) {
+//                if (ObjPersona.ObjDireccion.getTipo_via().length() > 0) {
+//                    st.setString(11, ObjPersona.ObjDireccion.getTipo_via());
+//                } else {
+//                    st.setString(11, null);
+//                }
+//            } else {
+//                st.setString(11, null);
+//            }
+            
+            
+             if (ObjPersona.ObjDireccion.getNombre_via() != null) {
+                if (ObjPersona.ObjDireccion.getNombre_via().length() > 0) {
+                    st.setString(11, ObjPersona.ObjDireccion.getNombre_via());
                 } else {
                     st.setString(11, null);
                 }
@@ -554,10 +575,10 @@ public class Persona implements Serializable {
                 st.setString(11, null);
             }
             
-            
-             if (ObjPersona.ObjDireccion.getNombre_via() != null) {
-                if (ObjPersona.ObjDireccion.getNombre_via().length() > 0) {
-                    st.setString(12, ObjPersona.ObjDireccion.getNombre_via());
+             
+              if (ObjPersona.ObjDireccion.getNumero() != null) {
+                if (ObjPersona.ObjDireccion.getNumero().length() > 0) {
+                    st.setString(12, ObjPersona.ObjDireccion.getNumero());
                 } else {
                     st.setString(12, null);
                 }
@@ -565,32 +586,32 @@ public class Persona implements Serializable {
                 st.setString(12, null);
             }
             
-             
-              if (ObjPersona.ObjDireccion.getNumero() != null) {
-                if (ObjPersona.ObjDireccion.getNumero().length() > 0) {
-                    st.setString(13, ObjPersona.ObjDireccion.getNumero());
+                
+             if (ObjPersona.ObjDireccion.getNumero_interior() != null) {
+                if (ObjPersona.ObjDireccion.getNumero_interior().length() > 0) {
+                    st.setString(13, ObjPersona.ObjDireccion.getNumero_interior());
                 } else {
                     st.setString(13, null);
                 }
             } else {
                 st.setString(13, null);
             }
+             
             
-                
-             if (ObjPersona.ObjDireccion.getNumero_interior() != null) {
-                if (ObjPersona.ObjDireccion.getNumero_interior().length() > 0) {
-                    st.setString(14, ObjPersona.ObjDireccion.getNumero_interior());
+              if (ObjPersona.ObjDireccion.getNumero_departamento() != null) {
+                if (ObjPersona.ObjDireccion.getNumero_departamento().length() > 0) {
+                    st.setString(14, ObjPersona.ObjDireccion.getNumero_departamento());
                 } else {
                     st.setString(14, null);
                 }
             } else {
                 st.setString(14, null);
             }
-             
             
-              if (ObjPersona.ObjDireccion.getNumero_departamento() != null) {
-                if (ObjPersona.ObjDireccion.getNumero_departamento().length() > 0) {
-                    st.setString(15, ObjPersona.ObjDireccion.getNumero_departamento());
+              
+               if (ObjPersona.ObjDireccion.getLetra() != null) {
+                if (ObjPersona.ObjDireccion.getLetra().length() > 0) {
+                    st.setString(15, ObjPersona.ObjDireccion.getLetra());
                 } else {
                     st.setString(15, null);
                 }
@@ -598,91 +619,125 @@ public class Persona implements Serializable {
                 st.setString(15, null);
             }
             
-              
-               if (ObjPersona.ObjDireccion.getLetra() != null) {
-                if (ObjPersona.ObjDireccion.getLetra().length() > 0) {
-                    st.setString(16, ObjPersona.ObjDireccion.getLetra());
+            
+            if (ObjPersona.ObjDireccion.getBloque() != null) {
+                if (ObjPersona.ObjDireccion.getBloque().length() > 0) {
+                    st.setString(16, ObjPersona.ObjDireccion.getBloque());
                 } else {
                     st.setString(16, null);
                 }
             } else {
                 st.setString(16, null);
-            }
-            
-            
-            if (ObjPersona.ObjDireccion.getBloque() != null) {
-                if (ObjPersona.ObjDireccion.getBloque().length() > 0) {
-                    st.setString(17, ObjPersona.ObjDireccion.getBloque());
-                } else {
-                    st.setString(17, null);
-                }
-            } else {
-                st.setString(17, null);
             }    
                
             
             
             if (ObjPersona.ObjDireccion.getManzana() != null) {
                 if (ObjPersona.ObjDireccion.getManzana().length() > 0) {
-                    st.setString(18, ObjPersona.ObjDireccion.getManzana());
+                    st.setString(17, ObjPersona.ObjDireccion.getManzana());
+                } else {
+                    st.setString(17, null);
+                }
+            } else {
+                st.setString(17, null);
+            }  
+             
+             
+            if (ObjPersona.ObjDireccion.getLote() != null) {
+                if (ObjPersona.ObjDireccion.getLote().length() > 0) {
+                    st.setString(18, ObjPersona.ObjDireccion.getLote());
                 } else {
                     st.setString(18, null);
                 }
             } else {
                 st.setString(18, null);
             }  
-             
-             
-            if (ObjPersona.ObjDireccion.getLote() != null) {
-                if (ObjPersona.ObjDireccion.getLote().length() > 0) {
-                    st.setString(19, ObjPersona.ObjDireccion.getLote());
+            
+           
+           if (ObjPersona.ObjDireccion.getReferencia() != null) {
+                if (ObjPersona.ObjDireccion.getReferencia().length() > 0) {
+                    st.setString(19, ObjPersona.ObjDireccion.getReferencia());
                 } else {
                     st.setString(19, null);
                 }
             } else {
                 st.setString(19, null);
             }  
-            
-           
-           if (ObjPersona.ObjDireccion.getReferencia() != null) {
-                if (ObjPersona.ObjDireccion.getReferencia().length() > 0) {
-                    st.setString(20, ObjPersona.ObjDireccion.getReferencia());
-                } else {
-                    st.setString(20, null);
-                }
-            } else {
-                st.setString(20, null);
-            }  
              
              
            
             if (ObjPersona.getNumero_telefono_contribuyente() != null) {
                 if (ObjPersona.getNumero_telefono_contribuyente().length() > 0) {
-                    st.setString(21, ObjPersona.getNumero_telefono_contribuyente());
+                    st.setString(20, ObjPersona.getNumero_telefono_contribuyente());
                 } else {
-                    st.setString(21, null);
+                    st.setString(20, null);
                 }
             } else {
-                st.setString(21, null);
+                st.setString(20, null);
             } 
             
            
             
              if (ObjPersona.getNumero_fax_contribuyente() != null) {
                 if (ObjPersona.getNumero_fax_contribuyente().length() > 0) {
-                    st.setString(22, ObjPersona.getNumero_fax_contribuyente());
+                    st.setString(21, ObjPersona.getNumero_fax_contribuyente());
                 } else {
-                    st.setString(22, null);
+                    st.setString(21, null);
                 }
             } else {
-                st.setString(22, null);
+                st.setString(21, null);
             } 
            
            
             
             if (ObjPersona.getCorreo_contribuyente() != null) {
                 if (ObjPersona.getCorreo_contribuyente().length() > 0) {
-                    st.setString(23, ObjPersona.getCorreo_contribuyente());
+                    st.setString(22, ObjPersona.getCorreo_contribuyente());
+                } else {
+                    st.setString(22, null);
+                }
+            } else {
+                st.setString(22, null);
+            } 
+            
+            
+            
+//            if (ObjPersona.getUsuario_registro() != null) {
+//                if (ObjPersona.getUsuario_registro().length() > 0) {
+//                    st.setString(24, ObjPersona.getUsuario_registro());
+//                } else {
+//                    st.setString(24, null);
+//                }
+//            } else {
+//                st.setString(24, null);
+//            } 
+//            
+//            
+//           if (ObjPersona.getHora_registro() != null) {
+//                if (ObjPersona.getHora_registro().length() > 0) {
+//                    st.setString(25, ObjPersona.getHora_registro());
+//                } else {
+//                    st.setString(25, null);
+//                }
+//            } else {
+//                st.setString(25, null);
+//            } 
+//            
+//           
+//           if (ObjPersona.getUsuario_red() != null) {
+//                if (ObjPersona.getUsuario_red().length() > 0) {
+//                    st.setString(26, ObjPersona.getUsuario_red());
+//                } else {
+//                    st.setString(26, null);
+//                }
+//            } else {
+//                st.setString(26, null);
+//            } 
+            
+           
+            if (ObjPersona.getFecha_nacimiento() != null) {
+                if (ObjPersona.getFecha_nacimiento().length() > 0) {
+                    st.setString(23, ObjPersona.getFecha_nacimiento());
                 } else {
                     st.setString(23, null);
                 }
@@ -692,109 +747,64 @@ public class Persona implements Serializable {
             
             
             
-            if (ObjPersona.getUsuario_registro() != null) {
-                if (ObjPersona.getUsuario_registro().length() > 0) {
-                    st.setString(24, ObjPersona.getUsuario_registro());
-                } else {
-                    st.setString(24, null);
-                }
-            } else {
-                st.setString(24, null);
-            } 
-            
-            
-           if (ObjPersona.getHora_registro() != null) {
-                if (ObjPersona.getHora_registro().length() > 0) {
-                    st.setString(25, ObjPersona.getHora_registro());
-                } else {
-                    st.setString(25, null);
-                }
-            } else {
-                st.setString(25, null);
-            } 
-            
-           
-           if (ObjPersona.getUsuario_red() != null) {
-                if (ObjPersona.getUsuario_red().length() > 0) {
-                    st.setString(26, ObjPersona.getUsuario_red());
-                } else {
-                    st.setString(26, null);
-                }
-            } else {
-                st.setString(26, null);
-            } 
-            
-           
-            if (ObjPersona.getFecha_nacimiento() != null) {
-                if (ObjPersona.getFecha_nacimiento().length() > 0) {
-                    st.setString(27, ObjPersona.getFecha_nacimiento());
-                } else {
-                    st.setString(27, null);
-                }
-            } else {
-                st.setString(27, null);
-            } 
-            
-            
-            
-            if (ObjPersona.ObjDireccion.getZona() != null) {
-                if (ObjPersona.ObjDireccion.getZona().length() > 0) {
-                    st.setString(28, ObjPersona.ObjDireccion.getZona());
-                } else {
-                    st.setString(28, null);
-                }
-            } else {
-                st.setString(28, null);
-            } 
-            
-            
-           if (ObjPersona.ObjDireccion.getBloque() != null) {
-                if (ObjPersona.ObjDireccion.getBloque().length() > 0) {
-                    st.setString(29, ObjPersona.ObjDireccion.getBloque());
-                } else {
-                    st.setString(29, null);
-                }
-            } else {
-                st.setString(29, null);
-                
-            }  
+//            if (ObjPersona.ObjDireccion.getZona() != null) {
+//                if (ObjPersona.ObjDireccion.getZona().length() > 0) {
+//                    st.setString(25, ObjPersona.ObjDireccion.getZona());
+//                } else {
+//                    st.setString(25, null);
+//                }
+//            } else {
+//                st.setString(25, null);
+//            } 
+//            
+//            
+//           if (ObjPersona.ObjDireccion.getBloque() != null) {
+//                if (ObjPersona.ObjDireccion.getBloque().length() > 0) {
+//                    st.setString(26, ObjPersona.ObjDireccion.getBloque());
+//                } else {
+//                    st.setString(26, null);
+//                }
+//            } else {
+//                st.setString(26, null);
+//                
+//            }  
            
            
-            if (ObjPersona.ObjArea.getId_area()!= null) {
-                if (ObjPersona.ObjDireccion.getBloque().length() > 0) {
-                    st.setString(30, ObjPersona.ObjDireccion.getBloque());
-                } else {
-                    st.setString(30, null);
-                }
-            } else {
-                st.setString(30, null);
-                
-            }  
+//            if (ObjPersona.ObjArea.getId_area()!= null) {
+//                if (ObjPersona.ObjDireccion.getBloque().length() > 0) {
+//                    st.setString(30, ObjPersona.ObjDireccion.getBloque());
+//                } else {
+//                    st.setString(30, null);
+//                }
+//            } else {
+//                st.setString(30, null);
+//                
+//            }  
+//            
             
-            
-          if (ObjPersona.ObjPoblado.getCodigo_poblado()!= null) {
-                if (ObjPersona.ObjPoblado.getCodigo_poblado().length() > 0) {
-                    st.setString(31, ObjPersona.ObjPoblado.getCodigo_poblado());
-                } else {
-                    st.setString(31, null);
-                }
-            } else {
-                st.setString(31, null);
-                
-            }    
+//          if (ObjPersona.ObjPoblado.getCodigo_poblado()!= null) {
+//                if (ObjPersona.ObjPoblado.getCodigo_poblado().length() > 0) {
+//                    st.setString(27, ObjPersona.ObjPoblado.getCodigo_poblado());
+//                } else {
+//                    st.setString(27, null);
+//                }
+//            } else {
+//                st.setString(27, null);
+//                
+//            }    
            
           
            if (ObjPersona.getNombre_representante()!= null) {
                 
                if (ObjPersona.getNombre_representante().length() > 0) {
                     
-                   st.setString(32, ObjPersona.getNombre_representante());
+                   st.setString(24, ObjPersona.getNombre_representante());
                    
                 } else {
-                    st.setString(32, null);
+                    st.setString(24, null);
                 }
             } else {
-                st.setString(32, null);
+                st.setString(24, null);
                 
             } 
            
@@ -803,13 +813,13 @@ public class Persona implements Serializable {
                 
                if (ObjPersona.getTipo_documento_representante().length() > 0) {
                     
-                   st.setString(33, ObjPersona.getTipo_documento_representante());
+                   st.setString(25, ObjPersona.getTipo_documento_representante());
                    
                 } else {
-                    st.setString(33, null);
+                    st.setString(25, null);
                 }
             } else {
-                st.setString(33, null);
+                st.setString(25, null);
                 
             }    
             
@@ -818,13 +828,13 @@ public class Persona implements Serializable {
                 
                if (ObjPersona.getNumero_documento_representante().length() > 0) {
                     
-                   st.setString(34, ObjPersona.getNumero_documento_representante());
+                   st.setString(26, ObjPersona.getNumero_documento_representante());
                    
                 } else {
-                    st.setString(34, null);
+                    st.setString(26, null);
                 }
             } else {
-                st.setString(34, null);
+                st.setString(26, null);
                 
             }    
             
@@ -833,13 +843,13 @@ public class Persona implements Serializable {
                 
                if (ObjPersona.getNombre_conyuge().length() > 0) {
                     
-                   st.setString(35, ObjPersona.getNombre_conyuge());
+                   st.setString(27, ObjPersona.getNombre_conyuge());
                    
                 } else {
-                    st.setString(35, null);
+                    st.setString(27, null);
                 }
             } else {
-                st.setString(35, null);
+                st.setString(27, null);
                 
             }  
           
@@ -848,13 +858,13 @@ public class Persona implements Serializable {
                 
                if (ObjPersona.getTipo_documento_conjuge().length() > 0) {
                     
-                   st.setString(36, ObjPersona.getTipo_documento_conjuge());
+                   st.setString(28, ObjPersona.getTipo_documento_conjuge());
                    
                 } else {
-                    st.setString(36, null);
+                    st.setString(28, null);
                 }
             } else {
-                st.setString(36, null);
+                st.setString(28, null);
                 
             }  
            
@@ -862,13 +872,13 @@ public class Persona implements Serializable {
                 
                if (ObjPersona.getNumero_documento_conjuge().length() > 0) {
                     
-                   st.setString(36, ObjPersona.getNumero_documento_conjuge());
+                   st.setString(29, ObjPersona.getNumero_documento_conjuge());
                    
                 } else {
-                    st.setString(36, null);
+                    st.setString(29, null);
                 }
             } else {
-                st.setString(36, null);
+                st.setString(29, null);
                 
             } 
             
@@ -876,44 +886,30 @@ public class Persona implements Serializable {
                 
                if (ObjPersona.getNumero_celular().length() > 0) {
                     
-                   st.setString(37, ObjPersona.getNumero_celular());
+                   st.setString(30, ObjPersona.getNumero_celular());
                    
                 } else {
-                    st.setString(37, null);
+                    st.setString(30, null);
                 }
             } else {
-                st.setString(37, null);
+                st.setString(30, null);
                 
             }
             
-          
-            if (ObjPersona.getNumero_celular()!= null) {
-                
-               if (ObjPersona.getNumero_celular().length() > 0) {
-                    
-                   st.setString(38, ObjPersona.getNumero_celular());
-                   
-                } else {
-                    st.setString(38, null);
-                }
-            } else {
-                st.setString(38, null);
-                
-            }
-            
+
              
             
             if (ObjPersona.getNumero_telefono_fijo_representante()!= null) {
                 
                if (ObjPersona.getNumero_telefono_fijo_representante().length() > 0) {
                     
-                   st.setString(39, ObjPersona.getNumero_telefono_fijo_representante());
+                   st.setString(31, ObjPersona.getNumero_telefono_fijo_representante());
                    
                 } else {
-                    st.setString(39, null);
+                    st.setString(31, null);
                 }
             } else {
-                st.setString(39, null);
+                st.setString(31, null);
                 
             }
             
@@ -923,13 +919,13 @@ public class Persona implements Serializable {
                 
                if (ObjPersona.getNumero_celular_representante().length() > 0) {
                     
-                   st.setString(40, ObjPersona.getNumero_celular_representante());
+                   st.setString(32, ObjPersona.getNumero_celular_representante());
                    
                 } else {
-                    st.setString(40, null);
+                    st.setString(32, null);
                 }
             } else {
-                st.setString(40, null);
+                st.setString(32, null);
                 
             }
             
@@ -939,13 +935,13 @@ public class Persona implements Serializable {
                 
                if (ObjPersona.getCorreo_representante().length() > 0) {
                     
-                   st.setString(41, ObjPersona.getCorreo_representante());
+                   st.setString(33, ObjPersona.getCorreo_representante());
                    
                 } else {
-                    st.setString(41, null);
+                    st.setString(33, null);
                 }
             } else {
-                st.setString(41, null);
+                st.setString(33, null);
                 
             }
              
@@ -955,13 +951,13 @@ public class Persona implements Serializable {
                 
                if (ObjPersona.getNumero_telefono_conjuge().length() > 0) {
                     
-                   st.setString(42, ObjPersona.getNumero_telefono_conjuge());
+                   st.setString(34, ObjPersona.getNumero_telefono_conjuge());
                    
                 } else {
-                    st.setString(42, null);
+                    st.setString(34, null);
                 }
             } else {
-                st.setString(42, null);
+                st.setString(34, null);
                 
             }
   
@@ -970,13 +966,13 @@ public class Persona implements Serializable {
                 
                if (ObjPersona.getNumero_celular_conjuge().length() > 0) {
                     
-                   st.setString(43, ObjPersona.getNumero_celular_conjuge());
+                   st.setString(35, ObjPersona.getNumero_celular_conjuge());
                    
                 } else {
-                    st.setString(43, null);
+                    st.setString(35, null);
                 }
             } else {
-                st.setString(43, null);
+                st.setString(35, null);
                 
             }
             
@@ -986,13 +982,13 @@ public class Persona implements Serializable {
                 
                if (ObjPersona.getCorreo_conyuge().length() > 0) {
                     
-                   st.setString(44, ObjPersona.getCorreo_conyuge());
+                   st.setString(36, ObjPersona.getCorreo_conyuge());
                    
                 } else {
-                    st.setString(44, null);
+                    st.setString(36, null);
                 }
             } else {
-                st.setString(44, null);
+                st.setString(36, null);
                 
             }
                
@@ -1038,17 +1034,28 @@ public class Persona implements Serializable {
             conexion = Controlador_Sql.darConexionBD();
             conexion.setAutoCommit(false);
             conexion = Controlador_Sql.darConexionBD();
-            CallableStatement st = conexion.prepareCall("{call sp_java_buscar_contribuyente(?)}");
+            CallableStatement st = conexion.prepareCall("{call sp_java_buscar_contribuyente(?,?)}");
 
-            if (ObjBuscarContribuyente.getCodigo_contribuyente() != null) {
-                if (ObjBuscarContribuyente.getCodigo_contribuyente().length() > 0) {
-                    st.setString(1, ObjBuscarContribuyente.getCodigo_contribuyente());
+            if (ObjBuscarContribuyente.getTipo_busqueda()!= null) {
+                if (ObjBuscarContribuyente.getTipo_busqueda().length() > 0) {
+                    st.setString(1, ObjBuscarContribuyente.getTipo_busqueda());
 
                 } else {
                     st.setString(1, null);
                 }
             } else {
                 st.setString(1, null);
+            }
+            
+            if (ObjBuscarContribuyente.getConsulta()!= null) {
+                if (ObjBuscarContribuyente.getConsulta().length() > 0) {
+                    st.setString(2, ObjBuscarContribuyente.getConsulta());
+
+                } else {
+                    st.setString(2, null);
+                }
+            } else {
+                st.setString(2, null);
             }
 
 
@@ -1106,7 +1113,7 @@ public class Persona implements Serializable {
                     obj.setFecha_modificacion(rs.getString("FFECMOD"));
                     obj.setHora_registro(rs.getString("D_HORAS"));
                     obj.setUsuario_red(rs.getString("DUSURED"));
-                    obj.setFecha_nacimientos(rs.getDate("FECNACI"));
+                    obj.setFecha_nacimiento(rs.getString("FECNACI"));
 
                     obj.setNombre_usuario_registro(rs.getString("DUSUARI"));
                     obj.setNombre_usuario_modificacion(rs.getString("DUSUMOD"));

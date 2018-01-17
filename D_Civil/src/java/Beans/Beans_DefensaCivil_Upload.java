@@ -72,6 +72,9 @@ public class Beans_DefensaCivil_Upload implements Serializable {
         FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, message);  
     }
+    
+     
+     
      }
     
     
