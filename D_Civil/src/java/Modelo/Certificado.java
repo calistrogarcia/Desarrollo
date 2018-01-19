@@ -83,6 +83,7 @@ public class Certificado implements Serializable {
     private String observancia_ipse;
     private String area_verificada;
     private String[] array;
+    
 
     private String codigo_contribuyente_consulta;
 
@@ -94,6 +95,7 @@ public class Certificado implements Serializable {
     Download objDownload = new Download();
     ObservacionIpse objObservacion = new ObservacionIpse();
     Boton objboton = new Boton();
+    Postal ObjPostal = new Postal();
 
    
     
@@ -103,6 +105,8 @@ public class Certificado implements Serializable {
 
     }
 
+   
+    
     public Boton getObjboton() {
         return objboton;
     }
@@ -1292,7 +1296,7 @@ public class Certificado implements Serializable {
     }
 
 
-    public static ArrayList<Certificado> getBuscaDirecciones(Certificado direc) {
+    public static ArrayList<Certificado> getBuscaDirecciones(Certificado direciones) {
 
         ArrayList<Certificado> arr = null;
         ResultSet rs = null;
@@ -1305,9 +1309,9 @@ public class Certificado implements Serializable {
             conexion = Controlador_Sql.darConexionBD();
             CallableStatement st = conexion.prepareCall("{call dbo.sp_java_vias_direccion(?)}");
 
-            if (direc.getObjdireccion().getCodigo_postal() != null) {/*Valido la informacion set*/
-                if (direc.getObjdireccion().getCodigo_postal().length() > 0) {
-                    st.setString(1, direc.getObjdireccion().getCodigo_postal());
+            if (direciones.getObjdireccion().getCodigo_postal() != null) {/*Valido la informacion set*/
+                if (direciones.getObjdireccion().getCodigo_postal().length() > 0) {
+                    st.setString(1, direciones.getObjdireccion().getCodigo_postal());
 
                 } else {
                     st.setString(1, null);
@@ -1338,13 +1342,18 @@ public class Certificado implements Serializable {
                     d.setCodigo_via(rs.getString("codigo_via"));
                     d.setTipo_via(rs.getString("tipo_via"));
                     d.setNombre_via(rs.getString("nombre_via"));
-                    d.setHabilitacion(rs.getString("habilitaciones"));
+                    d.setNombre_habilitacion(rs.getString("nombre_habilitaciones"));
                     d.setTipo_habilitacion(rs.getString("tipo_habilitacion"));
                     d.setCodigo_habilitacion(rs.getString("codigo_habilitacion"));
-                    d.setZona(rs.getString("zona"));
+                    d.setCodigo_zona(rs.getString("codigo_zona"));
                     d.setNombre_zona(rs.getString("nombre_zona"));
-
+                    d.setDetalle_habilitacion(rs.getString("detalle_habilitacion"));
                     obj.setObjdireccion(d);
+                    
+                    Postal ObjPostal = new Postal();
+                    ObjPostal.setCodigo_postal(rs.getString("codigo_postal"));
+                    
+                    obj.setObjPostal(ObjPostal);
 
                     arr.add(obj);
 
@@ -1359,6 +1368,14 @@ public class Certificado implements Serializable {
             error.printStackTrace();
         }
         return arr;
+    }
+
+    public Postal getObjPostal() {
+        return ObjPostal;
+    }
+
+    public void setObjPostal(Postal ObjPostal) {
+        this.ObjPostal = ObjPostal;
     }
 
     public static boolean registrarDireccion(Certificado Objdireccion) {
@@ -1406,9 +1423,9 @@ public class Certificado implements Serializable {
             }
             //---------------------------------------
 
-            if (Objdireccion.objdireccion.getHabilitacion() != null) {
-                if (Objdireccion.objdireccion.getHabilitacion().length() > 0) {
-                    st.setString(4, Objdireccion.objdireccion.getHabilitacion());
+            if (Objdireccion.objdireccion.getNombre_habilitacion() != null) {
+                if (Objdireccion.objdireccion.getNombre_habilitacion().length() > 0) {
+                    st.setString(4, Objdireccion.objdireccion.getNombre_habilitacion());
                 } else {
                     st.setString(4, null);
                 }
@@ -1439,9 +1456,9 @@ public class Certificado implements Serializable {
             }
 
             //--------------------------------------- 
-            if (Objdireccion.objdireccion.getZona() != null) {
-                if (Objdireccion.objdireccion.getZona().length() > 0) {
-                    st.setString(7, Objdireccion.objdireccion.getZona());
+            if (Objdireccion.objdireccion.getCodigo_zona() != null) {
+                if (Objdireccion.objdireccion.getCodigo_zona().length() > 0) {
+                    st.setString(7, Objdireccion.objdireccion.getCodigo_zona());
                 } else {
                     st.setString(7, null);
                 }

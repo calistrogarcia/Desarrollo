@@ -1,0 +1,17 @@
+<f:view>
+    <h:form id="formA">
+        <p:treeTable id="tree">
+            <p:ajax event="select" listener="..." update="mustRefresh" />  
+            ...
+        </p:treeTable>
+    </h:form>
+    <h:form id="formB">
+        <p:panel id="mustRefresh"> ... </p:panel>
+
+    </h:form>   
+</f:view>
+
+
+<p:ajax event="select" listener="..." update=":formB:mustRefresh" />
+
+update="@([id$=mustRefresh])"

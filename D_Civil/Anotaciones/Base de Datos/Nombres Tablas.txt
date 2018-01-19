@@ -1,0 +1,16 @@
+Direccion
+
+BCORE
+
+M_DETALLE
+M_VIAS 
+M_HABURB 
+
+
+INTEGRALSMP
+
+ tabvias1 v    
+ tzona z  
+ aranpu 
+ tpoblad 
+

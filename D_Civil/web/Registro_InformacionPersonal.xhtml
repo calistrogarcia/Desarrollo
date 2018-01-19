@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-
+   
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
     </head>
@@ -13,7 +13,7 @@
         <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
             <ui:define name="contenido">
 
- 
+
                 <p:tab id="tab_contribuyente" title="#{msg.LabelSeccionContribuyentes}" titletip="#{msg.LabelSeccionContribuyentes}"  
                        titleStyleClass="tamaño_fuente_tab">
 
@@ -22,7 +22,7 @@
 
                     <h:form  id="form_contribuyente" class="border_titulo1"  styleClass="tamaño_fuente">  
 
-                    
+
 
                         <p:fieldset  id="fieldsetBusqueda"  style="margin-bottom:20px;color: #5cb85c; text-align:  left" legend="Datos de Contribuyente"  >
                             <center>
@@ -31,27 +31,27 @@
 
                                     <h:panelGrid columns="4"  cellspacing="3" >
 
-                                       
-                                     <p:graphicImage url="resources/imagenes/contribuyente.png" height="45px"   />    
-                                        
-                                           <h:panelGrid columns="2"  style=" align-content: flex-start" cellpadding="5">
 
-                                                <p:outputLabel for="busqueda" value="Buscar Por:" />
-                                                <p:selectOneRadio id="busqueda" value="#{BeansRegistro_Informacion_Personal.objContribuyenteBusq.tipo_busqueda}"  layout="grid" columns="3" >
+                                        <p:graphicImage url="resources/imagenes/contribuyente.png" height="45px"   />    
 
-                                                    <f:selectItem itemLabel="Codigo" itemValue="1"  />
-                                                    <f:selectItem itemLabel="Doc. Identidad" itemValue="2" />
-                                                    <f:selectItem itemLabel="Nombre" itemValue="3" />  <!-- Validar Datos --> 
+                                        <h:panelGrid columns="2"  style=" align-content: flex-start" cellpadding="5">
+
+                                            <p:outputLabel for="busqueda" value="Buscar Por:" />
+                                            <p:selectOneRadio id="busqueda" value="#{BeansRegistro_Informacion_Personal.objContribuyenteBusq.tipo_busqueda}"  layout="grid" columns="3" >
+
+                                                <f:selectItem itemLabel="Codigo" itemValue="1"  />
+                                                <f:selectItem itemLabel="Doc. Identidad" itemValue="2" />
+                                                <f:selectItem itemLabel="Nombre" itemValue="3" />  <!-- Validar Datos --> 
 
 
-                                                </p:selectOneRadio>
+                                            </p:selectOneRadio>
 
-                                            </h:panelGrid> 
-                                        
-                                     
+                                        </h:panelGrid> 
+
+
                                         <h:outputText value="#{msg.LabelCodigoRecurrente}" />
-                                        
-                                        
+
+
                                         <h:panelGroup>
                                             <p:inputText  id="buscar_codigo_recurrente" 
                                                           value="#{BeansRegistro_Informacion_Personal.objContribuyenteBusq.consulta}"
@@ -70,27 +70,27 @@
                                 </h:panelGrid>
                                 <!--BLOC-->
                             </center>
-                            
-                            
-                   
-                                
-                           
+
+
+
+
+
                             <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3"  width="17%" >
                                 <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{BeansRegistro_Informacion_Personal.doiniciarBusquedaContribuyente()}"  
                                                  value="#{msg.labelNuevo}"  async="true" update="form_contribuyente" />
                                 <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{BeansRegistro_Informacion_Personal.doBuscarContribuyente()}"  
                                                  value="#{msg.btnConsultar}"  async="true" update="form_contribuyente" />  
                             </h:panelGrid>
-   
+
                         </p:fieldset>
-                        
-                              
-                        
+
+
+
                         <p:blockUI block="fieldsetBusqueda" trigger="saveBtn">   Buscando... <br />
-                                    <p:graphicImage value="resources\imagenes\cargando.gif" />   
-                         </p:blockUI>
-                        
-                        
+                            <p:graphicImage value="resources\imagenes\cargando.gif" />   
+                        </p:blockUI>
+
+
 
 
                         <h:panelGrid columns="2" >
@@ -175,8 +175,8 @@
 
 
                     </h:form>
-                    
-                                  
+
+
 
                     <h:form id="formUpdate">
 
@@ -349,10 +349,10 @@
                                             </h:panelGrid>
 
                                         </h:panelGrid>
-                                        
-                                        
-                                        
-                                           <h:panelGrid columns="5" cellspacing="4" cellpadding="2"  width="95%" >
+
+
+
+                                        <h:panelGrid columns="5" cellspacing="4" cellpadding="2"  width="95%" >
 
                                             <h:panelGrid columns="1"  >
                                                 <h:outputLabel value="#{msg.LabelNumeroTelefono}"  style="width: 100% "/>
@@ -372,8 +372,8 @@
                                             </h:panelGrid>
 
 
-                                           <h:panelGrid columns="1"  >
-                                               <h:outputLabel value="#{msg.LabelNumeroFax}"  style="width: 100% "  />
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroFax}"  style="width: 100% "  />
 
                                                 <h:panelGroup> 
 
@@ -388,10 +388,10 @@
                                                 </h:panelGroup>  
 
                                             </h:panelGrid>
-                                               
-                                               
-                                               
-                                               
+
+
+
+
                                             <h:panelGrid columns="1"  >
                                                 <h:outputLabel value="#{msg.LabelNumeroCelular}" style="width: 100% " />
 
@@ -411,12 +411,12 @@
 
 
 
-                                           
+
 
 
                                         </h:panelGrid>     
-                                        
-                                        
+
+
 
                                         <h:panelGrid columns="4" cellspacing="2" cellpadding="2"  width="99%"  >
 
@@ -444,29 +444,29 @@
                                             <h:panelGrid columns="1"  >   
                                                 <h:outputText value="#{msg.LabelFechaNacimiento}" />
 
-                                           
 
-                                                      <h:panelGroup>
-                                                    
-                                                    
+
+                                                <h:panelGroup>
+
+
                                                     <p:inputMask id="editar_fecha_nacimiento"  
 
                                                                  mask="9999-99-99"  
                                                                  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}"
                                                                  size="15" 
                                                                  value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.fecha_nacimiento}" > 
-                                                        
-                                                         <f:convertDateTime pattern="YYYY/MM/DD" />
- 
-                                                        
-                                                    </p:inputMask>
-                                                    
-                                                      <h:message for="editar_fecha_nacimiento" showDetail="true" showSummary="true"/>      
 
-                                                                    
+                                                        <f:convertDateTime pattern="YYYY/MM/DD" />
+
+
+                                                    </p:inputMask>
+
+                                                    <h:message for="editar_fecha_nacimiento" showDetail="true" showSummary="true"/>      
+
+
                                                     <p:watermark  value="YYYY/MM/DD" for="editar_fecha_nacimiento" />
-                                                    
-                                                    
+
+
                                                 </h:panelGroup>
 
 
@@ -497,22 +497,26 @@
                                             </h:panelGrid>
 
 
-                                            <h:panelGrid columns="1"  >
-                                                <h:outputLabel value="#{msg.LabelTipoDocumento}" style="width: 100% " />
 
-                                                <h:panelGroup> 
 
-                                                    <p:inputText id="Editar_tipo_documento" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
-                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.tipo_documento_representante}"  
-                                                                 >  
-                                                        <f:validateLength minimum="0" maximum="30"/>
-                                                    </p:inputText>
+                                            <h:panelGrid columns="1">
 
-                                                    <h:message for="Editar_tipos_documento" showDetail="false" showSummary="true"/>                                    
-                                                </h:panelGroup>  
+                                                <h:outputText value="#{msg.LabelTipoDocumento}" style="width: 100% "/>
+                                                <h:panelGroup>
+                                                    <p:selectOneMenu effect="fade" style=" width: 100%"  autoWidth="false"
+                                                                     filter="true"  filterMatchMode="contains"
+                                                                     required="true" id="Editar_tipo_documento"
+                                                                     validatorMessage="#{msg.labelValidar}"
+                                                                     requiredMessage="#{msg.labelObli}"
+                                                                     value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.tipo_documento_representante}">
+                                                        <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                      itemValue="O"/>
+                                                        <f:selectItems value="#{Grupo.cargarTipoDocumento}"/>
+                                                    </p:selectOneMenu>
+                                                    <h:message for="Editar_tipo_documento" showDetail="false" showSummary="true"/>
+                                                </h:panelGroup>
+                                            </h:panelGrid>   
 
-                                            </h:panelGrid>
 
 
 
@@ -617,21 +621,26 @@
                                             </h:panelGrid>
 
 
-                                            <h:panelGrid columns="1"  >
-                                                <h:outputLabel value="#{msg.LabelTipoDocumento}" style="width: 100% " />
 
-                                                <h:panelGroup> 
 
-                                                    <p:inputText id="Editar_tipo_documento_conyuge" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
-                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.tipo_documento_conjuge}"  
-                                                                 >  
-                                                        <f:validateLength minimum="0" maximum="30"/>
-                                                    </p:inputText>
 
-                                                    <h:message for="Editar_tipos_documento_conyuge" showDetail="false" showSummary="true"/>                                    
-                                                </h:panelGroup>  
 
+                                            <h:panelGrid columns="1">
+
+                                                <h:outputText value="#{msg.LabelTipoDocumento}" style="width: 100% "/>
+                                                <h:panelGroup>
+                                                    <p:selectOneMenu effect="fade" style=" width: 100%"  autoWidth="false"
+                                                                     filter="true"  filterMatchMode="contains"
+                                                                     required="true" id="Editar_tipo_documento_conyuge"
+                                                                     validatorMessage="#{msg.labelValidar}"
+                                                                     requiredMessage="#{msg.labelObli}"
+                                                                     value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.tipo_documento_conjuge}">
+                                                        <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                      itemValue="O"/>
+                                                        <f:selectItems value="#{Grupo.cargarTipoDocumento}"/>
+                                                    </p:selectOneMenu>
+                                                    <h:message for="Editar_tipo_documento_conyuge" showDetail="false" showSummary="true"/>
+                                                </h:panelGroup>
                                             </h:panelGrid>
 
 
@@ -815,7 +824,7 @@
 
                                                     <p:inputText id="Editar_nombre_habilitacion" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
                                                                  size="38" maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.objDireccion.habilitacion}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.objDireccion.nombre_habilitacion}"  
                                                                  >  
                                                         <f:validateLength minimum="0" maximum="7"/>
                                                     </p:inputText>
@@ -1206,7 +1215,7 @@
                                         </h:panelGrid>
 
 
-                                          <h:panelGrid columns="5" cellspacing="4" cellpadding="2"  width="95%" >
+                                        <h:panelGrid columns="5" cellspacing="4" cellpadding="2"  width="95%" >
 
                                             <h:panelGrid columns="1"  >
                                                 <h:outputLabel value="#{msg.LabelNumeroTelefono}"  style="width: 100% "/>
@@ -1226,8 +1235,8 @@
                                             </h:panelGrid>
 
 
-                                           <h:panelGrid columns="1"  >
-                                               <h:outputLabel value="#{msg.LabelNumeroFax}"  style="width: 100% "  />
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroFax}"  style="width: 100% "  />
 
                                                 <h:panelGroup> 
 
@@ -1242,10 +1251,10 @@
                                                 </h:panelGroup>  
 
                                             </h:panelGrid>
-                                               
-                                               
-                                               
-                                               
+
+
+
+
                                             <h:panelGrid columns="1"  >
                                                 <h:outputLabel value="#{msg.LabelNumeroCelular}" style="width: 100% " />
 
@@ -1265,13 +1274,13 @@
 
 
 
-                                           
+
 
 
                                         </h:panelGrid>       
-                                        
-                                        
-                                        
+
+
+
 
 
                                         <h:panelGrid columns="4" cellspacing="2" cellpadding="2"  width="99%"  >
@@ -1301,19 +1310,19 @@
                                                 <h:outputText value="#{msg.LabelFechaNacimiento}" />
 
                                                 <h:panelGroup>
-                                                    
-                                                    
+
+
                                                     <p:inputMask id="registro_fecha_nacimiento"  
 
                                                                  mask="99/99/9999" 
                                                                  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}"
                                                                  size="15" 
-                                                                value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.fecha_nacimiento}" > 
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.fecha_nacimiento}" > 
                                                     </p:inputMask>
-                                                    
-                                                      <h:message for="registro_fechas_nacimiento" showDetail="true" showSummary="true"/>      
 
-                                                                               
+                                                    <h:message for="registro_fechas_nacimiento" showDetail="true" showSummary="true"/>      
+
+
                                                 </h:panelGroup>
 
 
@@ -1344,21 +1353,22 @@
                                             </h:panelGrid>
 
 
-                                            <h:panelGrid columns="1"  >
-                                                <h:outputLabel value="#{msg.LabelTipoDocumento}" style="width: 100% " />
+                                            <h:panelGrid columns="1">
 
-                                                <h:panelGroup> 
-
-                                                    <p:inputText id="registrar_tipo_documento" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
-                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.tipo_documento_representante}"  
-                                                                 >  
-                                                        <f:validateLength minimum="0" maximum="30"/>
-                                                    </p:inputText>
-
-                                                    <h:message for="registrar_tipos_documento" showDetail="false" showSummary="true"/>                                    
-                                                </h:panelGroup>  
-
+                                                <h:outputText value="#{msg.LabelTipoDocumento}" style="width: 100% "/>
+                                                <h:panelGroup>
+                                                    <p:selectOneMenu effect="fade" style=" width: 100%"  autoWidth="false"
+                                                                     filter="true"  filterMatchMode="contains"
+                                                                     required="true" id="registrar_tipos_documento"
+                                                                     validatorMessage="#{msg.labelValidar}"
+                                                                     requiredMessage="#{msg.labelObli}"
+                                                                     value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.tipo_documento_representante}">
+                                                        <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                      itemValue="O"/>
+                                                        <f:selectItems value="#{Grupo.cargarTipoDocumento}"/>
+                                                    </p:selectOneMenu>
+                                                    <h:message for="registrar_tipos_documento" showDetail="false" showSummary="true"/>
+                                                </h:panelGroup>
                                             </h:panelGrid>
 
 
@@ -1464,22 +1474,25 @@
                                             </h:panelGrid>
 
 
-                                            <h:panelGrid columns="1"  >
-                                                <h:outputLabel value="#{msg.LabelTipoDocumento}" style="width: 100% " />
 
-                                                <h:panelGroup> 
+                                            <h:panelGrid columns="1">
 
-                                                    <p:inputText id="registrar_tipo_documento_conyuge" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
-                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.tipo_documento_conjuge}"  
-                                                                 >  
-                                                        <f:validateLength minimum="0" maximum="30"/>
-                                                    </p:inputText>
-
-                                                    <h:message for="registrar_tipos_documento_conyuge" showDetail="false" showSummary="true"/>                                    
-                                                </h:panelGroup>  
-
+                                                <h:outputText value="#{msg.LabelTipoDocumento}" style="width: 100% "/>
+                                                <h:panelGroup>
+                                                    <p:selectOneMenu effect="fade" style=" width: 100%"  autoWidth="false"
+                                                                     filter="true"  filterMatchMode="contains"
+                                                                     required="true" id="registrar_tipos_documento_conyuge"
+                                                                     validatorMessage="#{msg.labelValidar}"
+                                                                     requiredMessage="#{msg.labelObli}"
+                                                                     value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.tipo_documento_conjuge}">
+                                                        <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                      itemValue="O"/>
+                                                        <f:selectItems value="#{Grupo.cargarTipoDocumento}"/>
+                                                    </p:selectOneMenu>
+                                                    <h:message for="registrar_tipos_documento_conyuge" showDetail="false" showSummary="true"/>
+                                                </h:panelGroup>
                                             </h:panelGrid>
+
 
 
 
@@ -1589,7 +1602,20 @@
                                                 </h:panelGroup>
                                             </h:panelGrid>
 
+
+                                            <h:panelGrid columns="2"  >
+                                                <h:outputLabel value="#{msg.LabelHabilitaciones}"  style="width: 100% " />
+                                                <div class="ui-g-12 ui-md-4">
+                                                    <div class="ui-inputgroup">
+                                                        <p:commandButton type="button" onclick="PF('dlgVias').show();" icon="ui-icon-location"  />
+                                                    </div>
+                                                </div>
+                                            </h:panelGrid>     
+
                                         </h:panelGrid>
+
+
+
 
                                         <h:panelGrid columns="6" cellspacing="1" cellpadding="1"  width="98%"   >
 
@@ -1600,7 +1626,7 @@
 
                                                     <p:inputText id="registrar_tipo_via" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
                                                                  size="7" maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.tipo_via}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.codigo_via}"  
                                                                  >  
                                                         <f:validateLength minimum="0" maximum="7"/>
                                                     </p:inputText>
@@ -1643,7 +1669,7 @@
 
                                                     <p:inputText id="registrar_codigo_habilitacion" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
                                                                  size="7" maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.codigo_habilitacion}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.tipo_habilitacion}"  
                                                                  >  
                                                         <f:validateLength minimum="0" maximum="7"/>
                                                     </p:inputText>
@@ -1662,7 +1688,7 @@
 
                                                     <p:inputText id="registrar_nombre_habilitacion" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
                                                                  size="38" maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.habilitacion}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.nombre_habilitacion}"  
                                                                  >  
                                                         <f:validateLength minimum="0" maximum="7"/>
                                                     </p:inputText>
@@ -1876,12 +1902,139 @@
 
 
 
+                    <h:form id="form_vias" styleClass="tamaño_fuente" >
+
+                        <p:growl id="growl" sticky="true" showDetail="true" />
+
+
+
+                        <p:dialog header="Vias" widgetVar="dlgVias" modal="false" height="505" width="700" responsive="true"
+                                  showEffect="clip" hideEffect="clip">
+
+                            <p:ajax event="close" update="growl" listener="#{BeansRegistro_Informacion_Personal.handleMove}" />
+
+                            <h:form  id="form_seleccion_vias" class="border_titulo1"  styleClass="tamaño_fuente">
+                                <p:growl globalOnly="true"  id="growl_seleccion_infraccion" sticky="false"  showDetail="true"  />                                   
+                                <p:panel id="panel_seleccion_vias" header="#{msg.LabelListadoVias}" styleClass="border" style="text-align: center" >
+
+                                    <h:panelGrid columns="1">
+
+                                        <h:outputText value="#{msg.LabelDistrito}" style="width: 100% "/>
+                                        <h:panelGroup>
+                                            <p:selectOneMenu effect="fade" style=" width: 100%"  autoWidth="false"
+                                                             filter="true"  filterMatchMode="contains"
+                                                             required="true" id="Editar_codigo_postal"
+                                                             validatorMessage="#{msg.labelValidar}"
+                                                             requiredMessage="#{msg.labelObli}"
+                                                             value="#{Beans_DefensaCivil_Certificado.objBuscarDirecciones.objdireccion.codigo_postal}">
+                                                <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                              itemValue="O"/>
+                                                <f:selectItems value="#{Postal.cargarPostal}"/>
+                                            </p:selectOneMenu>
+                                            <h:message for="Editar_codigo_postal" showDetail="false" showSummary="true"/>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+
+
+
+                                    <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3" style="text-align: center;" width="17%">
+
+                                        <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{Beans_DefensaCivil_Certificado.doiniciarBusquedaDirecciones()}"  
+                                                         value="#{msg.labelNuevo}" async="true" update="panel_seleccion_vias"/>
+
+                                        <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{Beans_DefensaCivil_Certificado.doBuscarDirecciones()}"  
+                                                         value="#{msg.btnConsultar}" async="true" update="panel_seleccion_vias" />  
+
+                                    </h:panelGrid>
+
+
+
+                                    <p:blockUI block="panel_seleccion_vias" trigger="saveBtn">   Buscando... <br />
+                                        <p:graphicImage value="resources/imagenes/cargando1.gif" />   
+                                    </p:blockUI>
+
+
+                                    <center>
+                                        <h:panelGrid columns="2" >
+                                            <h:outputText styleClass="etiqueta_resultBusqdireciones" value="#{msg.labelCantidad}"/>
+                                            <h:outputText styleClass="etiqueta_resultBusqdireccione" value="#{Beans_DefensaCivil_Certificado.arrBusDirecciones.size()}"/>               
+                                        </h:panelGrid> 
+
+                                        <h:panelGrid columns="1"   cellpadding="0"  cellspacing="0" 
+                                                     border="0"  styleClass="width-table"> 
+
+                                            <p:dataTable id="table_direcciones" var="var_listadodirecciones" 
+                                                         value="#{Beans_DefensaCivil_Certificado.arrBusDirecciones}" 
+                                                         selectionMode="single"  rowKey="#{var_listadodirecciones.objdireccion.codigo_via}"
+                                                         styleClass="tamaño_fuente" paginator="true"  rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" 
+                                                         paginatorPosition="both" paginatorAlwaysVisible="true"
+                                                         scrollable="true" scrollHeight="170" scrollWidth="650" editable="true"
+                                                       
+                                                           >
+                                                
+                                                <p:ajax event="rowSelect" listener="#{BeansRegistro_Informacion_Personal.onRowSelect}"  />
+
+                                                <p:column  style="width:60px;text-align: center">
+
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{msg.LabelCodigoHabilitaciones}" />
+                                                    </f:facet>
+                                                            <h:outputText  value="#{var_listadodirecciones.objdireccion.codigo_via}" />
+                                                
+                                                </p:column>  
+                                                
+
+                                                <p:column filterBy="#{var_listadodirecciones.objdireccion.tipo_via}"  style="width:100px;text-align: center">
+                                                    <f:facet name="header">
+
+                                                        <h:outputText value="#{msg.LabelTipoVia}" />
+                                                    </f:facet>   
+                                                            <h:outputText  value="#{var_listadodirecciones.objdireccion.tipo_via}" />
+
+                                                </p:column>  
+                                                
+
+                                                <p:column  filterBy="#{var_listadodirecciones.objdireccion.nombre_via}" style="width:130px;text-align: center">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{msg.LabelNombreVia}" />
+                                                    </f:facet>
+                                                 
+                                                            <h:outputText  value="#{var_listadodirecciones.objdireccion.nombre_via}"  />
+                                                </p:column>  
+
+
+                                                <p:column  filterBy="#{var_listadodirecciones.objdireccion.habilitacion}" style="width:130px;text-align: center">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{msg.LabelHabilitaciones}" />
+                                                    </f:facet>
+
+                                                            <h:outputText  value="#{var_listadodirecciones.objdireccion.nombre_habilitacion}"  />
+
+                                                </p:column>  
+
+
+                                                <p:column  filterBy="#{var_listadodirecciones.objdireccion.tipo_habilitacion}" style="width:130px;text-align: center">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{msg.LabelTipoHabilitaciones}" style="text-align: center"/>
+                                                    </f:facet>
+
+                                                            <h:outputText  value="#{var_listadodirecciones.objdireccion.tipo_habilitacion}"  />
+
+                                                </p:column >
+                                               
+                                            </p:dataTable>  
+                                        </h:panelGrid>  
+                                    </center>
+                                    
+        
+
+                                </p:panel>
+                            </h:form> 
+                        </p:dialog> 
+                        
+   
+                    </h:form> 
                 </p:tab>
-
-
-                              
-                                      
-
 
             </ui:define>
         </ui:composition>

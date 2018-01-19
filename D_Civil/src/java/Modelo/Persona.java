@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
 
+
 /**
  *
  * @author Administrador
@@ -440,7 +441,8 @@ public class Persona implements Serializable {
         try {
             conexion = Controlador_Sql.darConexionBD();
             CallableStatement st
-                    =  conexion.prepareCall("{call dbo.sp_java_registrar_contribuyente (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+                 =  conexion.prepareCall("{call dbo.sp_java_registrar_contribuyente (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+ //                   =  conexion.prepareCall("{call dbo.sp_java_registrar_contribuyente (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
             conexion.setAutoCommit(false);
 
             if (ObjPersona.getTipo_persona() != null) {
@@ -464,7 +466,7 @@ public class Persona implements Serializable {
             } else {
                 st.setString(2, null);
             }
-            //---------------------------------------
+           // ---------------------------------------
 
             if (ObjPersona.getNumero_documento() != null) {
                 if (ObjPersona.getNumero_documento().length() > 0) {
@@ -543,9 +545,9 @@ public class Persona implements Serializable {
             }
             
             
-             if (ObjPersona.ObjDireccion.getHabilitacion() != null) {
-                if (ObjPersona.ObjDireccion.getHabilitacion().length() > 0) {
-                    st.setString(10, ObjPersona.ObjDireccion.getHabilitacion());
+             if (ObjPersona.ObjDireccion.getNombre_habilitacion() != null) {
+                if (ObjPersona.ObjDireccion.getNombre_habilitacion().length() > 0) {
+                    st.setString(10, ObjPersona.ObjDireccion.getNombre_habilitacion());
                 } else {
                     st.setString(10, null);
                 }
@@ -991,7 +993,21 @@ public class Persona implements Serializable {
                 st.setString(36, null);
                 
             }
-               
+////              
+////            if (ObjPersona.getCodigo_contribuyente()!= null) {
+////                
+////               if (ObjPersona.getCodigo_contribuyente().length() > 0) {
+////                    
+////                   st.setString(37, ObjPersona.getCodigo_contribuyente());
+////                   
+////                } else {
+////                    st.setString(37, null);
+////                }
+////            } else {
+////                st.setString(37, null);
+////                
+////            }
+//               
               
             
             //--------------------------------------- 
@@ -1086,7 +1102,7 @@ public class Persona implements Serializable {
                     
                     ObjDireccion.setCodigo_via(rs.getString("CCODVIA")); 
                     ObjDireccion.setTipo_habilitacion(rs.getString("DTIPURB"));
-                    ObjDireccion.setHabilitacion(rs.getString("DNOMURB"));
+                    ObjDireccion.setNombre_habilitacion(rs.getString("DNOMURB"));
                     ObjDireccion.setTipo_via(rs.getString("DTIPVIA"));
                     ObjDireccion.setNombre_via(rs.getString("DNOMVIA"));
                     ObjDireccion.setNumero(rs.getString("DNROFIS"));

@@ -1,0 +1,128 @@
+  <p:dataTable id="table_direcciones" var="var_listadodirecciones" 
+                                                         value="#{Beans_DefensaCivil_Certificado.arrBusDirecciones}" 
+                                                         styleClass="tamaño_fuente" paginator="true" 
+                                                         rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" 
+                                                         paginatorPosition="both" paginatorAlwaysVisible="true"
+                                                         scrollable="true" scrollHeight="170" scrollWidth="650" editable="true"
+                                                         >
+
+
+
+                                                <p:column style="width:32px">
+                                                    <p:rowEditor />
+
+                                                </p:column>
+
+                                                <p:column  style="width:60px;text-align: center">
+
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{msg.LabelCodigoHabilitaciones}" />
+                                                    </f:facet>
+
+                                                    <p:cellEditor>
+
+                                                        <f:facet name="output">
+                                                            <h:outputText  value="#{var_listadodirecciones.objdireccion.codigo_via}" />
+                                                        </f:facet> 
+
+                                                        <f:facet name="input">
+                                                            <h:inputText  value="#{var_listadodirecciones.objdireccion.codigo_via}" />
+                                                        </f:facet> 
+
+                                                    </p:cellEditor>
+
+
+                                                </p:column>  
+
+                                                <p:column filterBy="#{var_listadodirecciones.objdireccion.tipo_via}"  style="width:100px;text-align: center">
+                                                    <f:facet name="header">
+
+                                                        <h:outputText value="#{msg.LabelTipoVia}" />
+                                                    </f:facet>
+
+                                                    <p:cellEditor>
+
+                                                        <f:facet name="output">
+                                                            <h:outputText  value="#{var_listadodirecciones.objdireccion.tipo_via}" />
+                                                        </f:facet> 
+
+                                                        <f:facet name="input">
+                                                            <h:inputText  value="#{var_listadodirecciones.objdireccion.tipo_via}" />
+                                                        </f:facet> 
+
+                                                    </p:cellEditor>
+
+
+                                                </p:column>  
+
+                                                <p:column  filterBy="#{var_listadodirecciones.objdireccion.nombre_via}" style="width:130px;text-align: center">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{msg.LabelNombreVia}" />
+                                                    </f:facet>
+
+                                                    <p:cellEditor>
+
+                                                        <f:facet name="output">
+                                                            <h:outputText  value="#{var_listadodirecciones.objdireccion.nombre_via}"  />
+                                                        </f:facet> 
+
+                                                        <f:facet name="input">
+                                                            <h:inputText  value="#{var_listadodirecciones.objdireccion.nombre_via}"  />
+                                                        </f:facet> 
+
+                                                    </p:cellEditor>
+
+                                                </p:column>  
+
+
+                                                <p:column  filterBy="#{var_listadodirecciones.objdireccion.habilitacion}" style="width:130px;text-align: center">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{msg.LabelHabilitaciones}" />
+                                                    </f:facet>
+
+                                                    <p:cellEditor>
+
+                                                        <f:facet name="output">
+                                                            <h:outputText  value="#{var_listadodirecciones.objdireccion.nombre_habilitacion}"  />
+                                                        </f:facet> 
+
+                                                        <f:facet name="input">
+                                                            <h:inputText  value="#{var_listadodirecciones.objdireccion.nombre_habilitacion}"  />
+                                                        </f:facet> 
+
+                                                    </p:cellEditor>
+
+                                                </p:column>  
+
+
+                                                <p:column  filterBy="#{var_listadodirecciones.objdireccion.tipo_habilitacion}" style="width:130px;text-align: center">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{msg.LabelTipoHabilitaciones}" style="text-align: center"/>
+                                                    </f:facet>
+
+                                                    <p:cellEditor>
+
+                                                        <f:facet name="output">
+                                                            <h:outputText  value="#{var_listadodirecciones.objdireccion.tipo_habilitacion}"  />
+                                                        </f:facet> 
+
+                                                        <f:facet name="input">
+                                                            <h:inputText  value="#{var_listadodirecciones.objdireccion.tipo_habilitacion}"  />
+                                                        </f:facet> 
+
+                                                    </p:cellEditor>
+
+                                                </p:column >
+
+                                                <p:ajax event="rowEdit" listener="#{Beans_DefensaCivil_Certificado.doRegDirecciones(var_listadodirecciones)}"/>
+
+                                                <p:column style="width:130px;text-align: center" >
+
+                                                    <p:commandButton value="Direccion" type="button" >
+
+
+
+                                                    </p:commandButton>
+
+                                                </p:column> 
+                                            </p:dataTable>  

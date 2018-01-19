@@ -569,7 +569,7 @@ public class Multa implements Serializable {
 
                     Direccion ObjDireccion = new Direccion();
                     ObjDireccion.setNombre_via(rs.getString("via"));
-                    ObjDireccion.setHabilitacion(rs.getString("haburb"));
+                    ObjDireccion.setNombre_habilitacion(rs.getString("haburb"));
 
                     obj.setObjDireccion(ObjDireccion);
 
@@ -1242,11 +1242,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.ObjDireccion.getHabilitacion() != null) {
+            if (ObjEditarMulta.ObjDireccion.getNombre_habilitacion() != null) {
 
-                if (ObjEditarMulta.ObjDireccion.getHabilitacion().length() > 0) {
+                if (ObjEditarMulta.ObjDireccion.getNombre_habilitacion().length() > 0) {
 
-                    st.setString(36, ObjEditarMulta.ObjDireccion.getHabilitacion());
+                    st.setString(36, ObjEditarMulta.ObjDireccion.getNombre_habilitacion());
                 } else {
                     st.setString(36, null);
                 }
@@ -1795,11 +1795,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.ObjDireccion.getHabilitacion() != null) {
+            if (ObjRegistrar.ObjDireccion.getNombre_habilitacion() != null) {
 
-                if (ObjRegistrar.ObjDireccion.getHabilitacion().length() > 0) {
+                if (ObjRegistrar.ObjDireccion.getNombre_habilitacion().length() > 0) {
 
-                    st.setString(36, ObjRegistrar.ObjDireccion.getHabilitacion());
+                    st.setString(36, ObjRegistrar.ObjDireccion.getNombre_habilitacion());
                 } else {
                     st.setString(36, null);
                 }

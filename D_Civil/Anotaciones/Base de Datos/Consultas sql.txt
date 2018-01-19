@@ -1,0 +1,7 @@
+bdcore
+SELECT * FROM M_DETALLE WHERE      (ID_CABECERA = 'TIP_VIA')
+SELECT * FROM M_DETALLE WHERE     (ID_CABECERA = 'TIP_HAB_URB')
+SELECT * FROM integralsmp.dbo.tabvias where v_codi='107324'
+SELECT * FROM M_VIAS where CPOBLAD='10407'
+select * from M_HABURB where CPOBLAD='10407'
+SELECT * FROM integralsmp.dbo.TPOBLAD where CPOBLAD='10407'

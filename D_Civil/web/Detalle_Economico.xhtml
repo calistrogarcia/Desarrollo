@@ -164,6 +164,13 @@ and open the template in the editor.
                                                      paginatorPosition="both" paginatorAlwaysVisible="true"
                                                      style="tamaño_fuente" >
 
+                                            <f:facet name="header" >
+                                             
+                                                <h:outputText value="#{msg.LabelDetalleEconomico}" />
+                                                <p:commandButton id="toggler" type="button" value="Columnas" style="float:right" icon="ui-icon-calculator"  styleClass="tamaño_fuente"/>
+                                                <p:columnToggler datasource="Detalle_Economico" trigger="toggler"    />
+                                            </f:facet>
+
 
                                             <p:column  headerText="codigo" sortBy="#{Estado_detalle_economico.objpersona.codigo_contribuyente}" style="width:4%;text-align: center">
                                                 <f:facet name="header">
@@ -203,7 +210,12 @@ and open the template in the editor.
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.LabelInsoluto}" />
                                                 </f:facet>
-                                                <h:outputText  value="#{Estado_detalle_economico.monto_insoluto}"/>
+                                                <h:outputText  value="#{Estado_detalle_economico.monto_insoluto}">
+                                                        <f:convertNumber type="currency" currencySymbol="$" />
+                                                </h:outputText>
+                                                        
+                                                               
+                                                 
                                             </p:column> 
                                             
                                            

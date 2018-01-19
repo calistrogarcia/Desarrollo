@@ -8,7 +8,10 @@ package Beans;
 import Modelo.Persona;
 import java.io.Serializable;
 import java.util.ArrayList;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import org.primefaces.event.CloseEvent;
 import utils.Mensaje;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
@@ -191,17 +194,36 @@ public class BeansRegistro_Informacion_Personal implements Serializable {
             return "" + this.arrBusContribuyente.size();
         }
     }
-    
-  
-    
- 
-    
+      
     public void onClickBusq(ActionEvent evt) {
 
         Object param = evt.getComponent().getAttributes().get("param");
         this.puntAnt = param.toString();
 
     }
+    
+    //---- Para cerrar Cuadros de Dialogo de Direccion-----------------------
+    
+     public void handleClose(CloseEvent event) {
+        addMessage(event.getComponent().getId() + " closed", "So you don't like nature?");
+    }
+    
+     public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+     
+   //------------------------------------------------------------------------
 
+     
+     public void onRowSelect(SelectEvent event){
+        //FacesMessage msg = new FacesMessage("Employee Selected",((Employee) event.getObject()).getLastName());
+        //FacesContext.getCurrentInstance().addMessage(null, msg);
+        this.objContribuyenteReg = (Persona)event.getObject();
+        System.out.println("OnRowSelect has employee last name: "+this.objContribuyenteReg.getObjDireccion().getCodigo_via());
+ 
+    }
+     
+     
 
 }

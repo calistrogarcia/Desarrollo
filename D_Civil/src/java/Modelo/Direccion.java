@@ -17,10 +17,10 @@ public class Direccion implements Serializable {
     private String codigo_via;
     private String tipo_via;
     private String nombre_via;
-    private String habilitacion;
+    private String nombre_habilitacion;
     private String tipo_habilitacion;
     private String codigo_habilitacion;
-    private String zona;
+    private String codigo_zona;
     private String nombre_zona;
     private String manzana;
     private String lote; 
@@ -31,6 +31,7 @@ public class Direccion implements Serializable {
     private String bloque; 
     private String referencia;
     private String detalle_direccion;
+    private String detalle_habilitacion;
     private String cuadra;
 
     
@@ -62,14 +63,6 @@ public class Direccion implements Serializable {
         this.nombre_via = nombre_via;
     }
 
-    public String getHabilitacion() {
-        return habilitacion;
-    }
-
-    public void setHabilitacion(String habilitacion) {
-        this.habilitacion = habilitacion;
-    }
-
     public String getTipo_habilitacion() {
         return tipo_habilitacion;
     }
@@ -86,13 +79,7 @@ public class Direccion implements Serializable {
         this.codigo_habilitacion = codigo_habilitacion;
     }
 
-    public String getZona() {
-        return zona;
-    }
-
-    public void setZona(String zona) {
-        this.zona = zona;
-    }
+  
 
     public String getNombre_zona() {
         return nombre_zona;
@@ -189,6 +176,31 @@ public class Direccion implements Serializable {
     public void setCuadra(String cuadra) {
         this.cuadra = cuadra;
     }
+
+    public String getNombre_habilitacion() {
+        return nombre_habilitacion;
+    }
+
+    public void setNombre_habilitacion(String nombre_habilitacion) {
+        this.nombre_habilitacion = nombre_habilitacion;
+    }
+
+    public String getCodigo_zona() {
+        return codigo_zona;
+    }
+
+    public void setCodigo_zona(String codigo_zona) {
+        this.codigo_zona = codigo_zona;
+    }
+
+    public String getDetalle_habilitacion() {
+        return detalle_habilitacion;
+    }
+
+    public void setDetalle_habilitacion(String detalle_habilitacion) {
+        this.detalle_habilitacion = detalle_habilitacion;
+    }
+    
     
   
     

@@ -1117,6 +1117,13 @@ public class Beans_DefensaCivil_Certificado {
         this.puntAnt = param.toString();
 
     }
+    
+    
+    
+    
+    
+    
+    
 
 //-----------------------Impresion de Resoluciones---------------------------//
     public void imprimir() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, JRException, IOException {

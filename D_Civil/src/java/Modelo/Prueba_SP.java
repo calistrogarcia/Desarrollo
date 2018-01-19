@@ -181,10 +181,10 @@ public class Prueba_SP {
         objdireccion.objdireccion.setCodigo_via("00276");
         objdireccion.objdireccion.setTipo_via("");
         objdireccion.objdireccion.setNombre_via("MANIZALES I ETAPA");
-        objdireccion.objdireccion.setHabilitacion("");
+        objdireccion.objdireccion.setNombre_habilitacion("");
         objdireccion.objdireccion.setTipo_habilitacion("");
         objdireccion.objdireccion.setCodigo_habilitacion("");
-        objdireccion.objdireccion.setZona("");
+        objdireccion.objdireccion.setCodigo_via("");
         objdireccion.objdireccion.setNombre_zona("");
 
         if (Certificado.registrarDireccion(objdireccion)) {
@@ -231,7 +231,7 @@ public class Prueba_SP {
         m.setFecha_ejecucion("2017-11-05");
         m.setFecha_registro("2017-11-05");
         m.ObjDireccion.setNombre_via("MANIZALES II ETAPA");
-        m.ObjDireccion.setHabilitacion("MANIZALES");
+        m.ObjDireccion.setNombre_habilitacion("MANIZALES");
         m.setActa_constatacion("000001");
         m.ObjGiro.setGiro_detalle("CULTIVO DE ALGODON Y OTRAS QUE DAN MATERIAS TEXTILES");
 
@@ -375,33 +375,51 @@ public class Prueba_SP {
        
         public static void registarRecurrente() {
 
-        Certificado cer = new Certificado();
-        cer.setNro_expediente("41391-01-2017");
-        cer.setArea("SUBG. DE DEFENSA CIVIL");
-        cer.setContribuyente("322354");
-        cer.setNombres("TORRE QUISPE JORGE LUIS");
-        cer.setRazon_social("");
-        cer.setRepresentante_legal("");
-        cer.setDireccion("");
-        cer.setAsunto("INSPECCIÓN TÉCNICA BÁSICA DE SEGURIDAD EN DEFENSA CIVIL EX POST HASTA 100 M2 Y CAPACIDAD DE ALMACENAMIENTO NO MAYORA 30% DEL ÁREA TOTAL DEL LOCAL APLICABLE, ENTRE OTROS PARA: • CASO DE DENEGATORIA DE");
-        cer.setObservaciones_seguridad("yyyy");
-
-        cer.setArea_declarada("45");
-        cer.setNombre_inspector("Garcia Garcia Mariano");
-        cer.setAforo(7);
-        cer.Objgiros.setGiro_detalle("CULTIVO DE ESPECIAS DE FRUTO EJEMPLO: CLAVOS DE OLOR");
-
-        cer.setAnotaciones("SOLICITA LA OPINION FAVORABLE DE DEFENSA "
-                + "CIVIL PARA LA AUTORIZACION DE LOS ELEMENTOS "
-                + "DE SEGURIDAD - REJAS POR LA INSEGURIDAD,"
-                + " ROBOS Y FUMONES QUE SE ENCUENTRAN "
-                + "UBICADOS DENTRO DE LA ZONA");
-        cer.setId_tipo_licencia(1);
-        cer.setDireccion_verificada("Direccion los Jasminez");
-        cer.setEstado_fiscalizacion(1);
-        cer.setResultado(0);
-
-        if (Certificado.MoficardatosParaCertificado(cer)) {
+        Persona Ob= new Persona();
+        
+        Ob.setTipo_persona("01");
+        Ob.setTipo_documento("01");
+        Ob.setNumero_documento("0855390");
+        Ob.setApellido_paterno("GARCIA");
+        Ob.setApellido_materno("RIVERA");
+        Ob.setNombre_contribuyente("JOSE");
+        Ob.ObjPostal.setCodigo_postal("L31");
+        Ob.ObjDireccion.setCodigo_via("00383");
+        Ob.ObjDireccion.setTipo_habilitacion("URB.");
+        Ob.ObjDireccion.setNombre_habilitacion("CONDEVILLA SEÑOR");
+        Ob.ObjDireccion.setNombre_via("LOS");
+        Ob.ObjDireccion.setNumero("12");
+        Ob.ObjDireccion.setNumero_interior("1");
+        Ob.ObjDireccion.setNumero_departamento("A");
+        Ob.ObjDireccion.setLetra("A");
+        Ob.ObjDireccion.setBloque("3");
+        Ob.ObjDireccion.setManzana("4");
+        Ob.ObjDireccion.setLote("Q");
+        Ob.ObjDireccion.setReferencia("xxx");
+        Ob.setNumero_telefono_contribuyente("12345678");
+        Ob.setNumero_fax_contribuyente("12");
+        Ob.setCorreo_contribuyente("calistogarcia@hotmail.com");
+        
+        Ob.setFecha_nacimiento("31/12/1989");
+        Ob.setNombre_representante("Sin Representante");
+        Ob.setTipo_documento_representante("01");
+        Ob.setNumero_documento_representante("123456789");
+        Ob.setNombre_conyuge("---");
+        Ob.setTipo_documento_conjuge("01");
+        Ob.setNumero_documento_conjuge("--");
+        Ob.setNumero_celular("999999999");
+        Ob.setNumero_telefono_fijo_representante("123456789");
+        Ob.setNumero_celular_representante("67890543");
+        Ob.setCorreo_representante("calistogarcia@hotmail.com");
+        Ob.setNumero_telefono_conjuge("--");
+        Ob.setNumero_celular_conjuge("--");
+        Ob.setCorreo_conyuge("--");
+//        Ob.setCodigo_contribuyente("");
+        
+        
+      
+        
+        if (Persona.RegistrarPersona(Ob)) {
             System.out.println("ok");
         } else {
             System.out.println("no");
@@ -439,18 +457,15 @@ public class Prueba_SP {
         // registroMulta();
         // buscarMultas();
         // buscarporfecha();
+        // detalle_cuenta();
+        //buscarInfractor();
+        //cargarAreas();
+        // buscarpersona();
+        // BuscarLicenciaFuncionamiento();
+        // BuscarSancion();
+        //Reporte_Expedientes_Fechas();
+         registarRecurrente();
         
-       // detalle_cuenta();
-       
-       //buscarInfractor();
-      //cargarAreas();
-     // buscarpersona();
-     //  BuscarLicenciaFuncionamiento();
-    
-     //  BuscarSancion();
-     
-     Reporte_Expedientes_Fechas();
-            
     }
-
+    
 }
