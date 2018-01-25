@@ -44,7 +44,7 @@ and open the template in the editor.
                               
                                     <h:panelGroup>
                                         <h:outputText value=" Del:  "/>
-                                        <p:calendar id="fecha_inicial"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}" locale="es" navigator="true" showOn="button"
+                                        <p:calendar id="fecha_inicial"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObligatorio}" locale="es" navigator="true" showOn="button"
                                                     value="#{beanExpediente_Por_Fecha.objBuscarExpedienteReportePorFecha.fecha_inicio}" 
                                                     pattern="dd/MM/yyyy">   
                                         </p:calendar>
@@ -55,7 +55,7 @@ and open the template in the editor.
 
                                     <h:panelGroup>
                                         <h:outputText value="Al:  "/>
-                                        <p:calendar id="fecha_final"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}" locale="es" navigator="true" showOn="button"
+                                        <p:calendar id="fecha_final"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObligatorio}" locale="es" navigator="true" showOn="button"
                                                     value="#{beanExpediente_Por_Fecha.objBuscarExpedienteReportePorFecha.fecha_fin}"   
                                                     pattern="dd/MM/yyyy">   
                                         </p:calendar>

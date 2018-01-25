@@ -42,7 +42,6 @@ import net.sf.jasperreports.engine.util.JRLoader;
 public class Certificado implements Serializable {
 
     private String nro_expediente;
-    private String contribuyente;
     private String fecha_expediente;
     private Date fecha_expediente_Act;
     private String nombres;
@@ -85,8 +84,6 @@ public class Certificado implements Serializable {
     private String[] array;
     
 
-    private String codigo_contribuyente_consulta;
-
     Giro Objgiros = new Giro();
     Supervisor supervisor = new Supervisor();
 
@@ -96,6 +93,7 @@ public class Certificado implements Serializable {
     ObservacionIpse objObservacion = new ObservacionIpse();
     Boton objboton = new Boton();
     Postal ObjPostal = new Postal();
+    Persona ObjPersona = new Persona();
 
    
     
@@ -105,8 +103,6 @@ public class Certificado implements Serializable {
 
     }
 
-   
-    
     public Boton getObjboton() {
         return objboton;
     }
@@ -114,8 +110,16 @@ public class Certificado implements Serializable {
     public void setObjboton(Boton objboton) {
         this.objboton = objboton;
     }
-    
 
+    public Persona getObjPersona() {
+        return ObjPersona;
+    }
+
+    public void setObjPersona(Persona ObjPersona) {
+        this.ObjPersona = ObjPersona;
+    }
+    
+    
     public Download getObjDownload() {
         return objDownload;
     }
@@ -268,14 +272,6 @@ public class Certificado implements Serializable {
 
     public void setNro_expediente(String nro_expediente) {
         this.nro_expediente = nro_expediente;
-    }
-
-    public String getContribuyente() {
-        return contribuyente;
-    }
-
-    public void setContribuyente(String contribuyente) {
-        this.contribuyente = contribuyente;
     }
 
     public String getNombres() {
@@ -470,13 +466,6 @@ public class Certificado implements Serializable {
         this.direccion_verificada = direccion_verificada;
     }
 
-    public String getCodigo_contribuyente_consulta() {
-        return codigo_contribuyente_consulta;
-    }
-
-    public void setCodigo_contribuyente_consulta(String codigo_contribuyente_consulta) {
-        this.codigo_contribuyente_consulta = codigo_contribuyente_consulta;
-    }
 
     public ObservacionIpse getObjObservacion() {
         return objObservacion;
@@ -631,7 +620,11 @@ public class Certificado implements Serializable {
 
                     obj.setNro_expediente(rs.getString("expediente"));
                     obj.setFecha_expediente(rs.getString("fecha_expediente"));
-                    obj.setContribuyente(rs.getString("codigo"));
+                   
+                    Persona ObjPersona = new Persona();
+                    ObjPersona.setCodigo_contribuyente(rs.getString("codigo"));
+                    obj.setObjPersona(ObjPersona);
+                    
                     obj.setNombres(rs.getString("nombres_apellidos"));
                     obj.setAsunto(rs.getString("asunto"));
                     obj.setArea_declarada(rs.getString("area_declarada"));
@@ -709,7 +702,11 @@ public class Certificado implements Serializable {
                     obj.setNro_expediente(rs.getString("expediente"));
                     obj.setFecha_expediente(rs.getString("fecha_expediente"));
                     obj.setNumero_resolucion(rs.getString("numero_resolucion"));
-                    obj.setContribuyente(rs.getString("codigo"));
+                   
+                    Persona ObjPersona = new Persona();
+                    ObjPersona.setCodigo_contribuyente(rs.getString("codigo"));
+                    obj.setObjPersona(ObjPersona);
+                    
                     obj.setNombres(rs.getString("nombres_apellidos"));
 
                     Giro gr = new Giro();
@@ -778,7 +775,10 @@ public class Certificado implements Serializable {
                     obj.setNro_expediente(rs.getString("expediente"));
                     obj.setFecha_expediente(rs.getString("fecha_expediente"));
                     obj.setNumero_resolucion(rs.getString("numero_resolucion"));
-                    obj.setContribuyente(rs.getString("codigo"));
+                          Persona ObjPersona = new Persona();
+                    ObjPersona.setCodigo_contribuyente(rs.getString("codigo"));
+                    obj.setObjPersona(ObjPersona);
+                    
                     obj.setNombres(rs.getString("nombres_apellidos"));
 
                     Giro gir = new Giro();
@@ -878,9 +878,9 @@ public class Certificado implements Serializable {
 
             }
 
-            if (obj.getContribuyente() != null) {
-                if (obj.getContribuyente().length() > 0) {
-                    st.setString(3, obj.getContribuyente());
+            if (obj.ObjPersona.getCodigo_contribuyente() != null) {
+                if (obj.ObjPersona.getCodigo_contribuyente().length() > 0) {
+                    st.setString(3, obj.ObjPersona.getCodigo_contribuyente());
                 } else {
                     st.setString(3, null);
                 }
@@ -1586,9 +1586,9 @@ public class Certificado implements Serializable {
             conexion = Controlador_Sql.darConexionBD();
             CallableStatement st = conexion.prepareCall("{call dbo.sp_java_descargar_archivo(?)}");
 
-            if (ObjDescargar.getCodigo_contribuyente_consulta() != null) {/*Valido la informacion set*/
-                if (ObjDescargar.getCodigo_contribuyente_consulta().length() > 0) {
-                    st.setString(1, ObjDescargar.getCodigo_contribuyente_consulta());
+            if (ObjDescargar.ObjPersona.getCodigo_contribuyente() != null) {/*Valido la informacion set*/
+                if (ObjDescargar.ObjPersona.getCodigo_contribuyente().length() > 0) {
+                    st.setString(1, ObjDescargar.ObjPersona.getCodigo_contribuyente());
 
                 } else {
                     st.setString(1, null);

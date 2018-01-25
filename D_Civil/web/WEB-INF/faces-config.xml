@@ -14,6 +14,11 @@
         
         <resource-bundle>
             <base-name>utils.Espanol</base-name>
+            <var>msgs</var>
+        </resource-bundle>
+        
+        <resource-bundle>
+            <base-name>utils.English</base-name>
             <var>msg</var>
         </resource-bundle>
         
@@ -94,6 +99,15 @@
         <managed-bean-class>Modelo.Postal</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
        </managed-bean>
+       
+       
+       <managed-bean>
+        <managed-bean-name>Usuario</managed-bean-name>
+        <managed-bean-class>Modelo.Usuario</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+       </managed-bean>
+       
+   
        
    
    
@@ -195,4 +209,6 @@
         <managed-bean-class>Beans.BeansPromocion_Empresarial_Licencias</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+   
+   
 </faces-config>

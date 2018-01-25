@@ -16,12 +16,11 @@ and open the template in the editor.
         <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
             <ui:define name="contenido">
                 <!---Agregando Etiqueta de Titulo-->
-                <h:outputText value="#{msg.LabelReporte}"/> 
 
                 <p:tab id="tab_Buscar_ExpedienteResul" title="Buscar" titletip="Buscar Expediente" >
                     <!-- Formulario que permite la Busqueda  -->    
                     <h:form class="border_titulo1" id="form_busc_ExpedienteResul"   style="text-align : justify;"  styleClass="tamaño_fuente">                
-                        <p:panel id="datBusExpedienteResul" header="#{msg.LabelExpResuelPorOficina}" styleClass="border" style="text-align: center">
+                        <p:panel id="datBusExpedienteResul" header="#{msg.LabelExpResuelPorOficina}" styleClass="border" style="text-align: left">
                             <!--Lista de Opciones de Ofina *25*04*17 **J**-->  
 
                             <fieldset>
@@ -32,8 +31,8 @@ and open the template in the editor.
                                                          filter="true"  filterMatchMode="contains"
                                                          required="true" id="cb_opc"
                                                          validatorMessage="#{msg.labelValidar}"
-                                                         requiredMessage="#{msg.labelObli}"
-                                                         value="#{beanResuelto_Por_Oficina.objBuscarExpedienteResulO.id_area}">
+                                                         requiredMessage="#{msg.labelObligatorio}"
+                                                         value="#{beanResuelto_Por_Oficina.objBuscarExpedienteResulO.objArea.id_area}">
                                             <f:selectItem itemLabel="#{msg.labelSeleccionar}"
                                                           itemValue="O"/>
                                             <f:selectItems value="#{Expediente.cargarComboAreas}"/>
@@ -49,36 +48,36 @@ and open the template in the editor.
                                 </h:panelGrid>
 
                                 <h:panelGrid columns="5" cellpadding="6"  cellspacing="2">
-    
+
                                     <h:panelGroup>
                                         <h:outputText value=" Del:  "/>
-                                        <p:calendar id="fecha_inicial"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}" locale="es" navigator="true" showOn="button"
+                                        <p:calendar id="fecha_inicial"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObligatorio}" locale="es" navigator="true" showOn="button"
                                                     value="#{beanResuelto_Por_Oficina.objBuscarExpedienteResulO.fecha_inicio}" 
                                                     pattern="dd/MM/yyyy">   
                                         </p:calendar>
                                         <h:message for="fecha_inicial" showDetail="true" showSummary="true"/>                                   
                                     </h:panelGroup>
-                                    
-                                    
+
+
 
                                     <h:panelGroup>
                                         <h:outputText value="Al:  "/>
-                                        <p:calendar id="fecha_final"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}" locale="es" navigator="true" showOn="button"
+                                        <p:calendar id="fecha_final"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObligatorio}" locale="es" navigator="true" showOn="button"
                                                     value="#{beanResuelto_Por_Oficina.objBuscarExpedienteResulO.fecha_fin}"   
                                                     pattern="dd/MM/yyyy">   
                                         </p:calendar>
                                         <h:message for="fecha_final" showDetail="true" showSummary="true"/>  
-                                                                     
+
                                     </h:panelGroup> 
-                                    
-                                    
-                                    
+
+
+
                                 </h:panelGrid>
-                                
-                                
-                                
-                                
-                                
+
+
+
+
+
                             </fieldset>
                             <br />
                             <center>
@@ -126,28 +125,28 @@ and open the template in the editor.
 
                                         <p:column>
                                             <f:facet name="header">
-                                                <h:outputText value="#{msg.LabelD}" />
+                                                <h:outputText value="#{msg.LabelNumero}" />
                                             </f:facet>
-                                            <h:outputText  value="#{listExpediente.dnumold}"/>
+                                            <h:outputText  value="#{listExpediente.numero_expediente}"/>
                                         </p:column>   
 
                                         <p:column>
                                             <f:facet name="header">
                                                 <h:outputText value="#{msg.LabelFechI}" />
                                             </f:facet>
-                                            <h:outputText  value="#{listExpediente.ffecdoc1}"/>
+                                            <h:outputText  value="#{listExpediente.fecha_presentacion_expediente1}"/>
                                         </p:column>
 
                                         <p:column>
                                             <f:facet name="header">
-                                                <h:outputText value="#{msg.labelResult}" />
+                                                <h:outputText value="#{msg.labelResulto}" />
                                             </f:facet>
                                             <h:outputText  value="#{listExpediente.ffecrec1}"/>
                                         </p:column>  
 
                                         <p:column>
                                             <f:facet name="header">
-                                                <h:outputText value="#{msg.labelFTramite}" />
+                                                <h:outputText value="#{msg.LabelFechaIngreso}" />
                                             </f:facet>
                                             <h:outputText  value="#{listExpediente.fectrami}"/>
                                         </p:column>  

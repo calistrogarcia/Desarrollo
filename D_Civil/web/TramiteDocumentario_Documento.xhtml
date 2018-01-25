@@ -17,14 +17,15 @@ and open the template in the editor.
         <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
             <ui:define name="contenido"><!---Agregando Etiqueta de Titulo-->
                
-                <p:tabView id="DocumentoTabView" dynamic="true" orientation="top" activeIndex="#{Bean_Tramite_Expediente.activeTabIndex}" styleClass="tamaño_fuente_tab">             
+                <p:tabView id="DocumentoTabView" dynamic="true" orientation="top" activeIndex="#{Bean_Tramite_Expediente.activeTabIndex}"
+                           styleClass="tamaño_fuente_tab" style="text-align: left" >              
 
 
-                    <p:tab id="tab_Buscar_DocumentoOfi" title="Buscar" titletip="Buscar Documento"  titleStyleClass="tamaño_fuente_tab" >
+                    <p:tab id="tab_Buscar_DocumentoOfi" title="#{msg.LabelBusquedaExpedientes}" titletip="Buscar Documento"  titleStyleClass="tamaño_fuente_tab" >
                         <!-- Formulario que permite la Busqueda  -->    
                         <h:form  id="form_busc_DocumentoOfi" class="border_titulo1"  style="text-align : justify;" styleClass="tamaño_fuente">    
                             <p:growl globalOnly="true"  id="estRegDocumento" sticky="false"  showDetail="true"  />    
-                            <p:panel id="datBusDocumentoOfi" header="#{msg.LabelSeccionTramiteDocumentario}" styleClass="border" style="text-align: center">
+                            <p:panel id="datBusDocumentoOfi" header="#{msg.LabelSeccionTramiteDocumentario}" styleClass="border" >
                                 <!--Lista de Opciones de Ofina *25*04*17 ****-->  
 
                                 <h:panelGrid columns="1"   >

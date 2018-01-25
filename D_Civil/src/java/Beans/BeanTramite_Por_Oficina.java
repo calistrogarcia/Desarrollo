@@ -117,7 +117,8 @@ public class BeanTramite_Por_Oficina implements Serializable {
     public BeanTramite_Por_Oficina() {
          try
         {
-            doiniciarObjBusExpediente  (); 
+           
+            doiniciarObjBusExpediente(); 
         }
         catch(Exception e )
         {

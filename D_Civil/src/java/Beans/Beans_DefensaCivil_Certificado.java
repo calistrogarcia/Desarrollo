@@ -77,11 +77,10 @@ public class Beans_DefensaCivil_Certificado {
     private Certificado objBuscarReporteResoluciones;
     private ArrayList<Certificado> arrReporteResoluciones = null;
     private ArrayList<Certificado> arrBusReporteResoluciones = null;
+    
 
+    private int id_legajo=1;
    
-  
-    private int id_legajo=1028;
-
     public int getId_legajo() {
         return id_legajo;
     }
@@ -852,6 +851,18 @@ public class Beans_DefensaCivil_Certificado {
         this.activeTabIndex = 2;  // Verifica la Posesion de la Pestaña para activarla. -- Ver Constantes       
         return null;
     }
+    
+    
+     public String BuscarArchivoVirtual(Certificado bu) {
+
+        this.doiniciarBusquedaArchivoVirtual();
+        this.objBuscarArchivoVirtual = bu;
+        this.bandMod = false;
+        this.activeTabIndex = 2;  // Verifica la Posesion de la Pestaña para activarla. -- Ver Constantes       
+        return null;
+    }
+     
+     
 
     public String ActuaizarDatos(Certificado actualizardatos) {
         this.doiniciarActualizarDatos();

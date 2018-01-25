@@ -16,15 +16,14 @@ and open the template in the editor.
     <h:body>
         <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
             <ui:define name="contenido">
-                <!---Agregando Etiqueta de Titulo-->
-                <h:outputText value="#{msg.LabelReporte}"/> 
+
 
                 <p:tab id="tab_Buscar_ExpedienteT" title="Buscar" titletip="Buscar Expediente" >
                     <!-- Formulario que permite la Busqueda  -->    
-                    <h:form class="border_titulo1" id="form_busc_ExpedienteT"   style="text-align : justify;" styleClass="tamaño_fuente">                
-                        <p:panel id="datBusExpedienteT" header="#{msg.LabelExpTramitePorOficina}" styleClass="border" style="text-align: center">
+                    <h:form class="border_titulo1" id="form_busc_ExpedienteT"   style="text-align :  left;" styleClass="tamaño_fuente">                
+                        <p:panel id="datBusExpedienteT" header="#{msg.LabelExpTramitePorOficina}" styleClass="border" style="text-align: left">
 
-                            <!--Lista de Opciones de Ofina *25*04*17 **J**-->  
+                           
                             <h:panelGrid columns="6">
                                 <h:outputText value="Area  (Ubicación actual del Expediente)  "/>
                                 <h:panelGroup>
@@ -32,8 +31,8 @@ and open the template in the editor.
                                                      filter="true"  filterMatchMode="contains"
                                                      required="true" id="cb_opc"
                                                      validatorMessage="#{msg.labelValidar}"
-                                                     requiredMessage="#{msg.labelObli}"
-                                                     value="#{beanTramite_Por_Oficina.objBuscarExpedienteT.id_area}">
+                                                     requiredMessage="#{msg.labelObligatorio}"
+                                                     value="#{beanTramite_Por_Oficina.objBuscarExpedienteT.objArea.id_area}">
                                         <f:selectItem itemLabel="#{msg.labelSeleccionar}"
                                                       itemValue="O"/>
                                         <f:selectItems value="#{Expediente.cargarComboAreas}"/>
@@ -54,7 +53,8 @@ and open the template in the editor.
                                   
                                     <h:panelGroup>
                                         <h:outputText value=" Del:  "/>
-                                        <p:calendar id="fecha_inicial"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}" locale="es" navigator="true" showOn="button"
+                                        <p:calendar id="fecha_inicial"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObligatorio}" 
+                                                    locale="es" navigator="true" showOn="button"
                                                     value="#{beanTramite_Por_Oficina.objBuscarExpedienteT.fecha_inicio}" 
                                                     pattern="dd/MM/yyyy">   
                                         </p:calendar>
@@ -65,20 +65,29 @@ and open the template in the editor.
 
                                     <h:panelGroup>
                                         <h:outputText value="Al:  "/>
-                                        <p:calendar id="fecha_final"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}" locale="es" navigator="true" showOn="button"
+                                        <p:calendar id="fecha_final"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObligatorio}" 
+                                                    locale="es" navigator="true" showOn="button"
                                                     value="#{beanTramite_Por_Oficina.objBuscarExpedienteT.fecha_fin}"   
                                                     pattern="dd/MM/yyyy">   
                                         </p:calendar>
                                         <h:message for="fecha_final" showDetail="true" showSummary="true"/>  
                                                                      
                                     </h:panelGroup> 
-                                
-                                
-                                 <!--implementando los  check-->
-                                <p:selectManyCheckbox id="basic" value="#{beanTramite_Por_Oficina.objBuscarExpedienteT.opcion}">
-                                    <f:selectItem itemLabel="TODOS" itemValue="2" />
-                                    <f:selectItem itemLabel="RESUMEN" itemValue="0" />
-                                </p:selectManyCheckbox>
+
+                                  <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                                           
+                                            <p:selectOneRadio id="Opcion" value="#{beanTramite_Por_Oficina.objBuscarExpedienteT.opcion}"  layout="grid" columns="2">
+                                                <f:selectItem itemLabel="TODOS" itemValue="2" />
+                                                <f:selectItem itemLabel="RESUMEN" itemValue="0" />
+                                              
+
+
+                                            </p:selectOneRadio>
+                                 </h:panelGrid>
+                                 
+                                 
+                                 
+                                 
                             
                             </h:panelGrid>
                             
@@ -105,7 +114,8 @@ and open the template in the editor.
                                 <h:panelGrid columns="1"   cellpadding="0"  cellspacing="0" 
                                              border="0"  styleClass="width-table"> 
 
-                                    <p:dataTable id="resListadoExpediente" value="#{beanTramite_Por_Oficina.arrBusExpedienteT}" var="listExpediente"  styleClass="order-table" paginator="true"
+                                    <p:dataTable id="resListadoExpediente" var="listExpediente" value="#{beanTramite_Por_Oficina.arrBusExpedienteT}"  
+                                                 styleClass="order-table" paginator="true"
                                                  rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" paginatorPosition="both" paginatorAlwaysVisible="true">
 
                                         <p:column>
@@ -118,36 +128,36 @@ and open the template in the editor.
 
                                         <p:column>
                                             <f:facet name="header">
-                                                <h:outputText value="#{msg.labelNroE}" />
+                                                <h:outputText value="#{msg.LabelNumero}" />
                                             </f:facet>
-                                            <h:outputText value="#{listExpediente.dnumold}"/>
+                                            <h:outputText value="#{listExpediente.numero_expediente}"/>
                                         </p:column> 
 
                                         <p:column>
                                             <f:facet name="header">
                                                 <h:outputText value="#{msg.LabelFechI}" />
                                             </f:facet>
-                                            <h:outputText  value="#{listExpediente.ffecdoc1}"/>
+                                            <h:outputText  value="#{listExpediente.fecha_presentacion_expediente1}"/>
                                         </p:column>   
 
                                         <p:column>
                                             <f:facet name="header">
-                                                <h:outputText value="#{msg.labelFEnvio}" />
+                                                <h:outputText value="#{msg.labelFechaEnvio}" />
                                             </f:facet>
-                                            <h:outputText  value="#{listExpediente.ffecdoc1}"/>
+                                            <h:outputText  value="#{listExpediente.ffecenv1}"/>
                                         </p:column>
 
                                         <p:column>
                                             <f:facet name="header">
-                                                <h:outputText value="#{msg.labelFechaRecep}" />
+                                                <h:outputText value="#{msg.LabelFecharecepcion}" />
                                             </f:facet>
                                             <h:outputText  value="#{listExpediente.ffecrec1}"/>
                                         </p:column>  
                                         <p:column>
                                             <f:facet name="header">
-                                                <h:outputText value="#{msg.labelFTramite}" />
+                                                <h:outputText value="#{msg.LabelFechaIngreso}" />
                                             </f:facet>
-                                            <h:outputText  value="#{listExpediente.ffecrec1}"/>
+                                            <h:outputText  value="#{listExpediente.fectrami}"/>
                                         </p:column> 
                                         <p:column>
                                             <f:facet name="header">

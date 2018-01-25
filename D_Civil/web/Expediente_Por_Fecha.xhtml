@@ -16,13 +16,11 @@ and open the template in the editor.
     <h:body>
         <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
             <ui:define name="contenido">
-                <!--JUDITH 05-04-17-->
-                <!---Agregando Etiqueta de Titulo-->
-                <h:outputText value="#{msg.LabelReporte}"/> 
+             
 
                 <!--Formulario que permite la Busqueda de Expedientes Ingresados por Fecha JUDITH 05-04-17-->
                 <p:tab id="tab_Buscar_ExpedienteF" title="Buscar" titletip="Buscar Expediente" >   
-                    <h:form class="border_titulo1" id="form_bus_ExpedienteF" style="text-align:center;" styleClass="tamaño_fuente">
+                    <h:form class="border_titulo1" id="form_bus_ExpedienteF" style="text-align: left;" styleClass="tamaño_fuente">
                         <p:panel id="datBusExpedienteF" header="#{msg.LabelExpedienteIngresadoPorFecha}" styleClass="border">
 
                             <!--Generando  Formulario-->                 
@@ -39,7 +37,7 @@ and open the template in the editor.
                               
                                     <h:panelGroup>
                                         <h:outputText value=" Del:  "/>
-                                        <p:calendar id="fecha_inicial"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}" locale="es" navigator="true" showOn="button"
+                                        <p:calendar id="fecha_inicial"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObligatorio}" locale="es" navigator="true" showOn="button"
                                                     value="#{beanExpediente_Por_Fecha.objBuscarExpediente.fecha_inicio}" 
                                                     pattern="dd/MM/yyyy">   
                                         </p:calendar>
@@ -50,7 +48,7 @@ and open the template in the editor.
 
                                     <h:panelGroup>
                                         <h:outputText value="Al:  "/>
-                                        <p:calendar id="fecha_final"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}" locale="es" navigator="true" showOn="button"
+                                        <p:calendar id="fecha_final"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObligatorio}" locale="es" navigator="true" showOn="button"
                                                     value="#{beanExpediente_Por_Fecha.objBuscarExpediente.fecha_fin}"   
                                                     pattern="dd/MM/yyyy">   
                                         </p:calendar>
@@ -114,14 +112,14 @@ and open the template in the editor.
 
                                     <p:column style="width:150px;text-align: left">
                                         <f:facet name="header">
-                                            <h:outputText value="#{msg.labelRecurrente}"/>
+                                            <h:outputText value="#{msg.LabelNombres}"/>
                                         </f:facet>
                                         <h:outputText value="#{listExpediente.dcontri}"/>
                                     </p:column>
 
                                     <p:column style="width:150px;text-align: center">
                                         <f:facet name="header">
-                                            <h:outputText value="#{msg.labelOfiIngre}"/>
+                                            <h:outputText value="#{msg.labelOficina}"/>
                                         </f:facet>
                                         <h:outputText value="#{listExpediente.doficin}"/>
                                     </p:column >
@@ -130,7 +128,7 @@ and open the template in the editor.
                                         <f:facet name="header">
                                             <h:outputText value="#{msg.labelFolio}"/>
                                         </f:facet>
-                                        <h:outputText value="#{listExpediente.nfolios}"/>
+                                        <h:outputText value="#{listExpediente.numero_folios}"/>
                                     </p:column>
 
                                     <p:column style="width:150px;text-align: center">

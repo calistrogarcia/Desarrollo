@@ -246,8 +246,11 @@
 
                                 <h:form id="form">
 
-                                    <p:dataTable id="resListadoCertificado" value="#{Beans_DefensaCivil_Supervisor.arrBusSupervisor}" var="listaInspector"  
-                                                 selectionMode="multiple" rowKey="#{listaInspector.nro_dni}" selection="#{Beans_DefensaCivil_Supervisor.listaInspectores}"
+                                    <p:dataTable id="resListadoCertificado" value="#{Beans_DefensaCivil_Supervisor.arrBusSupervisor}" 
+                                                 var="listaInspector"  
+                                                 selectionMode="multiple" 
+                                                 rowKey="#{listaInspector.nro_dni}" 
+                                                 selection="#{Beans_DefensaCivil_Supervisor.listaInspectores}"
 
                                                  styleClass="order-table" paginator="true"
                                                  rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" 

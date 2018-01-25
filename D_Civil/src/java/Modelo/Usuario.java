@@ -10,15 +10,28 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.model.SelectItem;
 
 public class Usuario implements Serializable {
 
     private String nombre_usuario;
-
+    private String id_usuario;
     private String usuario;
     private int id_tipo_usuario;
     private String descripcion;
+    
+  
+    
 
+    public String getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(String id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+  
     public String getNombre_usuario() {
         return nombre_usuario;
     }
@@ -51,6 +64,11 @@ public class Usuario implements Serializable {
         this.usuario = usuario;
     }
 
+
    
+    
+   
+    
+    
 
 }

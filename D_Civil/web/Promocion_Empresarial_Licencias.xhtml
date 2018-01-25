@@ -15,8 +15,182 @@
 
                 <p:tabView id="TabView_multas_Licencia" style=" text-align:  left" dynamic="true" orientation="top" activeIndex="#{BeansPromocion_Empresarial_Licencias.activeTabIndex}" >       
 
+                    <p:tab id="tab_multas_Licencia" title="Licencias" titletip="Licencias"  
+                           titleStyleClass="tamaño_fuente_tab">
 
-               
+                        <h:form  id="form_multas_Licencia" class="border_titulo1"  styleClass="tamaño_fuente">                            
+                            <p:growl globalOnly="true"  id="growl_multas_administrativas" sticky="false"  showDetail="true"  />    
+
+                            <p:panel id="panel_multas_Licencia" header="#{msg.LabelLicenciaFuncionamiento}" style=" text-align:  left">
+
+                                <br>
+                                </br>
+
+                                <p:fieldset   style="margin-bottom:20px;" >
+                                    <center>
+                                        <h:panelGrid columns="5" style="margin-bottom:20px" cellpadding="5">
+
+
+                                            <h:panelGrid columns="2"  style=" align-content: flex-start" cellpadding="5">
+
+                                                <p:outputLabel for="consultar_multa" value="Consultar Con:" style=" font: small serif; "/>
+                                                <p:selectOneRadio id="consultar_multa" value="#{BeansPromocion_Empresarial_Licencias.objLicenciaBusq.tipo_busqueda}"  layout="grid" columns="5" >
+
+                                                    <f:selectItem itemLabel="Nombres" itemValue="0"  />
+                                                    <f:selectItem itemLabel="Codigo Recurrente" itemValue="1"  /> 
+                                                    <f:selectItem itemLabel="N° Expediente" itemValue="2" />
+                                                    <f:selectItem itemLabel="N° Licencia" itemValue="3" />  <!-- Validar Datos --> 
+
+
+                                                </p:selectOneRadio>
+
+                                            </h:panelGrid> 
+
+                                            <h:panelGrid columns="2"  cellspacing="3" >
+
+                                                <h:panelGroup>
+
+                                                    <p:inputText  id="Consulta" value="#{BeansPromocion_Empresarial_Licencias.objLicenciaBusq.consulta}"
+                                                                  >
+
+                                                    </p:inputText>
+                                                    <h:message for="consultas" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>
+
+                                            </h:panelGrid>    
+
+                                        </h:panelGrid>
+
+
+                                        <!--BLOC-->
+                                    </center>
+
+
+
+
+                                    <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3"  width="17%" >
+
+                                        <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{BeansPromocion_Empresarial_Licencias.doiniciarBusquedaLicencia()}"  
+                                                         value="#{msg.labelNuevo}"  async="true" update="panel_multas_Licencia" />
+
+                                        <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{BeansPromocion_Empresarial_Licencias.doBuscarLicenciaFuncionamiento()}"  
+                                                         value="#{msg.btnConsultar}"  async="true" update="panel_multas_Licencia" />  
+
+
+                                    </h:panelGrid>
+
+                                </p:fieldset>
+
+                                <p:blockUI block="panel_multas_Licencia" trigger="saveBtn">   Buscando... <br />
+                                    <p:graphicImage value="resources/imagenes/cargando1.gif" />   
+                                </p:blockUI>
+
+                                <h:panelGrid columns="6"  cellpadding="2"  cellspacing="2"  width="10%" >
+
+                                    <h:outputText value="#{msg.LabelLeyenda}" style="margin-right:30px;"/>
+                                    <h:outputText value="#{msg.LabelCese}" styleClass="color_letra_licencia_cese"   style="margin-right:30px;"/>
+                                    <h:outputText value="#{msg.LabelAnulado}"  styleClass="color_letra_licencia_anulado"  style="margin-right:30px;"/>
+                                    <h:outputText value="#{msg.LabelRevocatoria}"  styleClass="color_letra_licencia_revocatoria"  style="margin-right:30px;"/>
+                                    <h:outputText value="#{msg.LabelActivo}" styleClass="color_letra_licencia_vigente"  style="margin-right:30px;"/>
+                                    <h:outputText value="#{msg.LabelImprocedente}"  styleClass="color_letra_licencia_improcedente"   style="margin-right:30px;"/>
+
+
+                                </h:panelGrid> 
+
+
+                                <center>
+                                    <h:panelGrid columns="2" >
+                                        <h:outputText styleClass="etiqueta_resultBusq" value="#{msg.labelCantidad}"/>
+                                        <h:outputText styleClass="etiqueta_resultBusq" value="#{BeansPromocion_Empresarial_Licencias.arrBusLicencia.size()}"/>               
+                                    </h:panelGrid> 
+
+
+
+
+                                    <h:panelGrid columns="1"   cellpadding="0"  cellspacing="0" 
+                                                 border="0"  styleClass="width-table"> 
+
+                                        <p:dataTable id="table_Licencia" value="#{BeansPromocion_Empresarial_Licencias.arrBusLicencia}" 
+                                                     var="lista_licencia_funcionamiento"  styleClass="order-table" paginator="true"
+                                                     rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" 
+                                                     paginatorPosition="both" paginatorAlwaysVisible="true"
+                                                     rowStyleClass="#{lista_licencia_funcionamiento.estado eq '0'  ? 'color_letra_licencia_anulado'   : null}
+                                                     #{lista_licencia_funcionamiento.estado eq '1'  ? 'color_letra_licencia_vigente'   : null} 
+                                                     #{lista_licencia_funcionamiento.estado eq '2'  ? 'color_letra_licencia_cese'   : null}
+                                                     #{lista_licencia_funcionamiento.estado eq '3'  ? 'color_letra_licencia_vigente'   : null}
+                                                     #{lista_licencia_funcionamiento.estado eq '4'  ? 'color_letra_licencia_revocatoria'   : null}
+                                                     #{lista_licencia_funcionamiento.estado eq '5'  ? 'color_letra_licencia_improcedente'   : null}">
+
+
+
+                                            <p:column style="width:9%;text-align: center" sortBy="#{lista_licencia_funcionamiento.objExpediente.numero_expediente}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelNumeroExpediente}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{lista_licencia_funcionamiento.objExpediente.numero_expediente}"/>
+                                            </p:column>  
+
+                                            <p:column style="width:9%;text-align: center">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelNumeroLicencia}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{lista_licencia_funcionamiento.numero_licencia}"  />
+                                            </p:column>   
+
+                                            <p:column style="width:15%;text-align: center">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelFechaLicencia}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{lista_licencia_funcionamiento.fecha_licencia}" />
+                                            </p:column>  
+
+                                            <p:column filterBy="#{lista_licencia_funcionamiento.objPersona.nombre_contribuyente}" filterMatchMode="contains"  style="width:17%;text-align: center">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelNombres}" />
+                                                </f:facet>
+                                                <h:outputText value="#{lista_licencia_funcionamiento.objPersona.nombre_contribuyente}"/>
+                                            </p:column> 
+
+                                            <p:column style="width:10%;text-align: left">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelGiro}" style="text-align: center"/>
+                                                </f:facet>
+                                                <h:outputText  value="#{lista_licencia_funcionamiento.objGiros.giro_detalle}"/>
+                                            </p:column>  
+
+
+                                            <p:column exportable="false"  style="width:5%;text-align: center">
+
+                                                <f:facet name="header">
+                                                    <center><h:outputText value="Editar"/></center>
+                                                </f:facet>
+
+
+                                                <p:commandButton id="editar" title="Editar" actionListener="#{BeansPromocion_Empresarial_Licencias.onClickBusq}" 
+                                                                 value="Editar" action="#{BeansPromocion_Empresarial_Licencias.modificarLicencia(lista_licencia_funcionamiento)}"
+                                                                 async="true" update=":TabView_multas_Licencia, :TabView_multas_Licencia" icon="ui-icon-disk"  
+                                                                 >
+                                                    <f:attribute name="param" value="#{2}" /> 
+
+                                                </p:commandButton>
+
+                                            </p:column>
+
+
+
+                                        </p:dataTable> 
+
+                                    </h:panelGrid>  
+                                </center>
+
+
+
+                            </p:panel>  
+
+                        </h:form>     
+
+                    </p:tab>
+
 
 
                     <p:tab id="tab_editar_licencia" title="Editar Licencia" titletip="Editar"  disabled="#{BeansPromocion_Empresarial_Licencias.bandMod}" titleStyleClass="tamaño_fuente_tab">
@@ -31,542 +205,542 @@
                                 <p:accordionPanel multiple="true">
                                     <p:tab title="Solicitud Declaracion I">
                                         <center>                                     
-                                        <p:panelGrid  styleClass="ui-responsive"> 
-                                            <h:outputLabel value="#{msg.LabelDatosTipoAutorizacionMunicipal}"  style=" margin-left: 0%;color: blue" />
-                                            <br>
-                                            </br>
-                                            
-                                            <h:panelGrid columns="4" cellspacing="1" cellpadding="1"  width="80%"   >
+                                            <p:panelGrid  styleClass="ui-responsive"> 
+                                                <h:outputLabel value="#{msg.LabelDatosTipoAutorizacionMunicipal}"  style=" margin-left: 0%;color: blue" />
+                                                <br>
+                                                </br>
 
-                                                
-                                                <h:panelGrid columns="1">
-
-                                                    <h:outputText value="#{msg.LabelDatosTipoAutorizacionMunicipal}" style="width: 10% "/>
-                                                    <h:panelGroup>
-                                                        <p:selectOneMenu effect="fade"
-                                                                         filter="true"  filterMatchMode="contains" autoWidth="false" style=" width: 30%"  
-                                                                         required="true" id="tipo_autorizacion"
-                                                                         validatorMessage="#{msg.labelValidar}"
-                                                                         requiredMessage="#{msg.labelObli}"
-                                                                         value="#{Beans_Fiscalizacion_Multas.objMultaMod.objSancion.codigo_sancion}">
-                                                            <f:selectItem itemLabel="#{msg.labelSeleccionar}"
-                                                                          itemValue="O"/>
-                                                            <f:selectItems value="#{Grupo.cargarTipoAutorizacionMunicipal}"/>
-                                                        </p:selectOneMenu>
-                                                        <h:message for="tipo_autorizacion" showDetail="false" showSummary="true"/>
-                                                    </h:panelGroup>
-                                                </h:panelGrid>   
+                                                <h:panelGrid columns="4" cellspacing="1" cellpadding="1"  width="80%"   >
 
 
+                                                    <h:panelGrid columns="1">
 
-                                                <h:panelGrid columns="1" >
-
-                                                    <h:outputLabel value="#{msg.LabelNombres}" style="width: 100% "   />
-
-                                                    <h:panelGroup> 
-
-                                                        <p:inputText id="nombre_infractor" required="true" requiredMessage="#{msg.labelObli}"  style=" width: 100%"   size="170"
-                                                                     maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                     value="#{Beans_Fiscalizacion_Multas.objMultaMod.objPersona.nombre_contribuyente}"  
-                                                                     >  
-                                                            <f:validateLength minimum="0" maximum="30"/>
-                                                        </p:inputText>
-
-                                                        <h:message for="nombre_infractor" showDetail="false" showSummary="true"/>                                    
-                                                    </h:panelGroup>  
-
-                                                </h:panelGrid>
-
-                                            </h:panelGrid>
+                                                        <h:outputText value="#{msg.LabelDatosTipoAutorizacionMunicipal}" style="width: 10% "/>
+                                                        <h:panelGroup>
+                                                            <p:selectOneMenu effect="fade"
+                                                                             filter="true"  filterMatchMode="contains" autoWidth="false" style=" width: 30%"  
+                                                                             required="true" id="tipo_autorizacion"
+                                                                             validatorMessage="#{msg.labelValidar}"
+                                                                             requiredMessage="#{msg.labelObli}"
+                                                                             value="#{Beans_Fiscalizacion_Multas.objMultaMod.objSancion.codigo_sancion}">
+                                                                <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                              itemValue="O"/>
+                                                                <f:selectItems value="#{Grupo.cargarTipoAutorizacionMunicipal}"/>
+                                                            </p:selectOneMenu>
+                                                            <h:message for="tipo_autorizacion" showDetail="false" showSummary="true"/>
+                                                        </h:panelGroup>
+                                                    </h:panelGrid>   
 
 
 
-                                            <h:panelGrid columns="4" cellspacing="1" cellpadding="1"  width="80%"  >
+                                                    <h:panelGrid columns="1" >
 
+                                                        <h:outputLabel value="#{msg.LabelNombres}" style="width: 100% "   />
 
-                                                <h:panelGrid columns="1"  >
+                                                        <h:panelGroup> 
 
-                                                    <h:outputLabel value="#{msg.LabelDireccion}"  />
+                                                            <p:inputText id="nombre_infractor" required="true" requiredMessage="#{msg.labelObli}"  style=" width: 100%"   size="170"
+                                                                         maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                         value="#{Beans_Fiscalizacion_Multas.objMultaMod.objPersona.nombre_contribuyente}"  
+                                                                         >  
+                                                                <f:validateLength minimum="0" maximum="30"/>
+                                                            </p:inputText>
 
-                                                    <h:panelGroup> 
+                                                            <h:message for="nombre_infractor" showDetail="false" showSummary="true"/>                                    
+                                                        </h:panelGroup>  
 
-                                                        <p:inputText id="editar_multa_direccion" required="true" requiredMessage="#{msg.labelObli}"  style=" width: 100%" 
-                                                                     size="187" maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                     value="#{Beans_Fiscalizacion_Multas.objMultaMod.objPersona.direccion_fiscal}"  
-                                                                     >  
-                                                            <f:validateLength minimum="0" maximum="30"/>
-                                                        </p:inputText>
-
-                                                        <h:message for="editar_multa_direccion" showDetail="false" showSummary="true"/>                                    
-                                                    </h:panelGroup>  
-
-                                                </h:panelGrid>
-
-                                            </h:panelGrid>
-
-
-                                            <h:panelGrid columns="4" cellspacing="1" cellpadding="1"  width="80%"  >
-                                                <h:panelGrid columns="1"  >
-
-                                                    <h:outputLabel value="#{msg.LabelLugarInfraccion}"  style="width: 100% "  />
-                                                    <h:panelGroup> 
-
-                                                        <p:inputText id="editar_multa_lugar_infraccion" required="true" requiredMessage="#{msg.labelObli}"  style=" width: 100%"
-                                                                     size="187" maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                     value="#{Beans_Fiscalizacion_Multas.objMultaMod.referencia_direccion}"  
-                                                                     >  
-                                                            <f:validateLength minimum="0" maximum="30"/>
-                                                        </p:inputText>
-
-                                                        <h:message for="editar_multa_lugar_infraccion" showDetail="false" showSummary="true"/>                                    
-                                                    </h:panelGroup>  
-
-                                                </h:panelGrid>
-
-                                            </h:panelGrid>  
-
-
-                                            <h:panelGrid columns="5" cellspacing="1" cellpadding="1"  width="80%" >
-
-                                                <h:panelGrid columns="1"  >
-                                                    <h:outputLabel value="#{msg.LabelManzana}"  style="width: 100% "/>
-
-                                                    <h:panelGroup> 
-
-                                                        <p:inputText id="editar_multa_manzana" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
-                                                                     size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                     value="#{Beans_Fiscalizacion_Multas.objMultaMod.manzana}"  
-                                                                     >  
-                                                            <f:validateLength minimum="0" maximum="30"/>
-                                                        </p:inputText>
-
-                                                        <h:message for="editar_multa_manzana" showDetail="false" showSummary="true"/>                                    
-                                                    </h:panelGroup>  
-
-                                                </h:panelGrid>
-
-
-                                                <h:panelGrid columns="1"  >
-                                                    <h:outputLabel value="#{msg.LabelLote}" style="width: 100% " />
-
-                                                    <h:panelGroup> 
-
-                                                        <p:inputText id="editar_multa_lote" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
-                                                                     size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                     value="#{Beans_Fiscalizacion_Multas.objMultaMod.lote}"  
-                                                                     >  
-                                                            <f:validateLength minimum="0" maximum="30"/>
-                                                        </p:inputText>
-
-                                                        <h:message for="editar_multa_lote" showDetail="false" showSummary="true"/>                                    
-                                                    </h:panelGroup>  
+                                                    </h:panelGrid>
 
                                                 </h:panelGrid>
 
 
 
-                                                <h:panelGrid columns="1"  >
-                                                    <h:outputLabel value="#{msg.LabelnumeroFiscal}"  style="width: 100% "  />
+                                                <h:panelGrid columns="4" cellspacing="1" cellpadding="1"  width="80%"  >
 
-                                                    <h:panelGroup> 
-
-                                                        <p:inputText id="editar_multa_numero_fiscal" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
-                                                                     size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                     value="#{Beans_Fiscalizacion_Multas.objMultaMod.numero_fiscal}"  
-                                                                     >  
-                                                            <f:validateLength minimum="0" maximum="30"/>
-                                                        </p:inputText>
-
-                                                        <h:message for="editar_multa_numero_fiscal" showDetail="false" showSummary="true"/>                                    
-                                                    </h:panelGroup>  
-
-                                                </h:panelGrid>
-
-
-
-
-
-                                                <h:panelGrid columns="1"  >
-                                                    <h:outputLabel value="#{msg.LabelNumeroDepartamento}"  style="width: 100% "  />
-                                                    <h:panelGroup> 
-
-                                                        <p:inputText id="editar_multa_numero_departamento" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
-                                                                     size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                     value="#{Beans_Fiscalizacion_Multas.objMultaMod.numero_departamento}"  
-                                                                     >  
-                                                            <f:validateLength minimum="0" maximum="30"/>
-                                                        </p:inputText>
-
-                                                        <h:message for="editar_multa_numero_departamento" showDetail="false" showSummary="true"/>                                    
-                                                    </h:panelGroup>  
-
-                                                </h:panelGrid>
-
-
-                                                <h:panelGrid columns="1"  >
-                                                    <h:outputLabel value="#{msg.LabelReferencia}"  style="width: 100% "/>
-
-                                                    <h:panelGroup> 
-
-                                                        <p:inputText id="editar_multa_referencia" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
-                                                                     size="84" maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                     value="#{Beans_Fiscalizacion_Multas.objMultaMod.referencia}"  
-                                                                     >  
-                                                            <f:validateLength minimum="0" maximum="30"/>
-                                                        </p:inputText>
-
-                                                        <h:message for="editar_multa_referencia" showDetail="false" showSummary="true"/>                                    
-                                                    </h:panelGroup>  
-
-                                                </h:panelGrid>
-
-
-                                            </h:panelGrid>      
-
-
-
-                                            <br>
-                                            </br>
-
-
-
-                                            <h:panelGrid columns="6" cellspacing="1" cellpadding="1"  width="80%"   >
-
-                                                <h:panelGrid columns="1"  >
-                                                    <h:outputLabel value="#{msg.LabelNumeroMulta}"  style="width: 50% " />
-
-                                                    <h:panelGroup> 
-
-                                                        <p:inputText id="editar_multa_numero_multas" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
-                                                                     size="5" maxlength="7" validatorMessage="#{msg.labelValidar}"  
-                                                                     value="#{Beans_Fiscalizacion_Multas.objMultaMod.numero_multa}"  
-                                                                     >  
-                                                            <f:validateLength minimum="0" maximum="7"/>
-                                                        </p:inputText>
-
-                                                        <h:message for="editar_multa_numero_multas" showDetail="false" showSummary="true"/>                                    
-                                                    </h:panelGroup>  
-
-                                                </h:panelGrid>
-
-
-
-
-                                                <h:panelGrid columns="1"  >
-                                                    <h:outputLabel value="#{msg.LabelNumeroActa}"  style="width: 50%  " />
-
-                                                    <h:panelGroup> 
-
-                                                        <p:inputText id="editar_multa_numero_acta_constatacion" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
-                                                                     size="6" maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                     value="#{Beans_Fiscalizacion_Multas.objMultaMod.acta_constatacion}"  
-                                                                     >  
-                                                            <f:validateLength minimum="0" maximum="7"/>
-                                                        </p:inputText>
-
-                                                        <h:message for="editar_multa_numero_acta_constatacion" showDetail="false" showSummary="true"/>                                    
-                                                    </h:panelGroup>  
-
-                                                </h:panelGrid>
-
-
-
-                                                <h:panelGrid columns="1"  >
-                                                    <h:outputText  value="#{msg.LabelFechaMulta}"   style="width: 50%  "  />
-
-                                                    <h:panelGroup>
-                                                        <p:calendar id="editar_multa_fecha_multa"  locale="es" navigator="true" style=" margin-left: 0%"   size="14" 
-                                                                    value="#{Beans_Fiscalizacion_Multas.objMultaMod.fecha_multa}"  
-                                                                    pattern="yyyy/MM/dd HH:mm:ss">   
-
-                                                        </p:calendar>
-                                                        <h:message for="editar_multa_fecha_multa" showDetail="true" showSummary="true"/>                                   
-                                                    </h:panelGroup>
-                                                </h:panelGrid>    
-
-
-
-
-                                                <h:panelGrid columns="1"  >
-                                                    <h:outputLabel value="#{msg.LabelNumeroResolucion}"  style="width: 50%  "  />
-
-                                                    <h:panelGroup> 
-
-                                                        <p:inputText id="editar_multa_numero_resolucion" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
-                                                                     size="7" maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                     value="#{Beans_Fiscalizacion_Multas.objMultaMod.numero_resolucion}"  
-                                                                     >  
-                                                            <f:validateLength minimum="0" maximum="7"/>
-                                                        </p:inputText>
-
-                                                        <h:message for="editar_multa_numero_resolucion" showDetail="false" showSummary="true"/>                                    
-                                                    </h:panelGroup>  
-
-                                                </h:panelGrid>
-
-
-                                                <h:panelGrid columns="1"  >
-                                                    <h:outputLabel value="#{msg.LabelFechaResolucionMulta}"  style="width: 50%  "  />
-
-                                                    <h:panelGroup>
-                                                        <p:calendar id="editar_fecha_resolucion"  locale="es" navigator="true" style=" width: 100%"   size="14" 
-                                                                    value="#{Beans_Fiscalizacion_Multas.objMultaMod.fecha_multa}"  
-                                                                    pattern="yyyy/MM/dd HH:mm:ss">   
-
-                                                        </p:calendar>
-                                                        <h:message for="editar_fecha_resolucion" showDetail="true" showSummary="true"/>                                   
-                                                    </h:panelGroup>
-
-                                                </h:panelGrid> 
-
-
-                                                <h:panelGrid columns="1">
-
-                                                    <h:outputText value="#{msg.LabelArea}" style="width: 100% "/>
-                                                    <h:panelGroup>
-                                                        <p:selectOneMenu effect="fade" style=" width: 100%"  autoWidth="false"
-                                                                         filter="true"  filterMatchMode="contains"
-                                                                         required="true" id="editar_multa_area"
-                                                                         validatorMessage="#{msg.labelValidar}"
-                                                                         requiredMessage="#{msg.labelObli}"
-                                                                         value="#{Beans_Fiscalizacion_Multas.objMultaMod.objArea.id_area}">
-                                                            <f:selectItem itemLabel="#{msg.labelSeleccionar}"
-                                                                          itemValue="O"/>
-                                                            <f:selectItems value="#{Area.cargarAreas}"/>
-                                                        </p:selectOneMenu>
-                                                        <h:message for="editar_multa_area" showDetail="false" showSummary="true"/>
-                                                    </h:panelGroup>
-                                                </h:panelGrid>
-
-
-
-                                            </h:panelGrid>
-
-
-
-
-                                            <h:panelGrid columns="6" cellspacing="0" cellpadding="0"  width="80%"   >
-
-
-                                                <h:panelGrid columns="1">
-
-                                                    <h:outputText value="#{msg.LabelMedidaComplementaria}" style="width: 100% "/>
-                                                    <h:panelGroup>
-                                                        <p:selectOneMenu effect="fade" style=" width: 70%" autoWidth="false"
-                                                                         filter="true"  filterMatchMode="contains"
-                                                                         required="true" id="editar_medida_complementaria"
-                                                                         validatorMessage="#{msg.labelValidar}"
-                                                                         requiredMessage="#{msg.labelObli}"
-                                                                         value="#{Beans_Fiscalizacion_Multas.objMultaMod.objGrupo.codigo_tipo}">
-                                                            <f:selectItem itemLabel="#{msg.labelSeleccionar}"
-                                                                          itemValue="O"/>
-                                                            <f:selectItems value="#{Grupo.cargarDetalleGrupo}"/>
-                                                        </p:selectOneMenu>
-                                                        <h:message for="editar_medida_complementaria" showDetail="false" showSummary="true"/>
-                                                    </h:panelGroup>
-                                                </h:panelGrid>
-
-
-
-
-                                                <h:panelGrid columns="1" style="width: 50%">
-
-                                                    <h:outputLabel value="Tiene Acta"  style="width: 100% " />
-
-                                                    <p:selectBooleanCheckbox id="editar_habilitar_acta" value="#{Beans_Fiscalizacion_Multas.objMultaMod.reincidente}"/>
-
-
-                                                </h:panelGrid>
-
-
-
-
-                                                <h:panelGrid columns="1"  >
-
-                                                    <h:outputLabel value="#{msg.LabelNumeroActa}"  style="width: 100% " />
-                                                    <h:panelGroup> 
-
-                                                        <p:inputText id="editar_numero_acta" required="true" requiredMessage="#{msg.labelObli}"  size="10"  style=" width: 100%"
-                                                                     maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                     value="#{Beans_Fiscalizacion_Multas.objMultaMod.numero_informe}"  
-                                                                     >  
-                                                            <f:validateLength minimum="0" maximum="30"/>
-                                                        </p:inputText>
-
-                                                        <h:message for="editar_numero_acta" showDetail="false" showSummary="true"/>                                    
-                                                    </h:panelGroup>  
-
-                                                </h:panelGrid>
-
-
-
-                                                <h:panelGrid columns="2" cellspacing="1" cellpadding="1"  width="80%"   >
 
                                                     <h:panelGrid columns="1"  >
 
-                                                        <h:outputText  value="#{msg.LabelFechaEjecucion}"  style="width: 10% "/>
+                                                        <h:outputLabel value="#{msg.LabelDireccion}"  />
 
-                                                        <h:panelGroup>
-                                                            <p:calendar id="editar_multa_fecha_ejecucion"  locale="es" navigator="true" size="10"  style=" width: 100%"
-                                                                        value="#{Beans_Fiscalizacion_Multas.objMultaMod.fecha_multa}"  
-                                                                        pattern="yyyy/MM/dd HH:mm:ss">   
+                                                        <h:panelGroup> 
 
-                                                            </p:calendar>
-                                                            <h:message for="editar_multa_fecha_ejecucion" showDetail="true" showSummary="true"/>                                   
+                                                            <p:inputText id="editar_multa_direccion" required="true" requiredMessage="#{msg.labelObli}"  style=" width: 100%" 
+                                                                         size="187" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                         value="#{Beans_Fiscalizacion_Multas.objMultaMod.objPersona.direccion_fiscal}"  
+                                                                         >  
+                                                                <f:validateLength minimum="0" maximum="30"/>
+                                                            </p:inputText>
 
-                                                        </h:panelGroup>            
+                                                            <h:message for="editar_multa_direccion" showDetail="false" showSummary="true"/>                                    
+                                                        </h:panelGroup>  
+
+                                                    </h:panelGrid>
+
+                                                </h:panelGrid>
+
+
+                                                <h:panelGrid columns="4" cellspacing="1" cellpadding="1"  width="80%"  >
+                                                    <h:panelGrid columns="1"  >
+
+                                                        <h:outputLabel value="#{msg.LabelLugarInfraccion}"  style="width: 100% "  />
+                                                        <h:panelGroup> 
+
+                                                            <p:inputText id="editar_multa_lugar_infraccion" required="true" requiredMessage="#{msg.labelObli}"  style=" width: 100%"
+                                                                         size="187" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                         value="#{Beans_Fiscalizacion_Multas.objMultaMod.referencia_direccion}"  
+                                                                         >  
+                                                                <f:validateLength minimum="0" maximum="30"/>
+                                                            </p:inputText>
+
+                                                            <h:message for="editar_multa_lugar_infraccion" showDetail="false" showSummary="true"/>                                    
+                                                        </h:panelGroup>  
+
+                                                    </h:panelGrid>
+
+                                                </h:panelGrid>  
+
+
+                                                <h:panelGrid columns="5" cellspacing="1" cellpadding="1"  width="80%" >
+
+                                                    <h:panelGrid columns="1"  >
+                                                        <h:outputLabel value="#{msg.LabelManzana}"  style="width: 100% "/>
+
+                                                        <h:panelGroup> 
+
+                                                            <p:inputText id="editar_multa_manzana" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                         size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                         value="#{Beans_Fiscalizacion_Multas.objMultaMod.manzana}"  
+                                                                         >  
+                                                                <f:validateLength minimum="0" maximum="30"/>
+                                                            </p:inputText>
+
+                                                            <h:message for="editar_multa_manzana" showDetail="false" showSummary="true"/>                                    
+                                                        </h:panelGroup>  
 
                                                     </h:panelGrid>
 
 
                                                     <h:panelGrid columns="1"  >
+                                                        <h:outputLabel value="#{msg.LabelLote}" style="width: 100% " />
+
+                                                        <h:panelGroup> 
+
+                                                            <p:inputText id="editar_multa_lote" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                         size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                         value="#{Beans_Fiscalizacion_Multas.objMultaMod.lote}"  
+                                                                         >  
+                                                                <f:validateLength minimum="0" maximum="30"/>
+                                                            </p:inputText>
+
+                                                            <h:message for="editar_multa_lote" showDetail="false" showSummary="true"/>                                    
+                                                        </h:panelGroup>  
+
+                                                    </h:panelGrid>
 
 
-                                                        <h:outputText value="#{msg.LabelGiro}" /> 
-                                                        <h:panelGroup>
 
-                                                            <p:selectOneMenu effect="fade" filter="true"  filterMatchMode="contains" required="true" 
-                                                                             id="editar_multa_giros"  autoWidth="false"  
-                                                                             validatorMessage="#{msg.labelValidar}"  
-                                                                             requiredMessage="#{msg.labelObli}"  style=" width: 100%"
-                                                                             value="#{Beans_Fiscalizacion_Multas.objMultaMod.objGiro.codigo_giro}">
+                                                    <h:panelGrid columns="1"  >
+                                                        <h:outputLabel value="#{msg.LabelnumeroFiscal}"  style="width: 100% "  />
 
-                                                                <f:selectItem itemLabel="#{msg.labelSeleccionar}"
-                                                                              itemValue="O"/>
-                                                                <f:selectItems value="#{Certificado.cargarComboGiros}" />
-                                                            </p:selectOneMenu>
-                                                            <h:message for="editar_multa_giros" showDetail="false" showSummary="true"/>     
+                                                        <h:panelGroup> 
 
-                                                        </h:panelGroup>
-                                                    </h:panelGrid>   
+                                                            <p:inputText id="editar_multa_numero_fiscal" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                         size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                         value="#{Beans_Fiscalizacion_Multas.objMultaMod.numero_fiscal}"  
+                                                                         >  
+                                                                <f:validateLength minimum="0" maximum="30"/>
+                                                            </p:inputText>
+
+                                                            <h:message for="editar_multa_numero_fiscal" showDetail="false" showSummary="true"/>                                    
+                                                        </h:panelGroup>  
+
+                                                    </h:panelGrid>
+
+
+
+
+
+                                                    <h:panelGrid columns="1"  >
+                                                        <h:outputLabel value="#{msg.LabelNumeroDepartamento}"  style="width: 100% "  />
+                                                        <h:panelGroup> 
+
+                                                            <p:inputText id="editar_multa_numero_departamento" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                         size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                         value="#{Beans_Fiscalizacion_Multas.objMultaMod.numero_departamento}"  
+                                                                         >  
+                                                                <f:validateLength minimum="0" maximum="30"/>
+                                                            </p:inputText>
+
+                                                            <h:message for="editar_multa_numero_departamento" showDetail="false" showSummary="true"/>                                    
+                                                        </h:panelGroup>  
+
+                                                    </h:panelGrid>
+
+
+                                                    <h:panelGrid columns="1"  >
+                                                        <h:outputLabel value="#{msg.LabelReferencia}"  style="width: 100% "/>
+
+                                                        <h:panelGroup> 
+
+                                                            <p:inputText id="editar_multa_referencia" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                         size="84" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                         value="#{Beans_Fiscalizacion_Multas.objMultaMod.referencia}"  
+                                                                         >  
+                                                                <f:validateLength minimum="0" maximum="30"/>
+                                                            </p:inputText>
+
+                                                            <h:message for="editar_multa_referencia" showDetail="false" showSummary="true"/>                                    
+                                                        </h:panelGroup>  
+
+                                                    </h:panelGrid>
 
 
                                                 </h:panelGrid>      
 
 
 
-                                                <h:panelGrid columns="1">
-
-                                                    <h:outputText value="#{msg.LabelCodigoInfraccion}" style="width: 10% "/>
-                                                    <h:panelGroup>
-                                                        <p:selectOneMenu effect="fade"
-                                                                         filter="true"  filterMatchMode="contains" autoWidth="false" style=" width: 30%"  
-                                                                         required="true" id="editar_multa_codigo_sancion"
-                                                                         validatorMessage="#{msg.labelValidar}"
-                                                                         requiredMessage="#{msg.labelObli}"
-                                                                         value="#{Beans_Fiscalizacion_Multas.objMultaMod.objSancion.codigo_sancion}">
-                                                            <f:selectItem itemLabel="#{msg.labelSeleccionar}"
-                                                                          itemValue="O"/>
-                                                            <f:selectItems value="#{Sancion.cargarSacionRas}"/>
-                                                        </p:selectOneMenu>
-                                                        <h:message for="editar_multa_codigo_sancion" showDetail="false" showSummary="true"/>
-                                                    </h:panelGroup>
-                                                </h:panelGrid>              
-
-
-                                            </h:panelGrid>
+                                                <br>
+                                                </br>
 
 
 
+                                                <h:panelGrid columns="6" cellspacing="1" cellpadding="1"  width="80%"   >
+
+                                                    <h:panelGrid columns="1"  >
+                                                        <h:outputLabel value="#{msg.LabelNumeroMulta}"  style="width: 50% " />
+
+                                                        <h:panelGroup> 
+
+                                                            <p:inputText id="editar_multa_numero_multas" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                         size="5" maxlength="7" validatorMessage="#{msg.labelValidar}"  
+                                                                         value="#{Beans_Fiscalizacion_Multas.objMultaMod.numero_multa}"  
+                                                                         >  
+                                                                <f:validateLength minimum="0" maximum="7"/>
+                                                            </p:inputText>
+
+                                                            <h:message for="editar_multa_numero_multas" showDetail="false" showSummary="true"/>                                    
+                                                        </h:panelGroup>  
+
+                                                    </h:panelGrid>
 
 
 
-                                            <h:panelGrid columns="4" cellspacing="1" cellpadding="1"  width="80%"   >
+
+                                                    <h:panelGrid columns="1"  >
+                                                        <h:outputLabel value="#{msg.LabelNumeroActa}"  style="width: 50%  " />
+
+                                                        <h:panelGroup> 
+
+                                                            <p:inputText id="editar_multa_numero_acta_constatacion" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                         size="6" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                         value="#{Beans_Fiscalizacion_Multas.objMultaMod.acta_constatacion}"  
+                                                                         >  
+                                                                <f:validateLength minimum="0" maximum="7"/>
+                                                            </p:inputText>
+
+                                                            <h:message for="editar_multa_numero_acta_constatacion" showDetail="false" showSummary="true"/>                                    
+                                                        </h:panelGroup>  
+
+                                                    </h:panelGrid>
 
 
-                                                <h:panelGrid columns="1"  >
 
-                                                    <h:outputLabel value="#{msg.LabelObservacion}"  style="width: 100% "  />
-                                                    <h:panelGroup> 
+                                                    <h:panelGrid columns="1"  >
+                                                        <h:outputText  value="#{msg.LabelFechaMulta}"   style="width: 50%  "  />
 
-                                                        <p:inputText id="editar_multa_observacion" required="true" requiredMessage="#{msg.labelObli}"  size="10" style=" width: 100%"
-                                                                     maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                     value="#{Beans_Fiscalizacion_Multas.objMultaMod.observacion}"  
-                                                                     >  
-                                                            <f:validateLength minimum="0" maximum="30"/>
-                                                        </p:inputText>
+                                                        <h:panelGroup>
+                                                            <p:calendar id="editar_multa_fecha_multa"  locale="es" navigator="true" style=" margin-left: 0%"   size="14" 
+                                                                        value="#{Beans_Fiscalizacion_Multas.objMultaMod.fecha_multa}"  
+                                                                        pattern="yyyy/MM/dd HH:mm:ss">   
 
-                                                        <h:message for="editar_multa_observacion" showDetail="false" showSummary="true"/>                                    
-                                                    </h:panelGroup>  
+                                                            </p:calendar>
+                                                            <h:message for="editar_multa_fecha_multa" showDetail="true" showSummary="true"/>                                   
+                                                        </h:panelGroup>
+                                                    </h:panelGrid>    
+
+
+
+
+                                                    <h:panelGrid columns="1"  >
+                                                        <h:outputLabel value="#{msg.LabelNumeroResolucion}"  style="width: 50%  "  />
+
+                                                        <h:panelGroup> 
+
+                                                            <p:inputText id="editar_multa_numero_resolucion" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                         size="7" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                         value="#{Beans_Fiscalizacion_Multas.objMultaMod.numero_resolucion}"  
+                                                                         >  
+                                                                <f:validateLength minimum="0" maximum="7"/>
+                                                            </p:inputText>
+
+                                                            <h:message for="editar_multa_numero_resolucion" showDetail="false" showSummary="true"/>                                    
+                                                        </h:panelGroup>  
+
+                                                    </h:panelGrid>
+
+
+                                                    <h:panelGrid columns="1"  >
+                                                        <h:outputLabel value="#{msg.LabelFechaResolucionMulta}"  style="width: 50%  "  />
+
+                                                        <h:panelGroup>
+                                                            <p:calendar id="editar_fecha_resolucion"  locale="es" navigator="true" style=" width: 100%"   size="14" 
+                                                                        value="#{Beans_Fiscalizacion_Multas.objMultaMod.fecha_multa}"  
+                                                                        pattern="yyyy/MM/dd HH:mm:ss">   
+
+                                                            </p:calendar>
+                                                            <h:message for="editar_fecha_resolucion" showDetail="true" showSummary="true"/>                                   
+                                                        </h:panelGroup>
+
+                                                    </h:panelGrid> 
+
+
+                                                    <h:panelGrid columns="1">
+
+                                                        <h:outputText value="#{msg.LabelArea}" style="width: 100% "/>
+                                                        <h:panelGroup>
+                                                            <p:selectOneMenu effect="fade" style=" width: 100%"  autoWidth="false"
+                                                                             filter="true"  filterMatchMode="contains"
+                                                                             required="true" id="editar_multa_area"
+                                                                             validatorMessage="#{msg.labelValidar}"
+                                                                             requiredMessage="#{msg.labelObli}"
+                                                                             value="#{Beans_Fiscalizacion_Multas.objMultaMod.objArea.id_area}">
+                                                                <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                              itemValue="O"/>
+                                                                <f:selectItems value="#{Area.cargarAreas}"/>
+                                                            </p:selectOneMenu>
+                                                            <h:message for="editar_multa_area" showDetail="false" showSummary="true"/>
+                                                        </h:panelGroup>
+                                                    </h:panelGrid>
 
 
 
                                                 </h:panelGrid>
 
 
-                                                <h:panelGrid columns="1" >
-
-                                                    <p:outputLabel for="editar_multa_reincidencia" value="Reicidencia" />
-
-                                                    <p:selectBooleanCheckbox id="editar_multa_reincidencia" value="#{Beans_Fiscalizacion_Multas.objMultaMod.reincidente}"/>
-
-                                                </h:panelGrid> 
 
 
-
-                                                <h:panelGrid columns="1">
-
-                                                    <h:outputText value="#{msg.LabelInspector}" style="width: 100% "/>
-                                                    <h:panelGroup>
-                                                        <p:selectOneMenu effect="fade" autoWidth="false" style=" width: 100%"
-                                                                         filter="true"  filterMatchMode="contains"
-                                                                         required="true" id="editar_multa_inspector"
-                                                                         validatorMessage="#{msg.labelValidar}"
-                                                                         requiredMessage="#{msg.labelObli}"
-                                                                         value="#{Beans_Fiscalizacion_Multas.objMultaMod.objInspector.id_inspector}">
+                                                <h:panelGrid columns="6" cellspacing="0" cellpadding="0"  width="80%"   >
 
 
-                                                            <f:selectItem itemLabel="#{msg.labelSeleccionar}" itemValue="O"/>
-                                                            <f:selectItems value="#{Certificado.cargarInpectores}"/>
-                                                        </p:selectOneMenu>
-                                                        <h:message for="editar_multa_inspector" showDetail="false" showSummary="true"/>
-                                                    </h:panelGroup>
-                                                </h:panelGrid>    
+                                                    <h:panelGrid columns="1">
+
+                                                        <h:outputText value="#{msg.LabelMedidaComplementaria}" style="width: 100% "/>
+                                                        <h:panelGroup>
+                                                            <p:selectOneMenu effect="fade" style=" width: 70%" autoWidth="false"
+                                                                             filter="true"  filterMatchMode="contains"
+                                                                             required="true" id="editar_medida_complementaria"
+                                                                             validatorMessage="#{msg.labelValidar}"
+                                                                             requiredMessage="#{msg.labelObli}"
+                                                                             value="#{Beans_Fiscalizacion_Multas.objMultaMod.objGrupo.codigo_tipo}">
+                                                                <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                              itemValue="O"/>
+                                                                <f:selectItems value="#{Grupo.cargarDetalleGrupo}"/>
+                                                            </p:selectOneMenu>
+                                                            <h:message for="editar_medida_complementaria" showDetail="false" showSummary="true"/>
+                                                        </h:panelGroup>
+                                                    </h:panelGrid>
 
 
-                                                <h:panelGrid columns="2"  >
 
-                                                    <h:outputLabel value="#{msg.LabelNumeroInforme}"  style="width: 100% " />
-                                                    <div class="ui-g-12 ui-md-4">
-                                                        <div class="ui-inputgroup">
 
-                                                            <p:inputText id="editar_multa_numero_informe" required="true" requiredMessage="#{msg.labelObli}"  size="5" style=" width: 100%"
-                                                                         maxlength="15" validatorMessage="#{msg.labelValidar}"  
+                                                    <h:panelGrid columns="1" style="width: 50%">
+
+                                                        <h:outputLabel value="Tiene Acta"  style="width: 100% " />
+
+                                                        <p:selectBooleanCheckbox id="editar_habilitar_acta" value="#{Beans_Fiscalizacion_Multas.objMultaMod.reincidente}"/>
+
+
+                                                    </h:panelGrid>
+
+
+
+
+                                                    <h:panelGrid columns="1"  >
+
+                                                        <h:outputLabel value="#{msg.LabelNumeroActa}"  style="width: 100% " />
+                                                        <h:panelGroup> 
+
+                                                            <p:inputText id="editar_numero_acta" required="true" requiredMessage="#{msg.labelObli}"  size="10"  style=" width: 100%"
+                                                                         maxlength="30" validatorMessage="#{msg.labelValidar}"  
                                                                          value="#{Beans_Fiscalizacion_Multas.objMultaMod.numero_informe}"  
                                                                          >  
                                                                 <f:validateLength minimum="0" maximum="30"/>
                                                             </p:inputText>
 
-                                                            <p:commandButton type="button" onclick="PF('dlg2').show();" icon="ui-icon-arrow-4-diag"  /> 
+                                                            <h:message for="editar_numero_acta" showDetail="false" showSummary="true"/>                                    
+                                                        </h:panelGroup>  
 
-                                                            <h:message for="editar_multa_numero_informe" showDetail="false" showSummary="true"/>  
+                                                    </h:panelGrid>
 
 
-                                                        </div>
-                                                    </div>
+
+                                                    <h:panelGrid columns="2" cellspacing="1" cellpadding="1"  width="80%"   >
+
+                                                        <h:panelGrid columns="1"  >
+
+                                                            <h:outputText  value="#{msg.LabelFechaEjecucion}"  style="width: 10% "/>
+
+                                                            <h:panelGroup>
+                                                                <p:calendar id="editar_multa_fecha_ejecucion"  locale="es" navigator="true" size="10"  style=" width: 100%"
+                                                                            value="#{Beans_Fiscalizacion_Multas.objMultaMod.fecha_multa}"  
+                                                                            pattern="yyyy/MM/dd HH:mm:ss">   
+
+                                                                </p:calendar>
+                                                                <h:message for="editar_multa_fecha_ejecucion" showDetail="true" showSummary="true"/>                                   
+
+                                                            </h:panelGroup>            
+
+                                                        </h:panelGrid>
+
+
+                                                        <h:panelGrid columns="1"  >
+
+
+                                                            <h:outputText value="#{msg.LabelGiro}" /> 
+                                                            <h:panelGroup>
+
+                                                                <p:selectOneMenu effect="fade" filter="true"  filterMatchMode="contains" required="true" 
+                                                                                 id="editar_multa_giros"  autoWidth="false"  
+                                                                                 validatorMessage="#{msg.labelValidar}"  
+                                                                                 requiredMessage="#{msg.labelObli}"  style=" width: 100%"
+                                                                                 value="#{Beans_Fiscalizacion_Multas.objMultaMod.objGiro.codigo_giro}">
+
+                                                                    <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                                  itemValue="O"/>
+                                                                    <f:selectItems value="#{Certificado.cargarComboGiros}" />
+                                                                </p:selectOneMenu>
+                                                                <h:message for="editar_multa_giros" showDetail="false" showSummary="true"/>     
+
+                                                            </h:panelGroup>
+                                                        </h:panelGrid>   
+
+
+                                                    </h:panelGrid>      
+
+
+
+                                                    <h:panelGrid columns="1">
+
+                                                        <h:outputText value="#{msg.LabelCodigoInfraccion}" style="width: 10% "/>
+                                                        <h:panelGroup>
+                                                            <p:selectOneMenu effect="fade"
+                                                                             filter="true"  filterMatchMode="contains" autoWidth="false" style=" width: 30%"  
+                                                                             required="true" id="editar_multa_codigo_sancion"
+                                                                             validatorMessage="#{msg.labelValidar}"
+                                                                             requiredMessage="#{msg.labelObli}"
+                                                                             value="#{Beans_Fiscalizacion_Multas.objMultaMod.objSancion.codigo_sancion}">
+                                                                <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                              itemValue="O"/>
+                                                                <f:selectItems value="#{Sancion.cargarSacionRas}"/>
+                                                            </p:selectOneMenu>
+                                                            <h:message for="editar_multa_codigo_sancion" showDetail="false" showSummary="true"/>
+                                                        </h:panelGroup>
+                                                    </h:panelGrid>              
+
 
                                                 </h:panelGrid>
 
-                                            </h:panelGrid>  
-  
-                                            <br>
-                                            </br>
-
-                                            <h:panelGrid columns="1" cellspacing="1" cellpadding="1"  width="80%"   >
-
-                                                <h:outputLabel value="#{msg.LabelAnotacionesLegalMuntas}" style="width: 50%; color:  #FF0000 " />
-
-                                            </h:panelGrid>
-
-                                            <br>
-                                            </br>
 
 
-                                        </p:panelGrid>   
-                                            
-                                              </center>
-                                        
-                                            
+
+
+
+                                                <h:panelGrid columns="4" cellspacing="1" cellpadding="1"  width="80%"   >
+
+
+                                                    <h:panelGrid columns="1"  >
+
+                                                        <h:outputLabel value="#{msg.LabelObservacion}"  style="width: 100% "  />
+                                                        <h:panelGroup> 
+
+                                                            <p:inputText id="editar_multa_observacion" required="true" requiredMessage="#{msg.labelObli}"  size="10" style=" width: 100%"
+                                                                         maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                         value="#{Beans_Fiscalizacion_Multas.objMultaMod.observacion}"  
+                                                                         >  
+                                                                <f:validateLength minimum="0" maximum="30"/>
+                                                            </p:inputText>
+
+                                                            <h:message for="editar_multa_observacion" showDetail="false" showSummary="true"/>                                    
+                                                        </h:panelGroup>  
+
+
+
+                                                    </h:panelGrid>
+
+
+                                                    <h:panelGrid columns="1" >
+
+                                                        <p:outputLabel for="editar_multa_reincidencia" value="Reicidencia" />
+
+                                                        <p:selectBooleanCheckbox id="editar_multa_reincidencia" value="#{Beans_Fiscalizacion_Multas.objMultaMod.reincidente}"/>
+
+                                                    </h:panelGrid> 
+
+
+
+                                                    <h:panelGrid columns="1">
+
+                                                        <h:outputText value="#{msg.LabelInspector}" style="width: 100% "/>
+                                                        <h:panelGroup>
+                                                            <p:selectOneMenu effect="fade" autoWidth="false" style=" width: 100%"
+                                                                             filter="true"  filterMatchMode="contains"
+                                                                             required="true" id="editar_multa_inspector"
+                                                                             validatorMessage="#{msg.labelValidar}"
+                                                                             requiredMessage="#{msg.labelObli}"
+                                                                             value="#{Beans_Fiscalizacion_Multas.objMultaMod.objInspector.id_inspector}">
+
+
+                                                                <f:selectItem itemLabel="#{msg.labelSeleccionar}" itemValue="O"/>
+                                                                <f:selectItems value="#{Certificado.cargarInpectores}"/>
+                                                            </p:selectOneMenu>
+                                                            <h:message for="editar_multa_inspector" showDetail="false" showSummary="true"/>
+                                                        </h:panelGroup>
+                                                    </h:panelGrid>    
+
+
+                                                    <h:panelGrid columns="2"  >
+
+                                                        <h:outputLabel value="#{msg.LabelNumeroInforme}"  style="width: 100% " />
+                                                        <div class="ui-g-12 ui-md-4">
+                                                            <div class="ui-inputgroup">
+
+                                                                <p:inputText id="editar_multa_numero_informe" required="true" requiredMessage="#{msg.labelObli}"  size="5" style=" width: 100%"
+                                                                             maxlength="15" validatorMessage="#{msg.labelValidar}"  
+                                                                             value="#{Beans_Fiscalizacion_Multas.objMultaMod.numero_informe}"  
+                                                                             >  
+                                                                    <f:validateLength minimum="0" maximum="30"/>
+                                                                </p:inputText>
+
+                                                                <p:commandButton type="button" onclick="PF('dlg2').show();" icon="ui-icon-arrow-4-diag"  /> 
+
+                                                                <h:message for="editar_multa_numero_informe" showDetail="false" showSummary="true"/>  
+
+
+                                                            </div>
+                                                        </div>
+
+                                                    </h:panelGrid>
+
+                                                </h:panelGrid>  
+
+                                                <br>
+                                                </br>
+
+                                                <h:panelGrid columns="1" cellspacing="1" cellpadding="1"  width="80%"   >
+
+                                                    <h:outputLabel value="#{msg.LabelAnotacionesLegalMuntas}" style="width: 50%; color:  #FF0000 " />
+
+                                                </h:panelGrid>
+
+                                                <br>
+                                                </br>
+
+
+                                            </p:panelGrid>   
+
+                                        </center>
+
+
                                         <h:form id="form_infraciones" >
 
 
@@ -626,7 +800,7 @@
 
                                                         </h:panelGrid>
 
-                                                      
+
 
                                                         <p:blockUI block="datBusCertificadoOfi" trigger="saveBtn">   Buscando... <br />
                                                             <p:graphicImage value="resources/imagenes/cargando1.gif" />   
@@ -759,21 +933,21 @@
 
                                                 </h:form> 
 
-                                            
-                                            
+
+
                                             </p:dialog> 
-                                            
-                                            
-                                            
+
+
+
                                         </h:form> 
-                                        
-                                        
-                                        
-                                            
+
+
+
+
                                     </p:tab>
-                                    
-                                    
-                                    
+
+
+
                                     <p:tab title="Solicitud Declaracion II">
                                         <h:panelGrid columns="2" cellpadding="10">
                                             <p:graphicImage name="demo/images/godfather/godfather2.jpg" />

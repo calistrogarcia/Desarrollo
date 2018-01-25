@@ -16,28 +16,22 @@ and open the template in the editor.
         <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
             <ui:define name="contenido">
                 <!---Agregando Etiqueta de Titulo-->
-                <h:outputText value="#{msg.LabelReporte}"/> 
-                <!--Formulario que permite la Busqueda de Expedientes Ingresados por Fecha JUDITH 05-04-17-->
+                
                 <p:tab id="tab_Buscar_ExpedienteR" title="Buscar" titletip="Buscar Expediente" >   
-                    <h:form class="border_titulo1" id="form_bus_ExpedienteR" style="text-align:center;" styleClass="tamaño_fuente">
-                        <p:panel id="datBusExpedienteR" header="#{msg.LabelExpIngresadoPorRecurr}" styleClass="border">
+                    <h:form class="border_titulo1" id="form_bus_ExpedienteR" style="text-align: left;" styleClass="tamaño_fuente">
+                        <p:panel id="datBusExpedienteR" header="#{msg.LabelExpIngresadoPorRecurrente}" styleClass="border">
                             <fieldset>
                                 <h:panelGrid columns="3">
-                                    <h:outputText value="Por codigo o nombre de contribuyente:" style="width: 250px;" />
+                                    <h:outputText value="Por codigo de contribuyente :" style="width: 250px;" />
                                     <h:panelGroup>
                                         <p:inputText id="cod_contri"
-                                                     value="#{beanExpediente_Por_Recurrente.objBuscarExpedienteR.ccontri}"
+                                                     value="#{beanExpediente_Por_Recurrente.objBuscarExpedienteR.codigo_contribuyente}"
                                                      maxlength="30"  validatorMessage="Validar" title="Expediente">                                     
                                         </p:inputText>
                                         <h:message for="cod_contri" showDetail="false" showSummary="true"/>   
                                     </h:panelGroup>  
 
-                                    <h:panelGroup>
-                                        <p:inputText id="nom_contri"
-                                                     value="#{beanExpediente_Por_Recurrente.objBuscarExpedienteR.cnombre}"
-                                                     maxlength="30" validatorMessage="Validar" title="Expediente"/>
-                                        <h:message for="nom_contri" showDetail="false" showSummary="true"/> 
-                                    </h:panelGroup> 
+                                  
                                 </h:panelGrid>
 
 
@@ -50,7 +44,8 @@ and open the template in the editor.
                                 
                                    <h:panelGroup>
                                         <h:outputText value=" Del:  "/>
-                                        <p:calendar id="fecha_inicial"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}" locale="es" navigator="true" showOn="button"
+                                        <p:calendar id="fecha_inicial"  required="true" validatorMessage="#{msg.labelValidar}" 
+                                                    requiredMessage="#{msg.labelObligatorio}" locale="es" navigator="true" showOn="button"
                                                     value="#{beanExpediente_Por_Recurrente.objBuscarExpedienteR.fecha_inicio}" 
                                                     pattern="dd/MM/yyyy">   
                                         </p:calendar>
@@ -61,7 +56,8 @@ and open the template in the editor.
 
                                     <h:panelGroup>
                                         <h:outputText value="Al:  "/>
-                                        <p:calendar id="fecha_final"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}" locale="es" navigator="true" showOn="button"
+                                        <p:calendar id="fecha_final"  required="true" validatorMessage="#{msg.labelValidar}" 
+                                                    requiredMessage="#{msg.labelObligatorio}" locale="es" navigator="true" showOn="button"
                                                     value="#{beanExpediente_Por_Recurrente.objBuscarExpedienteR.fecha_fin}"   
                                                     pattern="dd/MM/yyyy">   
                                         </p:calendar>
@@ -119,16 +115,16 @@ and open the template in the editor.
                                 </p:column>
                                 <p:column>
                                     <f:facet name="header">
-                                        <h:outputText value="#{msg.labelNroE}"/>
+                                        <h:outputText value="#{msg.LabelNumero}"/>
                                     </f:facet>
-                                    <h:outputText value="#{listExpedienteR.dnumold}"/>
+                                    <h:outputText value="#{listExpedienteR.numero_expediente}"/>
                                 </p:column>
 
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="#{msg.LabelFechI}"/>
                                     </f:facet>
-                                    <h:outputText value="#{listExpedienteR.ffecdoc1}"/>
+                                    <h:outputText value="#{listExpedienteR.fecha_presentacion_expediente1}"/>
                                 </p:column>
 
                                 <p:column>
@@ -140,7 +136,7 @@ and open the template in the editor.
 
                                 <p:column>
                                     <f:facet name="header">
-                                        <h:outputText value="#{msg.labelAActual}"/>
+                                        <h:outputText value="#{msg.LabelArea}"/>
                                     </f:facet>
                                     <h:outputText value="#{listExpedienteR.dareact}"/>
                                 </p:column>

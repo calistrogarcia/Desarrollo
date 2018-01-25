@@ -16,28 +16,31 @@ and open the template in the editor.
     <h:body>
         <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
             <ui:define name="contenido">
-                <!---Agregando Etiqueta de Titulo-->
-                <h:outputText value="#{msg.LabelReporte}"/> 
+              
+                
 
                 <p:tab id="tab_Buscar_ExpedienteTram" title="Buscar" titletip="Buscar Expediente" >
                     <!-- Formulario que permite la Busqueda  -->    
                     <h:form class="border_titulo1" id="form_busc_ExpedienteTram"   style="text-align : justify;" styleClass="tamaño_fuente">                
-                        <p:panel id="datBusExpedienteTram" header="#{msg.LabelExpTramitePorTecnico}" styleClass="border" style="text-align: center">
+                        <p:panel id="datBusExpedienteTram" header="#{msg.LabelExpTramitePorTecnico}" styleClass="border" style="text-align: left">
 
                             <!--Lista de Opciones de Ofina *25*04*17 **J**-->  
 
                             <p:fieldset   style="margin-bottom:20px;">
+                              <!-- 
                                 <h:panelGrid columns="5" >
-                                    <h:outputText value="#{msg.LabelArea}"/>
+                                    <h:outputText value="{msg.LabelArea}"/>
                                     <h:panelGroup>
                                         <p:selectOneMenu effect="fade"
                                                          filter="true"  filterMatchMode="contains"
                                                          required="true" id="cb_opc"
-                                                         validatorMessage="#{msg.labelValidar}"
-                                                         requiredMessage="#{msg.labelObli}"
-                                                         value="#{beanTramite_Por_Tecnico.objBuscarExpedienteTramT.id_area}">
-                                            <f:selectItem itemLabel="#{msg.labelSeleccionar}" itemValue="O"/>
-                                            <f:selectItems value="#{Expediente.cargarComboAreas}"/>
+                                                         validatorMessage="{msg.labelValidar}"
+                                                         requiredMessage="{msg.labelObligatorio}"
+                                                         value="{beanTramite_Por_Tecnico.objBuscarExpedienteTramT.objArea.id_area}">
+                                            
+                                            <f:selectItem itemLabel="{msg.labelSeleccionar}" itemValue="O"/>
+                                            <f:selectItems value="{Expediente.cargarComboAreas}"/>
+                                            <f:ajax event="change"  listener="" render="cb_opct"  execute="@this"/>
                                         </p:selectOneMenu>
                                         <h:message for="cb_asoc" showDetail="false" showSummary="true"/>  
                                     </h:panelGroup>
@@ -49,18 +52,57 @@ and open the template in the editor.
                                         <p:selectOneMenu effect="fade"
                                                          filter="true" filterMatchMode="contains"
                                                          required="true" id="cb_opct"
-                                                         value="#{beanTramite_Por_Tecnico.objBuscarExpedienteTramT.xtecnico}">
+                                                         value="{beanTramite_Por_Tecnico.objBuscarExpedienteTramT.xtecnico}">
                                             <f:selectItem itemLabel="" itemValue="O"/>
-                                            <f:selectItems value="#{U.cargarComboAreas}"/>
+                                          
+                                            <f:selectItems value="{Usuario.cargarComboUsuariosPorOficina}"/>
                                         </p:selectOneMenu>
                                         <h:message for="cb_asoc" showDetail="false" showSummary="true"/> 
                                     </h:panelGroup>
-                                    <!--observar--> 
+                                  
+                                    
                                     <h:outputText value="Todos: " />
-                                    <p:selectBooleanCheckbox value="#{beanTramite_Por_Tecnico.objBuscarExpedienteTramT.id_area}" />  
-                                    <!--observar--> 
+                                    <p:selectBooleanCheckbox value="{beanTramite_Por_Tecnico.objBuscarExpedienteTramT.objArea.nombre_area}" />  
+                                
+                                </h:panelGrid>  
+
+                                -->
+                                    
+                              
+                               <h:panelGrid columns="5" >
+                                    <h:outputText value="#{msg.LabelArea}"/>
+                                    <h:panelGroup>
+                                        <p:selectOneMenu effect="fade"
+                                                         filter="true"  filterMatchMode="contains"
+                                                         required="true" id="cb_opc"
+                                                         validatorMessage="#{msg.labelValidar}"
+                                                         requiredMessage="#{msg.labelObligatorio}"
+                                                         value="#{beanTramite_Por_Tecnico.areas}">
+                                            
+                                            <f:selectItem itemLabel="#{msg.labelSeleccionar}" itemValue="O"/>
+                                            <f:selectItems value="#{Expediente.cargarComboAreas}"/>
+                                            <p:ajax event="change" listener="#{beanTramite_Por_Tecnico.CargarUsuarios}"  
+                                                    update="cb_opct" />
+                                        </p:selectOneMenu>
+                                        <h:message for="cb_asoc" showDetail="false" showSummary="true"/>  
+                                    </h:panelGroup>
                                 </h:panelGrid>
 
+                                <h:panelGrid columns="5">
+                                    <h:outputText value="Técnico"/>
+                                    <h:panelGroup>
+                                        <p:selectOneMenu effect="fade"
+                                                         filter="true" filterMatchMode="contains"
+                                                         required="true" id="cb_opct"
+                                                         value="#{beanTramite_Por_Tecnico.objBuscarExpedienteTramT.xtecnico}"> 
+                                            <f:selectItems value="#{beanTramite_Por_Tecnico.listaUsuarios}"/>
+                                        </p:selectOneMenu>
+                                        <h:message for="cb_asoc" showDetail="false" showSummary="true"/> 
+                                    </h:panelGroup>
+                               
+                                </h:panelGrid>  
+  
+                                
                             </p:fieldset>
 
                             <!--Rango de Fechas-->
@@ -74,8 +116,9 @@ and open the template in the editor.
                                     <h:panelGroup> 
                                         <h:outputText value=" De:  "/>
                                         <p:inputText  id="fechaI"
-                                                      required="true" requiredMessage="#{msg.labelObli}"
-                                                      maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{beanTramite_Por_Tecnico.objBuscarExpedienteTramT.fecha_inicio}"
+                                                      required="true" requiredMessage="#{msg.labelObligatorio}"
+                                                      maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                      value="#{beanTramite_Por_Tecnico.objBuscarExpedienteTramT.fecha_inicio}"
                                                       >  
                                             <f:validateLength minimum="0" maximum="30"/>
                                         </p:inputText>
@@ -85,7 +128,7 @@ and open the template in the editor.
                                     <h:panelGroup>
                                         <h:outputText value="     Al:  "/>
                                         <p:inputText id="fechaF"
-                                                     required="true" requiredMessage="#{msg.labelObli}"
+                                                     required="true" requiredMessage="#{msg.labelObligatorio}"
                                                      maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{beanTramite_Por_Tecnico.objBuscarExpedienteTramT.fecha_fin}"
                                                      >  
                                             <f:validateLength minimum="0" maximum="30"/>
@@ -142,14 +185,14 @@ and open the template in the editor.
                                             <f:facet name="header">
                                                 <h:outputText value="#{msg.labelNro}" />
                                             </f:facet>
-                                            <h:outputText  value="#{listExpediente.dnumold}"/>
+                                            <h:outputText  value="#{listExpediente.numero_expediente}"/>
                                         </p:column>   
 
                                         <p:column>
                                             <f:facet name="header">
-                                                <h:outputText value="#{msg.labelFecDoc}" />
+                                                <h:outputText value="#{msg.LabelFechaIngreso}" />
                                             </f:facet>
-                                            <h:outputText  value="#{listExpediente.ffecdoc1}"/>
+                                            <h:outputText  value="#{listExpediente.fecha_presentacion_expediente1}"/>
                                         </p:column>
 
                                         <p:column>
@@ -161,7 +204,7 @@ and open the template in the editor.
 
                                         <p:column>
                                             <f:facet name="header">
-                                                <h:outputText value="#{msg.labelFecEnvTec}" />
+                                                <h:outputText value="#{msg.labelFechaEnvio}" />
                                             </f:facet>
                                             <h:outputText  value="#{listExpediente.ffecenv1}"/>
                                         </p:column>  
@@ -174,7 +217,7 @@ and open the template in the editor.
                                         </p:column>  
                                         <p:column>
                                             <f:facet name="header">
-                                                <h:outputText value="#{msg.labelTecRecib}" />
+                                                <h:outputText value="#{msg.labelTecnicoRecibe}" />
                                             </f:facet>
                                             <h:outputText  value="#{listExpediente.dusrrec}"/>
                                         </p:column>  

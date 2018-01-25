@@ -248,7 +248,7 @@ public class Prueba_SP {
         Certificado cer = new Certificado();
         cer.setNro_expediente("41391-01-2017");
         cer.setArea("SUBG. DE DEFENSA CIVIL");
-        cer.setContribuyente("322354");
+      //  cer.setContribuyente("322354");
         cer.setNombres("TORRE QUISPE JORGE LUIS");
         cer.setRazon_social("");
         cer.setRepresentante_legal("");
@@ -427,7 +427,20 @@ public class Prueba_SP {
 
     }
     
-    
+      public static void BuscarUsuarios() {
+
+       Expediente c = new Expediente();
+      
+       c.ObjArea.setId_area("025");
+//        java.util.Date fecha_inicio;
+//       c.setFecha_inicio(01-01-2017);
+//        java.util.Date fecha_fin;
+//       c.setFecha_fin(fecha_fin);
+    //   c.setOpcion("");
+        
+      //  System.out.print(Expediente.getCargarComboUsuariosPorOficina(c).size());
+
+    }
     
     
 
@@ -464,7 +477,9 @@ public class Prueba_SP {
         // BuscarLicenciaFuncionamiento();
         // BuscarSancion();
         //Reporte_Expedientes_Fechas();
-         registarRecurrente();
+       // registarRecurrente();
+       
+       BuscarUsuarios();
         
     }
     

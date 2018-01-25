@@ -5,15 +5,19 @@
  */
 package Beans;
 
+import Modelo.Controlador_Sql;
 import Modelo.Expediente;
+import Modelo.Usuario;
 import java.io.Serializable;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 import utils.Mensaje;
-
-
-
 /**
  *
  * @author jarana
@@ -21,14 +25,38 @@ import utils.Mensaje;
 @ManagedBean
 
 public class BeanTramite_Por_Tecnico implements Serializable{
-        private Expediente objBuscarExpedienteTramT;
+    
+    private Expediente objBuscarExpedienteTramT;
     private ArrayList<Expediente> arrExpedienteTramT=null;
     private ArrayList<Expediente> arrBusExpedienteTramT=null;
             //TabView
     private Integer activeTabIndex;
     private boolean bandVer=true;    
     private boolean bandMod=true;
-    private boolean bandEli=true;
+    private boolean bandEli=true;  
+    
+    private String areas;
+    private List<String> ListaUsuarios = new ArrayList<String>();
+ 
+  
+    public String getAreas() {
+        return areas;
+    }
+
+    public void setAreas(String areas) {
+        this.areas = areas;
+    }
+
+    
+    public List<String> getListaUsuarios() {
+        return ListaUsuarios;
+    }
+
+    public void setListaUsuarios(List<String> ListaUsuarios) {
+        this.ListaUsuarios = ListaUsuarios;
+    }
+    
+ 
    
     //Bandera que apunta si el usuario al realizar un clik sobre el link de busquedad o listado total
     private String puntAnt;
@@ -149,5 +177,24 @@ public class BeanTramite_Por_Tecnico implements Serializable{
         this.puntAnt=param.toString();     
     }
 
+ 
+  public void CargarUsuarios(){
+      
+     switch(areas){
+      
+         case "025":
+             ListaUsuarios.add("Garcia Rivera");
+             break;
+         case "048":
+              ListaUsuarios.add("Anibal Palomino");
+             
+             break;           
+      
+    }
+  
+     
+  }
+  
+  
     
 }
