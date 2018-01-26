@@ -197,7 +197,7 @@ public class Prueba_SP {
     public static void registroMulta() {
 
         Multa m = new Multa();
-        m.setNumero_funcion("01");
+      //  m.setNumero_funcion("01");
         m.setNumero_notificacion("000004");
         m.setFecha_notificacion("2017-11-05");
         //m.setCodigo_contribuyente("000002");
@@ -214,7 +214,7 @@ public class Prueba_SP {
         m.setEstado_multa("");
    //     m.ObjUsuario.setUsuario("P25");
         m.setCodigo_sancion("");
-        m.setDetalle_sanacion("");
+     //   m.setDetalle_sanacion("");
         m.setObservacion("PROBANDOyy");
         m.ObjCuenta.setId_unico("");
         m.setId_unico_multa("");
@@ -398,8 +398,7 @@ public class Prueba_SP {
         Ob.ObjDireccion.setReferencia("xxx");
         Ob.setNumero_telefono_contribuyente("12345678");
         Ob.setNumero_fax_contribuyente("12");
-        Ob.setCorreo_contribuyente("calistogarcia@hotmail.com");
-        
+        Ob.setCorreo_contribuyente("calistogarcia@hotmail.com");     
         Ob.setFecha_nacimiento("31/12/1989");
         Ob.setNombre_representante("Sin Representante");
         Ob.setTipo_documento_representante("01");
@@ -441,6 +440,62 @@ public class Prueba_SP {
       //  System.out.print(Expediente.getCargarComboUsuariosPorOficina(c).size());
 
     }
+      
+      
+     public static void EditarMulta() {
+
+           Multa Ob= new Multa();
+           Ob.setNumero_multa("006733");
+           Ob.setFecha_notificacion("2017-07-11");
+           Ob.ObjPersona.setCodigo_contribuyente("071501");
+           Ob.ObjPredio.setCodigo_predio("");         
+           Ob.ObjSancion.setCodigo_sancion("080103");       
+           Ob.setFecha_resolucion("2017-07-11");
+           Ob.setNumero_resolucion("006733");
+           Ob.objArea.setId_area("069");
+           Ob.setFecha_resolucion_coactiva("2017-07-11");
+           Ob.setReferencia_direccion("JR. LOS PRECURSORES - ASC. PRO. V. LOS LIBERTADORES");
+           Ob.setResolucion_anulacion("NULL");
+           Ob.setReclamo_expediente("NULL");
+           Ob.setEstado_multa("NULL");
+           Ob.ObjUsuario.setNombre_usuario("P25");
+           Ob.ObjGrupo.setCodigo_medida_complementaria("10");
+           Ob.setObservacion("NULL");
+           Ob.ObjCuenta.setId_unico("121861529");
+           Ob.setId_unico_multa("126134");
+           Ob.setReincidente("0");
+//           Ob.setCorrelativo("03");
+           Ob.setManzana("C");
+           Ob.setLote("01");
+           Ob.setNumero_fiscal("los perositasss");
+           Ob.setNumero_departamento("NULL");
+           Ob.setReferencia("NULL");
+           Ob.objInspector.setApellidos_nombres("GARCIA RIVERA LUIS");
+           Ob.setNumero_acta("NULL");
+           Ob.setNumero_informe("254-JCMV");
+           Ob.ObjGiro.setCodigo_giro("NULL");
+           Ob.setFecha_ejecucion("2017-01-01");
+           Ob.ObjDireccion.setNombre_via("JR. LOS PRECURSORES");
+           Ob.ObjDireccion.setNombre_habilitacion("ASC. PRO. V. LOS LIBERTADORES");
+           Ob.setActa_constatacion("005871");
+           Ob.ObjGiro.setGiro_detalle("vivienda");
+           Ob.setValor_obra(1000);
+           
+           
+        
+        if (Multa.EditarMulta(Ob)) {
+            
+            
+            System.out.println("ok");
+        } else {
+            System.out.println("no");
+        }
+
+    }
+      
+      
+      
+      
     
     
 
@@ -478,8 +533,8 @@ public class Prueba_SP {
         // BuscarSancion();
         //Reporte_Expedientes_Fechas();
        // registarRecurrente();
-       
-       BuscarUsuarios();
+       // BuscarUsuarios();
+       EditarMulta();
         
     }
     

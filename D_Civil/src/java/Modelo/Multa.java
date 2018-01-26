@@ -28,7 +28,6 @@ public class Multa implements Serializable {
     
     private String tipo_busqueda_sancion;
     private String consulta_sancion;
-    private String numero_funcion;
     private String id_unico_multa;
     private String tipo_busqueda;
     private String informacion_consulta;
@@ -57,7 +56,7 @@ public class Multa implements Serializable {
     private String numero_acta_constatacion;
     private String fecha_ejecucion;
     private String codigo_ingraccion;
-    private String valor_obra;
+ 
     private String numero_informe;
     private String fecha_multa;
     private String reclamo_expediente;
@@ -67,10 +66,11 @@ public class Multa implements Serializable {
     private String reincidente;
     private String acta_constatacion;
     private String codigo_sancion;
-    private String detalle_sanacion;
+
     private String correlativo;
     private String fecha_registro;
     private String hora_registro;
+    private float valor_obra;
    
 
     Persona ObjPersona = new Persona();
@@ -84,10 +84,11 @@ public class Multa implements Serializable {
     Cuenta ObjCuenta = new Cuenta();
     Grupo ObjGrupo = new Grupo();
 
-   
     
-    
-    
+    public String getReclamo_expediente() {
+        return reclamo_expediente;
+    }
+
     public String getTipo_busqueda_sancion() {
         return tipo_busqueda_sancion;
     }
@@ -372,13 +373,15 @@ public class Multa implements Serializable {
         this.codigo_ingraccion = codigo_ingraccion;
     }
 
-    public String getValor_obra() {
+    public float getValor_obra() {
         return valor_obra;
     }
 
-    public void setValor_obra(String valor_obra) {
+    public void setValor_obra(float valor_obra) {
         this.valor_obra = valor_obra;
     }
+    
+    
 
     public String getNumero_informe() {
         return numero_informe;
@@ -412,18 +415,7 @@ public class Multa implements Serializable {
         this.numero_acta_constatacion = numero_acta_constatacion;
     }
 
-    public String getNumero_funcion() {
-        return numero_funcion;
-    }
-
-    public void setNumero_funcion(String numero_funcion) {
-        this.numero_funcion = numero_funcion;
-    }
-
-    public String getReclamo_expediente() {
-        return reclamo_expediente;
-    }
-
+    
     public void setReclamo_expediente(String reclamo_expediente) {
         this.reclamo_expediente = reclamo_expediente;
     }
@@ -484,14 +476,6 @@ public class Multa implements Serializable {
         this.codigo_sancion = codigo_sancion;
     }
 
-    public String getDetalle_sanacion() {
-        return detalle_sanacion;
-    }
-
-    public void setDetalle_sanacion(String detalle_sanacion) {
-        this.detalle_sanacion = detalle_sanacion;
-    }
-
     public String getCorrelativo() {
         return correlativo;
     }
@@ -508,8 +492,7 @@ public class Multa implements Serializable {
         this.fecha_registro = fecha_registro;
     }
     
-    
-
+   
 
     public static ArrayList<Multa> BuscarMultaAdministrativa(Multa m) {
 
@@ -606,7 +589,7 @@ public class Multa implements Serializable {
                     
                     Grupo ObjGrupo = new Grupo();
                     
-                    ObjGrupo.setCodigo_tipo(rs.getString("csancio"));
+                    ObjGrupo.setCodigo_medida_complementaria(rs.getString("csancio"));
                     
                     obj.setObjGrupo(ObjGrupo);
                     
@@ -621,7 +604,7 @@ public class Multa implements Serializable {
 
                     obj.setId_unico_multa(rs.getString("id_corrl"));
                     obj.setNumero_aviso_notificacion(rs.getString("NumAviso"));
-                    obj.setDetalle_sanacion(rs.getString("msancio"));
+                 
                     obj.setObservacion(rs.getString("mobserv"));
                     obj.setManzana(rs.getString("manzana"));
                     obj.setLote(rs.getString("lote"));
@@ -802,24 +785,26 @@ public class Multa implements Serializable {
 
             conexion.setAutoCommit(false);
 
-            CallableStatement st = conexion.prepareCall("{call sp_java_registro_multas_administrativas (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            CallableStatement st = conexion.prepareCall ("{call dbo.sp_java_actualiza_multa_administrativa(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 
-            if (ObjEditarMulta.getNumero_funcion() != null) {
+          
 
-                if (ObjEditarMulta.getNumero_funcion().length() > 0) {
-                    st.setString(1, ObjEditarMulta.getNumero_funcion());
+            if (ObjEditarMulta.getNumero_multa()!= null) {
+
+                if (ObjEditarMulta.getNumero_multa().length() > 0) {
+
+                    st.setString(1, ObjEditarMulta.getNumero_multa());
                 } else {
                     st.setString(1, null);
                 }
             } else {
                 st.setString(1, null);
+
             }
 
-            if (ObjEditarMulta.getNumero_notificacion() != null) {
-
-                if (ObjEditarMulta.getNumero_notificacion().length() > 0) {
-
-                    st.setString(2, ObjEditarMulta.getNumero_notificacion());
+            if (ObjEditarMulta.getFecha_notificacion()!= null) {
+                if (ObjEditarMulta.getFecha_notificacion().length() > 0) {
+                    st.setString(2, ObjEditarMulta.getFecha_notificacion());
                 } else {
                     st.setString(2, null);
                 }
@@ -828,9 +813,10 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getFecha_notificacion() != null) {
-                if (ObjEditarMulta.getFecha_notificacion().length() > 0) {
-                    st.setString(3, ObjEditarMulta.getFecha_notificacion());
+            if (ObjEditarMulta.ObjPersona.getCodigo_contribuyente()!= null) {
+
+                if (ObjEditarMulta.ObjPersona.getCodigo_contribuyente().length() > 0) {
+                    st.setString(3, ObjEditarMulta.ObjPersona.getCodigo_contribuyente());
                 } else {
                     st.setString(3, null);
                 }
@@ -839,10 +825,10 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.ObjPersona.getCodigo_contribuyente() != null) {
+            if (ObjEditarMulta.ObjPredio.getCodigo_predio()!= null) {
+                if (ObjEditarMulta.ObjPredio.getCodigo_predio().length() > 0) {
 
-                if (ObjEditarMulta.ObjPersona.getCodigo_contribuyente().length() > 0) {
-                    st.setString(4, ObjEditarMulta.ObjPersona.getCodigo_contribuyente());
+                    st.setString(4, ObjEditarMulta.ObjPredio.getCodigo_predio());
                 } else {
                     st.setString(4, null);
                 }
@@ -851,34 +837,39 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.ObjPredio.getCodigo_predio() != null) {
-                if (ObjEditarMulta.ObjPredio.getCodigo_predio().length() > 0) {
+          
+            if (ObjEditarMulta.ObjSancion.getCodigo_sancion()!= null) {
 
-                    st.setString(5, ObjEditarMulta.ObjPredio.getCodigo_predio());
+                if (ObjEditarMulta.ObjSancion.getCodigo_sancion().length() > 0) {
+                    st.setString(5, ObjEditarMulta.ObjSancion.getCodigo_sancion());
                 } else {
                     st.setString(5, null);
                 }
             } else {
                 st.setString(5, null);
-
             }
 
-            if (ObjEditarMulta.getNumero_multa() != null) {
 
-                if (ObjEditarMulta.getNumero_multa().length() > 0) {
-                    st.setString(6, ObjEditarMulta.getNumero_multa());
+          
+
+            if (ObjEditarMulta.getFecha_resolucion()!= null) {
+
+                if (ObjEditarMulta.getFecha_resolucion().length() > 0) {
+
+                    st.setString(6, ObjEditarMulta.getFecha_resolucion());
                 } else {
                     st.setString(6, null);
                 }
             } else {
                 st.setString(6, null);
+
             }
 
-            if (ObjEditarMulta.getMonto_multa() != null) {
+            if (ObjEditarMulta.getNumero_resolucion()!= null) {
 
-                if (ObjEditarMulta.getMonto_multa().length() > 0) {
+                if (ObjEditarMulta.getNumero_resolucion().length() > 0) {
 
-                    st.setString(7, ObjEditarMulta.getMonto_multa());
+                    st.setObject(7, ObjEditarMulta.getNumero_resolucion());
                 } else {
                     st.setString(7, null);
                 }
@@ -887,11 +878,10 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getFecha_resolucion() != null) {
+            if (ObjEditarMulta.objArea.getId_area()!= null) {
 
-                if (ObjEditarMulta.getFecha_resolucion().length() > 0) {
-
-                    st.setString(8, ObjEditarMulta.getFecha_resolucion());
+                if (ObjEditarMulta.objArea.getId_area().length() > 0) {
+                    st.setString(8, ObjEditarMulta.objArea.getId_area());
                 } else {
                     st.setString(8, null);
                 }
@@ -900,11 +890,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getNumero_resolucion() != null) {
+            if (ObjEditarMulta.getFecha_resolucion_coactiva()!= null) {
 
-                if (ObjEditarMulta.getNumero_resolucion().length() > 0) {
+                if (ObjEditarMulta.getFecha_resolucion_coactiva().length() > 0) {
 
-                    st.setObject(9, ObjEditarMulta.getNumero_resolucion());
+                    st.setString(9, ObjEditarMulta.getFecha_resolucion_coactiva());
                 } else {
                     st.setString(9, null);
                 }
@@ -913,10 +903,10 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.objArea.getId_area() != null) {
+            if (ObjEditarMulta.getReferencia_direccion()!= null) {
 
-                if (ObjEditarMulta.objArea.getId_area().length() > 0) {
-                    st.setString(10, ObjEditarMulta.objArea.getId_area());
+                if (ObjEditarMulta.getReferencia_direccion().length() > 0) {
+                    st.setString(10, ObjEditarMulta.getReferencia_direccion());
                 } else {
                     st.setString(10, null);
                 }
@@ -925,11 +915,10 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getFecha_resolucion_coactiva() != null) {
+            if (ObjEditarMulta.getResolucion_anulacion()!= null) {
 
-                if (ObjEditarMulta.getFecha_resolucion_coactiva().length() > 0) {
-
-                    st.setString(11, ObjEditarMulta.getFecha_resolucion_coactiva());
+                if (ObjEditarMulta.getResolucion_anulacion().length() > 0) {
+                    st.setString(11, ObjEditarMulta.getResolucion_anulacion());
                 } else {
                     st.setString(11, null);
                 }
@@ -938,10 +927,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getReferencia_direccion() != null) {
+            if (ObjEditarMulta.getReclamo_expediente()!= null) {
 
-                if (ObjEditarMulta.getReferencia_direccion().length() > 0) {
-                    st.setString(12, ObjEditarMulta.getReferencia_direccion());
+                if (ObjEditarMulta.getReclamo_expediente().length() > 0) {
+
+                    st.setString(12, ObjEditarMulta.getReclamo_expediente());
                 } else {
                     st.setString(12, null);
                 }
@@ -950,10 +940,10 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getResolucion_anulacion() != null) {
+            if (ObjEditarMulta.getEstado_multa()!= null) {
 
-                if (ObjEditarMulta.getResolucion_anulacion().length() > 0) {
-                    st.setString(13, ObjEditarMulta.getResolucion_anulacion());
+                if (ObjEditarMulta.getEstado_multa().length() > 0) {
+                    st.setString(13, ObjEditarMulta.getEstado_multa());
                 } else {
                     st.setString(13, null);
                 }
@@ -962,11 +952,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getReclamo_expediente() != null) {
+            if (ObjEditarMulta.ObjUsuario.getNombre_usuario()!= null) {
 
-                if (ObjEditarMulta.getReclamo_expediente().length() > 0) {
-
-                    st.setString(14, ObjEditarMulta.getReclamo_expediente());
+                if (ObjEditarMulta.ObjUsuario.getNombre_usuario().length() > 0) {
+                    
+                    st.setString(14, ObjEditarMulta.ObjUsuario.getNombre_usuario());
                 } else {
                     st.setString(14, null);
                 }
@@ -975,10 +965,10 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getEstado_multa() != null) {
+            if (ObjEditarMulta.ObjGrupo.getCodigo_medida_complementaria()!= null) {
 
-                if (ObjEditarMulta.getEstado_multa().length() > 0) {
-                    st.setString(15, ObjEditarMulta.getEstado_multa());
+                if (ObjEditarMulta.ObjGrupo.getCodigo_medida_complementaria().length() > 0) {
+                    st.setString(15, ObjEditarMulta.ObjGrupo.getCodigo_medida_complementaria());
                 } else {
                     st.setString(15, null);
                 }
@@ -987,10 +977,12 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.ObjUsuario.getNombre_usuario() != null) {
+         
 
-                if (ObjEditarMulta.ObjUsuario.getNombre_usuario().length() > 0) {
-                    st.setString(16, ObjEditarMulta.ObjUsuario.getNombre_usuario());
+            if (ObjEditarMulta.getObservacion()!= null) {
+
+                if (ObjEditarMulta.getObservacion().length() > 0) {
+                    st.setString(16, ObjEditarMulta.getObservacion());
                 } else {
                     st.setString(16, null);
                 }
@@ -999,10 +991,10 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getCodigo_sancion() != null) {
+            if (ObjEditarMulta.ObjCuenta.getId_unico()!= null) {
 
-                if (ObjEditarMulta.getCodigo_sancion().length() > 0) {
-                    st.setString(17, ObjEditarMulta.getCodigo_sancion());
+                if (ObjEditarMulta.ObjCuenta.getId_unico().length() > 0) {
+                    st.setString(17, ObjEditarMulta.ObjCuenta.getId_unico());
                 } else {
                     st.setString(17, null);
                 }
@@ -1011,10 +1003,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getDetalle_sanacion() != null) {
+            if (ObjEditarMulta.getId_unico_multa()!= null) {
 
-                if (ObjEditarMulta.getDetalle_sanacion().length() > 0) {
-                    st.setString(18, ObjEditarMulta.getDetalle_sanacion());
+                if (ObjEditarMulta.getId_unico_multa().length() > 0) {
+
+                    st.setString(18, ObjEditarMulta.getId_unico_multa());
                 } else {
                     st.setString(18, null);
                 }
@@ -1023,10 +1016,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getObservacion() != null) {
+            if (ObjEditarMulta.getReincidente()!= null) {
 
-                if (ObjEditarMulta.getObservacion().length() > 0) {
-                    st.setString(19, ObjEditarMulta.getObservacion());
+                if (ObjEditarMulta.getReincidente().length() > 0) {
+
+                    st.setString(19, ObjEditarMulta.getReincidente());
                 } else {
                     st.setString(19, null);
                 }
@@ -1035,10 +1029,12 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.ObjCuenta.getId_unico() != null) {
+            
+            if (ObjEditarMulta.getManzana()!= null) {
 
-                if (ObjEditarMulta.ObjCuenta.getId_unico().length() > 0) {
-                    st.setString(20, ObjEditarMulta.ObjCuenta.getId_unico());
+                if (ObjEditarMulta.getManzana().length() > 0) {
+
+                    st.setString(20, ObjEditarMulta.getManzana());
                 } else {
                     st.setString(20, null);
                 }
@@ -1047,11 +1043,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getId_unico_multa() != null) {
+            if (ObjEditarMulta.getLote()!= null) {
 
-                if (ObjEditarMulta.getId_unico_multa().length() > 0) {
+                if (ObjEditarMulta.getLote().length() > 0) {
 
-                    st.setString(21, ObjEditarMulta.getId_unico_multa());
+                    st.setString(21, ObjEditarMulta.getLote());
                 } else {
                     st.setString(21, null);
                 }
@@ -1060,11 +1056,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getReincidente() != null) {
+            if (ObjEditarMulta.getNumero_fiscal()!= null) {
 
-                if (ObjEditarMulta.getReincidente().length() > 0) {
+                if (ObjEditarMulta.getNumero_fiscal().length() > 0) {
 
-                    st.setString(22, ObjEditarMulta.getReincidente());
+                    st.setString(22, ObjEditarMulta.getNumero_fiscal());
                 } else {
                     st.setString(22, null);
                 }
@@ -1073,11 +1069,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getCorrelativo() != null) {
+            if (ObjEditarMulta.getNumero_departamento()!= null) {
 
-                if (ObjEditarMulta.getCorrelativo().length() > 0) {
+                if (ObjEditarMulta.getNumero_departamento().length() > 0) {
 
-                    st.setString(23, ObjEditarMulta.getCorrelativo());
+                    st.setString(23, ObjEditarMulta.getNumero_departamento());
                 } else {
                     st.setString(23, null);
                 }
@@ -1086,11 +1082,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getManzana() != null) {
+            if (ObjEditarMulta.getReferencia()!= null) {
 
-                if (ObjEditarMulta.getManzana().length() > 0) {
+                if (ObjEditarMulta.getReferencia().length() > 0) {
 
-                    st.setString(24, ObjEditarMulta.getManzana());
+                    st.setString(24, ObjEditarMulta.getReferencia());
                 } else {
                     st.setString(24, null);
                 }
@@ -1099,11 +1095,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getLote() != null) {
+            if (ObjEditarMulta.objInspector.getApellidos_nombres()!= null) {
 
-                if (ObjEditarMulta.getLote().length() > 0) {
+                if (ObjEditarMulta.objInspector.getApellidos_nombres().length() > 0) {
 
-                    st.setString(25, ObjEditarMulta.getLote());
+                    st.setString(25, ObjEditarMulta.objInspector.getApellidos_nombres());
                 } else {
                     st.setString(25, null);
                 }
@@ -1112,11 +1108,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getNumero_fiscal() != null) {
+            if (ObjEditarMulta.getNumero_acta()!= null) {
 
-                if (ObjEditarMulta.getNumero_fiscal().length() > 0) {
+                if (ObjEditarMulta.getNumero_acta().length() > 0) {
 
-                    st.setString(26, ObjEditarMulta.getNumero_fiscal());
+                    st.setString(26, ObjEditarMulta.getNumero_acta());
                 } else {
                     st.setString(26, null);
                 }
@@ -1125,11 +1121,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getNumero_departamento() != null) {
+            if (ObjEditarMulta.getNumero_informe()!= null) {
 
-                if (ObjEditarMulta.getNumero_departamento().length() > 0) {
+                if (ObjEditarMulta.getNumero_informe().length() > 0) {
 
-                    st.setString(27, ObjEditarMulta.getNumero_departamento());
+                    st.setString(27, ObjEditarMulta.getNumero_informe());
                 } else {
                     st.setString(27, null);
                 }
@@ -1138,11 +1134,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getReferencia() != null) {
+            if (ObjEditarMulta.ObjGiro.getCodigo_giro()!= null) {
 
-                if (ObjEditarMulta.getReferencia().length() > 0) {
+                if (ObjEditarMulta.ObjGiro.getCodigo_giro().length() > 0) {
 
-                    st.setString(28, ObjEditarMulta.getReferencia());
+                    st.setString(28, ObjEditarMulta.ObjGiro.getCodigo_giro());
                 } else {
                     st.setString(28, null);
                 }
@@ -1151,11 +1147,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.objInspector.getApellidos_nombres() != null) {
+            if (ObjEditarMulta.getFecha_ejecucion()!= null) {
 
-                if (ObjEditarMulta.objInspector.getApellidos_nombres().length() > 0) {
+                if (ObjEditarMulta.getFecha_ejecucion().length() > 0) {
 
-                    st.setString(29, ObjEditarMulta.objInspector.getApellidos_nombres());
+                    st.setString(29, ObjEditarMulta.getFecha_ejecucion());
                 } else {
                     st.setString(29, null);
                 }
@@ -1163,12 +1159,13 @@ public class Multa implements Serializable {
                 st.setString(29, null);
 
             }
+            
 
-            if (ObjEditarMulta.getNumero_acta() != null) {
+            if (ObjEditarMulta.ObjDireccion.getNombre_via()!= null) {
 
-                if (ObjEditarMulta.getNumero_acta().length() > 0) {
+                if (ObjEditarMulta.ObjDireccion.getNombre_via().length() > 0) {
 
-                    st.setString(30, ObjEditarMulta.getNumero_acta());
+                    st.setString(30, ObjEditarMulta.ObjDireccion.getNombre_via());
                 } else {
                     st.setString(30, null);
                 }
@@ -1177,11 +1174,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getNumero_informe() != null) {
+            if (ObjEditarMulta.ObjDireccion.getNombre_habilitacion()!= null) {
 
-                if (ObjEditarMulta.getNumero_informe().length() > 0) {
+                if (ObjEditarMulta.ObjDireccion.getNombre_habilitacion().length() > 0) {
 
-                    st.setString(31, ObjEditarMulta.getNumero_informe());
+                    st.setString(31, ObjEditarMulta.ObjDireccion.getNombre_habilitacion());
                 } else {
                     st.setString(31, null);
                 }
@@ -1190,11 +1187,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.ObjGiro.getCodigo_giro() != null) {
+            if (ObjEditarMulta.getActa_constatacion()!= null) {
 
-                if (ObjEditarMulta.ObjGiro.getCodigo_giro().length() > 0) {
+                if (ObjEditarMulta.getActa_constatacion().length() > 0) {
 
-                    st.setString(32, ObjEditarMulta.ObjGiro.getCodigo_giro());
+                    st.setString(32, ObjEditarMulta.getActa_constatacion());
                 } else {
                     st.setString(32, null);
                 }
@@ -1203,11 +1200,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getFecha_ejecucion() != null) {
+            if (ObjEditarMulta.ObjGiro.getGiro_detalle() != null) {
 
-                if (ObjEditarMulta.getFecha_ejecucion().length() > 0) {
+                if (ObjEditarMulta.ObjGiro.getGiro_detalle().length() > 0) {
 
-                    st.setString(33, ObjEditarMulta.getFecha_ejecucion());
+                    st.setString(33, ObjEditarMulta.ObjGiro.getGiro_detalle());
                 } else {
                     st.setString(33, null);
                 }
@@ -1215,12 +1212,14 @@ public class Multa implements Serializable {
                 st.setString(33, null);
 
             }
+            
+            
+              if (ObjEditarMulta.getValor_obra()>=0) {
 
-            if (ObjEditarMulta.getFecha_registro() != null) {
+                if (ObjEditarMulta.getValor_obra()>=0) {
 
-                if (ObjEditarMulta.getFecha_registro().length() > 0) {
-
-                    st.setString(34, ObjEditarMulta.getFecha_registro());
+                    st.setFloat(34, ObjEditarMulta.getValor_obra());
+                    
                 } else {
                     st.setString(34, null);
                 }
@@ -1229,60 +1228,8 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.ObjDireccion.getNombre_via() != null) {
-
-                if (ObjEditarMulta.ObjDireccion.getNombre_via().length() > 0) {
-
-                    st.setString(35, ObjEditarMulta.ObjDireccion.getNombre_via());
-                } else {
-                    st.setString(35, null);
-                }
-            } else {
-                st.setString(35, null);
-
-            }
-
-            if (ObjEditarMulta.ObjDireccion.getNombre_habilitacion() != null) {
-
-                if (ObjEditarMulta.ObjDireccion.getNombre_habilitacion().length() > 0) {
-
-                    st.setString(36, ObjEditarMulta.ObjDireccion.getNombre_habilitacion());
-                } else {
-                    st.setString(36, null);
-                }
-            } else {
-                st.setString(36, null);
-
-            }
-
-            if (ObjEditarMulta.getActa_constatacion() != null) {
-
-                if (ObjEditarMulta.getActa_constatacion().length() > 0) {
-
-                    st.setString(37, ObjEditarMulta.getActa_constatacion());
-                } else {
-                    st.setString(37, null);
-                }
-            } else {
-                st.setString(37, null);
-
-            }
-
-            if (ObjEditarMulta.ObjGiro.getGiro_detalle() != null) {
-
-                if (ObjEditarMulta.ObjGiro.getGiro_detalle().length() > 0) {
-
-                    st.setString(38, ObjEditarMulta.ObjGiro.getGiro_detalle());
-                } else {
-                    st.setString(38, null);
-                }
-            } else {
-                st.setString(38, null);
-
-            }
-
             //--------------------------------------- 
-            st.execute();
+           st.execute();
             st.close();
             conexion.commit();
 
@@ -1308,7 +1255,6 @@ public class Multa implements Serializable {
             }
         }
         return true;
-
     }
 
     public ArrayList<SelectItem> CargarComboGiro() {
@@ -1357,22 +1303,24 @@ public class Multa implements Serializable {
 
             CallableStatement st = conexion.prepareCall("{call sp_java_registro_multas_administrativas (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 
-            if (ObjRegistrar.getNumero_funcion() != null) {
-
-                if (ObjRegistrar.getNumero_funcion().length() > 0) {
-                    st.setString(1, ObjRegistrar.getNumero_funcion());
-                } else {
-                    st.setString(1, null);
-                }
-            } else {
-                st.setString(1, null);
-            }
+          
 
             if (ObjRegistrar.getNumero_notificacion() != null) {
 
                 if (ObjRegistrar.getNumero_notificacion().length() > 0) {
 
-                    st.setString(2, ObjRegistrar.getNumero_notificacion());
+                    st.setString(1, ObjRegistrar.getNumero_notificacion());
+                } else {
+                    st.setString(1, null);
+                }
+            } else {
+                st.setString(1, null);
+
+            }
+
+            if (ObjRegistrar.getFecha_notificacion() != null) {
+                if (ObjRegistrar.getFecha_notificacion().length() > 0) {
+                    st.setString(2, ObjRegistrar.getFecha_notificacion());
                 } else {
                     st.setString(2, null);
                 }
@@ -1381,9 +1329,10 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getFecha_notificacion() != null) {
-                if (ObjRegistrar.getFecha_notificacion().length() > 0) {
-                    st.setString(3, ObjRegistrar.getFecha_notificacion());
+            if (ObjRegistrar.ObjPersona.getCodigo_contribuyente() != null) {
+
+                if (ObjRegistrar.ObjPersona.getCodigo_contribuyente().length() > 0) {
+                    st.setString(3, ObjRegistrar.ObjPersona.getCodigo_contribuyente());
                 } else {
                     st.setString(3, null);
                 }
@@ -1392,10 +1341,10 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.ObjPersona.getCodigo_contribuyente() != null) {
+            if (ObjRegistrar.ObjPredio.getCodigo_predio() != null) {
+                if (ObjRegistrar.ObjPredio.getCodigo_predio().length() > 0) {
 
-                if (ObjRegistrar.ObjPersona.getCodigo_contribuyente().length() > 0) {
-                    st.setString(4, ObjRegistrar.ObjPersona.getCodigo_contribuyente());
+                    st.setString(4, ObjRegistrar.ObjPredio.getCodigo_predio());
                 } else {
                     st.setString(4, null);
                 }
@@ -1404,34 +1353,35 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.ObjPredio.getCodigo_predio() != null) {
-                if (ObjRegistrar.ObjPredio.getCodigo_predio().length() > 0) {
+            if (ObjRegistrar.getNumero_multa() != null) {
 
-                    st.setString(5, ObjRegistrar.ObjPredio.getCodigo_predio());
+                if (ObjRegistrar.getNumero_multa().length() > 0) {
+                    st.setString(5, ObjRegistrar.getNumero_multa());
                 } else {
                     st.setString(5, null);
                 }
             } else {
                 st.setString(5, null);
-
-            }
-
-            if (ObjRegistrar.getNumero_multa() != null) {
-
-                if (ObjRegistrar.getNumero_multa().length() > 0) {
-                    st.setString(6, ObjRegistrar.getNumero_multa());
-                } else {
-                    st.setString(6, null);
-                }
-            } else {
-                st.setString(6, null);
             }
 
             if (ObjRegistrar.getMonto_multa() != null) {
 
                 if (ObjRegistrar.getMonto_multa().length() > 0) {
 
-                    st.setString(7, ObjRegistrar.getMonto_multa());
+                    st.setString(6, ObjRegistrar.getMonto_multa());
+                } else {
+                    st.setString(6, null);
+                }
+            } else {
+                st.setString(6, null);
+
+            }
+
+            if (ObjRegistrar.getFecha_resolucion() != null) {
+
+                if (ObjRegistrar.getFecha_resolucion().length() > 0) {
+
+                    st.setString(7, ObjRegistrar.getFecha_resolucion());
                 } else {
                     st.setString(7, null);
                 }
@@ -1440,11 +1390,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getFecha_resolucion() != null) {
+            if (ObjRegistrar.getNumero_resolucion() != null) {
 
-                if (ObjRegistrar.getFecha_resolucion().length() > 0) {
+                if (ObjRegistrar.getNumero_resolucion().length() > 0) {
 
-                    st.setString(8, ObjRegistrar.getFecha_resolucion());
+                    st.setObject(8, ObjRegistrar.getNumero_resolucion());
                 } else {
                     st.setString(8, null);
                 }
@@ -1453,11 +1403,10 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getNumero_resolucion() != null) {
+            if (ObjRegistrar.objArea.getId_area() != null) {
 
-                if (ObjRegistrar.getNumero_resolucion().length() > 0) {
-
-                    st.setObject(9, ObjRegistrar.getNumero_resolucion());
+                if (ObjRegistrar.objArea.getId_area().length() > 0) {
+                    st.setString(9, ObjRegistrar.objArea.getId_area());
                 } else {
                     st.setString(9, null);
                 }
@@ -1466,10 +1415,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.objArea.getId_area() != null) {
+            if (ObjRegistrar.getFecha_resolucion_coactiva() != null) {
 
-                if (ObjRegistrar.objArea.getId_area().length() > 0) {
-                    st.setString(10, ObjRegistrar.objArea.getId_area());
+                if (ObjRegistrar.getFecha_resolucion_coactiva().length() > 0) {
+
+                    st.setString(10, ObjRegistrar.getFecha_resolucion_coactiva());
                 } else {
                     st.setString(10, null);
                 }
@@ -1478,11 +1428,10 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getFecha_resolucion_coactiva() != null) {
+            if (ObjRegistrar.getReferencia_direccion() != null) {
 
-                if (ObjRegistrar.getFecha_resolucion_coactiva().length() > 0) {
-
-                    st.setString(11, ObjRegistrar.getFecha_resolucion_coactiva());
+                if (ObjRegistrar.getReferencia_direccion().length() > 0) {
+                    st.setString(11, ObjRegistrar.getReferencia_direccion());
                 } else {
                     st.setString(11, null);
                 }
@@ -1491,10 +1440,10 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getReferencia_direccion() != null) {
+            if (ObjRegistrar.getResolucion_anulacion() != null) {
 
-                if (ObjRegistrar.getReferencia_direccion().length() > 0) {
-                    st.setString(12, ObjRegistrar.getReferencia_direccion());
+                if (ObjRegistrar.getResolucion_anulacion().length() > 0) {
+                    st.setString(12, ObjRegistrar.getResolucion_anulacion());
                 } else {
                     st.setString(12, null);
                 }
@@ -1503,10 +1452,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getResolucion_anulacion() != null) {
+            if (ObjRegistrar.getReclamo_expediente() != null) {
 
-                if (ObjRegistrar.getResolucion_anulacion().length() > 0) {
-                    st.setString(13, ObjRegistrar.getResolucion_anulacion());
+                if (ObjRegistrar.getReclamo_expediente().length() > 0) {
+
+                    st.setString(13, ObjRegistrar.getReclamo_expediente());
                 } else {
                     st.setString(13, null);
                 }
@@ -1515,11 +1465,10 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getReclamo_expediente() != null) {
+            if (ObjRegistrar.getEstado_multa() != null) {
 
-                if (ObjRegistrar.getReclamo_expediente().length() > 0) {
-
-                    st.setString(14, ObjRegistrar.getReclamo_expediente());
+                if (ObjRegistrar.getEstado_multa().length() > 0) {
+                    st.setString(14, ObjRegistrar.getEstado_multa());
                 } else {
                     st.setString(14, null);
                 }
@@ -1528,10 +1477,10 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getEstado_multa() != null) {
+            if (ObjRegistrar.ObjUsuario.getNombre_usuario() != null) {
 
-                if (ObjRegistrar.getEstado_multa().length() > 0) {
-                    st.setString(15, ObjRegistrar.getEstado_multa());
+                if (ObjRegistrar.ObjUsuario.getNombre_usuario().length() > 0) {
+                    st.setString(15, ObjRegistrar.ObjUsuario.getNombre_usuario());
                 } else {
                     st.setString(15, null);
                 }
@@ -1540,10 +1489,10 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.ObjUsuario.getNombre_usuario() != null) {
+            if (ObjRegistrar.getCodigo_sancion() != null) {
 
-                if (ObjRegistrar.ObjUsuario.getNombre_usuario().length() > 0) {
-                    st.setString(16, ObjRegistrar.ObjUsuario.getNombre_usuario());
+                if (ObjRegistrar.getCodigo_sancion().length() > 0) {
+                    st.setString(16, ObjRegistrar.getCodigo_sancion());
                 } else {
                     st.setString(16, null);
                 }
@@ -1552,10 +1501,12 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getCodigo_sancion() != null) {
+         
 
-                if (ObjRegistrar.getCodigo_sancion().length() > 0) {
-                    st.setString(17, ObjRegistrar.getCodigo_sancion());
+            if (ObjRegistrar.getObservacion() != null) {
+
+                if (ObjRegistrar.getObservacion().length() > 0) {
+                    st.setString(17, ObjRegistrar.getObservacion());
                 } else {
                     st.setString(17, null);
                 }
@@ -1564,10 +1515,10 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getDetalle_sanacion() != null) {
+            if (ObjRegistrar.ObjCuenta.getId_unico() != null) {
 
-                if (ObjRegistrar.getDetalle_sanacion().length() > 0) {
-                    st.setString(18, ObjRegistrar.getDetalle_sanacion());
+                if (ObjRegistrar.ObjCuenta.getId_unico().length() > 0) {
+                    st.setString(18, ObjRegistrar.ObjCuenta.getId_unico());
                 } else {
                     st.setString(18, null);
                 }
@@ -1576,10 +1527,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getObservacion() != null) {
+            if (ObjRegistrar.getId_unico_multa() != null) {
 
-                if (ObjRegistrar.getObservacion().length() > 0) {
-                    st.setString(19, ObjRegistrar.getObservacion());
+                if (ObjRegistrar.getId_unico_multa().length() > 0) {
+
+                    st.setString(19, ObjRegistrar.getId_unico_multa());
                 } else {
                     st.setString(19, null);
                 }
@@ -1588,10 +1540,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.ObjCuenta.getId_unico() != null) {
+            if (ObjRegistrar.getReincidente() != null) {
 
-                if (ObjRegistrar.ObjCuenta.getId_unico().length() > 0) {
-                    st.setString(20, ObjRegistrar.ObjCuenta.getId_unico());
+                if (ObjRegistrar.getReincidente().length() > 0) {
+
+                    st.setString(20, ObjRegistrar.getReincidente());
                 } else {
                     st.setString(20, null);
                 }
@@ -1600,11 +1553,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getId_unico_multa() != null) {
+            if (ObjRegistrar.getCorrelativo() != null) {
 
-                if (ObjRegistrar.getId_unico_multa().length() > 0) {
+                if (ObjRegistrar.getCorrelativo().length() > 0) {
 
-                    st.setString(21, ObjRegistrar.getId_unico_multa());
+                    st.setString(21, ObjRegistrar.getCorrelativo());
                 } else {
                     st.setString(21, null);
                 }
@@ -1613,11 +1566,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getReincidente() != null) {
+            if (ObjRegistrar.getManzana() != null) {
 
-                if (ObjRegistrar.getReincidente().length() > 0) {
+                if (ObjRegistrar.getManzana().length() > 0) {
 
-                    st.setString(22, ObjRegistrar.getReincidente());
+                    st.setString(22, ObjRegistrar.getManzana());
                 } else {
                     st.setString(22, null);
                 }
@@ -1626,11 +1579,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getCorrelativo() != null) {
+            if (ObjRegistrar.getLote() != null) {
 
-                if (ObjRegistrar.getCorrelativo().length() > 0) {
+                if (ObjRegistrar.getLote().length() > 0) {
 
-                    st.setString(23, ObjRegistrar.getCorrelativo());
+                    st.setString(23, ObjRegistrar.getLote());
                 } else {
                     st.setString(23, null);
                 }
@@ -1639,11 +1592,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getManzana() != null) {
+            if (ObjRegistrar.getNumero_fiscal() != null) {
 
-                if (ObjRegistrar.getManzana().length() > 0) {
+                if (ObjRegistrar.getNumero_fiscal().length() > 0) {
 
-                    st.setString(24, ObjRegistrar.getManzana());
+                    st.setString(24, ObjRegistrar.getNumero_fiscal());
                 } else {
                     st.setString(24, null);
                 }
@@ -1652,11 +1605,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getLote() != null) {
+            if (ObjRegistrar.getNumero_departamento() != null) {
 
-                if (ObjRegistrar.getLote().length() > 0) {
+                if (ObjRegistrar.getNumero_departamento().length() > 0) {
 
-                    st.setString(25, ObjRegistrar.getLote());
+                    st.setString(25, ObjRegistrar.getNumero_departamento());
                 } else {
                     st.setString(25, null);
                 }
@@ -1665,11 +1618,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getNumero_fiscal() != null) {
+            if (ObjRegistrar.getReferencia() != null) {
 
-                if (ObjRegistrar.getNumero_fiscal().length() > 0) {
+                if (ObjRegistrar.getReferencia().length() > 0) {
 
-                    st.setString(26, ObjRegistrar.getNumero_fiscal());
+                    st.setString(26, ObjRegistrar.getReferencia());
                 } else {
                     st.setString(26, null);
                 }
@@ -1678,11 +1631,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getNumero_departamento() != null) {
+            if (ObjRegistrar.objInspector.getApellidos_nombres() != null) {
 
-                if (ObjRegistrar.getNumero_departamento().length() > 0) {
+                if (ObjRegistrar.objInspector.getApellidos_nombres().length() > 0) {
 
-                    st.setString(27, ObjRegistrar.getNumero_departamento());
+                    st.setString(27, ObjRegistrar.objInspector.getApellidos_nombres());
                 } else {
                     st.setString(27, null);
                 }
@@ -1691,11 +1644,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getReferencia() != null) {
+            if (ObjRegistrar.getNumero_acta() != null) {
 
-                if (ObjRegistrar.getReferencia().length() > 0) {
+                if (ObjRegistrar.getNumero_acta().length() > 0) {
 
-                    st.setString(28, ObjRegistrar.getReferencia());
+                    st.setString(28, ObjRegistrar.getNumero_acta());
                 } else {
                     st.setString(28, null);
                 }
@@ -1704,11 +1657,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.objInspector.getApellidos_nombres() != null) {
+            if (ObjRegistrar.getNumero_informe() != null) {
 
-                if (ObjRegistrar.objInspector.getApellidos_nombres().length() > 0) {
+                if (ObjRegistrar.getNumero_informe().length() > 0) {
 
-                    st.setString(29, ObjRegistrar.objInspector.getApellidos_nombres());
+                    st.setString(29, ObjRegistrar.getNumero_informe());
                 } else {
                     st.setString(29, null);
                 }
@@ -1717,11 +1670,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getNumero_acta() != null) {
+            if (ObjRegistrar.ObjGiro.getCodigo_giro() != null) {
 
-                if (ObjRegistrar.getNumero_acta().length() > 0) {
+                if (ObjRegistrar.ObjGiro.getCodigo_giro().length() > 0) {
 
-                    st.setString(30, ObjRegistrar.getNumero_acta());
+                    st.setString(30, ObjRegistrar.ObjGiro.getCodigo_giro());
                 } else {
                     st.setString(30, null);
                 }
@@ -1730,11 +1683,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getNumero_informe() != null) {
+            if (ObjRegistrar.getFecha_ejecucion() != null) {
 
-                if (ObjRegistrar.getNumero_informe().length() > 0) {
+                if (ObjRegistrar.getFecha_ejecucion().length() > 0) {
 
-                    st.setString(31, ObjRegistrar.getNumero_informe());
+                    st.setString(31, ObjRegistrar.getFecha_ejecucion());
                 } else {
                     st.setString(31, null);
                 }
@@ -1743,11 +1696,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.ObjGiro.getCodigo_giro() != null) {
+            if (ObjRegistrar.getFecha_registro() != null) {
 
-                if (ObjRegistrar.ObjGiro.getCodigo_giro().length() > 0) {
+                if (ObjRegistrar.getFecha_registro().length() > 0) {
 
-                    st.setString(32, ObjRegistrar.ObjGiro.getCodigo_giro());
+                    st.setString(32, ObjRegistrar.getFecha_registro());
                 } else {
                     st.setString(32, null);
                 }
@@ -1756,11 +1709,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getFecha_ejecucion() != null) {
+            if (ObjRegistrar.ObjDireccion.getNombre_via() != null) {
 
-                if (ObjRegistrar.getFecha_ejecucion().length() > 0) {
+                if (ObjRegistrar.ObjDireccion.getNombre_via().length() > 0) {
 
-                    st.setString(33, ObjRegistrar.getFecha_ejecucion());
+                    st.setString(33, ObjRegistrar.ObjDireccion.getNombre_via());
                 } else {
                     st.setString(33, null);
                 }
@@ -1769,11 +1722,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getFecha_registro() != null) {
+            if (ObjRegistrar.ObjDireccion.getNombre_habilitacion() != null) {
 
-                if (ObjRegistrar.getFecha_registro().length() > 0) {
+                if (ObjRegistrar.ObjDireccion.getNombre_habilitacion().length() > 0) {
 
-                    st.setString(34, ObjRegistrar.getFecha_registro());
+                    st.setString(34, ObjRegistrar.ObjDireccion.getNombre_habilitacion());
                 } else {
                     st.setString(34, null);
                 }
@@ -1782,11 +1735,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.ObjDireccion.getNombre_via() != null) {
+            if (ObjRegistrar.getActa_constatacion() != null) {
 
-                if (ObjRegistrar.ObjDireccion.getNombre_via().length() > 0) {
+                if (ObjRegistrar.getActa_constatacion().length() > 0) {
 
-                    st.setString(35, ObjRegistrar.ObjDireccion.getNombre_via());
+                    st.setString(35, ObjRegistrar.getActa_constatacion());
                 } else {
                     st.setString(35, null);
                 }
@@ -1795,42 +1748,16 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.ObjDireccion.getNombre_habilitacion() != null) {
+            if (ObjRegistrar.ObjGiro.getGiro_detalle() != null) {
 
-                if (ObjRegistrar.ObjDireccion.getNombre_habilitacion().length() > 0) {
+                if (ObjRegistrar.ObjGiro.getGiro_detalle().length() > 0) {
 
-                    st.setString(36, ObjRegistrar.ObjDireccion.getNombre_habilitacion());
+                    st.setString(36, ObjRegistrar.ObjGiro.getGiro_detalle());
                 } else {
                     st.setString(36, null);
                 }
             } else {
                 st.setString(36, null);
-
-            }
-
-            if (ObjRegistrar.getActa_constatacion() != null) {
-
-                if (ObjRegistrar.getActa_constatacion().length() > 0) {
-
-                    st.setString(37, ObjRegistrar.getActa_constatacion());
-                } else {
-                    st.setString(37, null);
-                }
-            } else {
-                st.setString(37, null);
-
-            }
-
-            if (ObjRegistrar.ObjGiro.getGiro_detalle() != null) {
-
-                if (ObjRegistrar.ObjGiro.getGiro_detalle().length() > 0) {
-
-                    st.setString(38, ObjRegistrar.ObjGiro.getGiro_detalle());
-                } else {
-                    st.setString(38, null);
-                }
-            } else {
-                st.setString(38, null);
 
             }
 

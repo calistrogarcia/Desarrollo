@@ -64,6 +64,7 @@ public class Beans_Fiscalizacion_Multas {
     private Multa objMultaReg;
     private Multa objMultaMod;
     private Multa objMultaBusq;
+    private Multa objMultaAnular;
     private Multa ObjMultaBuqInfractor;
     private Multa ObjMultaBuqSancionMulta;
     private Multa ObjSeleccion;
@@ -87,7 +88,15 @@ public class Beans_Fiscalizacion_Multas {
     //Bandera que apunta si el usuario al realizar un clik sobre el link de busquedad o listado total
     private String puntAnt;
 
-   
+    
+    
+    public Multa getObjMultaAnular() {
+        return objMultaAnular;
+    }
+
+    public void setObjMultaAnular(Multa objMultaAnular) {
+        this.objMultaAnular = objMultaAnular;
+    }
     
     public Multa getObjSeleccion() {
         return ObjSeleccion;
@@ -352,7 +361,7 @@ public class Beans_Fiscalizacion_Multas {
     }
 
     // comand link   
-    public String modificarCertificado(Multa so) {
+    public String modificarMulta(Multa so) {
 
         this.doiniciarModificarMulta();
         this.objMultaMod = so;
@@ -361,6 +370,16 @@ public class Beans_Fiscalizacion_Multas {
         return null;
 
     }
+    
+    // comand link
+    
+     public String AnularMulta(Multa an){     
+        this.objMultaAnular=an;          
+        this.activeTabIndex=2;        
+        this.bandEli=false;   
+        return null;   
+    }
+    
 
     public ArrayList<Multa> doBuscarMulta() {
 
@@ -427,20 +446,16 @@ public class Beans_Fiscalizacion_Multas {
 
         this.bandMod = true;
 
-        //Pregunta si la Detalle Mostrada Proviene de una Busqueda Simple:2 o de un listado total:1 
+       
         if (puntAnt.compareTo("2") == 0) {
 
-           // this.doBuscarCertificado();
             this.activeTabIndex = Constantes.TAB_BUSQUEDA;
         } else {
 
             if (puntAnt.compareTo("1") == 0) {
-                // this.doListarCertificado();
-
-                //this.doiniciarModificarCertificado();
+             
                 this.activeTabIndex = Constantes.TAB_MODIFICAR;
-
-                //this.activeTabIndex=Constantes.TAB_ELIMINAR;
+                
             }
         }
 
@@ -448,6 +463,29 @@ public class Beans_Fiscalizacion_Multas {
 
         return null;
     }
+    
+    
+    
+    public String desactivarAnularMulta() {
+        this.bandEli = true;
+        //Pregunta si la Detalle Mostrada Proviene de una Busqueda Simple:2 o de un listado total:1 
+        if (puntAnt.compareTo("2") == 0) {
+
+            this.activeTabIndex = Constantes.TAB_BUSQUEDA;
+            
+        } else {
+            
+            if (puntAnt.compareTo("1") == 0) {
+ 
+                this.activeTabIndex = Constantes.TAB_ELIMINAR;
+            }
+        }
+        Mensaje.guardarMensajeExito("Cancelar Anulacion Multa !!!", "Multa");
+      
+        return null;
+    }
+
+  
     
     // Metodo para autocompletar
     

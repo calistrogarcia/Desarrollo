@@ -1,0 +1,191 @@
+      <p:commandButton type="button" onclick="PF('dlg2').show();" icon="ui-icon-arrow-4-diag"  />
+
+
+   <h:form id="form_infraciones" styleClass="tamaño_fuente" >
+
+
+                            <p:dialog header="Modal Dialog" widgetVar="dlg2" modal="false" height="505" width="700" responsive="true">
+
+
+
+                                <h:form  id="form_seleccion_infraccion" class="border_titulo1"  styleClass="tamaño_fuente">
+
+                                    <p:growl globalOnly="true"  id="growl_seleccion_infraccion" sticky="false"  showDetail="true"  />    
+                                    <p:panel id="panel_seleccion_infraccion" header="#{msg.LabelCertificado}" styleClass="border" style="text-align: center" >
+                                       
+
+                                        
+                                        <center>
+
+                                            <h:panelGrid columns="4" style="margin-bottom:20px" cellpadding="5">
+
+                                                 <h:panelGrid columns="2"  style=" align-content: flex-start" cellpadding="5">
+
+                                                        <p:outputLabel for="busqueda_sancion" value="Busqueda Por:" />
+                                                        <p:selectOneRadio id="busqueda_sancion" 
+                                                                          value="#{Beans_Fiscalizacion_Multas.objMultaBuqSancionMulta.tipo_busqueda_sancion}"  layout="grid" columns="3" >
+
+                                                        <f:selectItem itemLabel="Codigo" itemValue="1"  />
+                                                        <f:selectItem itemLabel="Nombre" itemValue="2" />  <!-- Validar Datos --> 
+
+
+                                                    </p:selectOneRadio>
+
+                                                </h:panelGrid> 
+ 
+                                                
+                                                <h:panelGrid columns="2"  cellspacing="3" >
+                                                    <h:outputText value="#{msg.LabelConsultar}" style=" font: small serif"/>
+
+                                                    <h:panelGroup>
+                                                        <p:inputText  id="consulta_sancion"
+                                                                      required="true" requiredMessage="#{msg.labelObli}"
+                                                                      maxlength="30" validatorMessage="#{msg.labelValidar}" 
+                                                                      value="#{Beans_Fiscalizacion_Multas.objMultaBuqSancionMulta.consulta_sancion}"
+                                                                      >  
+                                                            <f:validateLength minimum="0" maximum="30"/>
+                                                        </p:inputText>
+                                                        <h:message for="consulta_sancion" showDetail="false" showSummary="true"/>                                    
+                                                    </h:panelGroup>
+
+                                                </h:panelGrid>  
+                                                  
+
+                                            </h:panelGrid>
+
+                                           
+
+                                        </center>
+                                        <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3" style="text-align: center;" width="17%">
+
+                                            <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{Beans_Fiscalizacion_Multas.doiniciarBusquedaSancionMulta()}"  
+                                                             value="#{msg.labelNuevo}" async="true" update="panel_seleccion_infraccion"/>
+
+                                            <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{Beans_Fiscalizacion_Multas.doBuscarSancionMulta()}"  
+                                                             value="#{msg.btnConsultar}" async="true" update="panel_seleccion_infraccion">  
+
+                                                <p:confirm message="Esta Seguro de Consultar ?" header="Aviso"  icon="ui-icon-alert"/>
+
+                                            </p:commandButton>
+
+                                            <p:confirmDialog global="true" styleClass="tamaño_fuente">
+
+                                                <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
+                                                <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+
+
+                                            </p:confirmDialog>
+
+
+                                        </h:panelGrid>
+
+
+
+                                        <p:blockUI block="panel_seleccion_infraccion" trigger="saveBtn">   Buscando... <br />
+                                            <p:graphicImage value="resources/imagenes/cargando1.gif" />   
+                                        </p:blockUI>
+
+                                        <br />
+                                        <center>
+                                            <h:panelGrid columns="2" >
+                                                <h:outputText styleClass="etiqueta_resultBusq" value="#{msg.labelCantidad}"/>
+                                                <h:outputText styleClass="etiqueta_resultBusq" value="#{Beans_Fiscalizacion_Multas.arrBusMultaSancion.size()}"/>               
+                                            </h:panelGrid> 
+
+                                        </center>
+
+
+                                        <h:form id="form">
+
+                                            <p:dataTable id="Litsado_Infracciones" var="lista_sancion"   value="#{Beans_Fiscalizacion_Multas.arrBusMultaSancion}" 
+                                                         selection="#{Beans_Fiscalizacion_Multas.objMultaMod}" 
+                                                         rowKey="#{lista_sancion.objSancion.codigo_sancion}"
+
+                                                         styleClass="order-table" paginator="true"
+                                                         rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" 
+                                                         paginatorPosition="both" paginatorAlwaysVisible="true"
+                                                         rowStyleClass="tamaño_fuente"
+                                                         >
+                                           
+                                          
+
+                                                <f:facet name="header">
+                                                   Reglamento de sanciones
+                                                </f:facet>  
+                                           
+                                               <p:column selectionMode="single" style="width:3%;text-align:center"/>
+
+                                                <p:column  sortBy="#{lista_sancion.objSancion.codigo_sancion}"  style="width:6%;text-align: center"  >
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{msg.LabelCodigoInfraccion}" />
+                                                    </f:facet>
+                                                    <h:outputText  value="#{lista_sancion.objSancion.codigo_sancion}"/>
+                                                </p:column>  
+
+                                                <p:column style="width:30%;text-align: left"  filterBy="#{lista_sancion.objSancion.nombre_sancion}" filterMatchMode="contains" rendered="true">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{msg.LabelNombreInfracion}" />
+                                                    </f:facet>
+                                                    <h:outputText  value="#{lista_sancion.objSancion.nombre_sancion}"/>
+                                                </p:column>   
+
+
+                                                <p:column style="width:5%;text-align: center"   filterMatchMode="contains" rendered="true">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{msg.LabelTasaSancion}" />
+                                                    </f:facet>
+                                                    <h:outputText  value="#{lista_sancion.objSancion.tasa_sancion}"/>
+                                                </p:column>   
+                                             
+                                         <p:column exportable="false"  style="width:7%;text-align: center">
+
+                                                <f:facet name="header">
+                                                    <center><h:outputText value="Check"/></center>
+                                                </f:facet>
+
+
+                                                <p:commandButton  value="Check"  async="true" icon="ui-icon-check" 
+                                                                  
+                                                                  
+                                                                  >
+ 
+                                                    
+                                                </p:commandButton>
+
+                                          </p:column>
+                                            
+
+                                            </p:dataTable> 
+                                        </h:form>
+
+                                 <!---  
+                                        <h:form id="seleccionados" >
+
+
+                                            <p:dialog header="Lista" widgetVar="multiCarDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false" width="220">
+                                                <p:outputPanel id="multiCarDetail" style="text-align:center;">
+                                                    <ui:repeat value="{Beans_DefensaCivil_Supervisor.lista_sanciones}" var="lista">
+
+                                                        <h:outputText value="{lista.nro_dni} - {lista.apellidos_nombres}" style="display:block"/>
+                                                    </ui:repeat>
+                                                </p:outputPanel>
+                                            </p:dialog>
+                                        </h:form>    
+                                        
+                                 -->   
+                                 
+                                 
+                                  <h:panelGrid columns="3"  cellpadding="3"  cellspacing="6"  styleClass="panelColumns" columnClasses="labelOT, valueOT"  >
+
+                                    <p:commandButton icon="ui-icon-triangle-1-w"  id="BtnCancelarDialogo"
+                                                     actionListener="#{Beans_Fiscalizacion_Multas.desactivarEditarMulta()}"  immediate="true"  value="#{msg.labelCancelar}"  
+                                                     async="true"  update="TabView_multas_administrativas, :TabView_multas_administrativas:form_infraciones"/>
+
+
+                                </h:panelGrid> 
+                                 
+                                        
+                                    </p:panel>
+                                </h:form> 
+                            </p:dialog> 
+                        </h:form>      

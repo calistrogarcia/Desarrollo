@@ -20,18 +20,19 @@ public class Grupo implements Serializable {
     
   
    private String codigo_grupo;
-   private String codigo_tipo;
+   private String codigo_medida_complementaria;
    private String medida_complementaria;
 
-  
+    
    
-   public String getCodigo_tipo() {
-        return codigo_tipo;
+   public String getCodigo_medida_complementaria() {
+        return codigo_medida_complementaria;
     }
 
-    public void setCodigo_tipo(String codigo_tipo) {
-        this.codigo_tipo = codigo_tipo;
+    public void setCodigo_medida_complementaria(String codigo_medida_complementaria) {
+        this.codigo_medida_complementaria = codigo_medida_complementaria;
     }
+
    
    public String getCodigo_grupo() {
         return codigo_grupo;
@@ -52,7 +53,7 @@ public class Grupo implements Serializable {
 
     
     
-  public  ArrayList<SelectItem> getCargarDetalleGrupo() {
+  public  ArrayList<SelectItem> getCargarMedidaComplementaria() {
 
         ArrayList<SelectItem> arrayGrupo = new ArrayList<SelectItem>();
         Grupo obj = null;
@@ -66,7 +67,7 @@ public class Grupo implements Serializable {
 
             if (rs.next()) {
                 do {
-                    arrayGrupo.add(new SelectItem(rs.getString("codigo_tipo"), rs.getString("medida_complementaria")));
+                    arrayGrupo.add(new SelectItem(rs.getString("codigo_medida_complementaria"), rs.getString("medida_complementaria")));
 
                 } while (rs.next());
 

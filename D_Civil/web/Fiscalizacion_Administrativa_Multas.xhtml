@@ -189,19 +189,55 @@
                                             <p:column exportable="false"  style="width:90px;text-align: center">
 
                                                 <f:facet name="header">
+                                                    <center><h:outputText value="Nuevo"/></center>
+                                                </f:facet>
+
+                                                <img  src="resources/imagenes/nuevo.png" style="text-align: center" height="20"/>
+
+                                                <p:commandLink  id="nuevo" title="nuevo" actionListener="#{Beans_Fiscalizacion_Multas.onClickBusq}" 
+                                                                value="Nuevo" action="#{Beans_Fiscalizacion_Multas.modificarCertificado(lista_multas_administrativas)}"  
+                                                                async="true" update=":TabView_multas_administrativas, :TabView_multas_administrativas"> 
+                                                    <f:attribute name="param" value="#{2}" /> 
+                                                </p:commandLink>                                                
+
+
+                                            </p:column>
+      
+                                            
+                                            <p:column exportable="false"  style="width:90px;text-align: center">
+
+                                                <f:facet name="header">
                                                     <center><h:outputText value="Editar"/></center>
                                                 </f:facet>
 
-                                                <img  src="resources/imagenes/registrar.png" style="text-align: center"/>
+                                                <img  src="resources/imagenes/registrar.png" style="text-align: center" height="20"/>
 
                                                 <p:commandLink  id="registrar" title="registrar" actionListener="#{Beans_Fiscalizacion_Multas.onClickBusq}" 
-                                                                value="Editar" action="#{Beans_Fiscalizacion_Multas.modificarCertificado(lista_multas_administrativas)}"  
+                                                                value="Editar" action="#{Beans_Fiscalizacion_Multas.modificarMulta(lista_multas_administrativas)}"  
                                                                 async="true" update=":TabView_multas_administrativas, :TabView_multas_administrativas"> 
                                                     <f:attribute name="param" value="#{2}" /> 
                                                 </p:commandLink>                                                
 
                                             </p:column>
+                                            
+                                             
+                                            
+                                            <p:column exportable="false"  style="width:90px;text-align: center">
 
+                                                <f:facet name="header">
+                                                    <center><h:outputText value="Anular"/></center>
+                                                </f:facet>
+
+                                                <img  src="resources/imagenes/anulacion.png" style="text-align: center" height="20"/>
+
+                                                <p:commandLink  id="anular" title="anular" actionListener="#{Beans_Fiscalizacion_Multas.onClickBusq}" 
+                                                                value="Anular" action="#{Beans_Fiscalizacion_Multas.AnularMulta(lista_multas_administrativas)}"  
+                                                                async="true" update=":TabView_multas_administrativas, :TabView_multas_administrativas:form_anular_multa"> 
+                                                    <f:attribute name="param" value="#{1}" /> 
+                                                </p:commandLink>                                                
+
+                                            </p:column>
+     
                                         </p:dataTable> 
 
                                     </h:panelGrid>  
@@ -769,7 +805,8 @@
                     </p:tab>
 
 
-                    <p:tab id="tab_editar_multa" title="Editar Multa" titletip="Editar"  disabled="#{Beans_Fiscalizacion_Multas.bandMod}" titleStyleClass="tamaño_fuente_tab">
+                    <p:tab id="tab_editar_multa" title="Editar Multa" titletip="Editar"  disabled="#{Beans_Fiscalizacion_Multas.bandMod}" 
+                           titleStyleClass="tamaño_fuente_tab">
 
 
                         <h:form  id="form_editar_multa" class="border_titulo2"  style="text-align : justify;" styleClass="tamaño_fuente">    
@@ -1020,16 +1057,23 @@
 
 
 
-                                            <h:panelGrid columns="1"  >
-                                                <h:outputText  value="#{msg.LabelFechaMulta}"   style="width: 50%  "  />
-
+                                    
+                                            
+                                            
+                                             <h:panelGrid columns="1"  >   
+                                                <h:outputText value="#{msg.LabelFechaMulta}" />
                                                 <h:panelGroup>
-                                                    <p:calendar id="editar_multa_fecha_multa"  locale="es" navigator="true" style=" margin-left: 0%"   size="14" 
-                                                                value="#{Beans_Fiscalizacion_Multas.objMultaMod.fecha_multa}"  
-                                                                pattern="yyyy/MM/dd HH:mm:ss">   
+                                                    <p:inputMask id="editar_multa_fecha_multa"  
 
-                                                    </p:calendar>
-                                                    <h:message for="editar_multa_fecha_multa" showDetail="true" showSummary="true"/>                                   
+                                                                 mask="9999-99-99"  
+                                                                 required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}"
+                                                                 size="15" 
+                                                                 value="#{Beans_Fiscalizacion_Multas.objMultaMod.fecha_notificacion}" > 
+
+                                                        <f:convertDateTime pattern="YYYY/MM/DD" />
+                                                    </p:inputMask>
+                                                    <h:message for="editar_multa_fecha_multa" showDetail="true" showSummary="true"/>     
+                                                    <p:watermark  value="YYYY/MM/DD" for="editar_multa_fecha_multa" />
                                                 </h:panelGroup>
                                             </h:panelGrid>    
 
@@ -1053,22 +1097,24 @@
 
                                             </h:panelGrid>
 
-
-                                            <h:panelGrid columns="1"  >
-                                                <h:outputLabel value="#{msg.LabelFechaResolucionMulta}"  style="width: 50%  "  />
-
+                                             <h:panelGrid columns="1"  >   
+                                                <h:outputText value="#{msg.LabelFechaResolucionMulta}" />
                                                 <h:panelGroup>
-                                                    <p:calendar id="editar_fecha_resolucion"  locale="es" navigator="true" style=" width: 100%"   size="14" 
-                                                                value="#{Beans_Fiscalizacion_Multas.objMultaMod.fecha_multa}"  
-                                                                pattern="yyyy/MM/dd HH:mm:ss">   
+                                                    <p:inputMask id="editar_fecha_resolucion"  
 
-                                                    </p:calendar>
-                                                    <h:message for="editar_fecha_resolucion" showDetail="true" showSummary="true"/>                                   
+                                                                 mask="9999-99-99"  
+                                                                 required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}"
+                                                                 size="15" 
+                                                                 value="#{Beans_Fiscalizacion_Multas.objMultaMod.fecha_resolucion_coactiva}" > 
+
+                                                        <f:convertDateTime pattern="DD/MM/YYYY" />
+                                                    </p:inputMask>
+                                                    <h:message for="editar_fecha_resolucion" showDetail="true" showSummary="true"/>     
+                                                    <p:watermark  value="DD/MM/YYYY" for="editar_fecha_resolucion" />
                                                 </h:panelGroup>
+                                            </h:panelGrid>    
 
-                                            </h:panelGrid> 
-
-
+                        
                                             <h:panelGrid columns="1">
 
                                                 <h:outputText value="#{msg.LabelArea}" style="width: 100% "/>
@@ -1087,29 +1133,24 @@
                                                 </h:panelGroup>
                                             </h:panelGrid>
 
-
-
                                         </h:panelGrid>
 
-
-
-
-                                        <h:panelGrid columns="6" cellspacing="0" cellpadding="0"  width="80%"   >
+                                        <h:panelGrid columns="7" cellspacing="1" cellpadding="1"  width="75%"   >
 
 
                                             <h:panelGrid columns="1">
 
                                                 <h:outputText value="#{msg.LabelMedidaComplementaria}" style="width: 100% "/>
                                                 <h:panelGroup>
-                                                    <p:selectOneMenu effect="fade" style=" width: 70%" autoWidth="false"
+                                                    <p:selectOneMenu effect="fade" style=" width: 50%" autoWidth="false"
                                                                      filter="true"  filterMatchMode="contains"
                                                                      required="true" id="editar_medida_complementaria"
                                                                      validatorMessage="#{msg.labelValidar}"
                                                                      requiredMessage="#{msg.labelObli}"
-                                                                     value="#{Beans_Fiscalizacion_Multas.objMultaMod.objGrupo.codigo_tipo}">
+                                                                     value="#{Beans_Fiscalizacion_Multas.objMultaMod.objGrupo.codigo_medida_complementaria}">
                                                         <f:selectItem itemLabel="#{msg.labelSeleccionar}"
                                                                       itemValue="O"/>
-                                                        <f:selectItems value="#{Grupo.cargarDetalleGrupo}"/>
+                                                        <f:selectItems value="#{Grupo.cargarMedidaComplementaria}"/>
                                                     </p:selectOneMenu>
                                                     <h:message for="editar_medida_complementaria" showDetail="false" showSummary="true"/>
                                                 </h:panelGroup>
@@ -1118,9 +1159,9 @@
 
 
 
-                                            <h:panelGrid columns="1" style="width: 50%">
+                                            <h:panelGrid columns="1" style="width: 0%">
 
-                                                <h:outputLabel value="Tiene Acta"  style="width: 100% " />
+                                                <h:outputLabel value="Tiene Acta"  style="width: 10% " />
 
                                                 <p:selectBooleanCheckbox id="editar_habilitar_acta" value="#{Beans_Fiscalizacion_Multas.objMultaMod.reincidente}"/>
 
@@ -1151,21 +1192,31 @@
 
                                             <h:panelGrid columns="2" cellspacing="1" cellpadding="1"  width="80%"   >
 
-                                                <h:panelGrid columns="1"  >
+                                             
+                                                
+                                                
+                                              <h:panelGrid columns="1"  >   
+                                                <h:outputText value="#{msg.LabelFechaEjecucion}" style="width: 10% " />
+                                                <h:panelGroup>
+                                                    <p:inputMask id="editar_multa_fecha_ejecucion"  
 
-                                                    <h:outputText  value="#{msg.LabelFechaEjecucion}"  style="width: 10% "/>
+                                                                 mask="9999-99-99"  
+                                                                 required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}"
+                                                                 size="10" 
+                                                                 value="#{Beans_Fiscalizacion_Multas.objMultaMod.fecha_ejecucion}" > 
 
-                                                    <h:panelGroup>
-                                                        <p:calendar id="editar_multa_fecha_ejecucion"  locale="es" navigator="true" size="10"  style=" width: 100%"
-                                                                    value="#{Beans_Fiscalizacion_Multas.objMultaMod.fecha_multa}"  
-                                                                    pattern="yyyy/MM/dd HH:mm:ss">   
+                                                        <f:convertDateTime pattern="YYYY/MM/DD" />
+                                                    </p:inputMask>
+                                                    <h:message for="editar_multa_fecha_ejecucion" showDetail="true" showSummary="true"/>     
+                                                    <p:watermark  value="YYYY/MM/DD" for="editar_fecha_resolucion" />
+                                                </h:panelGroup>
+                                            </h:panelGrid>    
 
-                                                        </p:calendar>
-                                                        <h:message for="editar_multa_fecha_ejecucion" showDetail="true" showSummary="true"/>                                   
-
-                                                    </h:panelGroup>            
-
-                                                </h:panelGrid>
+                                                
+                                                
+                                                
+                                                
+                                                
 
 
                                                 <h:panelGrid columns="1"  >
@@ -1210,9 +1261,29 @@
                                                     </p:selectOneMenu>
                                                     <h:message for="editar_multa_codigo_sancion" showDetail="false" showSummary="true"/>
                                                 </h:panelGroup>
-                                            </h:panelGrid>              
+                                            </h:panelGrid>   
 
 
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelValorObra}"  style="width: 10% " />
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="editar_valor_obra" required="true" requiredMessage="#{msg.labelObli}"  
+                                                                 size="5"  style=" width: 100%"
+                                                                 maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{Beans_Fiscalizacion_Multas.objMultaMod.valor_obra}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="editar_valor_obra" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>   
+
+ 
                                         </h:panelGrid>
 
 
@@ -1293,33 +1364,7 @@
                                                 </div>
                                             </h:panelGrid>
                                             
-                                            
-                                            
-                                            
-                                             <h:panelGrid columns="2"  >
-                                               <h:outputLabel value="#{msg.LabelNumeroInforme}"  style="width: 100% " />
-                                                <div class="ui-g-12 ui-md-4">
-                                                    <div class="ui-inputgroup">
-
-                                                        <p:inputText id="editar_multa_numero_informeprueba" required="true" requiredMessage="#{msg.labelObli}"  size="40" style=" width: 100%"
-                                                                     maxlength="15" validatorMessage="#{msg.labelValidar}"  
-                                                                     value="#{Beans_Fiscalizacion_Multas.objMultaMod.numero_informe}"  
-                                                                     >  
-                                                            <f:validateLength minimum="0" maximum="30"/>
-                                                        </p:inputText>
-
-                                                        <p:commandButton type="button" onclick="PF('dlg2').show();" icon="ui-icon-arrow-4-diag"  /> 
-
-
-                                                        <h:message for="editar_multa_numero_informeprueba" showDetail="false" showSummary="true"/>                                    
-                                                    </div>
-                                                </div>
-                                            </h:panelGrid>
-                                            
-                                            
-                                            
-
-
+ 
                                         </h:panelGrid>  
 
                                         <br>
@@ -1354,7 +1399,8 @@
 
                                     <p:commandButton   id="btnguardar" 
                                                        actionListener="#{Beans_Fiscalizacion_Multas.doEditarMulta()}" icon="ui-icon-arrowrefresh-1-s" async="true"   
-                                                       immediate="true" update=":TabView_multas_administrativas, :TabView_multas_administrativas:form_editar_multa, growl_editar_multa" value="#{msg.btnActualizar}"   /> 
+                                                       immediate="true" update=":TabView_multas_administrativas, :TabView_multas_administrativas:form_editar_multa, growl_editar_multa" 
+                                                       value="#{msg.btnActualizar}"   /> 
 
                                 </h:panelGrid> 
 
@@ -1373,197 +1419,138 @@
 
                             <p:resizable for="panel_editar_multa" containment="true" />
                         </h:form>
+    
+                    </p:tab>    
+                    
+
+                    
+                    <p:tab id="tab_anular_multa" title="Anular Multa Administrativa" titletip="Anular Multa"  titleStyleClass="tamaño_fuente_tab"
+                           disabled="#{Beans_Fiscalizacion_Multas.bandEli}">                            
+
+                        <h:form  id="form_anular_multa"  class="border_titulo2" style="text-align : justify;" styleClass="tamaño_fuente">                
+                            <p:growl globalOnly="true"  id="growl_anular_multa" sticky="false"  showDetail="true"  /> 
+                            <p:panel id="panel_anular_multa" header="#{msg.LabelAnulacionMulta}" styleClass="border">   
+                                <p:fieldset legend="#{msg.LabelAnulacionMulta}"  styleClass="border">  
+                                   
+                                    <br>
+                                </br>
+
+                                <center>
+                                    <p:panelGrid  styleClass="ui-responsive"> 
+
+                                        <h:outputLabel value="#{msg.LabelDatosAnulacionMulta}"  style=" margin-left: 0%;color: blue" />
+
+                                        <br>
+                                        </br>
+                                        <h:panelGrid columns="4" cellspacing="1" cellpadding="1"  width="80%"   >
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelReclamoExpediente}"  />
+                                                <h:panelGroup > 
+
+                                                    <p:inputText id="anular_reclamo_expediente" style=" margin-left: 0%"  size="10"  
+                                                                 required="true" requiredMessage="#{msg.labelObli}"
+                                                                 maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{Beans_Fiscalizacion_Multas.objMultaMod.objPersona.codigo_contribuyente}" 
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+
+                                                    </p:inputText>
 
 
-                        <h:form id="form_infraciones" styleClass="tamaño_fuente" >
+                                                    <h:message for="anular_reclamo_expediente" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
 
+                                            </h:panelGrid>
+                                            
+                                            <h:panelGrid columns="1" >
 
-                            <p:dialog header="Modal Dialog" widgetVar="dlg2" modal="false" height="505" width="700" responsive="true">
+                                                <h:outputLabel value="#{msg.LabelResolucionAnulacion}" style="width: 100% "   />
 
+                                                <h:panelGroup> 
 
+                                                    <p:inputText id="anular_resolucion_anulacion" required="true" requiredMessage="#{msg.labelObli}"  style=" width: 100%"   size="170"
+                                                                 maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{Beans_Fiscalizacion_Multas.objMultaMod.objPersona.nombre_contribuyente}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
 
-                                <h:form  id="form_seleccion_infraccion" class="border_titulo1"  styleClass="tamaño_fuente">
-
-                                    <p:growl globalOnly="true"  id="growl_seleccion_infraccion" sticky="false"  showDetail="true"  />    
-                                    <p:panel id="panel_seleccion_infraccion" header="#{msg.LabelCertificado}" styleClass="border" style="text-align: center" >
-                                       
-
-                                        
-                                        <center>
-
-                                            <h:panelGrid columns="4" style="margin-bottom:20px" cellpadding="5">
-
-                                                 <h:panelGrid columns="2"  style=" align-content: flex-start" cellpadding="5">
-
-                                                        <p:outputLabel for="busqueda_sancion" value="Busqueda Por:" />
-                                                        <p:selectOneRadio id="busqueda_sancion" 
-                                                                          value="#{Beans_Fiscalizacion_Multas.objMultaBuqSancionMulta.tipo_busqueda_sancion}"  layout="grid" columns="3" >
-
-                                                        <f:selectItem itemLabel="Codigo" itemValue="1"  />
-                                                        <f:selectItem itemLabel="Nombre" itemValue="2" />  <!-- Validar Datos --> 
-
-
-                                                    </p:selectOneRadio>
-
-                                                </h:panelGrid> 
- 
-                                                
-                                                <h:panelGrid columns="2"  cellspacing="3" >
-                                                    <h:outputText value="#{msg.LabelConsultar}" style=" font: small serif"/>
-
-                                                    <h:panelGroup>
-                                                        <p:inputText  id="consulta_sancion"
-                                                                      required="true" requiredMessage="#{msg.labelObli}"
-                                                                      maxlength="30" validatorMessage="#{msg.labelValidar}" 
-                                                                      value="#{Beans_Fiscalizacion_Multas.objMultaBuqSancionMulta.consulta_sancion}"
-                                                                      >  
-                                                            <f:validateLength minimum="0" maximum="30"/>
-                                                        </p:inputText>
-                                                        <h:message for="consulta_sancion" showDetail="false" showSummary="true"/>                                    
-                                                    </h:panelGroup>
-
-                                                </h:panelGrid>  
-                                                  
+                                                    <h:message for="anular_resolucion_anulacion" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
 
                                             </h:panelGrid>
 
-                                           
-
-                                        </center>
-                                        <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3" style="text-align: center;" width="17%">
-
-                                            <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{Beans_Fiscalizacion_Multas.doiniciarBusquedaSancionMulta()}"  
-                                                             value="#{msg.labelNuevo}" async="true" update="panel_seleccion_infraccion"/>
-
-                                            <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{Beans_Fiscalizacion_Multas.doBuscarSancionMulta()}"  
-                                                             value="#{msg.btnConsultar}" async="true" update="panel_seleccion_infraccion">  
-
-                                                <p:confirm message="Esta Seguro de Consultar ?" header="Aviso"  icon="ui-icon-alert"/>
-
-                                            </p:commandButton>
-
-                                            <p:confirmDialog global="true" styleClass="tamaño_fuente">
-
-                                                <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
-                                                <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
-
-
-                                            </p:confirmDialog>
-
-
                                         </h:panelGrid>
 
+                                        <h:panelGrid columns="4" cellspacing="1" cellpadding="1"  width="80%"  >
 
 
-                                        <p:blockUI block="panel_seleccion_infraccion" trigger="saveBtn">   Buscando... <br />
-                                            <p:graphicImage value="resources/imagenes/cargando1.gif" />   
-                                        </p:blockUI>
+                                            <h:panelGrid columns="1"  >
 
-                                        <br />
-                                        <center>
-                                            <h:panelGrid columns="2" >
-                                                <h:outputText styleClass="etiqueta_resultBusq" value="#{msg.labelCantidad}"/>
-                                                <h:outputText styleClass="etiqueta_resultBusq" value="#{Beans_Fiscalizacion_Multas.arrBusMultaSancion.size()}"/>               
-                                            </h:panelGrid> 
+                                                <h:outputLabel value="#{msg.LabelObservaciones}"  />
 
-                                        </center>
+                                                <h:panelGroup> 
 
+                                                    <p:inputText id="anular_observaciones" required="true" requiredMessage="#{msg.labelObli}"  style=" width: 100%" 
+                                                                 size="187" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{Beans_Fiscalizacion_Multas.objMultaMod.objPersona.direccion_fiscal}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
 
-                                        <h:form id="form">
+                                                    <h:message for="anular_observaciones" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
 
-                                            <p:dataTable id="Litsado_Infracciones" var="lista_sancion"   value="#{Beans_Fiscalizacion_Multas.arrBusMultaSancion}" 
-                                                         selection="#{Beans_Fiscalizacion_Multas.objMultaMod}" 
-                                                         rowKey="#{lista_sancion.objSancion.codigo_sancion}"
+                                            </h:panelGrid>
 
-                                                         styleClass="order-table" paginator="true"
-                                                         rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" 
-                                                         paginatorPosition="both" paginatorAlwaysVisible="true"
-                                                         rowStyleClass="tamaño_fuente"
-                                                         >
-                                           
-                                          
-
-                                                <f:facet name="header">
-                                                   Reglamento de sanciones
-                                                </f:facet>  
-                                           
-                                               <p:column selectionMode="single" style="width:3%;text-align:center"/>
-
-                                                <p:column  sortBy="#{lista_sancion.objSancion.codigo_sancion}"  style="width:6%;text-align: center"  >
-                                                    <f:facet name="header">
-                                                        <h:outputText value="#{msg.LabelCodigoInfraccion}" />
-                                                    </f:facet>
-                                                    <h:outputText  value="#{lista_sancion.objSancion.codigo_sancion}"/>
-                                                </p:column>  
-
-                                                <p:column style="width:30%;text-align: left"  filterBy="#{lista_sancion.objSancion.nombre_sancion}" filterMatchMode="contains" rendered="true">
-                                                    <f:facet name="header">
-                                                        <h:outputText value="#{msg.LabelNombreInfracion}" />
-                                                    </f:facet>
-                                                    <h:outputText  value="#{lista_sancion.objSancion.nombre_sancion}"/>
-                                                </p:column>   
-
-
-                                                <p:column style="width:5%;text-align: center"   filterMatchMode="contains" rendered="true">
-                                                    <f:facet name="header">
-                                                        <h:outputText value="#{msg.LabelTasaSancion}" />
-                                                    </f:facet>
-                                                    <h:outputText  value="#{lista_sancion.objSancion.tasa_sancion}"/>
-                                                </p:column>   
-                                             
-                                         <p:column exportable="false"  style="width:7%;text-align: center">
-
-                                                <f:facet name="header">
-                                                    <center><h:outputText value="Check"/></center>
-                                                </f:facet>
-
-
-                                                <p:commandButton  value="Check"  async="true" icon="ui-icon-check" 
-                                                                  
-                                                                  
-                                                                  >
- 
-                                                    
-                                                </p:commandButton>
-
-                                          </p:column>
-                                            
-
-                                            </p:dataTable> 
-                                        </h:form>
-
-                                 <!---  
-                                        <h:form id="seleccionados" >
-
-
-                                            <p:dialog header="Lista" widgetVar="multiCarDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false" width="220">
-                                                <p:outputPanel id="multiCarDetail" style="text-align:center;">
-                                                    <ui:repeat value="{Beans_DefensaCivil_Supervisor.lista_sanciones}" var="lista">
-
-                                                        <h:outputText value="{lista.nro_dni} - {lista.apellidos_nombres}" style="display:block"/>
-                                                    </ui:repeat>
-                                                </p:outputPanel>
-                                            </p:dialog>
-                                        </h:form>    
+                                        </h:panelGrid>
                                         
-                                 -->   
-                                 
-                                 
-                                  <h:panelGrid columns="3"  cellpadding="3"  cellspacing="6"  styleClass="panelColumns" columnClasses="labelOT, valueOT"  >
+                                    </p:panelGrid>
 
-                                    <p:commandButton icon="ui-icon-triangle-1-w"  id="BtnCancelarDialogo"
-                                                     actionListener="#{Beans_Fiscalizacion_Multas.desactivarEditarMulta()}"  immediate="true"  value="#{msg.labelCancelar}"  
-                                                     async="true"  update="TabView_multas_administrativas, :TabView_multas_administrativas:form_infraciones"/>
+                                </center>
+                                    
+                                    
+                                    
+                                    
+                                    <h:panelGrid columns="3"  cellpadding="3"  cellspacing="6"  styleClass="panelColumns" columnClasses="labelOT, valueOT"  >
+
+                                        <p:commandButton icon="ui-icon-triangle-1-w"  id="btncancelar"
+                                                         actionListener="#{Beans_Fiscalizacion_Multas.desactivarAnularMulta}"  immediate="true"  value="#{msg.labelCancelar}"  
+                                                         async="true"  update="TabView_multas_administrativas, :TabView_multas_administrativas:form_anular_multa"/>
+
+                                        <p:commandButton   id="btnguardar" 
+                                                            icon="ui-icon-arrowrefresh-1-s" async="true"   
+                                                           immediate="true" update=":TabView_multas_administrativas, :TabView_multas_administrativas:form_anular_multa, growl_anular_multa" 
+                                                           value="#{msg.btnActualizar}"   /> 
+
+                                    </h:panelGrid> 
+
+                                    <p:blockUI block="panel_anular_multa" trigger="btncancelar">                                               
+                                        Cancelando la Actualización ... <br />
+                                        <p:graphicImage value="resources/imagenes/cargando.gif" />   
+                                    </p:blockUI>
+
+                                    <p:blockUI block="panel_anular_multa" trigger="btnguardar">                                               
+                                        Actualizando... <br />
+                                        <p:graphicImage value="resources/imagenes/cargando.gif" />   
+                                    </p:blockUI> 
 
 
-                                </h:panelGrid> 
-                                 
-                                        
-                                    </p:panel>
-                                </h:form> 
-                            </p:dialog> 
-                        </h:form>             
-                    </p:tab>    
+
+
+                                    
+                                    
+                                </p:fieldset>     
+                              
+                            </p:panel>    
+                                
+                        </h:form>
+                    </p:tab> 
+
+
+                    
                 </p:tabView>
             </ui:define>
         </ui:composition>

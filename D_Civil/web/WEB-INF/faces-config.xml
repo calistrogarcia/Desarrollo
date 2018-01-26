@@ -14,12 +14,12 @@
         
         <resource-bundle>
             <base-name>utils.Espanol</base-name>
-            <var>msgs</var>
+            <var>msg</var>
         </resource-bundle>
         
         <resource-bundle>
             <base-name>utils.English</base-name>
-            <var>msg</var>
+            <var>msgs</var>
         </resource-bundle>
         
        
