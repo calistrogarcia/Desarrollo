@@ -442,8 +442,8 @@ public class Persona implements Serializable {
             conexion = Controlador_Sql.darConexionBD();
             CallableStatement st
                  =  conexion.prepareCall("{call dbo.sp_java_registrar_contribuyente (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
- //                   =  conexion.prepareCall("{call dbo.sp_java_registrar_contribuyente (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-            conexion.setAutoCommit(false);
+
+               conexion.setAutoCommit(false);
 
             if (ObjPersona.getTipo_persona() != null) {
                 if (ObjPersona.getTipo_persona().length() > 0) {

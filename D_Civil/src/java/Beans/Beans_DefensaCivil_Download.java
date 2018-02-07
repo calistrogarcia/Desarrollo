@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 @Named(value = "beans_DefensaCivil_Download")
 
 @ManagedBean
-@SessionScoped
+//@SessionScoped
 public class Beans_DefensaCivil_Download implements Serializable {
 
   

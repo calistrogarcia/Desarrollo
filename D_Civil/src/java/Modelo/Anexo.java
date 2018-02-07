@@ -34,7 +34,12 @@ public class Anexo implements Serializable {
    private byte limpres;
    private byte limpres2;
 
-    public String getCcorrel() {
+    
+   
+  
+      
+   
+   public String getCcorrel() {
         return ccorrel;
     }
 

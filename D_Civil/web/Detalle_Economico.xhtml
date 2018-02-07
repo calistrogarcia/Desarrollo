@@ -37,14 +37,15 @@ and open the template in the editor.
                                                              filter="true"  filterMatchMode="contains"
                                                              required="true" id="estadodocumento"
                                                              validatorMessage="#{msg.labelValidar}"
-                                                             requiredMessage="#{msg.labelObli}" 
+                                                             requiredMessage="#{msg.labelObligatorio}" 
                                                              value="#{BeansDetalle_Economico.objBuscarDetalle_economico.estado_tributo}">
 
                                                 <f:selectItem itemLabel="#{msg.labelSeleccionar}" itemValue="O"/> 
 
                                                 <f:selectItem itemLabel="Deudas" itemValue="0" />
                                                 <f:selectItem itemLabel="Pagados" itemValue="1" />
-                                                <f:selectItem itemLabel="Coactivos" itemValue="2" />
+                                                 <f:selectItem itemLabel="Anulados" itemValue="2" />
+                                                <f:selectItem itemLabel="Coactivos" itemValue="3" />
 
                                             </p:selectOneMenu>
                                             <h:message for="estado_tributo" showDetail="false" showSummary="true"/>     
@@ -95,8 +96,10 @@ and open the template in the editor.
                                                           >
                                                 
                                             </p:inputText>
+                                            <h:message for="desde" showDetail="false" showSummary="true"/>   
                                             
-                                            <h:message for="desde" showDetail="false" showSummary="true"/>                                    
+                                             <p:slider for="desde" minValue="1999" maxValue="2030" step="1" />
+                                             
                                         </h:panelGroup>
                                     
                                            
@@ -109,7 +112,9 @@ and open the template in the editor.
                                                 
                                             </p:inputText>
                                             
-                                            <h:message for="hasta" showDetail="false" showSummary="true"/>                                    
+                                            <h:message for="hasta" showDetail="false" showSummary="true"/>
+                                            
+                                             <p:slider for="hasta" minValue="1999" maxValue="2030" step="1" />
                                         </h:panelGroup>
 
                                     </h:panelGrid>  

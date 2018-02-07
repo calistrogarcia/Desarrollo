@@ -112,13 +112,49 @@ public class Expediente implements Serializable {
     private int ntramit;
     private String fecha_resuelto_expediente_reporte;
     private String id_area;
-  
-    
+    private String numero_documento;
+    private String anotacion;
 
     Persona ObjPersona = new Persona();
     Area ObjArea = new Area();
+    Usuario ObjUsuario = new Usuario();
+    Asunto ObjAsunto = new Asunto ();
 
-   
+  
+    
+    public Asunto getObjAsunto() {
+        return ObjAsunto;
+    }
+
+    public void setObjAsunto(Asunto ObjAsunto) {
+        this.ObjAsunto = ObjAsunto;
+    }
+
+    
+    public String getAnotacion() {
+        return anotacion;
+    }
+
+    public void setAnotacion(String anotacion) {
+        this.anotacion = anotacion;
+    }
+
+    public Usuario getObjUsuario() {
+        return ObjUsuario;
+    }
+
+    public void setObjUsuario(Usuario ObjUsuario) {
+        this.ObjUsuario = ObjUsuario;
+    }
+
+    public String getNumero_documento() {
+        return numero_documento;
+    }
+
+    public void setNumero_documento(String numero_documento) {
+        this.numero_documento = numero_documento;
+    }
+
     public String getId_area() {
         return id_area;
     }
@@ -151,9 +187,7 @@ public class Expediente implements Serializable {
         this.area_final = area_final;
     }
 
-    public void setAsunto_expediente(String asunto_expediente) {
-        this.asunto_expediente = asunto_expediente;
-    }
+  
 
     public void setObservacion(String observacion) {
         this.observacion = observacion;
@@ -840,20 +874,28 @@ public class Expediente implements Serializable {
     }
 
     // calistro: Registro de Expedientes
-    public static boolean registrar_expediente(Expediente obj_t) {
+//    public static boolean registrar_expediente(Expediente ObjRegistrar)
+    public static boolean  registrar_expediente(Expediente ObjRegistrar) {
+       
         boolean a = false;
+ 
         Connection conexion = null;
         /* variable de connexion para definir y manejar el conytrol de errores*/
-
+      
+//        String resultado= null;
+        
         try {
             conexion = Controlador_Sql.darConexionBD();
-            CallableStatement st
-                    = /*debe importarse con java la segunda opcion del cuadro de alternativas des importacion*/ conexion.prepareCall("{call [dbo].[usp_java_documento_new_update] (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,)}");
+            CallableStatement st = conexion.prepareCall("{call sp_java_gestion_expedientes (?,?,?,?,?,?,?)}");
             conexion.setAutoCommit(false);
 
-            if (obj_t.tipo_documento != null) {/*Valido la informacion set*/
-                if (obj_t.tipo_documento.length() > 0) {
-                    st.setString(1, obj_t.getTipo_documento());
+ 
+            
+            if (ObjRegistrar.getNumero_folios() > 0) {
+
+                if (ObjRegistrar.getNumero_folios() > 0) {
+
+                    st.setInt(1, ObjRegistrar.getNumero_folios());
 
                 } else {
                     st.setString(1, null);
@@ -862,32 +904,39 @@ public class Expediente implements Serializable {
                 st.setString(1, null);
             }
 
-            if (obj_t.getNumero_expediente() != null) {/*Valido la informacion set*/
-                if (obj_t.getNumero_expediente().length() > 0) {
-                    st.setString(2, obj_t.getNumero_expediente());
+            if (ObjRegistrar.ObjPersona.getCodigo_contribuyente() != null) {
+
+                if (ObjRegistrar.ObjPersona.getCodigo_contribuyente().length() > 0) {
+
+                    st.setString(2, ObjRegistrar.ObjPersona.getCodigo_contribuyente());
 
                 } else {
                     st.setString(2, null);
                 }
             } else {
                 st.setString(2, null);
+
             }
 
-            /*----------------posicion 2*/
-            if (obj_t.getFecha_presentacion_expediente() != null) {/*Valido la informacion set*/
+            //-------------------------------------------------------------------------------
+            if (ObjRegistrar.ObjAsunto.getCodigo_asunto() != null) {
 
-                st.setDate(3, (java.sql.Date) obj_t.getFecha_presentacion_expediente());
+                if (ObjRegistrar.ObjAsunto.getCodigo_asunto().length() > 0) {
+                    st.setString(3, ObjRegistrar.ObjAsunto.getCodigo_asunto());
 
+                } else {
+                    st.setString(3, null);
+                }
             } else {
-                st.setDate(3, null);
+                st.setString(3, null);
             }
 
-            if (obj_t.getHora_expediente() != null) {
-                /**
-                 * Valido la informacion set
-                 */
-                if (obj_t.getHora_expediente().length() > 0) {
-                    st.setString(4, obj_t.getHora_expediente());
+            //-------------------------------------------------------
+            if (ObjRegistrar.getObservacion() != null) {
+
+                if (ObjRegistrar.getObservacion().length() > 0) {
+
+                    st.setString(4, ObjRegistrar.getObservacion());
 
                 } else {
                     st.setString(4, null);
@@ -896,27 +945,25 @@ public class Expediente implements Serializable {
                 st.setString(4, null);
             }
 
-            if (obj_t.getNumero_folios() > 0) {
-                /**
-                 * Valido la informacion set
-                 */
-                if (obj_t.getNumero_folios() > 0) {
-                    st.setInt(5, obj_t.getNumero_folios());
+            //-------------------------------------------------------
+            if (ObjRegistrar.getNumero_documento() != null) {
+
+                if (ObjRegistrar.getNumero_documento().length() > 0) {
+
+                    st.setString(5, ObjRegistrar.getNumero_documento());
 
                 } else {
-                    st.setInt(5, 0);
+                    st.setString(5, null);
                 }
             } else {
-                st.setInt(5, 0);
+                st.setString(5, null);
             }
-            //-------------------------------------------------------------------------------
 
-            if (obj_t.getCodigo_contribuyente() != null) {
-                /**
-                 * *Valido la informacion set
-                 */
-                if (obj_t.getCodigo_contribuyente().length() > 0) {
-                    st.setString(6, obj_t.getCodigo_contribuyente());
+            if (ObjRegistrar.ObjUsuario.getNombre_usuario() != null) {
+
+                if (ObjRegistrar.ObjUsuario.getNombre_usuario().length() > 0) {
+
+                    st.setString(6, ObjRegistrar.ObjUsuario.getNombre_usuario());
 
                 } else {
                     st.setString(6, null);
@@ -925,10 +972,9 @@ public class Expediente implements Serializable {
                 st.setString(6, null);
             }
 
-            //-------------------------------------------------------
-            if (obj_t.getAsunto_expediente() != null) {/*Valido la informacion set*/
-                if (obj_t.getAsunto_expediente().length() > 0) {
-                    st.setString(7, obj_t.getAsunto_expediente());
+            if (ObjRegistrar.getAnotacion() != null) {/*Valido la informacion set*/
+                if (ObjRegistrar.getAnotacion().length() > 0) {
+                    st.setString(7, ObjRegistrar.getAnotacion());
 
                 } else {
                     st.setString(7, null);
@@ -936,315 +982,44 @@ public class Expediente implements Serializable {
             } else {
                 st.setString(7, null);
             }
-
-            //-------------------------------------------------------
-            if (obj_t.getDias_tupa() > 0) {
-                /**
-                 * Valido la informacion set
-                 */
-                if (obj_t.getDias_tupa() > 0) {
-                    st.setInt(8, obj_t.getDias_tupa());
-                } else {
-                    st.setInt(8, 0);
-                }
-            } else {
-                st.setInt(8, 0);
-            }
-
-            //-------------------------------------------------------       
-            if (obj_t.getFecha_expediente_resuelto() != null) {/*Valido la informacion set*/
-
-                st.setDate(9, (java.sql.Date) obj_t.getFecha_expediente_resuelto());
-
-            } else {
-                st.setDate(9, null);
-            }
-
-            //-------------------------------------------------------
-            if (obj_t.getObservacion() != null) {/*Valido la informacion set*/
-                if (obj_t.getObservacion().length() > 0) {
-                    st.setString(10, obj_t.getObservacion());
-
-                } else {
-                    st.setString(10, null);
-                }
-            } else {
-                st.setString(10, null);
-            }
-
-            //-------------------------------------------------------       
-            if (obj_t.getFfintra() != null) {/*Valido la informacion set*/
-
-                st.setDate(11, (java.sql.Date) obj_t.getFfintra());
-
-            } else {
-                st.setDate(11, null);
-            }
-
-            //-------------------------------------------------------   
-            if (obj_t.getDnrodoc() != null) {/*Valido la informacion set*/
-                if (obj_t.getDnrodoc().length() > 0) {
-                    st.setString(12, obj_t.getDnrodoc());
-
-                } else {
-                    st.setString(12, null);
-                }
-            } else {
-                st.setString(12, null);
-            }
-
-            //-------------------------------------------------------      
-            if (obj_t.getEstado_expediente() != null) {/*Valido la informacion set*/
-                if (obj_t.getEstado_expediente().length() > 0) {
-                    st.setString(13, obj_t.getEstado_expediente());
-
-                } else {
-                    st.setString(13, null);
-                }
-            } else {
-                st.setString(13, null);
-            }
-
-            //-------------------------------------------------------      
-            if (obj_t.getLimpres() > 0) {/*Valido la informacion set*/
-                if (obj_t.getLimpres() > 0) {
-                    st.setByte(14, obj_t.getLimpres());
-
-                } else {
-
-                    st.setByte(14, obj_t.getLimpres());
-
-                }
-            } else {
-                st.setByte(14, obj_t.getLimpres());
-            }
-
-            //-------------------------------------------------------     
-            if (obj_t.getCusumod() != null) {/*Valido la informacion set*/
-                if (obj_t.getCusumod().length() > 0) {
-                    st.setString(15, obj_t.getCusumod());
-
-                } else {
-                    st.setString(15, null);
-                }
-            } else {
-                st.setString(15, null);
-            }
-
-            //-------------------------------------------------------     
-            if (obj_t.getCusuari() != null) {/*Valido la informacion set*/
-                if (obj_t.getCusuari().length() > 0) {
-                    st.setString(16, obj_t.getCusuari());
-
-                } else {
-                    st.setString(16, null);
-                }
-            } else {
-                st.setString(16, null);
-            }
-
-            //-------------------------------------------------------     
-            if (obj_t.getF_fecha() != null) {/*Valido la informacion set*/
-
-                st.setDate(17, (java.sql.Date) obj_t.getF_fecha());
-
-            } else {
-                st.setDate(17, null);
-            }
-
-            //------------------------------------------------------- 
-            if (obj_t.getD_horas() != null) {/*Valido la informacion set*/
-                if (obj_t.getD_horas().length() > 0) {
-                    st.setString(18, obj_t.getD_horas());
-
-                } else {
-                    st.setString(18, null);
-                }
-            } else {
-                st.setString(18, null);
-            }
-
-            //------------------------------------------------------- 
-            if (obj_t.getDusured() != null) {/*Valido la informacion set*/
-                if (obj_t.getDusured().length() > 0) {
-                    st.setString(19, obj_t.getDusured());
-
-                } else {
-                    st.setString(19, null);
-                }
-            } else {
-                st.setString(19, null);
-            }
-
-            //------------------------------------------------------- 
-            if (obj_t.getLtramite() > 0) {/*Valido la informacion set*/
-                if (obj_t.getLtramite() > 0) {
-                    st.setByte(20, obj_t.getLtramite());
-
-                } else {
-
-                    st.setByte(20, obj_t.getLtramite());
-
-                }
-            } else {
-                st.setByte(20, obj_t.getLtramite());
-            }
-
-            //-------------------------------------------------------         
-            if (obj_t.getNfoliofin() > 0) {
-                /**
-                 * Valido la informacion set
-                 */
-                if (obj_t.getNfoliofin() > 0) {
-                    st.setInt(21, obj_t.getNfoliofin());
-                } else {
-                    st.setInt(21, 0);
-                }
-            } else {
-                st.setInt(21, 0);
-            }
-
-            //-------------------------------------------------------       
-            if (obj_t.getCarefin() != null) {/*Valido la informacion set*/
-                if (obj_t.getCarefin().length() > 0) {
-                    st.setString(22, obj_t.getCarefin());
-
-                } else {
-                    st.setString(22, null);
-                }
-            } else {
-                st.setString(22, null);
-            }
-
-            //-------------------------------------------------------           
-            if (obj_t.getLarchiv() > 0) {/*Valido la informacion set*/
-                if (obj_t.getLarchiv() > 0) {
-                    st.setByte(23, obj_t.getLarchiv());
-
-                } else {
-
-                    st.setByte(23, obj_t.getLarchiv());
-
-                }
-            } else {
-                st.setByte(23, obj_t.getLarchiv());
-            }
-
-            //-------------------------------------------------------           
-            if (obj_t.getCtiprefe() != null) {/*Valido la informacion set*/
-                if (obj_t.getCtiprefe().length() > 0) {
-                    st.setString(24, obj_t.getCtiprefe());
-
-                } else {
-                    st.setString(24, null);
-                }
-            } else {
-                st.setString(24, null);
-            }
-
-            //-------------------------------------------------------           
-            if (obj_t.getDrefere() != null) {/*Valido la informacion set*/
-                if (obj_t.getDrefere().length() > 0) {
-                    st.setString(25, obj_t.getDrefere());
-
-                } else {
-                    st.setString(25, null);
-                }
-            } else {
-                st.setString(25, null);
-            }
-
-            //-------------------------------------------------------      
-            if (obj_t.getDmotanu() != null) {/*Valido la informacion set*/
-                if (obj_t.getDmotanu().length() > 0) {
-                    st.setString(26, obj_t.getDmotanu());
-
-                } else {
-                    st.setString(26, null);
-                }
-            } else {
-                st.setString(26, null);
-            }
-
-            //-------------------------------------------------------      
-            if (obj_t.getFpassok() != null) {/*Valido la informacion set*/
-                if (obj_t.getFpassok().length() > 0) {
-                    st.setString(27, obj_t.getFpassok());
-
-                } else {
-                    st.setString(27, null);
-                }
-            } else {
-                st.setString(27, null);
-            }
-
-            //-------------------------------------------------------      
-            if (obj_t.getCorrelativo_expedientetmp() != null) {/*Valido la informacion set*/
-                if (obj_t.getCorrelativo_expedientetmp().length() > 0) {
-                    st.setString(28, obj_t.getCorrelativo_expedientetmp());
-
-                } else {
-                    st.setString(28, null);
-                }
-            } else {
-                st.setString(28, null);
-            }
-
-            //-------------------------------------------------------      
-            if (obj_t.getDnumoldtmp() != null) {/*Valido la informacion set*/
-                if (obj_t.getDnumoldtmp().length() > 0) {
-                    st.setString(29, obj_t.getDnumoldtmp());
-
-                } else {
-                    st.setString(29, null);
-                }
-            } else {
-                st.setString(29, null);
-            }
-
-            //-------------------------------------------------------      
-            if (obj_t.getNregistro() != null) {/*Valido la informacion set*/
-                if (obj_t.getNregistro().length() > 0) {
-                    st.setString(30, obj_t.getNregistro());
-
-                } else {
-                    st.setString(30, null);
-                }
-            } else {
-                st.setString(31, null);
-            }
-
-            if (obj_t.getObservacion() != null) {/*Valido la informacion set*/
-                if (obj_t.getObservacion().length() > 0) {
-                    st.setString(32, obj_t.getObservacion());
-
-                } else {
-                    st.setString(32, null);
-                }
-            } else {
-                st.setString(32, null);
-            }
-
-            //..........................................................
-            st.registerOutParameter(33, java.sql.Types.VARCHAR);
-            st.execute();
-
-            /*como aseguarse si lo que registro es correcto o incorrecto  --- como proc amacenado de begins */
-            if (st.getString(33) != null) {/**/
-                a = true;
-            }
+              
+            
+//              st.registerOutParameter(9,java.sql.Types.VARCHAR);    
+            
+              st.execute();
+            
+           
+//            resultado = st.getString(9);
+          
+          
             st.close();
-            conexion.setAutoCommit(true);
-            conexion.close();
+            conexion.commit();
 
-        } catch (Exception error) {
-            System.out.println("ERROR REGISTRAR: " + error.getMessage());
-            //error.printStackTrace();
+        } catch (Exception e) {
+            try {
+
+                // Vuelve atras los cambios
+                conexion.rollback();
+            } catch (Exception ee) {//Manejo de errores}
+                System.out.println("ERROR REGISTRAR: " + ee.getMessage());
+            }
+        } finally {
+            try {
+
+                // Cierra la conexión
+                if (conexion != null) {
+                    conexion.close();
+                }
+
+            } catch (Exception e) {//Manejo de errores}
+
+                System.out.println("ERROR REGISTRAR: " + e.getMessage());
+            }
         }
         return a;
     }
 
-//-------JUDITH 05/04/17----------------
+
     public static ArrayList<Expediente> getCargarExpediente() {
         ArrayList<Expediente> arr = null;
         Expediente obj = null;
@@ -1422,11 +1197,11 @@ public class Expediente implements Serializable {
                     obj.setNumero_expediente(rs.getString("dnumold"));
                     obj.setCnombre(rs.getString("cnombre"));
                     obj.setDasunto(rs.getString("dasunto"));
-                    obj.setFecha_presentacion_expediente1(rs.getString("fecha_presentacion_expediente"));
+                    obj.setFecha_presentacion_expediente1(rs.getString("ffecdoc"));
                     obj.setD_hasta(rs.getString("d_hasta"));
-                    obj.setNumero_folios(rs.getInt("numero_folios"));
+                    obj.setNumero_folios(rs.getInt("nfolios"));
                     obj.setObservacioncion(rs.getString("observa"));
-                    obj.setCodigo_contribuyente(rs.getString("codigo_contribuyente"));
+                    obj.setCodigo_contribuyente(rs.getString("ccontri"));
                     obj.setDtipdoc(rs.getString("dtipdoc"));
                     obj.setFfecrec(rs.getDate("ffecrec"));
                     obj.setDestado(rs.getString("destado"));
@@ -1437,7 +1212,7 @@ public class Expediente implements Serializable {
                 } while (rs.next());
             }
             st.execute();
-            // st.close();
+            st.close();
             conexion.setAutoCommit(true);
             conexion.close();
         } catch (Exception error) {
@@ -1521,44 +1296,7 @@ public class Expediente implements Serializable {
         return arr;
     }
 
-    /**
-     * JUDITH 27-04-17
-     */
-    // JUDITH:LISTA DE AREAS 
-    public static ArrayList<Area> getCargarAreas() {
-        ArrayList<Area> arr = null;
-        Area obj = null;
-        Connection conexion = null;
-        ResultSet rs = null;
-        try {
-            conexion = Controlador_Sql.darConexionBD();
-            CallableStatement st = null;
-            st = conexion.prepareCall("{call dbo.usp__java_lista_area()}");
-            rs = st.executeQuery();
-            if (rs.next()) {
-                arr = new ArrayList<Area>();
-                do {
-                    obj = new Area();
-                    obj.setId_area(rs.getString("CAREAS"));
-                    obj.setNombre_area(rs.getString("nombre_area"));
-                    // obj.setNordens(rs.getString("NORDENS"));
-
-                    arr.add(obj);
-                } while (rs.next());
-            }
-
-            rs.close();
-            st.close();
-            conexion.close();
-        } catch (Exception error) {
-            System.out.println("Error en el metodo por: " + error.getMessage());
-            error.printStackTrace();
-        }
-        return arr;
-    }
-
-  
-
+   
 
     public ArrayList<SelectItem> getCargarComboAreas() {
 
@@ -1589,8 +1327,6 @@ public class Expediente implements Serializable {
 
         return arrayAreas;
     }
-    
- 
 
     /**
      * 28-04-17
@@ -2082,7 +1818,7 @@ public class Expediente implements Serializable {
                     obj = new Expediente();
 
                     obj.setNumero_expediente(rs.getString("DNUMOLD"));
-                    obj.setFecha_presentacion_expediente1(rs.getString("FFECDOC"));           
+                    obj.setFecha_presentacion_expediente1(rs.getString("FFECDOC"));
                     obj.setC_hasta(rs.getString("C_HASTA"));
                     obj.setFfecenv1(rs.getString("FFECENV"));
                     obj.setD_horas(rs.getString("DHORAENV"));
@@ -2196,7 +1932,6 @@ public class Expediente implements Serializable {
             CallableStatement st = conexion.prepareCall("{call dbo.usp_java_expedientes_tramite_oficina_tecnico_fecha (?,?,?,?)}");
 
             // AREA
-          
             if (t.ObjArea.getId_area() != null) {
                 if (t.ObjArea.getId_area().length() > 0) {
                     st.setString(1, t.ObjArea.getId_area());
@@ -2205,7 +1940,6 @@ public class Expediente implements Serializable {
                     st.setString(1, null);
                 }
             }
-
 
             //TECNICO
             if (t.getXtecnico() != null) {/*Valido la informacion set*/
@@ -2323,7 +2057,11 @@ public class Expediente implements Serializable {
                     ObjPersona.setNombre_contribuyente(rs.getString("Nombre_Recurrente"));
                     obj.setObjPersona(ObjPersona);
 
-                    obj.setAsunto_expediente(rs.getString("Asunto_Expediente"));
+                    Asunto ObjAsunto = new Asunto();
+                    ObjAsunto.setNombre_asunto(rs.getString("Asunto_Expediente"));
+                    
+                    obj.setObjAsunto(ObjAsunto);
+ 
                     obj.setArea_inicio(rs.getString("Area_Inicio"));
                     obj.setArea_final(rs.getString("Area_Final"));
                     obj.setDias_tupa(rs.getInt("Dias_Tupa"));
@@ -2346,10 +2084,5 @@ public class Expediente implements Serializable {
         return arr;
 
     }
-    
-    
-    
-    
-    
-     
+
 }

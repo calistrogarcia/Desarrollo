@@ -531,10 +531,10 @@
                                                                              required="true" id="editar_medida_complementaria"
                                                                              validatorMessage="#{msg.labelValidar}"
                                                                              requiredMessage="#{msg.labelObli}"
-                                                                             value="#{Beans_Fiscalizacion_Multas.objMultaMod.objGrupo.codigo_tipo}">
+                                                                             value="#{Beans_Fiscalizacion_Multas.objMultaMod.objGrupo.codigo_medida_complementaria}">
                                                                 <f:selectItem itemLabel="#{msg.labelSeleccionar}"
                                                                               itemValue="O"/>
-                                                                <f:selectItems value="#{Grupo.cargarDetalleGrupo}"/>
+                                                                <f:selectItems value="#{Grupo.cargarMedidaComplementaria}"/>
                                                             </p:selectOneMenu>
                                                             <h:message for="editar_medida_complementaria" showDetail="false" showSummary="true"/>
                                                         </h:panelGroup>

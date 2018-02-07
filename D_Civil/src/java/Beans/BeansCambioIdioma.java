@@ -17,7 +17,7 @@ import javax.faces.event.ValueChangeEvent;
 
 
 @ManagedBean
-@SessionScoped
+//@SessionScoped
 
 public class BeansCambioIdioma implements Serializable {
 

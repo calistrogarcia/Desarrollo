@@ -7,8 +7,10 @@ package Modelo;
 
 //import Modelo.Expediente;
 import Modelo.Area;
+import Modelo.Grupo;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -210,7 +212,7 @@ public class Prueba_SP {
         m.setFecha_resolucion_coactiva("2017-11-05");
         m.setReferencia_direccion("MANIZALES I ETAPA");
         m.setResolucion_anulacion("");
-        m.setReclamo_expediente("");
+        m.ObjExpediente.setNumero_expediente("");
         m.setEstado_multa("");
    //     m.ObjUsuario.setUsuario("P25");
         m.setCodigo_sancion("");
@@ -268,7 +270,7 @@ public class Prueba_SP {
                 + "UBICADOS DENTRO DE LA ZONA");
         cer.setId_tipo_licencia(1);
         cer.setDireccion_verificada("Direccion los Jasminez");
-        cer.setEstado_fiscalizacion(1);
+   //     cer.setEstado_fiscalizacion(true);
         cer.setResultado(0);
 
         if (Certificado.MoficardatosParaCertificado(cer)) {
@@ -322,6 +324,10 @@ public class Prueba_SP {
        // System.out.println(Multa.CargarAreas().size());
         
     }
+    
+   
+    
+    
     
     
     public static void buscarpersona() {
@@ -456,7 +462,7 @@ public class Prueba_SP {
            Ob.setFecha_resolucion_coactiva("2017-07-11");
            Ob.setReferencia_direccion("JR. LOS PRECURSORES - ASC. PRO. V. LOS LIBERTADORES");
            Ob.setResolucion_anulacion("NULL");
-           Ob.setReclamo_expediente("NULL");
+           Ob.ObjExpediente.setNumero_expediente("NULL");
            Ob.setEstado_multa("NULL");
            Ob.ObjUsuario.setNombre_usuario("P25");
            Ob.ObjGrupo.setCodigo_medida_complementaria("10");
@@ -492,13 +498,72 @@ public class Prueba_SP {
         }
 
     }
-      
-      
-      
-      
-    
-    
+     
+     
+        
+     public static void AnularMulta() {
 
+           Multa Ob= new Multa();
+           
+           Ob.ObjCuenta.setId_unico("121861529");
+           Ob.setId_unico_multa("126134");
+           Ob.ObjExpediente.setNumero_expediente("00001-01-2018");
+           Ob.setResolucion_anulacion("002-2018");         
+           Ob.setAnotacion_anulacion("ANULADO");       
+           
+           
+        
+        if (Multa.AnularMulta(Ob)) {
+//            
+            
+            System.out.println("ok");
+        } else {
+            System.out.println("no");
+        }
+
+    }
+     
+     
+     public static void RegistarExpediente() {
+
+           Expediente Ob= new Expediente();
+           
+//           Ob.setCorrelativo_expediente(" ");
+          // Ob.setTipo_documento("01");
+//           Ob.setNumero_expediente(" ");
+           Ob.setNumero_folios(10);
+           Ob.ObjPersona.setCodigo_contribuyente("060528");
+           Ob.ObjAsunto.setCodigo_asunto("0379");
+           Ob.setObservacion("YYY");
+           Ob.setNumero_documento(" ");
+           Ob.ObjUsuario.setNombre_usuario("797");
+           Ob.setAnotacion("vvv");
+           
+           
+           
+        
+        if (Expediente.registrar_expediente(Ob)) {
+            
+            
+            System.out.println("ok");
+        } else {
+            System.out.println("no");
+        }
+
+    }
+     
+    
+     
+     public static void BuscarAsunto() throws SQLException {
+
+        Asunto a = new Asunto();
+        a.setCodigo_asunto("01");
+        
+    //    System.out.print(Asunto.CargarAsunto_Expediente(a).size());
+
+    }
+
+     
     public static void main(String[] args) throws Exception {
 
         //listardetalleexepediente(); 
@@ -532,10 +597,17 @@ public class Prueba_SP {
         // BuscarLicenciaFuncionamiento();
         // BuscarSancion();
         //Reporte_Expedientes_Fechas();
-       // registarRecurrente();
-       // BuscarUsuarios();
-       EditarMulta();
-        
+        // registarRecurrente();
+        // BuscarUsuarios();
+        //  EditarMulta();
+        //  AnularMulta();
+           RegistarExpediente();
+         
+         
+        // cargartipodocumento();
+        // BuscarAsunto();
     }
+    
+    
     
 }

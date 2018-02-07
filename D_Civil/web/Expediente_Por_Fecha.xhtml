@@ -48,7 +48,8 @@ and open the template in the editor.
 
                                     <h:panelGroup>
                                         <h:outputText value="Al:  "/>
-                                        <p:calendar id="fecha_final"  required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObligatorio}" locale="es" navigator="true" showOn="button"
+                                        <p:calendar id="fecha_final"  required="true" validatorMessage="#{msg.labelValidar}" 
+                                                    requiredMessage="#{msg.labelObligatorio}" locale="es" navigator="true" showOn="button"
                                                     value="#{beanExpediente_Por_Fecha.objBuscarExpediente.fecha_fin}"   
                                                     pattern="dd/MM/yyyy">   
                                         </p:calendar>

@@ -79,6 +79,42 @@ and open the template in the editor.
 
 
 
+
+.color_multa_enviada{
+   
+     color: darkgray;
+     
+}
+
+.color_multa_vigente{
+   
+    color: #000000;
+     
+}
+
+
+.color_multa_anulado{
+   
+    color: gold;
+     
+}
+
+.color_multa_fraccionada{
+   
+    color: green;
+     
+}
+
+
+.color_multa_pagada{
+   
+    color: #FF0000;
+     
+}
+
+
+
+
 .tamaño_botones{
     font: small serif;
 }
@@ -146,4 +182,10 @@ and open the template in the editor.
 .red-button.ui-button.ui-state-default:focus {
     background-color: #d43f3a;
     border-color: #d9534f;
+}
+
+.ui-selectonemenu-items-wrapper{
+    
+    height: 100px;
+    width: 300px;
 }

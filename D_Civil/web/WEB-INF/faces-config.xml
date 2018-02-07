@@ -68,12 +68,6 @@
         <managed-bean-scope>request</managed-bean-scope>
        </managed-bean>
        
-       <managed-bean>
-        <managed-bean-name>Multa</managed-bean-name>
-        <managed-bean-class>Modelo.Multa</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-       </managed-bean>
-       
        
        <managed-bean>
         <managed-bean-name>Area</managed-bean-name>
@@ -209,6 +203,14 @@
         <managed-bean-class>Beans.BeansPromocion_Empresarial_Licencias</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
-   
-   
+    <managed-bean>
+        <managed-bean-name>Beans_Tramite_Registro_Expedientes</managed-bean-name>
+        <managed-bean-class>Beans.Beans_Tramite_Registro_Expedientes</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>Beans_Tramite_Asunto</managed-bean-name>
+        <managed-bean-class>Beans.Beans_Tramite_Asunto</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>

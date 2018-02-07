@@ -57,15 +57,17 @@
                     </p:submenu>                 
                     <p:submenu label="#{msg.LabelTramiteDocumentario}"  icon="ui-icon-extlink">   
 
-
-                        <p:menuitem value="#{msg.LabelReporte}"  style="margin-top:0"
-                                    url="TramiteDocumentario_ReporteExpedientesFecha.jsf"  icon="ui-icon-zoomin">               
-                        </p:menuitem> 
+                        
                         <p:menuitem value="#{msg.LabelRegistroExpedientes}"  style="margin-top:0"
-                                    url="TramiteDocumentario_Documento.jsf"  icon="ui-icon-zoomin">               
+                                    url="TramiteDocumentario_Registrar_Expedientes.jsf"  icon="ui-icon-zoomin">               
                         </p:menuitem>
+                        
+                        <p:menuitem value="#{msg.LabelReporte}"  style="margin-top:0"
+                                    url="TramiteDocumentario_Reporte_Actualizado.jsf"  icon="ui-icon-zoomin">               
+                        </p:menuitem> 
+                       
 
-                        <p:menuitem value="#{msg.LabelBusquedaExpedientes}"  style="margin-top:0" >
+                        <p:menuitem value="#{msg.LabelBusquedaExpedientes}"  style="margin-top:0" 
                                     url="Expediente_Busqueda.jsf"  icon="ui-icon-zoomin">               
                         </p:menuitem>
 
@@ -105,7 +107,7 @@
 
                     <p:submenu label="#{msg.LabelmultasAdministrativas}"  icon="ui-icon-extlink"> 
                         <p:menuitem value="#{msg.LabelFicalizacionAdministrativo}" 
-                                    url="Fiscalizacion_Administrativa_Multas.jsf"  icon="ui-icon-zoomin">               
+                                    url="Fiscalizacion_Multa_Administrativa.jsf"  icon="ui-icon-zoomin">               
                         </p:menuitem> 
 
                        

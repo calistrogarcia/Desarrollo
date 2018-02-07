@@ -44,23 +44,18 @@ and open the template in the editor.
                                 <center>
 
                                     <h:panelGrid columns="2"  >
-                                        <h:outputText value="#{msg.labelNroE}"  styleClass="tamaño_fuente" />
-                                        <h:panelGroup>
-                                            <h:outputText value=" a Consultar " style=" font: small serif"/>
-                                            <p:inputText  id="nro_expediente" value="#{Beans_DefensaCivil_Certificado.objBuscarCertificado.nro_expediente}"
-                                                          >
-                                                <!-- required="true" requiredMessage="{msg.labelObli}"
-                                                 maxlength="30" validatorMessage="{msg.labelValidar}" 
-                                                 value="{Beans_DefensaCivil_Certificado.objBuscarCertificado.nro_expediente}">  -->
-                                                <!--  <f:validateLength minimum="0" maximum="30"/>-->
-                                            </p:inputText>
-                                            <h:message for="nro_expediente" showDetail="false" showSummary="true"/>                                    
-                                        </h:panelGroup>
-
-                                    </h:panelGrid>               
-                                    <!--BLOC-->
+                                        <h:outputText value="#{msg.LabelIngreseExpediente}"  styleClass="tamaño_fuente" />                                                                            
+                                   <h:panelGroup>
+                                                    <p:inputMask id="buscar_expediente"  
+                                                                 mask="99999-99-9999"                                            
+                                                                 size="15" 
+                                                                 value="#{Beans_DefensaCivil_Certificado.objBuscarCertificado.nro_expediente}" >                                                   
+                                                    </p:inputMask>
+                                          <h:message for="buscar_expedientes" showDetail="true" showSummary="true"/>                                                     
+                                  </h:panelGroup>
+                                    </h:panelGrid> 
+ 
                                 </center>
-
                                 <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3" style="text-align: center;" width="17%"  >
 
                                     <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{Beans_DefensaCivil_Certificado.doiniciarBusquedaCertificado()}"  
@@ -71,8 +66,6 @@ and open the template in the editor.
 
                                     <p:commandButton id="Actualizar" icon="ui-icon-gear" actionListener="#{Beans_DefensaCivil_Certificado.ActuaizarDatos(actualizardatos)}"  
                                                      value="#{msg.BtnActualizarDatos}"  async="true" update="datBusCertificadoOfi"/> 
-
-
 
                                 </h:panelGrid>
 
@@ -147,7 +140,7 @@ and open the template in the editor.
 
                                             <p:column filterBy="#{listCertificado.nro_expediente}" filterMatchMode="contains" style="width:9%;text-align: center">
                                                 <f:facet name="header">
-                                                    <h:outputText value="#{msg.labelNroE}" />
+                                                    <h:outputText value="#{msg.LabelNumeroExpediente}" />
                                                 </f:facet>
                                                 <h:outputText value="#{listCertificado.nro_expediente}"/>
                                             </p:column> 
@@ -503,26 +496,25 @@ and open the template in the editor.
 
 
 
-                                        <h:outputText value="#{msg.labelAreaDeclarada}"  style="margin-right:20px;"/>
+                                        <h:outputText value="#{msg.labelAreaDeclarada}"  style="margin-right:20px; margin-bottom: 10px"/>
                                         <h:panelGroup>
-                                            <p:inputText id="areadeclarada"  required="true" requiredMessage="#{msg.labelObli}" size="3"
-                                                         maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.area_declarada}"
+                                            <p:inputText id="areadeclarada"  required="true" requiredMessage="#{msg.labelObli}" size="5"
+                                                         maxlength="5" validatorMessage="#{msg.labelValidar}" 
+                                                         value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.area_declarada}"
                                                          >  
-                                                <f:validateLength minimum="0" maximum="30"/>
+                                                <f:validateLength minimum="0" maximum="5"/>
 
                                             </p:inputText>
+                                            
+                                             <p:slider for="areadeclarada" minValue="1" maxValue="20000" step="1" />
+                                           
 
 
 
                                             <h:message for="areadeclarada" showDetail="false" showSummary="true"/>                                    
                                         </h:panelGroup> 
 
-
-
-
-
-
-
+                                        
                                         <h:outputText value="#{msg.LabelNombreInspector}"  style="margin-right:20px;"/>
 
 
@@ -547,14 +539,18 @@ and open the template in the editor.
 
                                         <h:outputText value="#{msg.labelaforo}"   style="margin-right:20px;"/>
                                         <h:panelGroup>
-                                            <p:inputText id="aforo"  required="true" requiredMessage="#{msg.labelObli}" size="3"
-                                                         maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.aforo}"
+                                            <p:inputText id="aforo"  required="true" requiredMessage="#{msg.labelObli}" size="4"
+                                                         maxlength="5" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.aforo}"
                                                          >  
-                                                <f:validateLength minimum="0" maximum="30"/>
+                                                <f:validateLength minimum="0" maximum="5"/>
                                             </p:inputText>
-                                            <h:message for="aforo" showDetail="false" showSummary="true"/>                                    
+                                            <h:message for="aforo" showDetail="false" showSummary="true"/>      
+                                            
+                                            <p:slider for="aforo" minValue="1" maxValue="20000" step="1" />
+                                            
                                         </h:panelGroup>  
 
+                                        
                                     </h:panelGrid>
 
                                     <h:panelGrid columns="2" cellpadding="1" width="80%"   >
@@ -848,26 +844,31 @@ and open the template in the editor.
                                         <h:outputText value="#{msg.LabelAreaVerificada}"  style="margin-right:0px;"/>
 
                                         <h:panelGroup>
-                                            <p:inputText id="AreaVerificada"  required="true" requiredMessage="#{msg.labelObli}" size="3"
-                                                         maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.area_verificada}"
+                                            <p:inputText id="AreaVerificada"  required="true" requiredMessage="#{msg.labelObli}" size="5"
+                                                         maxlength="5" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.area_verificada}"
                                                          >  
-                                                <f:validateLength minimum="0" maximum="30"/>
+                                                <f:validateLength minimum="0" maximum="5"/>
                                             </p:inputText>
 
-                                            <h:message for="AreaVerificada" showDetail="false" showSummary="true"/>                                    
+                                            <h:message for="AreaVerificada" showDetail="false" showSummary="true"/>    
+                                       <p:slider for="AreaVerificada" minValue="1" maxValue="20000" step="1" />
+                                            
                                         </h:panelGroup>
 
 
 
+                                       
+                                        
+
                                         <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                                            <p:outputLabel for="ITPSE" value="CUMPLE ITPSE:" />
-                                            <p:selectOneRadio id="ITPSE" value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.estado_fiscalizacion}"  layout="grid" columns="1">
+                                            <h:outputText value="CUMPLE ITPSE:" />
+                                            <p:selectBooleanButton id="estado_fiscalizacion" value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.estado_fiscalizacion}" 
+                                                                   onLabel="Yes" offLabel="No"  onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" />
 
-                                                <f:selectItem itemLabel="NO" itemValue="0" />
-                                                <f:selectItem itemLabel="SI" itemValue="1" />
-
-                                            </p:selectOneRadio>
+                                          
                                         </h:panelGrid>
+                                        
+                                        
 
 
                                         <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">

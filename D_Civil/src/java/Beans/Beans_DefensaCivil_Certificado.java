@@ -1129,12 +1129,7 @@ public class Beans_DefensaCivil_Certificado {
 
     }
     
-    
-    
-    
-    
-    
-    
+
 
 //-----------------------Impresion de Resoluciones---------------------------//
     public void imprimir() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, JRException, IOException {

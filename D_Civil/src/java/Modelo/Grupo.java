@@ -9,7 +9,9 @@ import java.io.Serializable;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 import javax.faces.model.SelectItem;
 
 /**
@@ -22,9 +24,10 @@ public class Grupo implements Serializable {
    private String codigo_grupo;
    private String codigo_medida_complementaria;
    private String medida_complementaria;
-
+   private String codigo_tipo_documento_expediente;
+   private String nombre_tipo_documento_expediente;
     
-   
+  
    public String getCodigo_medida_complementaria() {
         return codigo_medida_complementaria;
     }
@@ -49,6 +52,52 @@ public class Grupo implements Serializable {
 
     public void setMedida_complementaria(String medida_complementaria) {
         this.medida_complementaria = medida_complementaria;
+    }
+
+    public String getCodigo_tipo_documento_expediente() {
+        return codigo_tipo_documento_expediente;
+    }
+
+    public void setCodigo_tipo_documento_expediente(String codigo_tipo_documento_expediente) {
+        this.codigo_tipo_documento_expediente = codigo_tipo_documento_expediente;
+    }
+
+    public String getNombre_tipo_documento_expediente() {
+        return nombre_tipo_documento_expediente;
+    }
+
+    public void setNombre_tipo_documento_expediente(String nombre_tipo_documento_expediente) {
+        this.nombre_tipo_documento_expediente = nombre_tipo_documento_expediente;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 67 * hash + Objects.hashCode(this.codigo_tipo_documento_expediente);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Grupo other = (Grupo) obj;
+        if (!Objects.equals(this.codigo_tipo_documento_expediente, other.codigo_tipo_documento_expediente)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return nombre_tipo_documento_expediente ;
     }
 
     
@@ -190,8 +239,45 @@ public class Grupo implements Serializable {
 
     }
   
-  
+
     
+  public  ArrayList<Grupo> CargarTipoDocumento_Expediente() throws SQLException{ 
+      
+    ArrayList<Grupo> arrayTipoDocumento_Expediente =  new ArrayList<>();
+    Grupo obj=null;
+    Connection conexion = null;
+    ResultSet rs = null;
+     try{
+       conexion = Controlador_Sql.darConexionBD();
+       CallableStatement st = null;
+       st= conexion.prepareCall( "{call sp_java_tipo_documento_expediente()}");
+        rs = st.executeQuery();
+        if (rs.next()){
+    
+         do{
+              obj =new Grupo();
+   
+              obj.setCodigo_tipo_documento_expediente(rs.getString("codigo_tipo_documento_expediente"));
+              obj.setNombre_tipo_documento_expediente(rs.getString("nombre_tipo_documento_expediente"));
+              
+              arrayTipoDocumento_Expediente.add(obj);
+       } while (rs.next());
+       }
+
+       rs.close();
+       st.close();
+       conexion.close();
+       }catch(Exception error){
+                     System.out.println("Error en el metodo por: " + error.getMessage());
+                     error.printStackTrace();
+                 }
+
+
+        return arrayTipoDocumento_Expediente;
+    } 
+     
+     
+
     
    
 }

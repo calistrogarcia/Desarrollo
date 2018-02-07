@@ -68,16 +68,13 @@ public class Beans_Fiscalizacion_Multas {
     private Multa ObjMultaBuqInfractor;
     private Multa ObjMultaBuqSancionMulta;
     private Multa ObjSeleccion;
-    
-  
+
     private ArrayList<Multa> arrMulta = null;
     private ArrayList<Multa> arrBusMulta = null;
     private ArrayList<Multa> arrMultaInfractor = null;
     private ArrayList<Multa> arrBusMultaInfractor = null;
     private ArrayList<Multa> arrMultaSancion = null;
     private ArrayList<Multa> arrBusMultaSancion = null;
-    
-   
 
     //TabView
     private Integer activeTabIndex;
@@ -88,8 +85,6 @@ public class Beans_Fiscalizacion_Multas {
     //Bandera que apunta si el usuario al realizar un clik sobre el link de busquedad o listado total
     private String puntAnt;
 
-    
-    
     public Multa getObjMultaAnular() {
         return objMultaAnular;
     }
@@ -97,7 +92,7 @@ public class Beans_Fiscalizacion_Multas {
     public void setObjMultaAnular(Multa objMultaAnular) {
         this.objMultaAnular = objMultaAnular;
     }
-    
+
     public Multa getObjSeleccion() {
         return ObjSeleccion;
     }
@@ -105,7 +100,7 @@ public class Beans_Fiscalizacion_Multas {
     public void setObjSeleccion(Multa ObjSeleccion) {
         this.ObjSeleccion = ObjSeleccion;
     }
-   
+
     public Multa getObjMultaReg() {
         return objMultaReg;
     }
@@ -233,7 +228,6 @@ public class Beans_Fiscalizacion_Multas {
     public void setArrBusMultaSancion(ArrayList<Multa> arrBusMultaSancion) {
         this.arrBusMultaSancion = arrBusMultaSancion;
     }
-    
 
     //Inicializaciones
     public void doiniciarRegistroMulta() {
@@ -250,20 +244,18 @@ public class Beans_Fiscalizacion_Multas {
         this.objMultaBusq = new Multa();
     }
 
-
     //Iniciallzaciones
     public void doiniciarBusquedaMulta() {
         this.arrBusMulta = new ArrayList<Multa>();
         this.objMultaBusq = new Multa();
 
     }
-    
-  //Iniciallzaciones  
+
+    //Iniciallzaciones  
     public void doiniciarObjBusMultaInfractor() {
         this.ObjMultaBuqInfractor = new Multa();
     }
-    
-    
+
     //Iniciallzaciones
     public void doiniciarBusquedaMultaInfractor() {
         this.arrBusMultaInfractor = new ArrayList<Multa>();
@@ -272,24 +264,26 @@ public class Beans_Fiscalizacion_Multas {
     }
     
     
+    //Iniciallzaciones  
+    public void doiniciarObjAnularMulta() {
+        this.objMultaAnular = new Multa();
+    }
+    
+
     //Iniciallzaciones
     public void doiniciarListadoMulta() {
         arrMulta = new ArrayList<Multa>();
     }
-    
-    
+
     //Iniciallzaciones
     public void doiniciarListadoInfractorMulta() {
         arrMultaInfractor = new ArrayList<Multa>();
     }
-    
-    
-    
-     //Iniciallzaciones  
+
+    //Iniciallzaciones  
     public void doiniciarObjBusSancionMulta() {
         this.ObjMultaBuqSancionMulta = new Multa();
     }
-
 
     //Iniciallzaciones
     public void doiniciarBusquedaSancionMulta() {
@@ -297,8 +291,6 @@ public class Beans_Fiscalizacion_Multas {
         this.ObjMultaBuqSancionMulta = new Multa();
 
     }
-    
-    
 
     public Beans_Fiscalizacion_Multas() {
 
@@ -308,8 +300,7 @@ public class Beans_Fiscalizacion_Multas {
             doiniciarModificarMulta();
             doiniciarBusquedaMultaInfractor();
             doiniciarBusquedaSancionMulta();
-            
-            
+            doiniciarObjAnularMulta();
 
         } catch (Exception e) {
             Mensaje.manejarError(e, "Error al Iniciar Proceso");
@@ -349,11 +340,38 @@ public class Beans_Fiscalizacion_Multas {
             Mensaje.manejarError(e, "Actualizar Multa Administrativa");
         }
         if (puntAnt.compareTo("1") == 0) {
-           // this.doBuscarCertificado();
+            // this.doBuscarCertificado();
             this.activeTabIndex = Constantes.TAB_BUSQUEDA;
         } else {
             if (puntAnt.compareTo("2") == 0) {
                 //  this.doListarCertificado();
+                this.activeTabIndex = Constantes.TAB_BUSQUEDA;
+            }
+        }
+        return null;
+    }
+
+    public String doAnularMulta() {
+       
+        this.bandEli = true;
+        
+        try {
+
+            if (Multa.AnularMulta(objMultaAnular)) {
+                
+                Mensaje.guardarMensajeExito("Anular Multa", "Anulado Correctamente");
+            } else {
+                Mensaje.manejarError("Revisar Multa", "Error de Anulacion");
+            }
+        } catch (Exception e) {
+            Mensaje.manejarError(e, "Revisar Multa");
+        }
+        if (puntAnt.compareTo("2") == 0) {
+           
+            this.activeTabIndex = Constantes.TAB_BUSQUEDA;
+        } else {
+            if (puntAnt.compareTo("1") == 0) {
+         
                 this.activeTabIndex = Constantes.TAB_BUSQUEDA;
             }
         }
@@ -370,16 +388,14 @@ public class Beans_Fiscalizacion_Multas {
         return null;
 
     }
-    
+
     // comand link
-    
-     public String AnularMulta(Multa an){     
-        this.objMultaAnular=an;          
-        this.activeTabIndex=2;        
-        this.bandEli=false;   
-        return null;   
+    public String AnularMulta(Multa an) {
+        this.objMultaAnular = an;
+        this.activeTabIndex = 2;
+        this.bandEli = false;
+        return null;
     }
-    
 
     public ArrayList<Multa> doBuscarMulta() {
 
@@ -396,10 +412,8 @@ public class Beans_Fiscalizacion_Multas {
             return "" + this.arrBusMulta.size();
         }
     }
-    
-    
-   // Buscar Direccion de Infractor
-      
+
+    // Buscar Direccion de Infractor
     public ArrayList<Multa> doBuscarInfractorMulta() {
 
         this.arrBusMultaInfractor = new ArrayList<Multa>();
@@ -415,11 +429,9 @@ public class Beans_Fiscalizacion_Multas {
             return "" + this.arrBusMultaInfractor.size();
         }
     }
-    
-    
-     // Buscar Infraccion de Multa
-    
-      public ArrayList<Multa> doBuscarSancionMulta() {
+
+    // Buscar Infraccion de Multa
+    public ArrayList<Multa> doBuscarSancionMulta() {
 
         this.arrBusMultaSancion = new ArrayList<Multa>();
         this.arrBusMultaSancion = Multa.BuscarInfraccionSancion(ObjMultaBuqSancionMulta);
@@ -434,28 +446,21 @@ public class Beans_Fiscalizacion_Multas {
             return "" + this.arrBusMultaSancion.size();
         }
     }
-    
-    
-    
 
-    
-   //--------------------Desactivar cuando se ejecuta evento de cancelar -------------------------------------------------
-   
-    
+    //--------------------Desactivar cuando se ejecuta evento de cancelar -------------------------------------------------
     public String desactivarEditarMulta() {
 
         this.bandMod = true;
 
-       
         if (puntAnt.compareTo("2") == 0) {
 
             this.activeTabIndex = Constantes.TAB_BUSQUEDA;
         } else {
 
             if (puntAnt.compareTo("1") == 0) {
-             
+
                 this.activeTabIndex = Constantes.TAB_MODIFICAR;
-                
+
             }
         }
 
@@ -463,43 +468,37 @@ public class Beans_Fiscalizacion_Multas {
 
         return null;
     }
-    
-    
-    
+
     public String desactivarAnularMulta() {
+      
         this.bandEli = true;
-        //Pregunta si la Detalle Mostrada Proviene de una Busqueda Simple:2 o de un listado total:1 
-        if (puntAnt.compareTo("2") == 0) {
+        
+        
+        if (puntAnt.compareTo("1") == 0) {
 
             this.activeTabIndex = Constantes.TAB_BUSQUEDA;
-            
+
         } else {
-            
-            if (puntAnt.compareTo("1") == 0) {
- 
+
+            if (puntAnt.compareTo("2") == 0) {
+
                 this.activeTabIndex = Constantes.TAB_ELIMINAR;
             }
         }
         Mensaje.guardarMensajeExito("Cancelar Anulacion Multa !!!", "Multa");
-      
+
         return null;
     }
 
-  
-    
     // Metodo para autocompletar
-    
-    
     public List<String> autoCompletarBusqueda(String query) {
         List<String> resultado = new ArrayList<String>();
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             resultado.add(query + i);
         }
-         
+
         return resultado;
     }
-    
-    
 
     public void onClickBusq(ActionEvent evt) {
         Object param = evt.getComponent().getAttributes().get("param");

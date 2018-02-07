@@ -7,7 +7,7 @@
       xmlns:p= "http://primefaces.org/ui">
     <h:head>
         <title>
-            <ui:insert name="title"> Defensa </ui:insert>
+            <ui:insert transient="true"   name="title"> Sistema Integral </ui:insert>
         </title>        
         <h:outputStylesheet library="css" name="estilo.css" />                        
         <meta http-equiv="Expires" content="0" />
@@ -22,45 +22,33 @@
     </h:head> 
     <h:body >
         <div align="center" cellpadding="0" cellspacing="0" width="1000px" >
-            <p:layout  fullPage="true"   >   <!--style="width:1850px;height:950px"-->
-                <p:layoutUnit styleClass="border" position="north" size="60" resizable="true" closable="true" collapsible="true" effect="drop"    >                      
-                    <h:panelGrid styleClass="encabezado" >
-                        <div style="margin-top:  15px">       
-                            <h:outputText value="#{msg.LabelTitulo}"  styleClass="titulocabecera" />  
-                        </div>
-                    </h:panelGrid> 
-                </p:layoutUnit>  
-                <p:layoutUnit styleClass="border" position="south" size="40" resizable="true" closable="true" collapsible="true">  
-                    <div align="center" class="derechos">
-
-                        <h:outputText value="#{msg.LabelDireccionEntidad}" /> 
-
-                    </div>   
-                </p:layoutUnit>   
-                <p:layoutUnit styleClass="tamaño_fuente_login" position="west"  size="300" header="Autenticacion" resizable="true" closable="true" collapsible="true" effect="drop" >   
-                    <ui:insert name="contentiz"></ui:insert>                   
-                </p:layoutUnit>    
-
-                <p:layoutUnit styleClass="border" position="center" header=""  footer="" >  
+            <p:layout  fullPage="true"   >   
+               
+                 
+              
+                <p:layoutUnit styleClass="border" position="center"  header="" footer="">  
                     <h:form>
-
+                       
                         <br>    
                         </br>
                         <br>  
                         </br>
+                           <div style=" max-height:  50px">  
+                            <img  src="resources/imagenes/smp.png" style="text-align: center" />
+                        </div>
+   
                         <br>  
                         </br>
                         <br> 
                         </br>
-
-                        <div style=" max-height:  50px">  
-                            <img  src="resources/imagenes/smp.png" style="text-align: center"/>
-
-
-                        </div>   
-
+                         <br> 
+                        </br>
+                         <br> 
+                        </br>                     
+                          <ui:insert name="contentiz"></ui:insert>         
                     </h:form>                 
                 </p:layoutUnit>    
+                
             </p:layout>     
         </div>
     </h:body>

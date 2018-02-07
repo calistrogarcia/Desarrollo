@@ -15,10 +15,8 @@
      <ui:composition template="/WEB-INF/faces/templates/TemplateLogin.xhtml">            
             <ui:define name="contentiz">            
                 <h:form>  
-                    <br>
-                                
-                    </br>
-                    
+                    <br>                             
+                    </br>                   
                     <p:growl  id="estado" sticky="true"  showDetail="true"  />
                     <center> 
                         <h:panelGrid columns="2" cellpadding="3" cellspacing="2"> 
@@ -29,7 +27,7 @@
                         
                         <h:panelGroup>
                             
-                            <p:inputText id="user" value="#{beanUsuario_Logeo.nombre_user}" size="13"
+                            <p:inputText id="user" value="#{beanUsuario_Logeo.nombre_user}" size="13" placeholder="Usuario"
                                          required="true" label="Usuario" requiredMessage="Ingrese Usuario">  
                                 <f:validateLength minimum="1" />  
                             </p:inputText>  
@@ -37,11 +35,9 @@
                         <h:outputLabel  value="Clave" /> 
                         
                          <h:panelGroup>                              
-                            <p:password value="#{beanUsuario_Logeo.clave_user}"  required="true"  size="13"
+                            <p:password value="#{beanUsuario_Logeo.clave_user}"  required="true"  size="13"  placeholder="Password"
                                         requiredMessage="Ingrese Password" label="Password" feedback="true" inline="true" />                                            
                           </h:panelGroup>
-                        
-                       
                         
                         
                         <h:panelGroup> 

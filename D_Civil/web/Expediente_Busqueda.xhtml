@@ -25,7 +25,7 @@ and open the template in the editor.
               
         <p:panel id="datBusExpediente" header="#{msg.LabelBusquedaExpedientes}" styleClass="border">
             <p:fieldset   style="margin-bottom:20px;text-align: justify" >
-            <h:panelGrid columns="2">
+                <h:panelGrid columns="8" cellspacing="4">
                 <h:panelGrid columns="2">
                     <img src="resources/imagenes/expediente-icon.png"/>
                     <h:outputText value="Nro Expediente:"   />
@@ -42,10 +42,13 @@ and open the template in the editor.
                     <img src="resources/imagenes/user.png"/>
                 <h:outputText value="Recurrente:" />
                 </h:panelGrid>
+                    
                 <h:panelGroup>
+                    
                 <p:inputText id="recurrente"
                              value="#{beanExpediente_Busqueda.objBuscarExpediente.cnombre}"
-                             maxlength="30" validatorMessage="Validar" title="Expediente"/>
+                             maxlength="30"  required="true" validatorMessage="#{msg.labelValidar}" 
+                                                    requiredMessage="#{msg.labelObligatorio}"  title="Expediente"/>
                 <h:message for="recurrente" showDetail="false" showSummary="true"/> 
                 </h:panelGroup>
                 
@@ -66,39 +69,48 @@ and open the template in the editor.
                 </h:panelGrid>
                 <h:panelGroup>
                 <p:inputText id="registro"
-                             value="#{beanExpediente_Busqueda.objBuscarExpediente.observa}"
+                             value="#{beanExpediente_Busqueda.objBuscarExpediente.observacion}"
                              maxlength="30" validatorMessage="Validar" title="Expediente"/>
                 <h:message for="referencia" showDetail="false" showSummary="true"/> 
                 </h:panelGroup>
             </h:panelGrid>
-            </p:fieldset>  
+        
                 <p></p>
                                  <!--Generando Calendario--> 
-            <p:fieldset style="margin-bottom:20px;text-align: justify">
+          
                 <h:outputText value="Rango de Fechas:"/>
                  
                 <h:panelGrid columns="4" cellpadding="2">
                   
-                     <h:outputText  value="#{msg.LabelIncio}" />
+
+                     
+                                   <h:panelGroup>
+                                       <h:outputText  value="#{msg.LabelIncio}" />
                            
-                             <h:panelGroup>
-                            <p:calendar id="f_ini_t"  locale="es" navigator="true"
-                                        value="#{beanExpediente_Busqueda.objBuscarExpediente.fecha_inicial}"  
-                                        pattern="dd-MM-yyyy">   
-                            </p:calendar>
-                            <h:message for="f_ini_t" showDetail="true" showSummary="true"/>                                   
-                            </h:panelGroup> 
+                                        <p:calendar id="fecha_inicial"  required="true" validatorMessage="#{msg.labelValidar}" 
+                                                    requiredMessage="#{msg.labelObligatorio}" locale="es" navigator="true" showOn="button"
+                                                    value="#{beanExpediente_Busqueda.objBuscarExpediente.fecha_inicio}" 
+                                                    pattern="dd/MM/yyyy">   
+                                        </p:calendar>
+                                        <h:message for="fecha_inicial" showDetail="true" showSummary="true"/>                                   
+                                    </h:panelGroup>
+                                    
+                     
+   
                     
- 
-                    <h:outputText  value="#{msg.LabelFin}" />
-                           <h:panelGroup>
-                            <p:calendar id="f_fin_t"  locale="es" navigator="true"
-                                        value="#{beanExpediente_Busqueda.objBuscarExpediente.fecha_final}"  
-                                        pattern="dd-MM-yyyy">   
-                             
-                            </p:calendar>
-                            <h:message for="f_fin_t" showDetail="true" showSummary="true"/>                                   
-                            </h:panelGroup> 
+                    <h:panelGroup>
+                                         <h:outputText  value="#{msg.LabelFin}" />
+                                        <p:calendar id="fecha_final"  required="true" validatorMessage="#{msg.labelValidar}" 
+                                                    requiredMessage="#{msg.labelObligatorio}" locale="es" navigator="true" showOn="button"
+                                                    value="#{beanExpediente_Busqueda.objBuscarExpediente.fecha_fin}"   
+                                                    pattern="dd/MM/yyyy">   
+                                        </p:calendar>
+                                        <h:message for="fecha_final" showDetail="true" showSummary="true"/>  
+                      
+                    </h:panelGroup> 
+                    
+                    
+                    
 
        
                 </h:panelGrid>  
@@ -141,18 +153,18 @@ and open the template in the editor.
                 
                 <h:commandLink>
                 <p:graphicImage url="resources/imagenes/xls.png"/>
-                <p:dataExporter type="xls" target="resListadoExpediente" fileName="excel-Expediente" />           
+                <p:dataExporter type="xls" target="ListadoExpedientes" fileName="excel Expediente" />           
                 </h:commandLink>
             </h:panelGrid> 
                           <!--JUDITH 05-04-17-->
           
                                   
-              <p:dataTable id="resListadoExpediente" value="#{beanExpediente_Busqueda.arrBusExpediente}" var="listExpediente" styleClass="order-table" paginator="true"
+              <p:dataTable id="ListadoExpedientes" value="#{beanExpediente_Busqueda.arrBusExpediente}" var="listExpediente" styleClass="order-table" paginator="true"
                          rows="5" rowsPerPageTemplate="5,10,15,20,25,30,50" paginatorPosition="both" paginatorAlwaysVisible="true" >
               
                 <p:column>
                     <f:facet name="header">
-                    <h:outputText value="#{msg.labelN}"/>
+                        <h:outputText value="#{msg.LabelNumero}"/>
                     </f:facet>
                     <h:outputText value="#{listExpediente.nro}" />
                 </p:column>
@@ -160,11 +172,11 @@ and open the template in the editor.
                     <f:facet name="header">
                     <h:outputText value="#{msg.labelExpediente}"/>
                     </f:facet>
-                    <h:outputText value="#{listExpediente.dnumold}"/>
+                    <h:outputText value="#{listExpediente.numero_expediente}"/>
                 </p:column>
                 <p:column>
                     <f:facet name="header">
-                    <h:outputText value="#{msg.labelRecurrente}"/>
+                        <h:outputText value="#{msg.LabelNombres}"/>
                     </f:facet>
                     <h:outputText value="#{listExpediente.cnombre}"/>
                 </p:column>
@@ -178,7 +190,7 @@ and open the template in the editor.
                     <f:facet name="header">
                     <h:outputText value="#{msg.LabelFechaRegistro}"/>
                     </f:facet>
-                    <h:outputText value="#{listExpediente.ffecdoc1}"/>
+                    <h:outputText value="#{listExpediente.fecha_presentacion_expediente1}"/>
                 </p:column>
             </p:dataTable>
             </h:panelGrid>

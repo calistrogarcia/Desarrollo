@@ -16,22 +16,26 @@ and open the template in the editor.
     <h:body>
         <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
             <ui:define name="contenido">
-                <h:outputText value="#{msg.LabelRegistroTurnos}" style="font-weight: bold"/>                                           
-                <p:tabView id="TurnoTabView" dynamic="true" orientation="top" activeIndex="#{Beans_DefensaCivil_Turno.activeTabIndex}"  >   
+                                                      
+                <p:tabView id="TurnoTabView" dynamic="true" orientation="top" activeIndex="#{Beans_DefensaCivil_Turno.activeTabIndex}" style=" text-align: left"  >   
                 
                     <br>
 
                     </br>
 
-                    <p:tab id="tab_registrar" title="#{msg.LabelRegistroTurnos}"  titleStyleClass="tamaño_fuente_tab">
+                    <p:tab id="tab_registrar" title="#{msg.LabelRegistroTurnos}"    titleStyleClass="tamaño_fuente_tab">
 
-                        <h:form id="form_reg_Turno" style="max-width: 80%; min-height: 60%"  styleClass="tamaño_fuente">
+                        <h:form id="form_reg_Turno"  styleClass="tamaño_fuente">
                             <p:growl globalOnly="true"  id="estRegTurno" sticky="false"  showDetail="true"  />                                
 
                             <br>
                             </br>
 
-                            <p:panel id="datGenTurno" header="#{msg.LabelRegistroTurnos}" styleClass="border">
+                            <p:panel id="datGenTurno" header="#{msg.LabelRegistroTurnos}" styleClass="border"> 
+                               
+                                <center>
+                                    
+                           
                                 <h:panelGrid columns="6" cellpadding="5" cellspacing="15">
 
                                     <h:outputText value="#{msg.LabelDescripcion}" />
@@ -80,7 +84,7 @@ and open the template in the editor.
 
                                 </h:panelGrid>
 
-
+                              </center> 
                             </p:panel>
                         </h:form>
 

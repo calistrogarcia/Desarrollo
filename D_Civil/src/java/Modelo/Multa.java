@@ -2,10 +2,6 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- *//*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
  */
 package Modelo;
 
@@ -14,8 +10,6 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import javax.faces.model.SelectItem;
 
 /**
@@ -23,8 +17,9 @@ import javax.faces.model.SelectItem;
  * @author Administrador
  */
 public class Multa implements Serializable {
+    
 
-    // variables para reporte de multas
+     // variables para reporte de multas
     
     private String tipo_busqueda_sancion;
     private String consulta_sancion;
@@ -56,23 +51,23 @@ public class Multa implements Serializable {
     private String numero_acta_constatacion;
     private String fecha_ejecucion;
     private String codigo_ingraccion;
- 
     private String numero_informe;
     private String fecha_multa;
-    private String reclamo_expediente;
     private String resolucion_anulacion;
     private String anotacion_anulacion;
     private String estado_multa;
-    private String reincidente;
     private String acta_constatacion;
     private String codigo_sancion;
-
     private String correlativo;
     private String fecha_registro;
     private String hora_registro;
-    private float valor_obra;
+    private int valor_obra;
+    private String reincidente;
    
 
+    
+    
+     
     Persona ObjPersona = new Persona();
     Direccion ObjDireccion = new Direccion();
     Area objArea = new Area();
@@ -83,11 +78,7 @@ public class Multa implements Serializable {
     Usuario ObjUsuario = new Usuario();
     Cuenta ObjCuenta = new Cuenta();
     Grupo ObjGrupo = new Grupo();
-
-    
-    public String getReclamo_expediente() {
-        return reclamo_expediente;
-    }
+    Expediente ObjExpediente = new Expediente();
 
     public String getTipo_busqueda_sancion() {
         return tipo_busqueda_sancion;
@@ -104,79 +95,13 @@ public class Multa implements Serializable {
     public void setConsulta_sancion(String consulta_sancion) {
         this.consulta_sancion = consulta_sancion;
     }
-    
-    public Grupo getObjGrupo() {
-        return ObjGrupo;
+
+    public String getId_unico_multa() {
+        return id_unico_multa;
     }
 
-    public void setObjGrupo(Grupo ObjGrupo) {
-        this.ObjGrupo = ObjGrupo;
-    }
-    
-
-    public Sancion getObjSancion() {
-        return ObjSancion;
-    }
-
-    public void setObjSancion(Sancion ObjSancion) {
-        this.ObjSancion = ObjSancion;
-    }
-
-    public String getHora_registro() {
-        return hora_registro;
-    }
-
-    public void setHora_registro(String hora_registro) {
-        this.hora_registro = hora_registro;
-    }
-
-    public Usuario getObjUsuario() {
-        return ObjUsuario;
-    }
-
-    public void setObjUsuario(Usuario ObjUsuario) {
-        this.ObjUsuario = ObjUsuario;
-    }
-
-    public Supervisor getObjInspector() {
-        return objInspector;
-    }
-
-    public void setObjInspector(Supervisor objInspector) {
-        this.objInspector = objInspector;
-    }
-
-
-    public Giro getObjGiro() {
-        return ObjGiro;
-    }
-
-    public void setObjGiro(Giro ObjGiro) {
-        this.ObjGiro = ObjGiro;
-    }
-
-    public Area getObjArea() {
-        return objArea;
-    }
-
-    public void setObjArea(Area objArea) {
-        this.objArea = objArea;
-    }
-
-    public Direccion getObjDireccion() {
-        return ObjDireccion;
-    }
-
-    public void setObjDireccion(Direccion ObjDireccion) {
-        this.ObjDireccion = ObjDireccion;
-    }
-
-    public Persona getObjPersona() {
-        return ObjPersona;
-    }
-
-    public void setObjPersona(Persona ObjPersona) {
-        this.ObjPersona = ObjPersona;
+    public void setId_unico_multa(String id_unico_multa) {
+        this.id_unico_multa = id_unico_multa;
     }
 
     public String getTipo_busqueda() {
@@ -187,6 +112,14 @@ public class Multa implements Serializable {
         this.tipo_busqueda = tipo_busqueda;
     }
 
+    public String getInformacion_consulta() {
+        return informacion_consulta;
+    }
+
+    public void setInformacion_consulta(String informacion_consulta) {
+        this.informacion_consulta = informacion_consulta;
+    }
+
     public String getNumero_notificacion() {
         return numero_notificacion;
     }
@@ -195,20 +128,20 @@ public class Multa implements Serializable {
         this.numero_notificacion = numero_notificacion;
     }
 
-    public String getFecha_notificacion() {
-        return fecha_notificacion;
-    }
-
-    public void setFecha_notificacion(String fecha_notificacion) {
-        this.fecha_notificacion = fecha_notificacion;
-    }
-
     public String getCodigo_predio() {
         return codigo_predio;
     }
 
     public void setCodigo_predio(String codigo_predio) {
         this.codigo_predio = codigo_predio;
+    }
+
+    public String getFecha_notificacion() {
+        return fecha_notificacion;
+    }
+
+    public void setFecha_notificacion(String fecha_notificacion) {
+        this.fecha_notificacion = fecha_notificacion;
     }
 
     public String getAnio_multa() {
@@ -259,14 +192,6 @@ public class Multa implements Serializable {
         this.fecha_resolucion_coactiva = fecha_resolucion_coactiva;
     }
 
-    public Predio getObjPredio() {
-        return ObjPredio;
-    }
-
-    public void setObjPredio(Predio ObjPredio) {
-        this.ObjPredio = ObjPredio;
-    }
-
     public String getReferencia() {
         return referencia;
     }
@@ -283,22 +208,12 @@ public class Multa implements Serializable {
         this.observacion = observacion;
     }
 
-    
-
     public String getNumero_aviso_notificacion() {
         return numero_aviso_notificacion;
     }
 
     public void setNumero_aviso_notificacion(String numero_aviso_notificacion) {
         this.numero_aviso_notificacion = numero_aviso_notificacion;
-    }
-
-    public String getInformacion_consulta() {
-        return informacion_consulta;
-    }
-
-    public void setInformacion_consulta(String informacion_consulta) {
-        this.informacion_consulta = informacion_consulta;
     }
 
     public String getLugar_infraccion() {
@@ -357,6 +272,14 @@ public class Multa implements Serializable {
         this.numero_acta = numero_acta;
     }
 
+    public String getNumero_acta_constatacion() {
+        return numero_acta_constatacion;
+    }
+
+    public void setNumero_acta_constatacion(String numero_acta_constatacion) {
+        this.numero_acta_constatacion = numero_acta_constatacion;
+    }
+
     public String getFecha_ejecucion() {
         return fecha_ejecucion;
     }
@@ -373,16 +296,6 @@ public class Multa implements Serializable {
         this.codigo_ingraccion = codigo_ingraccion;
     }
 
-    public float getValor_obra() {
-        return valor_obra;
-    }
-
-    public void setValor_obra(float valor_obra) {
-        this.valor_obra = valor_obra;
-    }
-    
-    
-
     public String getNumero_informe() {
         return numero_informe;
     }
@@ -391,33 +304,12 @@ public class Multa implements Serializable {
         this.numero_informe = numero_informe;
     }
 
-    public String getActa_constatacion() {
-        return acta_constatacion;
-    }
-
-    public void setActa_constatacion(String acta_constatacion) {
-        this.acta_constatacion = acta_constatacion;
-    }
-
     public String getFecha_multa() {
         return fecha_multa;
     }
 
     public void setFecha_multa(String fecha_multa) {
         this.fecha_multa = fecha_multa;
-    }
-
-    public String getNumero_acta_constatacion() {
-        return numero_acta_constatacion;
-    }
-
-    public void setNumero_acta_constatacion(String numero_acta_constatacion) {
-        this.numero_acta_constatacion = numero_acta_constatacion;
-    }
-
-    
-    public void setReclamo_expediente(String reclamo_expediente) {
-        this.reclamo_expediente = reclamo_expediente;
     }
 
     public String getResolucion_anulacion() {
@@ -444,28 +336,12 @@ public class Multa implements Serializable {
         this.estado_multa = estado_multa;
     }
 
-    public String getId_unico_multa() {
-        return id_unico_multa;
+    public String getActa_constatacion() {
+        return acta_constatacion;
     }
 
-    public void setId_unico_multa(String id_unico_multa) {
-        this.id_unico_multa = id_unico_multa;
-    }
-
-    public Cuenta getObjCuenta() {
-        return ObjCuenta;
-    }
-
-    public void setObjCuenta(Cuenta ObjCuenta) {
-        this.ObjCuenta = ObjCuenta;
-    }
-
-    public String getReincidente() {
-        return reincidente;
-    }
-
-    public void setReincidente(String reincidente) {
-        this.reincidente = reincidente;
+    public void setActa_constatacion(String acta_constatacion) {
+        this.acta_constatacion = acta_constatacion;
     }
 
     public String getCodigo_sancion() {
@@ -491,10 +367,121 @@ public class Multa implements Serializable {
     public void setFecha_registro(String fecha_registro) {
         this.fecha_registro = fecha_registro;
     }
-    
-   
 
-    public static ArrayList<Multa> BuscarMultaAdministrativa(Multa m) {
+    public String getHora_registro() {
+        return hora_registro;
+    }
+
+    public void setHora_registro(String hora_registro) {
+        this.hora_registro = hora_registro;
+    }
+
+    public int getValor_obra() {
+        return valor_obra;
+    }
+
+    public void setValor_obra(int valor_obra) {
+        this.valor_obra = valor_obra;
+    }
+
+    public String getReincidente() {
+        return reincidente;
+    }
+
+    public void setReincidente(String reincidente) {
+        this.reincidente = reincidente;
+    }
+
+    public Persona getObjPersona() {
+        return ObjPersona;
+    }
+
+    public void setObjPersona(Persona ObjPersona) {
+        this.ObjPersona = ObjPersona;
+    }
+
+    public Direccion getObjDireccion() {
+        return ObjDireccion;
+    }
+
+    public void setObjDireccion(Direccion ObjDireccion) {
+        this.ObjDireccion = ObjDireccion;
+    }
+
+    public Area getObjArea() {
+        return objArea;
+    }
+
+    public void setObjArea(Area objArea) {
+        this.objArea = objArea;
+    }
+
+    public Giro getObjGiro() {
+        return ObjGiro;
+    }
+
+    public void setObjGiro(Giro ObjGiro) {
+        this.ObjGiro = ObjGiro;
+    }
+
+    public Sancion getObjSancion() {
+        return ObjSancion;
+    }
+
+    public void setObjSancion(Sancion ObjSancion) {
+        this.ObjSancion = ObjSancion;
+    }
+
+    public Supervisor getObjInspector() {
+        return objInspector;
+    }
+
+    public void setObjInspector(Supervisor objInspector) {
+        this.objInspector = objInspector;
+    }
+
+    public Predio getObjPredio() {
+        return ObjPredio;
+    }
+
+    public void setObjPredio(Predio ObjPredio) {
+        this.ObjPredio = ObjPredio;
+    }
+
+    public Usuario getObjUsuario() {
+        return ObjUsuario;
+    }
+
+    public void setObjUsuario(Usuario ObjUsuario) {
+        this.ObjUsuario = ObjUsuario;
+    }
+
+    public Cuenta getObjCuenta() {
+        return ObjCuenta;
+    }
+
+    public void setObjCuenta(Cuenta ObjCuenta) {
+        this.ObjCuenta = ObjCuenta;
+    }
+
+    public Grupo getObjGrupo() {
+        return ObjGrupo;
+    }
+
+    public void setObjGrupo(Grupo ObjGrupo) {
+        this.ObjGrupo = ObjGrupo;
+    }
+
+    public Expediente getObjExpediente() {
+        return ObjExpediente;
+    }
+
+    public void setObjExpediente(Expediente ObjExpediente) {
+        this.ObjExpediente = ObjExpediente;
+    }
+    
+    
+   public static ArrayList<Multa> BuscarMultaAdministrativa(Multa m) {
 
         ArrayList<Multa> arr = null;
         ResultSet rs = null;
@@ -577,8 +564,6 @@ public class Multa implements Serializable {
                     obj.setObjArea(ObjArea);
 
                     obj.setFecha_resolucion_coactiva(rs.getString("dfecrec"));
-                    obj.setResolucion_anulacion(rs.getString("cresanu"));
-                    obj.setReclamo_expediente(rs.getString("crecexp"));
 
                     Usuario ObjUsuario = new Usuario();
                     ObjUsuario.setNombre_usuario(rs.getString("cusutra"));
@@ -591,43 +576,36 @@ public class Multa implements Serializable {
                     
                     ObjGrupo.setCodigo_medida_complementaria(rs.getString("csancio"));
                     
-                    obj.setObjGrupo(ObjGrupo);
-                    
+                    obj.setObjGrupo(ObjGrupo);                   
                     obj.setFecha_notificacion(rs.getString("dfecnot"));
                     obj.setReincidente(rs.getString("nreinci"));
-
                     Cuenta Objcuenta = new Cuenta();
                     Objcuenta.setId_unico(rs.getString("id_unico"));
                     Objcuenta.setEstado_cuenta(rs.getString("cestado"));
-
                     obj.setObjCuenta(Objcuenta);
-
                     obj.setId_unico_multa(rs.getString("id_corrl"));
-                    obj.setNumero_aviso_notificacion(rs.getString("NumAviso"));
-                 
+                    obj.setNumero_aviso_notificacion(rs.getString("NumAviso"));                
                     obj.setObservacion(rs.getString("mobserv"));
                     obj.setManzana(rs.getString("manzana"));
                     obj.setLote(rs.getString("lote"));
                     obj.setNumero_fiscal(rs.getString("nro_fiscal"));
                     obj.setNumero_departamento(rs.getString("dpto_int"));
                     obj.setReferencia(rs.getString("referencia"));
-
                     Supervisor ObjInspector = new Supervisor();
                     ObjInspector.setApellidos_nombres(rs.getString("ins_municipal"));
                     obj.setObjInspector(ObjInspector);
-
                     obj.setNumero_acta(rs.getString("nro_acta"));
                     obj.setNumero_informe(rs.getString("nro_informe"));
-
                     Giro ObjGiro = new Giro();
                     ObjGiro.setCodigo_giro(rs.getString("giro"));
                     ObjGiro.setGiro_detalle(rs.getString("OTROS_GIROS"));
-
                     obj.setObjGiro(ObjGiro);
-
                     obj.setFecha_ejecucion(rs.getString("f_ejecucion"));
                     obj.setFecha_registro(rs.getString("f_registro"));
-                    obj.setActa_constatacion(rs.getString("ACTA_CONSTATACION"));
+                    obj.setActa_constatacion(rs.getString("ACTA_CONSTATACION"));                  
+                    obj.ObjExpediente.setNumero_expediente(rs.getString("crecexp"));
+                    obj.setResolucion_anulacion(rs.getString("cresanu"));                 
+                    obj.setAnotacion_anulacion(rs.getString("mobsanu"));
 
                     arr.add(obj);
 
@@ -927,11 +905,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getReclamo_expediente()!= null) {
+            if (ObjEditarMulta.ObjExpediente.getNumero_expediente()!= null) {
 
-                if (ObjEditarMulta.getReclamo_expediente().length() > 0) {
+                if (ObjEditarMulta.ObjExpediente.getNumero_expediente().length() > 0) {
 
-                    st.setString(12, ObjEditarMulta.getReclamo_expediente());
+                    st.setString(12, ObjEditarMulta.ObjExpediente.getNumero_expediente());
                 } else {
                     st.setString(12, null);
                 }
@@ -1213,20 +1191,11 @@ public class Multa implements Serializable {
 
             }
             
-            
-              if (ObjEditarMulta.getValor_obra()>=0) {
-
-                if (ObjEditarMulta.getValor_obra()>=0) {
-
-                    st.setFloat(34, ObjEditarMulta.getValor_obra());
+         
+             st.setInt(34, ObjEditarMulta.getValor_obra());
                     
-                } else {
-                    st.setString(34, null);
-                }
-            } else {
-                st.setString(34, null);
-
-            }
+           
+            
 
             //--------------------------------------- 
            st.execute();
@@ -1452,11 +1421,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getReclamo_expediente() != null) {
+            if (ObjRegistrar.ObjExpediente.getNumero_expediente() != null) {
 
-                if (ObjRegistrar.getReclamo_expediente().length() > 0) {
+                if (ObjRegistrar.ObjExpediente.getNumero_expediente().length() > 0) {
 
-                    st.setString(13, ObjRegistrar.getReclamo_expediente());
+                    st.setString(13, ObjRegistrar.ObjExpediente.getNumero_expediente());
                 } else {
                     st.setString(13, null);
                 }
@@ -1540,7 +1509,7 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar.getReincidente() != null) {
+            if (ObjRegistrar != null) {
 
                 if (ObjRegistrar.getReincidente().length() > 0) {
 
@@ -1808,5 +1777,136 @@ public class Multa implements Serializable {
 
         return arrayInspector;
     }
+    
 
+    public static boolean AnularMulta (Multa ObjAnularMulta) {
+        
+        boolean a = false;
+        Connection conexion = null;
+        /* variable de connexion para definir y manejar el conytrol de errores*/
+        try {
+            conexion = Controlador_Sql.darConexionBD();
+
+            conexion.setAutoCommit(false);
+
+            CallableStatement st = conexion.prepareCall ("{call dbo.sp_java_anulacion_multas_administrativas(?,?,?,?,?)}");
+
+   
+            if (ObjAnularMulta.ObjCuenta.getId_unico()!= null) {
+
+                if (ObjAnularMulta.ObjCuenta.getId_unico().length() > 0) {
+
+                    st.setString(1, ObjAnularMulta.ObjCuenta.getId_unico());
+                } else {
+                    st.setString(1, null);
+                }
+            } else {
+                st.setString(1, null);
+
+            }
+
+            if (ObjAnularMulta.getId_unico_multa()!= null) {
+              
+                if (ObjAnularMulta.getId_unico_multa().length() > 0) {
+                    
+                    st.setString(2, ObjAnularMulta.getId_unico_multa());
+                    
+                } else {
+                    st.setString(2, null);
+                }
+            } else {
+                st.setString(2, null);
+
+            }
+
+            if (ObjAnularMulta.ObjExpediente.getNumero_expediente()!= null) {
+
+                if (ObjAnularMulta.ObjExpediente.getNumero_expediente().length() > 0) {
+                    
+                    st.setString(3, ObjAnularMulta.ObjExpediente.getNumero_expediente());
+                } else {
+                    st.setString(3, null);
+                }
+            } else {
+                st.setString(3, null);
+
+            }
+
+            if (ObjAnularMulta.getResolucion_anulacion()!= null) {
+                
+                if (ObjAnularMulta.getResolucion_anulacion().length() > 0) {
+
+                    st.setString(4, ObjAnularMulta.getResolucion_anulacion());
+                } else {
+                    st.setString(4, null);
+                }
+            } else {
+                st.setString(4, null);
+
+            }
+
+          
+            if (ObjAnularMulta.getAnotacion_anulacion()!= null) {
+
+                if (ObjAnularMulta.getAnotacion_anulacion().length() > 0) {
+                    
+                    st.setString(5, ObjAnularMulta.getAnotacion_anulacion());
+                    
+                } else {
+                    
+                    st.setString(5, null);
+                }
+            } else {
+                
+                st.setString(5, null);
+            }
+
+
+      
+
+            //--------------------------------------- 
+           st.execute();
+            st.close();
+            conexion.commit();
+
+        } catch (Exception e) {
+            try {
+
+                // Vuelve atras los cambios
+                conexion.rollback();
+            } catch (Exception ee) {//Manejo de errores}
+                System.out.println("ERROR REGISTRAR: " + ee.getMessage());
+            }
+        } finally {
+            try {
+
+                // Cierra la conexión
+                if (conexion != null) {
+                    conexion.close();
+                }
+
+            } catch (Exception e) {//Manejo de errores}
+
+                System.out.println("ERROR REGISTRAR: " + e.getMessage());
+            }
+        }
+        return true;
+    }
+ 
+    
+   
+    
+  
 }
+   
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+

@@ -60,7 +60,7 @@ public class Certificado implements Serializable {
     private int id_tipo_licencia;
     private String descripcion_tipo_licencia;
     private String numero_identificacion;
-    private int estado_fiscalizacion;
+    private boolean estado_fiscalizacion;
     private String observaciones_seguridad;
     private String[] regobservaciones_seguridad = {"Alternativa_1", "Alternativa_2", "Alternativa_3"};
     private int resultado;
@@ -160,13 +160,6 @@ public class Certificado implements Serializable {
         this.regobservaciones_seguridad = regobservaciones_seguridad;
     }
 
-    public int getEstado_fiscalizacion() {
-        return estado_fiscalizacion;
-    }
-
-    public void setEstado_fiscalizacion(int estado_fiscalizacion) {
-        this.estado_fiscalizacion = estado_fiscalizacion;
-    }
 
     public int getId_tipo_licencia() {
         return id_tipo_licencia;
@@ -483,6 +476,18 @@ public class Certificado implements Serializable {
         this.area_verificada = area_verificada;
     }
 
+    public boolean isEstado_fiscalizacion() {
+        return estado_fiscalizacion;
+    }
+
+    public void setEstado_fiscalizacion(boolean estado_fiscalizacion) {
+        this.estado_fiscalizacion = estado_fiscalizacion;
+    }
+
+   
+
+    
+
     public ArrayList<SelectItem> getCargarComboGiros() {
 
         ArrayList<SelectItem> arrayGiros = new ArrayList<SelectItem>();
@@ -643,7 +648,7 @@ public class Certificado implements Serializable {
                     obj.setId_tipo_licencia(rs.getInt("id_tipo_licencia"));
                     obj.setDescripcion_tipo_licencia(rs.getString("descripcion_tipo_licencia"));
                     obj.setNumero_identificacion(rs.getString("numero_identidad"));
-                    obj.setEstado_fiscalizacion(rs.getInt("estado_fiscalizacion"));
+                    obj.setEstado_fiscalizacion(rs.getBoolean("estado_fiscalizacion"));
                     obj.setObservaciones_seguridad(rs.getString("observaciones_seguridad"));
                     obj.setResultado(rs.getInt("resultado"));
                     obj.setAnotaciones(rs.getString("anotaciones"));
@@ -714,8 +719,8 @@ public class Certificado implements Serializable {
                     gr.setGiro_detalle("giro_detalle");
                     obj.setObjgiros(gr);
 
-                    obj.setDescripcion_tipo_licencia(rs.getString("descripcion_tipo_licencia"));
-                    obj.setFiscalizaciones(rs.getString("estado_fiscalizacion"));
+                    obj.setDescripcion_tipo_licencia(rs.getString("descripcion_tipo_licencia"));       
+                    obj.setEstado_fiscalizacion(rs.getBoolean("estado_fiscalizacion"));
                     obj.setObservaciones_seguridad(rs.getString("observaciones_seguridad"));
                     obj.setResultados(rs.getString("resultado"));
 
@@ -786,7 +791,7 @@ public class Certificado implements Serializable {
                     gir.setGiro_detalle("giro_detalle");
                     obj.setObjgiros(gir);
 
-                    obj.setDescripcion_tipo_licencia(rs.getString("descripcion_tipo_licencia"));
+                    obj.setDescripcion_tipo_licencia(rs.getString("descripcion_tipo_licencia"));                   
                     obj.setFiscalizaciones(rs.getString("estado_fiscalizacion"));
                     obj.setObservaciones_seguridad(rs.getString("observaciones_seguridad"));
                     obj.setResultados(rs.getString("resultado"));
@@ -1052,7 +1057,7 @@ public class Certificado implements Serializable {
 
             st.setInt(17, obj.getId_tipo_licencia());
 
-            st.setInt(18, obj.getEstado_fiscalizacion());
+            st.setBoolean(18, obj.isEstado_fiscalizacion());
             st.setInt(19, obj.getResultado());
 
             st.execute();
