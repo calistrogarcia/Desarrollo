@@ -19,27 +19,21 @@
                     </br>                   
                     <p:growl  id="estado" sticky="true"  showDetail="true"  />
                     <center> 
-                        <h:panelGrid columns="2" cellpadding="3" cellspacing="2"> 
-                         
-                            
-                            
-                        <h:outputLabel value="Usuario" />  
-                        
+                        <h:panelGrid columns="2" cellpadding="3" cellspacing="2">                         
+                        <h:outputLabel value="Usuario" />                       
                         <h:panelGroup>
                             
-                            <p:inputText id="user" value="#{beanUsuario_Logeo.nombre_user}" size="13" placeholder="Usuario"
+                            <p:inputText id="user" value="#{beanUsuario_Logeo.nombre_usuario}" size="13" placeholder="Usuario"
                                          required="true" label="Usuario" requiredMessage="Ingrese Usuario">  
                                 <f:validateLength minimum="1" />  
                             </p:inputText>  
                         </h:panelGroup>
-                        <h:outputLabel  value="Clave" /> 
-                        
+                        <h:outputLabel  value="Clave" />                      
                          <h:panelGroup>                              
-                            <p:password value="#{beanUsuario_Logeo.clave_user}"  required="true"  size="13"  placeholder="Password"
-                                        requiredMessage="Ingrese Password" label="Password" feedback="true" inline="true" />                                            
+                             <p:password value="#{beanUsuario_Logeo.clave_usuario}"  required="true"  size="13"  placeholder="Password"
+                                        requiredMessage="Ingrese Password" 
+                                        label="Password" feedback="true" inline="true" />                                            
                           </h:panelGroup>
-                        
-                        
                         <h:panelGroup> 
                              <br>
                                 
@@ -50,8 +44,6 @@
                     </h:panelGrid> 
                     </center>                        
                </h:form>
-
- 
             </ui:define>         
         </ui:composition>
     </h:body>

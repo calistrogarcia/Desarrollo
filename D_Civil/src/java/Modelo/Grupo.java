@@ -26,10 +26,29 @@ public class Grupo implements Serializable {
    private String medida_complementaria;
    private String codigo_tipo_documento_expediente;
    private String nombre_tipo_documento_expediente;
-    
-  
+   private String codigo_tipo_referencia;
+   private String nombre_tipo_referencia;
+
+   public String getCodigo_tipo_referencia() {
+      
+        return codigo_tipo_referencia;
+    }
+
+    public void setCodigo_tipo_referencia(String codigo_tipo_referencia) {
+        this.codigo_tipo_referencia = codigo_tipo_referencia;
+    }
+
+    public String getNombre_tipo_referencia() {
+        return nombre_tipo_referencia;
+    }
+
+    public void setNombre_tipo_referencia(String nombre_tipo_referencia) {
+        this.nombre_tipo_referencia = nombre_tipo_referencia;
+    }
+ 
    public String getCodigo_medida_complementaria() {
-        return codigo_medida_complementaria;
+    
+       return codigo_medida_complementaria;
     }
 
     public void setCodigo_medida_complementaria(String codigo_medida_complementaria) {
@@ -276,8 +295,41 @@ public class Grupo implements Serializable {
         return arrayTipoDocumento_Expediente;
     } 
      
-     
+ 
 
+    public  ArrayList<SelectItem>  getCargarTipo_Referencia_Expediente() {
+
+        ArrayList<SelectItem> arrayTipo_Referencia_expediente = new ArrayList<SelectItem>();
+        Grupo obj = null;
+        Connection conexion = null;
+        ResultSet rs = null;
+        try {
+
+            conexion = Controlador_Sql.darConexionBD();
+            CallableStatement st = conexion.prepareCall("{call sp_java_tipo_referencia()}");
+            rs = st.executeQuery();
+
+            if (rs.next()) {
+                do {
+                    arrayTipo_Referencia_expediente.add(new SelectItem(rs.getString("codigo_tipo_referencia"), rs.getString("nombre_referencia")));
+
+                } while (rs.next());
+
+            }
+            rs.close();
+            st.close();
+            conexion.close();
+
+        } catch (Exception error) {
+            System.out.println("Error en el metodo por: "
+                    + error.getMessage());
+            error.printStackTrace();
+        }
+
+        return arrayTipo_Referencia_expediente;
+
+    }
+  
     
    
 }

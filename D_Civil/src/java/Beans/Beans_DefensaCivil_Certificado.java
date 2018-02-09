@@ -62,15 +62,13 @@ public class Beans_DefensaCivil_Certificado {
     private Certificado objEliminaCertificado;
     private Certificado objBuscarCertificado;
     private Certificado objDocumentoResolverReg;
-    private Certificado objRegistrarDirecciones;
-    private Certificado objBuscarDirecciones;
+   
     private Certificado objRegistrarArchivoVirtual;
     private Certificado objBuscarArchivoVirtual;
 
     private ArrayList<Certificado> arrCertificado = null;
     private ArrayList<Certificado> arrBusCertificado = null;
-    private ArrayList<Certificado> arrDirecciones = null;
-    private ArrayList<Certificado> arrBusDirecciones = null;
+
     private ArrayList<Certificado> arrArchivoVirtual = null;
     private ArrayList<Certificado> arrBusArchivoVirtual = null;
 
@@ -323,13 +321,6 @@ public class Beans_DefensaCivil_Certificado {
         this.objEliminaCertificado = objEliminaCertificado;
     }
 
-    public Certificado getObjBuscarDirecciones() {
-        return objBuscarDirecciones;
-    }
-
-    public void setObjBuscarDirecciones(Certificado objBuscarDirecciones) {
-        this.objBuscarDirecciones = objBuscarDirecciones;
-    }
 
     public ArrayList<Certificado> getArrCertificado() {
         return arrCertificado;
@@ -363,29 +354,6 @@ public class Beans_DefensaCivil_Certificado {
         this.objDocumentoResolverReg = objDocumentoResolverReg;
     }
 
-    public ArrayList<Certificado> getArrDirecciones() {
-        return arrDirecciones;
-    }
-
-    public void setArrDirecciones(ArrayList<Certificado> arrDirecciones) {
-        this.arrDirecciones = arrDirecciones;
-    }
-
-    public ArrayList<Certificado> getArrBusDirecciones() {
-        return arrBusDirecciones;
-    }
-
-    public void setArrBusDirecciones(ArrayList<Certificado> arrBusDirecciones) {
-        this.arrBusDirecciones = arrBusDirecciones;
-    }
-
-    public Certificado getObjRegistrarDirecciones() {
-        return objRegistrarDirecciones;
-    }
-
-    public void setObjRegistrarDirecciones(Certificado objRegistrarDirecciones) {
-        this.objRegistrarDirecciones = objRegistrarDirecciones;
-    }
 
     public Certificado getObjRegistrarArchivoVirtual() {
         return objRegistrarArchivoVirtual;
@@ -478,17 +446,7 @@ public class Beans_DefensaCivil_Certificado {
 
     }
 
-    public void doiniciarObjBusDirecciones() {
-
-        this.objBuscarDirecciones = new Certificado();
-
-    }
-
-    public void doiniciarRegistroDirecciones() {
-
-        this.objRegistrarDirecciones = new Certificado();
-    }
-
+  
     public void doiniciarObjBusArchivoVirtual() {
 
         this.objBuscarArchivoVirtual = new Certificado();
@@ -531,16 +489,12 @@ public class Beans_DefensaCivil_Certificado {
 
     //Iniciallzaciones para arrays
     public void doiniciarBusquedaCertificado() {
+        
         this.arrBusCertificado = new ArrayList<Certificado>();
         this.objBuscarCertificado = new Certificado();
 
     }
 
-    public void doiniciarBusquedaDirecciones() {
-        this.arrBusDirecciones = new ArrayList<Certificado>();
-        this.objBuscarDirecciones = new Certificado();
-
-    }
 
     public void doiniciarBusquedaArchivoVirtual() {
         this.arrBusArchivoVirtual = new ArrayList<Certificado>();
@@ -566,36 +520,17 @@ public class Beans_DefensaCivil_Certificado {
 
         try {
             doiniciarRegistroArchivoVirtual();
-            doiniciarRegistroDirecciones();
             doiniciarRegistroResolverDocumento();
             doiniciarObjBusCertificado();
             doiniciarBusquedaArchivoVirtual();
-            doiniciarBusquedaDirecciones();
-
+            
         } catch (Exception e) {
             Mensaje.manejarError(e, "Error al Iniciar Proceso");
         }
 
     }
 
-    public String doRegDirecciones(Certificado var_listadodirecciones) {
 
-        try {
-
-            if (Certificado.registrarDireccion(var_listadodirecciones)) {
-
-                Mensaje.guardarMensajeExito("Registrar Supervisor", "Registrado Correctamente");
-                this.doiniciarRegistroDirecciones();
-
-            } else {
-                Mensaje.manejarError("Registrar Supervisor", "Error de Registro, Verificar Algoritmo");
-            }
-        } catch (Exception e) {
-            Mensaje.manejarError(e, "Registrar Supervisor");
-        }
-        return null;
-
-    }
 
     public String doRegArchivoVirtual() {
         try {
@@ -702,14 +637,6 @@ public class Beans_DefensaCivil_Certificado {
 
     }
 
-    public ArrayList<Certificado> doBuscarDirecciones() {
-
-        this.arrBusDirecciones = new ArrayList<Certificado>();
-        this.arrBusDirecciones = Certificado.getBuscaDirecciones(objBuscarDirecciones);
-
-        return this.arrBusDirecciones;
-
-    }
 
     public ArrayList<Certificado> doBuscarReporteResoluciones() {
 
@@ -758,23 +685,7 @@ public class Beans_DefensaCivil_Certificado {
         }
     }
 
-    public String getSizeRegistrosDirecciones() {
-
-        if (this.arrDirecciones == null) {
-            return "0";
-        } else {
-            return "" + this.arrDirecciones.size();
-        }
-    }
-
-    public String getSizeRegistrosBusDirecciones() {
-
-        if (this.arrBusDirecciones == null) {
-            return "0";
-        } else {
-            return "" + this.arrBusDirecciones.size();
-        }
-    }
+   
 
     public String getSizeRegistrosArchivoVirtual() {
 
@@ -972,11 +883,6 @@ public class Beans_DefensaCivil_Certificado {
         return null;
     }
 
-    
-    
-    
-    
-    
     
     //--------------------------------------------------------------------------------------------------------------------
     public String desactivaTabResolverIpse() {

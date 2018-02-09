@@ -19,9 +19,7 @@
                
 
                 <p:panelMenu style="width: auto;text-align: left; font: small serif"> 
-
-                   
-
+                    
                     <p:submenu label="#{msg.LabelDatosPersonales}"  icon="ui-icon-extlink">   
                         <p:menuitem value="#{msg.LabelRegistrarContribuyente}"  style="margin-top:0"
                                     url="Registro_InformacionPersonal.jsf"  icon="ui-icon-zoomin">               
@@ -129,7 +127,7 @@
 
 
 
-                    <p:submenu label="#{beanUsuario_Logeo.clase_usuario.descripcion}"  icon="ui-icon-extlink"> 
+                    <p:submenu   label="#{beanUsuario_Logeo.clase_usuario.nombre_usuario}"  icon="fa-user"> 
                         <p:menuitem value="#{msg.LabelCerrar}" actionListener="#{beanUsuario_Logeo.salirSistema()}"/>                                   
                     </p:submenu>
 

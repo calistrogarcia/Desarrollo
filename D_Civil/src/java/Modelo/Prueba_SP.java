@@ -116,7 +116,7 @@ public class Prueba_SP {
         direc.objdireccion.setCodigo_postal("L31");
         //direc.objdireccion.setCodigo_via(" ");
 
-        System.out.print(Certificado.getBuscaDirecciones(direc).size());
+//        System.out.print(Certificado.getBuscaDirecciones(direc).size());
 
     }
     
@@ -177,24 +177,24 @@ public class Prueba_SP {
         }
     }
 
-    public static void registrardireccion() {
-
-        Certificado objdireccion = new Certificado();
-        objdireccion.objdireccion.setCodigo_via("00276");
-        objdireccion.objdireccion.setTipo_via("");
-        objdireccion.objdireccion.setNombre_via("MANIZALES I ETAPA");
-        objdireccion.objdireccion.setNombre_habilitacion("");
-        objdireccion.objdireccion.setTipo_habilitacion("");
-        objdireccion.objdireccion.setCodigo_habilitacion("");
-        objdireccion.objdireccion.setCodigo_via("");
-        objdireccion.objdireccion.setNombre_zona("");
-
-        if (Certificado.registrarDireccion(objdireccion)) {
-            System.out.println("ok");
-        } else {
-            System.out.println("no");
-        }
-    }
+//    public static void registrardireccion() {
+//
+//        Certificado objdireccion = new Certificado();
+//        objdireccion.objdireccion.setCodigo_via("00276");
+//        objdireccion.objdireccion.setTipo_via("");
+//        objdireccion.objdireccion.setNombre_via("MANIZALES I ETAPA");
+//        objdireccion.objdireccion.setNombre_habilitacion("");
+//        objdireccion.objdireccion.setTipo_habilitacion("");
+//        objdireccion.objdireccion.setCodigo_habilitacion("");
+//        objdireccion.objdireccion.setCodigo_via("");
+//        objdireccion.objdireccion.setNombre_zona("");
+//
+//        if (Certificado.registrarDireccion(objdireccion)) {
+//            System.out.println("ok");
+//        } else {
+//            System.out.println("no");
+//        }
+//    }
 
     public static void registroMulta() {
 
@@ -527,29 +527,17 @@ public class Prueba_SP {
      public static void RegistarExpediente() {
 
            Expediente Ob= new Expediente();
-           
-//           Ob.setCorrelativo_expediente(" ");
-          // Ob.setTipo_documento("01");
-//           Ob.setNumero_expediente(" ");
+          
            Ob.setNumero_folios(10);
            Ob.ObjPersona.setCodigo_contribuyente("060528");
            Ob.ObjAsunto.setCodigo_asunto("0379");
            Ob.setObservacion("YYY");
            Ob.setNumero_documento(" ");
            Ob.ObjUsuario.setNombre_usuario("797");
-           Ob.setAnotacion("vvv");
+           Ob.setAnotacion("vvv");     
+           Expediente.registrar_expediente(Ob);   
            
            
-           
-        
-        if (Expediente.registrar_expediente(Ob)) {
-            
-            
-            System.out.println("ok");
-        } else {
-            System.out.println("no");
-        }
-
     }
      
     

@@ -27,9 +27,9 @@ public class Beans_Tramite_Registro_Expedientes implements Serializable {
     private Expediente objRegistroExpediente;
     private Expediente objModificarExpediente;
     private Expediente objBuscarExpediente;
-    private ArrayList<Expediente> arrayExpediente = null;
-    private ArrayList<Expediente> arrayBusquedaExpediente = null;   
     private ArrayList<SelectItem> tipo_documento_expediente= null;
+    private ArrayList<Expediente> arrayRegistoExpediente = null;
+    private ArrayList<Expediente> arrBusquedaRegistroExpediente = null;
     
     
     private String codigo_asunto;
@@ -44,7 +44,10 @@ public class Beans_Tramite_Registro_Expedientes implements Serializable {
     @ManagedProperty(value = "#{beans_Tramite_Asunto}")
     private Beans_Tramite_Asunto beans_Tramite_Asunto =  new Beans_Tramite_Asunto();
 
-
+  
+    
+    
+    
     
     public Expediente getObjRegistroExpediente() {
         return objRegistroExpediente;
@@ -70,21 +73,23 @@ public class Beans_Tramite_Registro_Expedientes implements Serializable {
         this.objBuscarExpediente = objBuscarExpediente;
     }
 
-    public ArrayList<Expediente> getArrayExpediente() {
-        return arrayExpediente;
+    public ArrayList<Expediente> getArrayRegistoExpediente() {
+        return arrayRegistoExpediente;
     }
 
-    public void setArrayExpediente(ArrayList<Expediente> arrayExpediente) {
-        this.arrayExpediente = arrayExpediente;
+    public void setArrayRegistoExpediente(ArrayList<Expediente> arrayRegistoExpediente) {
+        this.arrayRegistoExpediente = arrayRegistoExpediente;
     }
 
-    public ArrayList<Expediente> getArrayBusquedaExpediente() {
-        return arrayBusquedaExpediente;
+    public ArrayList<Expediente> getArrBusquedaRegistroExpediente() {
+        return arrBusquedaRegistroExpediente;
     }
 
-    public void setArrayBusquedaExpediente(ArrayList<Expediente> arrayBusquedaExpediente) {
-        this.arrayBusquedaExpediente = arrayBusquedaExpediente;
+    public void setArrBusquedaRegistroExpediente(ArrayList<Expediente> arrBusquedaRegistroExpediente) {
+        this.arrBusquedaRegistroExpediente = arrBusquedaRegistroExpediente;
     }
+
+    
 
     public Integer getActiveTabIndex() {
         return activeTabIndex;
@@ -143,11 +148,21 @@ public class Beans_Tramite_Registro_Expedientes implements Serializable {
     }
 
  
+    public void doiniciarObjRegExpedientes() {
 
-    //Inicializaciones
-    public void doiniciarRegistroExpediente() {
         this.objRegistroExpediente = new Expediente();
     }
+    
+      //Iniciallzaciones
+ 
+    
+     public void doiniciarRegistroExpedientes() {
+         
+        this.arrBusquedaRegistroExpediente= new ArrayList<Expediente>();
+        this.objRegistroExpediente = new Expediente();  
+
+    }
+    
 
     //Iniciallzaciones
     public void doiniciarModificarExpediente() {
@@ -160,40 +175,37 @@ public class Beans_Tramite_Registro_Expedientes implements Serializable {
     }
 
     //Iniciallzaciones
-    public void doiniciarBusquedaExpediente() {
-        this.arrayBusquedaExpediente= new ArrayList<Expediente>();
-        this.objBuscarExpediente = new Expediente();
 
-    }
-    
+ 
     
     public Beans_Tramite_Registro_Expedientes() {
    
-    doiniciarRegistroExpediente();  
-    doiniciarBusquedaExpediente();
-    
-    
+    doiniciarObjRegExpedientes();
+ 
     }
     
+
+     
+    public ArrayList<Expediente> doRegistrarExpediente() {
+
+        //Lista Certificado
+        this.arrBusquedaRegistroExpediente = new ArrayList<Expediente>();  
+        this.arrBusquedaRegistroExpediente = Expediente.registrar_expediente(objRegistroExpediente); 
+        return this.arrBusquedaRegistroExpediente;
+
+    } 
     
-     public String doRegistrarExpediente() {
+    
+      public String getSizeRegistrosExpedientes() {
 
-        try {
-
-            if (Expediente.registrar_expediente(objRegistroExpediente)) {
-                Mensaje.manejarError("Registrar Expediente", "Error de Registro, Verificar Algoritmo");
-            } else {
-                
-                Mensaje.guardarMensajeExito("Registrar Expediente", "Registrado Correctamente");
-                this.doiniciarRegistroExpediente();
-            }
-        } catch (Exception e) {
-            Mensaje.manejarError(e, "Registrar Expediente");
+        if (this.arrBusquedaRegistroExpediente == null) {
+            return "0";
+        } else {
+            return "" + this.arrBusquedaRegistroExpediente.size();
         }
-        return null;
-
     }
-       
+    
+    
      // para cargar informacion en un combo.
      
     public ArrayList<SelectItem> getTipo_documento_expediente() {

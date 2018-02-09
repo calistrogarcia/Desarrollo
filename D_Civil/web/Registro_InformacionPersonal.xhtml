@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-   
+
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
     </head>
@@ -16,7 +16,7 @@
 
                 <p:tab id="tab_contribuyente" title="#{msg.LabelSeccionContribuyentes}" titletip="#{msg.LabelSeccionContribuyentes}"  
                        titleStyleClass="tamaño_fuente_tab">
-  
+
                     <p:growl globalOnly="true"  id="growl_contribuyente" sticky="false"  showDetail="true"  />   
 
                     <h:form  id="form_contribuyente" class="border_titulo1"  styleClass="tamaño_fuente">  
@@ -1029,16 +1029,8 @@
 
                                 </f:facet>
                             </p:panelGrid>
-
-
-
                         </p:dialog> 
-
-
-
                     </h:form> 
-
-
 
                     <h:form id="registrar_contribuyente" class="border_titulo2"  styleClass="tamaño_fuente">
                         <p:growl globalOnly="true"  id="growl_registro_contribuyente" sticky="false"  showDetail="true"  />  
@@ -1050,21 +1042,13 @@
                                    draggable="true" resizable="true" responsive="true"
                                    closeOnEscape="true" footer="Registro Contribuyente" 
                                    width="900"  height="600" styleClass="tamaño_fuente" >  
-
-
                             <center>
                                 <p:panelGrid columns="2">
-
-
-
                                     <p:graphicImage url="resources/imagenes/contribuyente.png" height="25px"   />
                                     <h:outputLabel value="#{msg.LabelSeccionContribuyentes}"  style=" margin-left: 0%;color: blue"  styleClass="tamaño_fuente" />
 
                                 </p:panelGrid>
-
-
                             </center>
-
 
                             <p:panelGrid style="margin-top:1px"  styleClass="tamaño_fuente">
                                 <f:facet name="header">
@@ -1901,18 +1885,15 @@
 
 
 
-                    <h:form id="form_vias" styleClass="tamaño_fuente" >
+                    
 
+                      <h:form id="form_vias" styleClass="tamaño_fuente" >
                         <p:growl id="growl" sticky="true" showDetail="true" />
-
-
-
                         <p:dialog header="Vias" widgetVar="dlgVias" modal="false" height="505" width="700" responsive="true"
                                   showEffect="clip" hideEffect="clip">
 
-                            <p:ajax event="close" update="growl" listener="#{BeansRegistro_Informacion_Personal.handleMove}" />
-
                             <h:form  id="form_seleccion_vias" class="border_titulo1"  styleClass="tamaño_fuente">
+
                                 <p:growl globalOnly="true"  id="growl_seleccion_infraccion" sticky="false"  showDetail="true"  />                                   
                                 <p:panel id="panel_seleccion_vias" header="#{msg.LabelListadoVias}" styleClass="border" style="text-align: center" >
 
@@ -1925,7 +1906,7 @@
                                                              required="true" id="Editar_codigo_postal"
                                                              validatorMessage="#{msg.labelValidar}"
                                                              requiredMessage="#{msg.labelObli}"
-                                                             value="#{Beans_DefensaCivil_Certificado.objBuscarDirecciones.objdireccion.codigo_postal}">
+                                                             value="#{Beans_Direcciones.objBuscarDirecciones.objPostal.codigo_postal}">
                                                 <f:selectItem itemLabel="#{msg.labelSeleccionar}"
                                                               itemValue="O"/>
                                                 <f:selectItems value="#{Postal.cargarPostal}"/>
@@ -1935,13 +1916,12 @@
                                     </h:panelGrid>
 
 
-
                                     <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3" style="text-align: center;" width="17%">
 
-                                        <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{Beans_DefensaCivil_Certificado.doiniciarBusquedaDirecciones()}"  
+                                        <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{Beans_Direcciones.doiniciarBusquedaDirecciones()}"  
                                                          value="#{msg.labelNuevo}" async="true" update="panel_seleccion_vias"/>
 
-                                        <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{Beans_DefensaCivil_Certificado.doBuscarDirecciones()}"  
+                                        <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{Beans_Direcciones.doBuscarDirecciones()}"  
                                                          value="#{msg.btnConsultar}" async="true" update="panel_seleccion_vias" />  
 
                                     </h:panelGrid>
@@ -1956,85 +1936,88 @@
                                     <center>
                                         <h:panelGrid columns="2" >
                                             <h:outputText styleClass="etiqueta_resultBusqdireciones" value="#{msg.labelCantidad}"/>
-                                            <h:outputText styleClass="etiqueta_resultBusqdireccione" value="#{Beans_DefensaCivil_Certificado.arrBusDirecciones.size()}"/>               
+                                            <h:outputText styleClass="etiqueta_resultBusqdireccione" value="#{Beans_Direcciones.arrBusDirecciones.size()}"/>               
                                         </h:panelGrid> 
 
                                         <h:panelGrid columns="1"   cellpadding="0"  cellspacing="0" 
                                                      border="0"  styleClass="width-table"> 
 
+                                            
                                             <p:dataTable id="table_direcciones" var="var_listadodirecciones" 
-                                                         value="#{Beans_DefensaCivil_Certificado.arrBusDirecciones}" 
-                                                         selectionMode="single"  rowKey="#{var_listadodirecciones.objdireccion.codigo_via}"
+                                                         value="#{Beans_Direcciones.arrBusDirecciones}" 
+                                                         selectionMode="single"    selection="#{BeansRegistro_Informacion_Personal.objDireccion}"
+                                                         rowKey="#{var_listadodirecciones.codigo_via}"
                                                          styleClass="tamaño_fuente" paginator="true"  rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" 
                                                          paginatorPosition="both" paginatorAlwaysVisible="true"
-                                                         scrollable="true" scrollHeight="170" scrollWidth="650" editable="true"
-                                                       
-                                                           >
-                                                
-                                                <p:ajax event="rowSelect" listener="#{BeansRegistro_Informacion_Personal.onRowSelect}"  />
+                                                         scrollable="true" scrollHeight="170" scrollWidth="650" editable="true">
 
+                                           <p:ajax event="rowSelect" listener="#{BeansRegistro_Informacion_Personal.DireccionSeleccionada}" />
+                                               
                                                 <p:column  style="width:60px;text-align: center">
 
                                                     <f:facet name="header">
                                                         <h:outputText value="#{msg.LabelCodigoHabilitaciones}" />
                                                     </f:facet>
-                                                            <h:outputText  value="#{var_listadodirecciones.objdireccion.codigo_via}" />
-                                                
-                                                </p:column>  
-                                                
+                                                    <h:outputText  value="#{var_listadodirecciones.codigo_via}" />
 
-                                                <p:column filterBy="#{var_listadodirecciones.objdireccion.tipo_via}"  style="width:100px;text-align: center">
+                                                </p:column>  
+
+
+                                                <p:column filterBy="#{var_listadodirecciones.tipo_via}"  style="width:100px;text-align: center">
                                                     <f:facet name="header">
 
                                                         <h:outputText value="#{msg.LabelTipoVia}" />
                                                     </f:facet>   
-                                                            <h:outputText  value="#{var_listadodirecciones.objdireccion.tipo_via}" />
+                                                    <h:outputText  value="#{var_listadodirecciones.tipo_via}" />
 
                                                 </p:column>  
-                                                
 
-                                                <p:column  filterBy="#{var_listadodirecciones.objdireccion.nombre_via}" style="width:130px;text-align: center">
+
+                                                <p:column  filterBy="#{var_listadodirecciones.nombre_via}" style="width:130px;text-align: center">
                                                     <f:facet name="header">
                                                         <h:outputText value="#{msg.LabelNombreVia}" />
                                                     </f:facet>
-                                                 
-                                                            <h:outputText  value="#{var_listadodirecciones.objdireccion.nombre_via}"  />
+
+                                                    <h:outputText  value="#{var_listadodirecciones.nombre_via}"  />
                                                 </p:column>  
 
 
-                                                <p:column  filterBy="#{var_listadodirecciones.objdireccion.habilitacion}" style="width:130px;text-align: center">
+                                                <p:column  filterBy="#{var_listadodirecciones.habilitacion}" style="width:130px;text-align: center">
                                                     <f:facet name="header">
                                                         <h:outputText value="#{msg.LabelHabilitaciones}" />
                                                     </f:facet>
 
-                                                            <h:outputText  value="#{var_listadodirecciones.objdireccion.nombre_habilitacion}"  />
+                                                    <h:outputText  value="#{var_listadodirecciones.nombre_habilitacion}"  />
 
                                                 </p:column>  
 
 
-                                                <p:column  filterBy="#{var_listadodirecciones.objdireccion.tipo_habilitacion}" style="width:130px;text-align: center">
+                                                <p:column  filterBy="#{var_listadodirecciones.tipo_habilitacion}" style="width:130px;text-align: center">
                                                     <f:facet name="header">
                                                         <h:outputText value="#{msg.LabelTipoHabilitaciones}" style="text-align: center"/>
                                                     </f:facet>
 
-                                                            <h:outputText  value="#{var_listadodirecciones.objdireccion.tipo_habilitacion}"  />
+                                                    <h:outputText  value="#{var_listadodirecciones.tipo_habilitacion}"  />
 
                                                 </p:column >
-                                               
-                                            </p:dataTable>  
-                                        </h:panelGrid>  
-                                    </center>
-                                    
-        
 
+                                              
+
+                                            </p:dataTable>
+                                           
+                                   
+                                                
+                                        </h:panelGrid>
+                                        
+                                       
+                                    </center>
                                 </p:panel>
                             </h:form> 
                         </p:dialog> 
-                        
-   
                     </h:form> 
-                </p:tab>
+                      
 
+                </p:tab>
             </ui:define>
         </ui:composition>
     </body>

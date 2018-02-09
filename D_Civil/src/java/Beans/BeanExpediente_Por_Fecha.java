@@ -219,22 +219,22 @@ public class BeanExpediente_Por_Fecha {
 
     }
 
-    public String doRegExpediente() {
-        try {
-
-            if (Expediente.registrar_expediente(objExpedienteReg)) {
-                Mensaje.guardarMensajeExito("Registrar Expediente", "Registrado Correctamente");
-                this.doiniciarRegistroExpediente();
-            } else {
-                Mensaje.manejarError("Registrar Expediente", "Error de Registro, Verificar Algoritmo");
-            }
-
-        } catch (Exception e) {
-            Mensaje.manejarError(e, "Registrar Expediente");
-        }
-
-        return null;
-    }
+//    public String doRegExpediente() {
+//        try {
+//
+//            if (Expediente.registrar_expediente(objExpedienteReg)) {
+//                Mensaje.guardarMensajeExito("Registrar Expediente", "Registrado Correctamente");
+//                this.doiniciarRegistroExpediente();
+//            } else {
+//                Mensaje.manejarError("Registrar Expediente", "Error de Registro, Verificar Algoritmo");
+//            }
+//
+//        } catch (Exception e) {
+//            Mensaje.manejarError(e, "Registrar Expediente");
+//        }
+//
+//        return null;
+//    }
 
     public ArrayList<Expediente> doListarExpediente() {
         this.doiniciarListadoExpediente();

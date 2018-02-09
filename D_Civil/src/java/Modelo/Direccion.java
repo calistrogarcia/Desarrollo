@@ -6,6 +6,10 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -35,6 +39,19 @@ public class Direccion implements Serializable {
     private String cuadra;
 
     
+    
+    Postal ObjPostal = new Postal();
+
+    
+    
+    public Postal getObjPostal() {
+        return ObjPostal;
+    }
+
+    public void setObjPostal(Postal ObjPostal) {
+        this.ObjPostal = ObjPostal;
+    }
+
     public Direccion(){
         
     }
@@ -200,10 +217,209 @@ public class Direccion implements Serializable {
     public void setDetalle_habilitacion(String detalle_habilitacion) {
         this.detalle_habilitacion = detalle_habilitacion;
     }
-    
-    
   
     
+    
+    public static boolean registrarDireccion(Direccion Objdireccion) {
+        boolean a = false;
+        Connection conexion = null;
+        /* variable de connexion para definir y manejar el conytrol de errores*/
+        try {
+            conexion = Controlador_Sql.darConexionBD();
+            CallableStatement st
+                    = conexion.prepareCall("{call dbo.sp_java_registarDireccion (?,?,?,?,?,?,?,?)}");
+            conexion.setAutoCommit(false);
+
+            if (Objdireccion.getCodigo_via() != null) {
+                if (Objdireccion.getCodigo_via().length() > 0) {
+                    st.setString(1, Objdireccion.getCodigo_via());
+
+                } else {
+                    st.setString(1, null);
+                }
+            } else {
+                st.setString(1, null);
+            }
+
+            if (Objdireccion.getTipo_via() != null) {
+                if (Objdireccion.getTipo_via().length() > 0) {
+                    st.setString(2, Objdireccion.getTipo_via());
+
+                } else {
+                    st.setString(2, null);
+                }
+            } else {
+                st.setString(2, null);
+            }
+            //---------------------------------------
+
+            if (Objdireccion.getNombre_via() != null) {
+                if (Objdireccion.getNombre_via().length() > 0) {
+                    st.setString(3, Objdireccion.getNombre_via());
+
+                } else {
+                    st.setString(3, null);
+                }
+            } else {
+                st.setString(3, null);
+            }
+            //---------------------------------------
+
+            if (Objdireccion.getNombre_habilitacion() != null) {
+                if (Objdireccion.getNombre_habilitacion().length() > 0) {
+                    st.setString(4, Objdireccion.getNombre_habilitacion());
+                } else {
+                    st.setString(4, null);
+                }
+            } else {
+                st.setString(4, null);
+            }
+
+            //---------------------------------------   
+            if (Objdireccion.getTipo_habilitacion() != null) {
+                if (Objdireccion.getTipo_habilitacion().length() > 0) {
+                    st.setString(5, Objdireccion.getTipo_habilitacion());
+                } else {
+                    st.setString(5, null);
+                }
+            } else {
+                st.setString(5, null);
+            }
+
+            //--------------------------------------- 
+            if (Objdireccion.getCodigo_habilitacion() != null) {
+                if (Objdireccion.getCodigo_habilitacion().length() > 0) {
+                    st.setString(6, Objdireccion.getCodigo_habilitacion());
+                } else {
+                    st.setString(6, null);
+                }
+            } else {
+                st.setString(6, null);
+            }
+
+            //--------------------------------------- 
+            if (Objdireccion.getCodigo_zona() != null) {
+                if (Objdireccion.getCodigo_zona().length() > 0) {
+                    st.setString(7, Objdireccion.getCodigo_zona());
+                } else {
+                    st.setString(7, null);
+                }
+            } else {
+                st.setString(7, null);
+            }
+
+            if (Objdireccion.getNombre_zona() != null) {
+                if (Objdireccion.getNombre_zona().length() > 0) {
+                    st.setString(8, Objdireccion.getNombre_zona());
+                } else {
+                    st.setString(8, null);
+                }
+            } else {
+                st.setString(8, null);
+            }
+
+            //--------------------------------------- 
+            st.execute();
+            st.close();
+            conexion.commit();
+
+        } catch (Exception e) {
+            try {
+
+                // Vuelve atras los cambios
+                conexion.rollback();
+            } catch (Exception ee) {//Manejo de errores}
+                System.out.println("ERROR REGISTRAR: " + ee.getMessage());
+            }
+        } finally {
+            try {
+
+                // Cierra la conexión
+                if (conexion != null) {
+                    conexion.close();
+                }
+
+            } catch (Exception e) {//Manejo de errores}
+
+                System.out.println("ERROR REGISTRAR: " + e.getMessage());
+            }
+        }
+        return true;
+    }
+ 
+    
+    
+    
+    
+   public static ArrayList<Direccion> getBuscaDirecciones(Direccion direciones) {
+
+        ArrayList<Direccion> arr = null;
+        ResultSet rs = null;
+        Direccion obj = null;
+        Connection conexion = null;
+
+        try {
+            conexion = Controlador_Sql.darConexionBD();
+            conexion.setAutoCommit(false);
+            conexion = Controlador_Sql.darConexionBD();
+            CallableStatement st = conexion.prepareCall("{call dbo.sp_java_vias_direccion(?)}");
+
+            if (direciones.ObjPostal.getCodigo_postal() != null) {/*Valido la informacion set*/
+                if (direciones.ObjPostal.getCodigo_postal().length() > 0) {
+                    st.setString(1, direciones.ObjPostal.getCodigo_postal());
+
+                } else {
+                    st.setString(1, null);
+                }
+            } else {
+                st.setString(1, null);
+            }
+          
+
+            rs = st.executeQuery();
+            if (rs.next()) {
+                arr = new ArrayList<Direccion>();
+
+                do {
+
+                    obj = new Direccion();
+
+                 
+
+                    obj.setCodigo_via(rs.getString("codigo_via"));
+                    obj.setTipo_via(rs.getString("tipo_via"));
+                    obj.setNombre_via(rs.getString("nombre_via"));
+                    obj.setNombre_habilitacion(rs.getString("nombre_habilitaciones"));
+                    obj.setTipo_habilitacion(rs.getString("tipo_habilitacion"));
+                    obj.setCodigo_habilitacion(rs.getString("codigo_habilitacion"));
+                    obj.setCodigo_zona(rs.getString("codigo_zona"));
+                    obj.setNombre_zona(rs.getString("nombre_zona"));
+                    obj.setDetalle_habilitacion(rs.getString("detalle_habilitacion"));
+
+                    Postal ObjPostal = new Postal();
+                    
+                    ObjPostal.setCodigo_postal(rs.getString("codigo_postal"));
+                    
+                    obj.setObjPostal(ObjPostal);
+
+                    arr.add(obj);
+
+                } while (rs.next());
+            }
+            st.execute();
+            st.close();
+            conexion.setAutoCommit(true);
+            conexion.close();
+        } catch (Exception error) {
+            System.out.println("Error en el metodo por: " + error.getMessage());
+            error.printStackTrace();
+        }
+        return arr;
+    } 
+    
   
+   
+   
+   
     
 }

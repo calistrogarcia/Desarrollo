@@ -15,23 +15,15 @@ import javax.faces.model.SelectItem;
 
 public class Usuario implements Serializable {
 
-    private String nombre_usuario;
-    private String id_usuario;
-    private String usuario;
+    
+    
+ 
+    private String nombre_usuario= "CRGARCIA";
+    
     private int id_tipo_usuario;
     private String descripcion;
-    
-  
-    
 
-    public String getId_usuario() {
-        return id_usuario;
-    }
-
-    public void setId_usuario(String id_usuario) {
-        this.id_usuario = id_usuario;
-    }
-  
+ 
     public String getNombre_usuario() {
         return nombre_usuario;
     }
@@ -56,19 +48,6 @@ public class Usuario implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-
-   
-    
-   
-    
-    
-
+ 
+ 
 }

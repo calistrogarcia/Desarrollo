@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.faces.model.SelectItem;
 
 
 /**
@@ -1130,7 +1131,6 @@ public class Persona implements Serializable {
                     obj.setHora_registro(rs.getString("D_HORAS"));
                     obj.setUsuario_red(rs.getString("DUSURED"));
                     obj.setFecha_nacimiento(rs.getString("FECNACI"));
-
                     obj.setNombre_usuario_registro(rs.getString("DUSUARI"));
                     obj.setNombre_usuario_modificacion(rs.getString("DUSUMOD"));
                     obj.setNombre_tipo_persona(rs.getString("DTIPPER"));
@@ -1150,9 +1150,6 @@ public class Persona implements Serializable {
                     obj.setNumero_celular(rs.getString("dnumcelular"));
                     obj.setDireccion_fiscal(rs.getString("direccion_fiscal"));
                     
-                    
-                             
-
                     arr.add(obj);
 
                 } while (rs.next());
@@ -1169,7 +1166,39 @@ public class Persona implements Serializable {
     }
     
    
-   
+    public ArrayList<SelectItem> getBuscarNombresContribuyente() {
+
+        ArrayList<SelectItem> arrayContribuyente = new ArrayList<SelectItem>();
+        Persona Obj= null;
+        Connection conexion = null;
+        ResultSet rs = null;
+        try {
+
+            conexion = Controlador_Sql.darConexionBD();
+            CallableStatement st = conexion.prepareCall("{call dbo.java_buscar_nombres_contribuyente()}");
+            rs = st.executeQuery();
+
+            if (rs.next()) {
+                do {
+                    arrayContribuyente.add(new SelectItem(rs.getString("codigo_contribuyente"), rs.getString("nombre_contribuyente")));
+                    
+                } while (rs.next());
+
+            }
+            rs.close();
+            st.close();
+            conexion.close();
+
+
+        } catch (Exception error) {
+            System.out.println("Error en el metodo por: "
+                    + error.getMessage());
+            error.printStackTrace();
+        }
+
+        return arrayContribuyente;
+    }
+    
    
     
     

@@ -5,12 +5,14 @@
  */
 package Beans;
 
+import Modelo.Direccion;
 import Modelo.Persona;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.view.ViewScoped;
 import org.primefaces.event.CloseEvent;
 import utils.Mensaje;
 import org.primefaces.event.SelectEvent;
@@ -20,12 +22,15 @@ import org.primefaces.event.UnselectEvent;
  *
  * @author Administrador
  */
+
+@ViewScoped
+
 public class BeansRegistro_Informacion_Personal implements Serializable {
 
     private Persona objContribuyenteReg;
     private Persona objContribuyenteMod;
     private Persona objContribuyenteBusq;
-    private Persona Seleccionado;
+
   
     private ArrayList<Persona> arrContribuyente = null;
     private ArrayList<Persona> arrBusContribuyente = null;
@@ -38,18 +43,8 @@ public class BeansRegistro_Informacion_Personal implements Serializable {
 
     //Bandera que apunta si el usuario al realizar un clik sobre el link de busquedad o listado total
     private String puntAnt;
-
+    private Direccion ObjDireccion;
     
-    
-    
-    public Persona getSeleccionado() {
-        return Seleccionado;
-    }
-
-    public void setSeleccionado(Persona Seleccionado) {
-        this.Seleccionado = Seleccionado;
-    }
-
 
     public Persona getObjContribuyenteReg() {
         return objContribuyenteReg;
@@ -130,6 +125,15 @@ public class BeansRegistro_Informacion_Personal implements Serializable {
     public void setPuntAnt(String puntAnt) {
         this.puntAnt = puntAnt;
     }
+
+    public Direccion getObjDireccion() {
+        return ObjDireccion;
+    }
+
+    public void setObjDireccion(Direccion ObjDireccion) {
+        this.ObjDireccion = ObjDireccion;
+    }
+    
 
     //Inicializaciones
     public void doiniciarRegistroContribuyente() {
@@ -216,13 +220,12 @@ public class BeansRegistro_Informacion_Personal implements Serializable {
    //------------------------------------------------------------------------
 
      
-     public void onRowSelect(SelectEvent event){
-        //FacesMessage msg = new FacesMessage("Employee Selected",((Employee) event.getObject()).getLastName());
-        //FacesContext.getCurrentInstance().addMessage(null, msg);
-        this.objContribuyenteReg = (Persona)event.getObject();
-        System.out.println("OnRowSelect has employee last name: "+this.objContribuyenteReg.getObjDireccion().getCodigo_via());
- 
-    }
+     public void DireccionSeleccionada (SelectEvent event) {
+      
+         ObjDireccion  =   ((Direccion) event.getObject());
+         System.out.print(ObjDireccion.getCodigo_via());
+
+    } 
      
      
 

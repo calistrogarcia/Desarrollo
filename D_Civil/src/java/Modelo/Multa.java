@@ -567,8 +567,9 @@ public class Multa implements Serializable {
 
                     Usuario ObjUsuario = new Usuario();
                     ObjUsuario.setNombre_usuario(rs.getString("cusutra"));
+                   
                     obj.setObjUsuario(ObjUsuario);
-
+                    
                     obj.setFecha_registro(rs.getString("dfectra"));
                     obj.setHora_registro(rs.getString("dhortra"));
                     

@@ -9,9 +9,11 @@ import utils.encriptaCadenas;
 import Modelo.Controlador_Sql;
 import Modelo.Usuario;
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -30,32 +32,41 @@ import utils.Mensaje;
 //@ViewScoped
 
 @ManagedBean(name="beanUsuario_Logeo")
-//@SessionScoped
+@SessionScoped
 
-//@SessionScoped
 
-public class BeanUsuario_Logeo {
 
-   
+public class BeanUsuario_Logeo implements Serializable {
+
+//   
    private Usuario clase_usuario = new Usuario();
+   
    private boolean usuarioLogeado;
-   private boolean flagPassIguales;
-   private String  nombre_user;
-   private String  clave_user;  
-   private String  variable_nombre;
+   private boolean flagPassIguales;  
+   
+   private String  nombre_usuario;
+   private String clave_usuario;
 
-  
    
    
    
-   public String getVariable_nombre() {
-        return variable_nombre;
+   public String getClave_usuario() {
+        return clave_usuario;
     }
 
-    public void setVariable_nombre(String variable_nombre) {
-        this.variable_nombre = variable_nombre;
+    public void setClave_usuario(String clave_usuario) {
+        this.clave_usuario = clave_usuario;
     }
-   
+
+
+    public Usuario getClase_usuario() {
+        return clase_usuario;
+    }
+
+    public void setClase_usuario(Usuario clase_usuario) {
+        this.clase_usuario = clase_usuario;
+    }
+ 
     public boolean isUsuarioLogeado() {
         return usuarioLogeado;
     }
@@ -72,33 +83,16 @@ public class BeanUsuario_Logeo {
         this.flagPassIguales = flagPassIguales;
     }
 
-    public String getNombre_user() {
-        return nombre_user;
+    public String getNombre_usuario() {
+        return nombre_usuario;
     }
 
-    public void setNombre_user(String nombre_user) {
-        this.nombre_user = nombre_user;
+    public void setNombre_usuario(String nombre_usuario) {
+        this.nombre_usuario = nombre_usuario;
     }
 
-
-    public String getClave_user() {
-        return clave_user;
-    }
-
-    public void setClave_user(String clave_user) {
-        this.clave_user = clave_user;
-    }
-
-    public Usuario getClase_usuario() {
-        return clase_usuario;
-    }
-
-    public void setClase_usuario(Usuario clase_usuario) {
-        this.clase_usuario = clase_usuario;
-    }
+ 
     
-    
-
     public String loginUsuario() throws Exception{
       
      String outcome = null;       
@@ -109,16 +103,14 @@ public class BeanUsuario_Logeo {
         
         if(clase_usuario!=null){
                 
-                clase_usuario=this.validar(this.nombre_user, encriptaCadenas.getStringMessageDigest(this.clave_user,encriptaCadenas.MD5));                
+                clase_usuario=this.validar(this.nombre_usuario, encriptaCadenas.getStringMessageDigest(this.clave_usuario,encriptaCadenas.MD5));                
                
+                
+                
                 if(clase_usuario != null){          //  
+  
+                    Mensaje.addMensajeInfo("Usuario logeado correctamente"); usuarioLogeado = true; 
                     
-                    
-                    variable_nombre=clase_usuario.getDescripcion();
-                    
-                    
-                   Mensaje.addMensajeInfo("Usuario logeado correctamente"); usuarioLogeado = true; 
-
                     contex.getExternalContext().getSessionMap().put("usuario",clase_usuario);                       
                     contex.getExternalContext().getSessionMap().put("isSesionAlive", usuarioLogeado);                                                                                         
                     outcome=Constantes.PAGE_INGRESO_JSF;                    
@@ -128,8 +120,8 @@ public class BeanUsuario_Logeo {
                    
                    Mensaje.addMensajeError("Usuario o Password Incorrectos");                   
                    clase_usuario= new Usuario();
-                   this.nombre_user= "";
-                   this.clave_user="";
+                   this.nombre_usuario= "";
+                   this.clave_usuario="";
                    outcome=Constantes.PAGE_LOGIN_JSF;  
                     
                }  
@@ -137,8 +129,8 @@ public class BeanUsuario_Logeo {
             else{
                 Mensaje.addMensajeError("Usuario o Password Incorrectos");
                 clase_usuario= new Usuario();
-                   this.nombre_user= "";
-                   this.clave_user="";
+                   this.nombre_usuario= "";
+                   this.clave_usuario="";
                    
                 outcome=Constantes.PAGE_LOGIN_JSF;  
                 
@@ -154,7 +146,7 @@ public class BeanUsuario_Logeo {
  
  public  Usuario validar(String us, String pass){
    
-     
+           
      ResultSet rs=null; 
      Connection conexion = null;
      Usuario user=null;     
@@ -170,14 +162,16 @@ public class BeanUsuario_Logeo {
             
             rs = st.executeQuery();
             if(rs.next()){
-                user = new Usuario();
                 
-               user.setNombre_usuario(us);
+               user = new Usuario();
+                
+               //user.setNombre_usuario(us);
                
-               user.setUsuario(rs.getString("usuario"));
+               user.setNombre_usuario(rs.getString("usuario"));
                user.setId_tipo_usuario(rs.getInt("id_tipo_usuario"));
                user.setDescripcion(rs.getString("descripcion"));
-                
+              
+               
                 rs.close();                
                 conexion.close();                
             }
@@ -193,8 +187,8 @@ public class BeanUsuario_Logeo {
  public void salirSistema(){
      
       FacesContext contex = FacesContext.getCurrentInstance();  
-        this.nombre_user="";
-        this.clave_user="";
+        this.nombre_usuario="";
+        this.clave_usuario="";
         String outcome =Constantes.PAGE_LOGIN_JSF;
         contex.getExternalContext().getSessionMap().clear();
         contex.getExternalContext().getSessionMap().put("isSesionAlive", false);
@@ -222,7 +216,7 @@ public void validarSesion() {
                 
             }
         }
-        
+       
     }
     
 }

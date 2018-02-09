@@ -22,231 +22,243 @@ and open the template in the editor.
 
 
                     <p:tab id="tab_registrar_expedientes" title="#{msg.LabelRegistroExpedientes}" titletip="Registrar Expedientes"  titleStyleClass="tamaño_fuente_tab" >                    
-                        <h:form  id="form_registrar_expedientes" class="border_titulo1"  style="text-align : justify;" styleClass="tamaño_fuente">    
+                        <h:form  id="form_registrar_expedientes" class="border_titulo1"  style="text-align : left;" styleClass="tamaño_fuente">    
                             <p:growl globalOnly="true"  id="growl_registrar_expedientes" sticky="false"  showDetail="true"  />    
                             <p:panel id="panel_registar_expedientes" header="#{msg.LabelSeccionTramiteDocumentario}" styleClass="border" >
 
+
+                               <center> 
+                                <h:panelGrid  id="cabecera"  columns="2">
+                                    
+                                        <img  src="resources/imagenes/expediente.png" style="text-align: center" height="30px"/>
+                                        <h:outputLabel value="#{msg.LabelRegistarExpediente}"  style=" margin-left: 0%;color: blue" />                               
+                                </h:panelGrid>
+
+                               </center>  
+    
                                 <center>
-          
-
-                                     
-                                    
-                                    <h:outputLabel value="#{msg.LabelRegistarExpediente}"  style=" margin-left: 0%;color: blue" />
-                                       
-                                      <br>
-                                      </br>
-                                    
-                                    
-                                    
-                                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                                            <p:outputLabel for="ITPSE" value="CUMPLE ITPSE:" />
-                                            <p:selectOneRadio id="ITPSE" value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.estado_fiscalizacion}" 
-                                                              layout="grid" columns="2">
-
-                                                <f:selectItem itemLabel="NO" itemValue="0" />
-                                                <f:selectItem itemLabel="SI" itemValue="1" />
-
-                                            </p:selectOneRadio>
-                                        </h:panelGrid>
-                                    
-                                    
-                                        <h:panelGrid columns="10" cellspacing="1" cellpadding="1"  width="80%"   > 
 
 
-                                            <h:panelGrid columns="1"  >
-                                                
-                                                <h:outputText value="#{msg.LabelCodigoRecurrente}"  styleClass="tamaño_fuente" />
-                                                <h:panelGroup>
+                                    <p:dataTable id="id_regustro_numero_expediente" value="#{Beans_Tramite_Registro_Expedientes.arrBusquedaRegistroExpediente}"   
+                                                 var="variable_numero_expediente"  style=" width:  10%; margin-left:  80%" 
 
-                                                    <p:inputText  id="registrar_codigo_recurrente"  
-                                                                     required="true" 
-                                                                     validatorMessage="#{msg.labelValidar}"
-                                                                     requiredMessage="#{msg.labelObligatorio}"
-                                                                  value="#{Beans_Tramite_Registro_Expedientes.objRegistroExpediente.objPersona.codigo_contribuyente}"
-                                                                  >
+                                                 >
 
-                                                    </p:inputText>
-                                                    <h:message for="registrar_codigo_recurrente" showDetail="false" showSummary="true"/>                                    
-                                                </h:panelGroup>
 
-                                            </h:panelGrid> 
+                                        <p:column style="width:9%;text-align: center">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{msg.LabelNumeroExpediente}" />
+                                            </f:facet>
+                                            <h:outputText  value="#{variable_numero_expediente.numero_expediente}"/>
+                                        </p:column>  
+
+                                    </p:dataTable>
+
+
+                                </center>  
 
 
 
+                                <center> 
+                                    <h:panelGrid columns="10" cellspacing="1" cellpadding="1"  width="80%"   > 
+                                        <h:panelGrid columns="1"  >                                                
+                                            <h:outputText value="#{msg.LabelCodigoRecurrente}"  styleClass="tamaño_fuente" />
 
-                                            <h:panelGrid columns="1">
-
-                                                <h:panelGroup>
-                                                    <p:selectOneMenu effect="fade" style="width:100px"  autoWidth="false"   
-                                                                     filter="true"  filterMatchMode="contains"
-                                                                     required="true" id="registrar_tipo_documento_expediente"
-                                                                     validatorMessage="#{msg.labelValidar}"
-                                                                     requiredMessage="#{msg.labelObligatorio}"
-                                                                     value="#{Beans_Tramite_Registro_Expedientes.codigo_asunto}">
-                                                        <f:selectItem itemLabel="#{msg.labelSeleccionar}"
-                                                                      itemValue="O"/>
-                                                        <f:selectItems value="#{Beans_Tramite_Registro_Expedientes.tipo_documento_expediente}"/>
-                                                        <p:ajax event="change" listener="#{Beans_Tramite_Registro_Expedientes.CargarAsunto_Expediente()}"
-                                                                update="codigo_asunto_expediente"/>
-
-                                                    </p:selectOneMenu>
-                                                    <h:message for="registrar_tipo_documento_expediente" showDetail="false" showSummary="true"/>
-                                                </h:panelGroup>
-                                            </h:panelGrid>
-
-
-
-
-                                            <h:panelGrid columns="1">
-
-                                                <h:outputText value="#{msg.labelAsunto}"/>
-                                                <h:panelGroup>
-                                                    <p:selectOneMenu  id="codigo_asunto_expediente" autoWidth="false"   
-                                                                       style="width:145px"  height="200" 
-                                                                     effect="fold" 
-                                                                     filter="true"  filterMatchMode="startsWith"  required="true"  
-                                                                     validatorMessage="#{msg.labelValidar}"
-                                                                     requiredMessage="#{msg.labelObligatorio}"
-                                                                     value="#{Beans_Tramite_Registro_Expedientes.objRegistroExpediente.objAsunto.codigo_asunto}">
-                                                        
-                                                        <f:selectItems value="#{Beans_Tramite_Registro_Expedientes.beans_Tramite_Asunto.asuntos_expedientes}"   />
-                                                    </p:selectOneMenu>
-
-                                                </h:panelGroup>
-                                            </h:panelGrid>
-
-
-
-
-
-                                            <h:panelGrid columns="1">
-                                                <h:outputText value="#{msg.labelFolio}" />
-                                                <h:panelGroup>
-                                                    <p:spinner id="registar_numero_folios" value="#{Beans_Tramite_Registro_Expedientes.objRegistroExpediente.numero_folios}" 
-                                                               min="1" max="100" 
-                                                               required="true" 
-                                                               validatorMessage="#{msg.labelValidar}"
-                                                               requiredMessage="#{msg.labelObligatorio}"
-                                                               size="4"
-                                                               maxlength="4"  >
-
-                                                        <f:validateLength minimum="1" maximum="3"/>  
-                                                    </p:spinner>
-
-                                                    <h:message for="registar_numero_folios" showDetail="false" showSummary="true"/>                                    
-                                                </h:panelGroup>
-
-                                            </h:panelGrid>
-
-                                        </h:panelGrid>
-
-
-                                        <h:panelGrid columns="10" cellspacing="1" cellpadding="1"  width="80%"   > 
-
-
-                                            <h:panelGrid columns="1">
-                                                <h:outputText value="#{msg.Observaciones}" style="margin-right:20px;" /> 
-                                                <h:panelGroup>
-                                                    <p:inputTextarea rows="3" cols="40" counter="observacion" maxlength="100"                      
-                                                                     autoResize="true" id="registrar_observaciones"
-                                                                     counterTemplate="{0} #{msg.LabelContador}"
-                                                                     required="true" 
-                                                                     validatorMessage="#{msg.labelValidar}"
-                                                                     requiredMessage="#{msg.labelObligatorio}"
-                                                                     value="#{Beans_Tramite_Registro_Expedientes.objRegistroExpediente.observacion}">
-                                                    </p:inputTextarea> 
-                                                    <br />
-                                                    <h:outputText id="observacion"/>    
-                                                    <h:message for="registrar_observaciones" showDetail="false" showSummary="true"/>                                  
-                                                </h:panelGroup>   
-
-                                            </h:panelGrid>
-                                            
-                                            
-                                            
-                                            
-                                             <h:panelGrid columns="1">
-                                                 <h:outputText value="#{msg.LabelAnotaciones}" style="margin-right:20px;" /> 
-                                                <h:panelGroup>
-                                                    <p:inputTextarea rows="3" cols="40" counter="anotaciones" maxlength="100"                      
-                                                                     autoResize="true" id="registrar_anotaciones"
-                                                                     counterTemplate="{0} #{msg.LabelContador}" 
-                                                                     required="true" 
-                                                                     validatorMessage="#{msg.labelValidar}"
-                                                                     requiredMessage="#{msg.labelObligatorio}"
-                                                                     value="#{Beans_Tramite_Registro_Expedientes.objRegistroExpediente.anotacion}">
-                                                    </p:inputTextarea> 
-                                                    <br />
-                                                    <h:outputText id="anotaciones"/>    
-                                                    <h:message for="registrar_anotaciones" showDetail="false" showSummary="true"/>                                  
-                                                </h:panelGroup>   
-
-                                            </h:panelGrid>
-
-                                            
-                                              <h:panelGrid columns="1"  >
-                                                
-                                                  <h:outputText value="#{msg.LabelNumeroDocumento}"  styleClass="tamaño_fuente" rendered="false" />
-                                                <h:panelGroup>
-
-                                                    <p:inputText  id="registrar_numero_documento"  rendered="false"
-                                                                  value="#{Beans_Tramite_Registro_Expedientes.objRegistroExpediente.numero_documento}"
-                                                                  required="true" 
+                                            <h:panelGroup>
+                                                <p:selectOneMenu  id="registar_codigo_contribuyente" autoWidth="false"   
+                                                                  style="width:145px"  height="200" 
+                                                                  effect="fold" 
+                                                                  filter="true"  filterMatchMode="startsWith"  required="true"  
                                                                   validatorMessage="#{msg.labelValidar}"
                                                                   requiredMessage="#{msg.labelObligatorio}"
-                                                                  >
+                                                                  value="#{Beans_Tramite_Registro_Expedientes.objRegistroExpediente.objPersona.codigo_contribuyente}">
 
-                                                    </p:inputText>
-                                                    <h:message for="registrar_numero_documento" showDetail="false" showSummary="true"/>                                    
-                                                </h:panelGroup>
+                                                    <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                  itemValue="O"/>                                               
+                                                    <f:selectItems value="#{Persona.buscarNombresContribuyente}" />
+                                                </p:selectOneMenu>
 
-                                            </h:panelGrid> 
-         
-                                              <h:panelGrid columns="1"  >
+                                                <h:message for="registar_codigo_contribuyentes" showDetail="false" showSummary="true"/>
+
+                                            </h:panelGroup>
+
+
+                                        </h:panelGrid>
+
+
+
+                                        <h:panelGrid columns="1">
+                                            <h:outputText value="#{msg.LabelTipoDocumento}"/>
+                                            <h:panelGroup>
+                                                <p:selectOneMenu effect="fade" style="width:240px"  autoWidth="false"   
+                                                                 filter="true"  filterMatchMode="contains"
+                                                                 required="true" id="registrar_tipo_documento_expediente"
+                                                                 validatorMessage="#{msg.labelValidar}"
+                                                                 requiredMessage="#{msg.labelObligatorio}"
+                                                                 value="#{Beans_Tramite_Registro_Expedientes.codigo_asunto}">
+                                                    <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                  itemValue="O"/>
+                                                    <f:selectItems value="#{Beans_Tramite_Registro_Expedientes.tipo_documento_expediente}"/>
+                                                    <p:ajax event="change" listener="#{Beans_Tramite_Registro_Expedientes.CargarAsunto_Expediente()}"
+                                                            update="codigo_asunto_expediente"/>
+
+                                                </p:selectOneMenu>
+                                                <h:message for="registrar_tipo_documento_expediente" showDetail="false" showSummary="true"/>
+                                            </h:panelGroup>
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="1">
+
+                                            <h:outputText value="#{msg.labelAsunto}"/>
+                                            <h:panelGroup>
+                                                <p:selectOneMenu  id="codigo_asunto_expediente" autoWidth="false"   
+                                                                  style="width:175px"  height="200" 
+                                                                  effect="fold" 
+                                                                  filter="true"  filterMatchMode="startsWith"  required="true"  
+                                                                  validatorMessage="#{msg.labelValidar}"
+                                                                  requiredMessage="#{msg.labelObligatorio}"
+                                                                  value="#{Beans_Tramite_Registro_Expedientes.objRegistroExpediente.objAsunto.codigo_asunto}">
+
+                                                    <f:selectItems value="#{Beans_Tramite_Registro_Expedientes.beans_Tramite_Asunto.asuntos_expedientes}"   />
+                                                </p:selectOneMenu>
+
+                                            </h:panelGroup>
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="1">
+                                            <h:outputText value="#{msg.labelFolio}" />
+                                            <h:panelGroup>
+                                                <p:spinner id="registar_numero_folios" value="#{Beans_Tramite_Registro_Expedientes.objRegistroExpediente.numero_folios}" 
+                                                           min="1" max="100" 
+                                                           required="true" 
+                                                           validatorMessage="#{msg.labelValidar}"
+                                                           requiredMessage="#{msg.labelObligatorio}"
+                                                           size="4"
+                                                           maxlength="4"  >
+
+                                                    <f:validateLength minimum="1" maximum="3"/>  
+                                                </p:spinner>
+
+                                                <h:message for="registar_numero_folios" showDetail="false" showSummary="true"/>                                    
+                                            </h:panelGroup>
+                                        </h:panelGrid>
+                                    </h:panelGrid>
+                                    
+                                    <h:panelGrid columns="4" cellspacing="1" cellpadding="1"  width="80%" > 
+                                       
+                                        <h:panelGrid columns="1">
+
+                                            <h:outputText value="#{msg.LabelReferencia}"/>
+                                            <h:panelGroup>
+                                                <p:selectOneMenu  id="codigo_tipo_referencia" autoWidth="false"   
+                                                                  style="width:145px"  height="200" 
+                                                                  effect="fold" 
+                                                                  filter="true"  filterMatchMode="startsWith"  required="true"  
+                                                                  validatorMessage="#{msg.labelValidar}"
+                                                                  requiredMessage="#{msg.labelObligatorio}"
+                                                                  value="#{Beans_Tramite_Registro_Expedientes.objRegistroExpediente.objGrupo.codigo_tipo_referencia}">
+
+                                                   <f:selectItem itemLabel="#{msg.labelSeleccionar}"  itemValue="O"/> 
+                                                   <f:selectItems value="#{Grupo.cargarTipo_Referencia_Expediente}" />
                                                 
-                                                  <h:outputText value="#{msg.LabelUsuario}"  styleClass="tamaño_fuente"  rendered="false"/>
-                                                <h:panelGroup>
+                                                </p:selectOneMenu>
+                                              <h:message for="codigo_tipo_referencia" showDetail="false" showSummary="true"/> 
+                                            </h:panelGroup>
+                                        </h:panelGrid>
+                                        
+      
+                                        <h:panelGrid columns="1"  >
+                                            
+                                            <h:outputText value="#{msg.Observaciones}" style="margin-right:0px;" /> 
+                                            <h:panelGroup>
+                                                <p:inputTextarea rows="3" cols="40" counter="observacion" maxlength="100"                      
+                                                                 autoResize="true" id="registrar_observaciones"
+                                                                 counterTemplate="{0} #{msg.LabelContador}"
+                                                                 required="true" 
+                                                                 validatorMessage="#{msg.labelValidar}"
+                                                                 requiredMessage="#{msg.labelObligatorio}"
+                                                                 value="#{Beans_Tramite_Registro_Expedientes.objRegistroExpediente.observacion}">
+                                                </p:inputTextarea> 
+                                                <br />
+                                                <h:outputText id="observacion"/>    
+                                                <h:message for="registrar_observaciones" showDetail="false" showSummary="true"/>                                  
+                                            </h:panelGroup>   
+                                        </h:panelGrid>  
+                                        
+                                      
+                                        
+                                        
+                                        <h:panelGrid columns="1">
+                                            <h:outputText value="#{msg.LabelAnotaciones}" style="margin-right:0px;" /> 
+                                            <h:panelGroup>
+                                                <p:inputTextarea rows="3" cols="40" counter="anotaciones" maxlength="100"                      
+                                                                 autoResize="true" id="registrar_anotaciones"
+                                                                 counterTemplate="{0} #{msg.LabelContador}" 
+                                                                 required="true" 
+                                                                 validatorMessage="#{msg.labelValidar}"
+                                                                 requiredMessage="#{msg.labelObligatorio}"
+                                                                 value="#{Beans_Tramite_Registro_Expedientes.objRegistroExpediente.anotacion}">
+                                                </p:inputTextarea> 
+                                                <br />
+                                                <h:outputText id="anotaciones"/>    
+                                                <h:message for="registrar_anotaciones" showDetail="false" showSummary="true"/>                                  
+                                            </h:panelGroup>   
 
-                                                    <p:inputText  id="registrar_usuario"  rendered="false"
-                                                                  value="#{Beans_Tramite_Registro_Expedientes.objRegistroExpediente.objUsuario.nombre_usuario}"
-                                                                  >
+                                        </h:panelGrid>                                           
+                                        <h:panelGrid columns="1"  >                                               
+                                            <h:outputText value="#{msg.LabelNumeroDocumento}"  styleClass="tamaño_fuente" rendered="false" />
+                                            <h:panelGroup>
 
-                                                    </p:inputText>
-                                                    <h:message for="registrar_usuario" showDetail="false" showSummary="true"/>                                    
-                                                </h:panelGroup>
+                                                <p:inputText  id="registrar_numero_documento"  rendered="false"
+                                                              value="#{Beans_Tramite_Registro_Expedientes.objRegistroExpediente.numero_documento}"
+                                                              required="true" 
+                                                              validatorMessage="#{msg.labelValidar}"
+                                                              requiredMessage="#{msg.labelObligatorio}"
+                                                              >
 
-                                            </h:panelGrid> 
+                                                </p:inputText>
+                                                <h:message for="registrar_numero_documento" showDetail="false" showSummary="true"/>                                    
+                                            </h:panelGroup>
+
+                                        </h:panelGrid>         
+                                        <h:panelGrid columns="1"  >                                              
+                                            <h:outputText value="#{msg.LabelUsuario}"  styleClass="tamaño_fuente"  rendered="false"/>
+                                            <h:panelGroup>
+
+                                                <p:inputText  id="registrar_usuario"  rendered="false"
+                                                              value="#{Beans_Tramite_Registro_Expedientes.objRegistroExpediente.objUsuario.nombre_usuario}"
+                                                              >
+
+                                                </p:inputText>
+                                                <h:message for="registrar_usuario" showDetail="false" showSummary="true"/>                                    
+                                            </h:panelGroup>
+
                                         </h:panelGrid> 
+                                    </h:panelGrid> 
                                 </center>     
                                 <br>
                                 </br>
 
                                 <h:panelGrid columns="3"  cellpadding="3"  cellspacing="6"  styleClass="panelColumns"  columnClasses="labelOT2, valueOT2"   >
 
-                                    <p:commandButton icon="ui-icon-triangle-1-w"  id="btncancelar"
-                                                     actionListener="#{Beans_Tramite_Registro_Expedientes.doiniciarBusquedaExpediente()}"  immediate="true"  
-                                                     value="#{msg.LabelRefrescar}"  
-                                                     async="true"  update="tab_view_expedientes, :tab_view_expedientes:form_registrar_expedientes"/>
+                                    <p:commandButton id="btncancelar" icon="ui-icon-triangle-1-w"  actionListener="#{Beans_Tramite_Registro_Expedientes.doiniciarRegistroExpedientes()}"  
+                                                     value="#{msg.LabelRefrescar}"  async="true" update="panel_registar_expedientes"/>
 
                                     <p:commandButton   id="btnguardar" 
                                                        actionListener="#{Beans_Tramite_Registro_Expedientes.doRegistrarExpediente()}" 
-                                                       
-                                                       update="form_registrar_expedientes, growl_registrar_expedientes" 
-                                                       value="#{msg.btnActualizar}"   /> 
+                                                       async="true" update="panel_registar_expedientes"  value="#{msg.btnActualizar}"   /> 
 
                                 </h:panelGrid> 
 
-                                <p:blockUI block="panel_registar_expedientes" trigger="btncancelar">                                               
-                                    Cancelando la Actualización ... <br />
+
+                                <p:blockUI block="panel_registar_expedientes" trigger="btnguardar">                                               
+                                    Generando... <br />
                                     <p:graphicImage value="resources/imagenes/cargando.gif" />   
                                 </p:blockUI>
 
-                                <p:blockUI block="panel_registar_expedientes" trigger="btnguardar">                                               
-                                    Actualizando... <br />
-                                    <p:graphicImage value="resources/imagenes/cargando.gif" />   
-                                </p:blockUI> 
 
-                            </p:panel>   
+                            </p:panel>  
+
+                            <p:resizable for="panel_registar_expedientes" animate="true" effect="swing" effectDuration="normal"/>
+
                         </h:form>
                     </p:tab>
                 </p:tabView>

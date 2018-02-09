@@ -101,6 +101,13 @@
         <managed-bean-scope>request</managed-bean-scope>
        </managed-bean>
        
+       
+       <managed-bean>
+        <managed-bean-name>Persona</managed-bean-name>
+        <managed-bean-class>Modelo.Persona</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+       </managed-bean>
+       
    
        
    

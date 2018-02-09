@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.faces.event.AjaxBehaviorEvent;
 
+
 /**
  *
  * @author Calistro
@@ -114,14 +115,28 @@ public class Expediente implements Serializable {
     private String id_area;
     private String numero_documento;
     private String anotacion;
+    
+  
+    
+    
 
     Persona ObjPersona = new Persona();
     Area ObjArea = new Area();
     Usuario ObjUsuario = new Usuario();
-    Asunto ObjAsunto = new Asunto ();
+    Asunto ObjAsunto = new Asunto();
+    Grupo ObjGrupo = new Grupo();
 
-  
     
+    
+    public Grupo getObjGrupo() {
+        return ObjGrupo;
+    }
+
+    public void setObjGrupo(Grupo ObjGrupo) {
+        this.ObjGrupo = ObjGrupo;
+    }
+
+   
     public Asunto getObjAsunto() {
         return ObjAsunto;
     }
@@ -130,7 +145,6 @@ public class Expediente implements Serializable {
         this.ObjAsunto = ObjAsunto;
     }
 
-    
     public String getAnotacion() {
         return anotacion;
     }
@@ -186,8 +200,6 @@ public class Expediente implements Serializable {
     public void setArea_final(String area_final) {
         this.area_final = area_final;
     }
-
-  
 
     public void setObservacion(String observacion) {
         this.observacion = observacion;
@@ -875,22 +887,32 @@ public class Expediente implements Serializable {
 
     // calistro: Registro de Expedientes
 //    public static boolean registrar_expediente(Expediente ObjRegistrar)
-    public static boolean  registrar_expediente(Expediente ObjRegistrar) {
-       
-        boolean a = false;
- 
+    public static ArrayList<Expediente> registrar_expediente(Expediente ObjRegistrar) {   
+      
+        
+        ArrayList<Expediente> arr = null;
+        ResultSet rs = null;
+        Expediente obj = null;
+        
+        
+       //boolean a = false;
+//        String cadena= null;
+       // ResultSet rs = null;
         Connection conexion = null;
         /* variable de connexion para definir y manejar el conytrol de errores*/
-      
-//        String resultado= null;
+
         
         try {
-            conexion = Controlador_Sql.darConexionBD();
-            CallableStatement st = conexion.prepareCall("{call sp_java_gestion_expedientes (?,?,?,?,?,?,?)}");
-            conexion.setAutoCommit(false);
+//            conexion = Controlador_Sql.darConexionBD();
+//            CallableStatement st = conexion.prepareCall("{call sp_java_gestion_expedientes (?,?,?,?,?,?,?)}");
+//            conexion.setAutoCommit(false);
 
- 
-            
+            conexion = Controlador_Sql.darConexionBD();
+            conexion.setAutoCommit(false);
+            conexion = Controlador_Sql.darConexionBD();
+            CallableStatement st = conexion.prepareCall("{call sp_java_gestion_expedientes (?,?,?,?,?,?,?,?)}");
+
+
             if (ObjRegistrar.getNumero_folios() > 0) {
 
                 if (ObjRegistrar.getNumero_folios() > 0) {
@@ -972,6 +994,9 @@ public class Expediente implements Serializable {
                 st.setString(6, null);
             }
 
+          
+            
+            
             if (ObjRegistrar.getAnotacion() != null) {/*Valido la informacion set*/
                 if (ObjRegistrar.getAnotacion().length() > 0) {
                     st.setString(7, ObjRegistrar.getAnotacion());
@@ -982,43 +1007,68 @@ public class Expediente implements Serializable {
             } else {
                 st.setString(7, null);
             }
-              
-            
-//              st.registerOutParameter(9,java.sql.Types.VARCHAR);    
-            
-              st.execute();
-            
-           
-//            resultado = st.getString(9);
-          
-          
-            st.close();
-            conexion.commit();
 
-        } catch (Exception e) {
-            try {
+            
+           if (ObjRegistrar.ObjGrupo.getCodigo_tipo_referencia() != null) {/*Valido la informacion set*/
+                if (ObjRegistrar.ObjGrupo.getCodigo_tipo_referencia().length() > 0) {
+                    st.setString(8, ObjRegistrar.ObjGrupo.getCodigo_tipo_referencia());
 
-                // Vuelve atras los cambios
-                conexion.rollback();
-            } catch (Exception ee) {//Manejo de errores}
-                System.out.println("ERROR REGISTRAR: " + ee.getMessage());
-            }
-        } finally {
-            try {
-
-                // Cierra la conexión
-                if (conexion != null) {
-                    conexion.close();
+                } else {
+                    st.setString(8, null);
                 }
-
-            } catch (Exception e) {//Manejo de errores}
-
-                System.out.println("ERROR REGISTRAR: " + e.getMessage());
+            } else {
+                st.setString(8, null);
             }
-        }
-        return a;
-    }
+            
+            
+            
+            
+             
+//              st.registerOutParameter(8, java.sql.Types.VARCHAR);
+//              st.execute();
+//              
+//              cadena = st.getString(8);
+//              System.out.print(cadena);
+//              
+         
+              
+//              st.registerOutParameter(8, java.sql.Types.ARRAY);
+//              st.executeUpdate();
+//              rs = (ResultSet) st.getObject(8);
+//              while (rs.next()) {
+//				String cadena= rs.getString("DNUMOLD");
+//				
+//
+//				System.out.println(cadena);
+//	   
+//              }
 
+
+           rs = st.executeQuery();
+            
+            if (rs.next()) {
+                arr = new ArrayList<Expediente>();
+                do {
+
+                    obj = new Expediente();
+
+                    obj.setNumero_expediente(rs.getString("DNUMOLD"));
+  
+                    arr.add(obj);
+                } while (rs.next());
+            }
+
+               st.execute();
+            // st.close();
+            conexion.setAutoCommit(true);
+            conexion.close();
+        } catch (Exception error) {
+            System.out.println("Error en el metodo por: " + error.getMessage());
+            error.printStackTrace();
+        }
+        return arr;
+
+    }
 
     public static ArrayList<Expediente> getCargarExpediente() {
         ArrayList<Expediente> arr = null;
@@ -1295,8 +1345,6 @@ public class Expediente implements Serializable {
         }
         return arr;
     }
-
-   
 
     public ArrayList<SelectItem> getCargarComboAreas() {
 
@@ -2059,9 +2107,9 @@ public class Expediente implements Serializable {
 
                     Asunto ObjAsunto = new Asunto();
                     ObjAsunto.setNombre_asunto(rs.getString("Asunto_Expediente"));
-                    
+
                     obj.setObjAsunto(ObjAsunto);
- 
+
                     obj.setArea_inicio(rs.getString("Area_Inicio"));
                     obj.setArea_final(rs.getString("Area_Final"));
                     obj.setDias_tupa(rs.getInt("Dias_Tupa"));
