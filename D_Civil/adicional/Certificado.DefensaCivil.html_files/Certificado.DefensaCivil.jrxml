@@ -2,13 +2,14 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Certificado" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="57e2111d-6d42-4dc1-b62e-bc601b13738e">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="318"/>
 	<parameter name="expediente" class="java.lang.String"/>
 	<parameter name="tipo" class="java.lang.String"/>
 	<parameter name="acto" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[exec usp_java_certificados_resoluciones_consultas @DNUMOLD=$P{expediente}, @TIPO=$P{tipo},
- @ACTO=$P{acto}]]>
+ @ACTO=$P{acto}
+]]>
 	</queryString>
 	<field name="expediente" class="java.lang.String"/>
 	<field name="fecha_expediente" class="java.sql.Timestamp"/>
@@ -240,6 +241,12 @@
 				<reportElement x="219" y="143" width="29" height="15" uuid="561f8efc-f95f-4635-bc11-1adcbcd4be2a"/>
 				<textFieldExpression><![CDATA[$F{area_verificada}]]></textFieldExpression>
 			</textField>
+			<componentElement>
+				<reportElement x="75" y="292" width="200" height="50" uuid="980415aa-7840-49ca-88b6-a40035b1d7a6"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="USD4" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{Numero_Certificado}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
 		</band>
 	</detail>
 	<columnFooter>

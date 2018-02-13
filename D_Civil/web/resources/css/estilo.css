@@ -189,3 +189,9 @@ and open the template in the editor.
     height: 100px;
     width: 300px;
 }
+
+
+.ui-slider {
+    text-align: left;
+    width: 53px;
+}

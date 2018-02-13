@@ -50,10 +50,20 @@ public class Asignar implements Serializable{
     Supervisor objInspector = new Supervisor();
     Estado objestado = new Estado();
     Turno objTurno = new Turno();
+    Expediente ObjExpediente= new Expediente ();
 
    
     
-    
+    public Expediente getObjExpediente() {
+        return ObjExpediente;
+    }
+
+    public void setObjExpediente(Expediente ObjExpediente) {
+        this.ObjExpediente = ObjExpediente;
+    }
+
+   
+
     
     public String getFecha_resuelto() {
         return fecha_resuelto;
@@ -493,9 +503,14 @@ public class Asignar implements Serializable{
                     
                     Certificado c = new Certificado();
                     c.setFecha_expediente(rs.getString("fecha_expediente"));
-                    c.setEstado_expediente(rs.getString("estado_expediente"));
+                    
                     obj.setObjCertificado(c);
-                     
+                    
+                    
+                    Expediente ObjExpediente = new Expediente ();
+                    ObjExpediente.setEstado_expediente(rs.getString("estado_expediente"));
+                    obj.setObjExpediente(ObjExpediente);
+                    
 
                     Supervisor s = new Supervisor();
                     s.setId_inspector(rs.getString("id_inspector"));

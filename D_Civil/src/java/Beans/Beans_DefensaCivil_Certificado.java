@@ -61,24 +61,24 @@ public class Beans_DefensaCivil_Certificado {
     private Certificado objCertificadoDetalle;
     private Certificado objEliminaCertificado;
     private Certificado objBuscarCertificado;
-    private Certificado objDocumentoResolverReg;
-   
+    private Certificado objDocumentoResolverReg;  
     private Certificado objRegistrarArchivoVirtual;
     private Certificado objBuscarArchivoVirtual;
-
     private ArrayList<Certificado> arrCertificado = null;
     private ArrayList<Certificado> arrBusCertificado = null;
-
     private ArrayList<Certificado> arrArchivoVirtual = null;
     private ArrayList<Certificado> arrBusArchivoVirtual = null;
-
     private Certificado objBuscarReporteResoluciones;
     private ArrayList<Certificado> arrReporteResoluciones = null;
     private ArrayList<Certificado> arrBusReporteResoluciones = null;
+
+ 
+    private String numero_expediente;
+    private String tipo;               // Tipo 1 para Certificado
+    private String acto;
     
 
     private int id_legajo=1;
-   
     public int getId_legajo() {
         return id_legajo;
     }
@@ -178,9 +178,7 @@ public class Beans_DefensaCivil_Certificado {
     private boolean bandEli = true;
     private boolean bandAsignar = true;
 
-    private String expediente; // Numero de Expediente para Generar reporte de Certificados Expost
-    private String tipo;               // Tipo 1 para Certificado
-    private String acto;
+    
 
     public String getActo() {
         return acto;
@@ -190,13 +188,6 @@ public class Beans_DefensaCivil_Certificado {
         this.acto = acto;
     }
 
-    public String getExpediente() {
-        return expediente;
-    }
-
-    public void setExpediente(String expediente) {
-        this.expediente = expediente;
-    }
 
     public String getTipo() {
         return tipo;
@@ -435,6 +426,16 @@ public class Beans_DefensaCivil_Certificado {
         this.bandAsignar = bandAsignar;
     }
 
+
+    public String getNumero_expediente() {
+        return numero_expediente;
+    }
+
+    public void setNumero_expediente(String numero_expediente) {
+        this.numero_expediente = numero_expediente;
+    }
+
+    
     //-----------------Iniciallzaciones -----------------------------
     public void doiniciarListadoCertificado() {
         arrCertificado = new ArrayList<Certificado>();
@@ -495,19 +496,22 @@ public class Beans_DefensaCivil_Certificado {
 
     }
 
-
+     // inicializaciones
+    
     public void doiniciarBusquedaArchivoVirtual() {
         this.arrBusArchivoVirtual = new ArrayList<Certificado>();
         this.objBuscarArchivoVirtual = new Certificado();
 
     }
 
+    // inicializaciones 
     public void doiniciarBusquedaReporteResoluciones() {
         this.arrBusReporteResoluciones = new ArrayList<Certificado>();
         this.objBuscarReporteResoluciones = new Certificado();
 
     }
 
+ 
     public String getPuntAnt() {
         return puntAnt;
     }
@@ -744,7 +748,7 @@ public class Beans_DefensaCivil_Certificado {
         return null;
     }
 
-    //Modificar    
+    //para Modificar el ipse  
     public String modificarCertificado(Certificado so) {
 
         this.doiniciarModificarCertificado();
@@ -753,13 +757,26 @@ public class Beans_DefensaCivil_Certificado {
         this.activeTabIndex = 1;  // Verifica la Posesion de la Pestaña para activarla. -- Ver Constantes       
         return null;
     }
+    
 
+       // para imprimir resoluciones ipse
+    public String Generar_resoluciones_ipse(Certificado ge) {
+
+        this.doiniciarBusquedaCertificado();
+        this.objBuscarCertificado= ge;
+        this.bandMod = false;
+        this.activeTabIndex = 2;  // Verifica la Posesion de la Pestaña para activarla. -- Ver Constantes       
+        return null;
+    } 
+    
+    // para anexar archivos virtuales ipse
+    
     public String RegistrarArchivoVirtual(Certificado re) {
 
         this.doiniciarRegistroArchivoVirtual();
         this.objRegistrarArchivoVirtual = re;
         this.bandMod = false;
-        this.activeTabIndex = 2;  // Verifica la Posesion de la Pestaña para activarla. -- Ver Constantes       
+        this.activeTabIndex = 5;  // Verifica la Posesion de la Pestaña para activarla. -- Ver Constantes       
         return null;
     }
     
@@ -769,7 +786,7 @@ public class Beans_DefensaCivil_Certificado {
         this.doiniciarBusquedaArchivoVirtual();
         this.objBuscarArchivoVirtual = bu;
         this.bandMod = false;
-        this.activeTabIndex = 2;  // Verifica la Posesion de la Pestaña para activarla. -- Ver Constantes       
+        this.activeTabIndex = 4;  // Verifica la Posesion de la Pestaña para activarla. -- Ver Constantes       
         return null;
     }
      
@@ -1047,7 +1064,8 @@ public class Beans_DefensaCivil_Certificado {
 
             //Instancia hacia la clase reporte     
             HashMap<String, Object> parametros = new HashMap<String, Object>();
-            parametros.put("expediente", this.expediente);
+//            parametros.put("expediente", this.ObjNumero_Expediente.getNro_expediente());
+            parametros.put("expediente", this.numero_expediente);
             parametros.put("tipo", this.tipo);
             parametros.put("acto", this.acto);
 
@@ -1067,7 +1085,7 @@ public class Beans_DefensaCivil_Certificado {
 
             HashMap<String, Object> parametros = new HashMap<String, Object>();
 
-            parametros.put("expediente", this.expediente);
+            parametros.put("expediente", this.numero_expediente);
             parametros.put("tipo", this.tipo);
             parametros.put("acto", this.acto);
 
@@ -1086,7 +1104,7 @@ public class Beans_DefensaCivil_Certificado {
 
             HashMap<String, Object> parametros = new HashMap<String, Object>();
 
-            parametros.put("expediente", this.expediente);
+            parametros.put("expediente", this.numero_expediente);
             parametros.put("tipo", this.tipo);
             parametros.put("acto", this.acto);
 
@@ -1105,7 +1123,7 @@ public class Beans_DefensaCivil_Certificado {
 
             HashMap<String, Object> parametros = new HashMap<String, Object>();
 
-            parametros.put("expediente", this.expediente);
+            parametros.put("expediente", this.numero_expediente);
             parametros.put("tipo", this.tipo);
             parametros.put("acto", this.acto);
 
@@ -1124,7 +1142,7 @@ public class Beans_DefensaCivil_Certificado {
 
             HashMap<String, Object> parametros = new HashMap<String, Object>();
 
-            parametros.put("expediente", this.expediente);
+            parametros.put("expediente", this.numero_expediente);
             parametros.put("tipo", this.tipo);
             parametros.put("acto", this.acto);
 
@@ -1143,7 +1161,7 @@ public class Beans_DefensaCivil_Certificado {
 
             HashMap<String, Object> parametros = new HashMap<String, Object>();
 
-            parametros.put("expediente", this.expediente);
+            parametros.put("expediente", this.numero_expediente);
             parametros.put("tipo", this.tipo);
             parametros.put("acto", this.acto);
 
@@ -1162,7 +1180,7 @@ public class Beans_DefensaCivil_Certificado {
 
             HashMap<String, Object> parametros = new HashMap<String, Object>();
 
-            parametros.put("expediente", this.expediente);
+            parametros.put("expediente", this.numero_expediente);
             parametros.put("tipo", this.tipo);
             parametros.put("acto", this.acto);
 

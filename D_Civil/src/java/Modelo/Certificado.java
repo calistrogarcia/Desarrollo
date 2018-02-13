@@ -41,10 +41,11 @@ import net.sf.jasperreports.engine.util.JRLoader;
  */
 public class Certificado implements Serializable {
 
+   
+
     private String nro_expediente;
     private String fecha_expediente;
     private Date fecha_expediente_Act;
-    private String nombres;
     private String asunto;
     private String area_declarada;
     private String area;
@@ -56,22 +57,17 @@ public class Certificado implements Serializable {
     private String nombre_inspector;
     private Date fecha_ipse;
     private int aforo;
-
     private int id_tipo_licencia;
     private String descripcion_tipo_licencia;
     private String numero_identificacion;
     private boolean estado_fiscalizacion;
     private String observaciones_seguridad;
-    private String[] regobservaciones_seguridad = {"Alternativa_1", "Alternativa_2", "Alternativa_3"};
     private int resultado;
     private String anotaciones;
-    private String estado_expediente;
-
     private String fiscalizaciones;
-    private String resultados;
+    private String resultados_expediente_ipse;
     private String numero_resolucion;
     private String correlativo_expediente;
-    private String estado_documento;
     private String anotacion;
     private String area_final;
     private String total_folios;
@@ -81,7 +77,7 @@ public class Certificado implements Serializable {
     private String fecha_resuelto;
     private String observancia_ipse;
     private String area_verificada;
-    private String[] array;
+
     
 
     Giro Objgiros = new Giro();
@@ -94,10 +90,28 @@ public class Certificado implements Serializable {
     Boton objboton = new Boton();
     Postal ObjPostal = new Postal();
     Persona ObjPersona = new Persona();
+    Expediente ObjExpediente = new Expediente ();
 
-   
     
     
+    
+    public String getResultados_expediente_ipse() {
+        return resultados_expediente_ipse;
+    }
+
+    public void setResultados_expediente_ipse(String resultados_expediente_ipse) {
+        this.resultados_expediente_ipse = resultados_expediente_ipse;
+    }
+
+
+    public Expediente getObjExpediente() {
+        return ObjExpediente;
+    }
+
+    public void setObjExpediente(Expediente ObjExpediente) {
+        this.ObjExpediente = ObjExpediente;
+    }
+
     
     public Certificado() {
 
@@ -152,13 +166,6 @@ public class Certificado implements Serializable {
         this.observaciones_seguridad = observaciones_seguridad;
     }
 
-    public String[] getRegobservaciones_seguridad() {
-        return regobservaciones_seguridad;
-    }
-
-    public void setRegobservaciones_seguridad(String[] regobservaciones_seguridad) {
-        this.regobservaciones_seguridad = regobservaciones_seguridad;
-    }
 
 
     public int getId_tipo_licencia() {
@@ -267,13 +274,7 @@ public class Certificado implements Serializable {
         this.nro_expediente = nro_expediente;
     }
 
-    public String getNombres() {
-        return nombres;
-    }
-
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
-    }
+  
 
     public String getAsunto() {
         return asunto;
@@ -315,14 +316,7 @@ public class Certificado implements Serializable {
         this.fiscalizaciones = fiscalizaciones;
     }
 
-    public String getResultados() {
-        return resultados;
-    }
-
-    public void setResultados(String resultados) {
-        this.resultados = resultados;
-    }
-
+  
     public String getNumero_resolucion() {
         return numero_resolucion;
     }
@@ -337,14 +331,6 @@ public class Certificado implements Serializable {
 
     public void setCorrelativo_expediente(String correlativo_expediente) {
         this.correlativo_expediente = correlativo_expediente;
-    }
-
-    public String getEstado_documento() {
-        return estado_documento;
-    }
-
-    public void setEstado_documento(String estado_documento) {
-        this.estado_documento = estado_documento;
     }
 
     public String getAnotacion() {
@@ -427,21 +413,7 @@ public class Certificado implements Serializable {
         this.supervisor = supervisor;
     }
 
-    public String[] getArray() {
-        return array;
-    }
-
-    public void setArray(String[] array) {
-        this.array = array;
-    }
-
-    public String getEstado_expediente() {
-        return estado_expediente;
-    }
-
-    public void setEstado_expediente(String estado_expediente) {
-        this.estado_expediente = estado_expediente;
-    }
+  
 
     public Direccion getObjdireccion() {
         return objdireccion;
@@ -484,8 +456,6 @@ public class Certificado implements Serializable {
         this.estado_fiscalizacion = estado_fiscalizacion;
     }
 
-   
-    
     public Postal getObjPostal() {
         return ObjPostal;
     }
@@ -494,7 +464,7 @@ public class Certificado implements Serializable {
         this.ObjPostal = ObjPostal;
     }
 
-    
+  
 
     public ArrayList<SelectItem> getCargarComboGiros() {
 
@@ -636,9 +606,11 @@ public class Certificado implements Serializable {
                    
                     Persona ObjPersona = new Persona();
                     ObjPersona.setCodigo_contribuyente(rs.getString("codigo"));
+                    ObjPersona.setNombres_apellidos(rs.getString("nombres_apellidos"));
+                   
                     obj.setObjPersona(ObjPersona);
                     
-                    obj.setNombres(rs.getString("nombres_apellidos"));
+                    
                     obj.setAsunto(rs.getString("asunto"));
                     obj.setArea_declarada(rs.getString("area_declarada"));
                     obj.setArea(rs.getString("area_final"));
@@ -660,7 +632,12 @@ public class Certificado implements Serializable {
                     obj.setObservaciones_seguridad(rs.getString("observaciones_seguridad"));
                     obj.setResultado(rs.getInt("resultado"));
                     obj.setAnotaciones(rs.getString("anotaciones"));
-                    obj.setEstado_expediente(rs.getString("estado_expediente"));
+                     Expediente ObjExpediente = new Expediente ();
+                    
+                    ObjExpediente.setEstado_expediente(rs.getString("estado_expediente"));
+                    
+                    obj.setObjExpediente(ObjExpediente);
+                    
                     obj.setDireccion_verificada(rs.getString("direccion_verificada"));
                     obj.setArea_verificada(rs.getString("area_verificada"));
                     
@@ -717,23 +694,36 @@ public class Certificado implements Serializable {
                     obj.setNumero_resolucion(rs.getString("numero_resolucion"));
                    
                     Persona ObjPersona = new Persona();
+                    
                     ObjPersona.setCodigo_contribuyente(rs.getString("codigo"));
+                    ObjPersona.setNombres_apellidos(rs.getString("nombres_apellidos"));
+                    
                     obj.setObjPersona(ObjPersona);
                     
-                    obj.setNombres(rs.getString("nombres_apellidos"));
+                    
+                    
 
                     Giro gr = new Giro();
 
-                    gr.setGiro_detalle("giro_detalle");
+                    gr.setGiro_detalle(rs.getString("giro_detalle"));
+                    
                     obj.setObjgiros(gr);
 
                     obj.setDescripcion_tipo_licencia(rs.getString("descripcion_tipo_licencia"));       
-                    obj.setEstado_fiscalizacion(rs.getBoolean("estado_fiscalizacion"));
+                
                     obj.setObservaciones_seguridad(rs.getString("observaciones_seguridad"));
-                    obj.setResultados(rs.getString("resultado"));
+                    
+                    obj.setResultados_expediente_ipse(rs.getString("resultado"));
 
                     obj.setCorrelativo_expediente(rs.getString("correlativo_expediente"));
-                    obj.setEstado_documento(rs.getString("estado_documento"));
+                    
+                    Expediente ObjExpediente = new Expediente() ;
+                    
+                    ObjExpediente.setEstado_expediente(rs.getString("estado_expediente"));
+                    
+                    obj.setObjExpediente(ObjExpediente);
+                    
+                    
                     obj.setAnotacion(rs.getString("anotacion"));
                     obj.setArea_final(rs.getString("area_final"));
                     obj.setTotal_folios(rs.getString("total_folios"));
@@ -790,9 +780,10 @@ public class Certificado implements Serializable {
                     obj.setNumero_resolucion(rs.getString("numero_resolucion"));
                           Persona ObjPersona = new Persona();
                     ObjPersona.setCodigo_contribuyente(rs.getString("codigo"));
+                    ObjPersona.setNombres_apellidos(rs.getString("nombres_apellidos"));
                     obj.setObjPersona(ObjPersona);
                     
-                    obj.setNombres(rs.getString("nombres_apellidos"));
+                   
 
                     Giro gir = new Giro();
 
@@ -802,7 +793,7 @@ public class Certificado implements Serializable {
                     obj.setDescripcion_tipo_licencia(rs.getString("descripcion_tipo_licencia"));                   
                     obj.setFiscalizaciones(rs.getString("estado_fiscalizacion"));
                     obj.setObservaciones_seguridad(rs.getString("observaciones_seguridad"));
-                    obj.setResultados(rs.getString("resultado"));
+                    obj.setResultados_expediente_ipse(rs.getString("resultado"));
 
                     arr.add(obj);
 
@@ -902,10 +893,10 @@ public class Certificado implements Serializable {
 
             }
 
-            if (obj.getNombres() != null) {
-                if (obj.getNombres().length() > 0) {
+            if (obj.ObjPersona.getNombres_apellidos() != null) {
+                if (obj.ObjPersona.getNombres_apellidos().length() > 0) {
 
-                    st.setString(4, obj.getNombres());
+                    st.setString(4, obj.ObjPersona.getNombres_apellidos());
                 } else {
                     st.setString(4, null);
                 }
@@ -1105,11 +1096,11 @@ public class Certificado implements Serializable {
                 st.setString(1, null);
             }
 
-            if (obj.getEstado_documento() != null) {
+            if (obj.ObjExpediente.getEstado_expediente() != null) {
 
-                if (obj.getEstado_documento().length() > 0) {
+                if (obj.ObjExpediente.getEstado_expediente().length() > 0) {
 
-                    st.setString(2, obj.getEstado_documento());
+                    st.setString(2, obj.ObjExpediente.getEstado_expediente());
                 } else {
                     st.setString(2, null);
                 }

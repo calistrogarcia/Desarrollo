@@ -33,36 +33,25 @@ and open the template in the editor.
                                       
                                         <img  src="resources/imagenes/ecologico.png" style="text-align: center" height="20px"/>
                                         <h:outputText value="#{msg.LabelSensibilizacionEcologica}"  style=" color: green"  />
-                                   
-                                
-                                
                                 <center>
                                     <br>
                                     </br>
-                                    
-                               
-
                                     <h:panelGrid columns="2">
-                                        <h:outputText value="#{msg.labelNroE}"/>
+                                        <h:outputText value="#{msg.LabelNumeroExpediente}"/>
                                         <h:panelGroup>
-                                            <h:outputText value=" a Consultar "/>
+                                         
                                             <p:inputText  id="fechaI"
-                                                          required="true" requiredMessage="#{msg.labelObli}"
+                                                          required="true" requiredMessage="#{msg.labelObligatorio}"
                                                           maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.expediente}"
                                                           >  
                                                 <f:validateLength minimum="0" maximum="30"/>
                                             </p:inputText>
                                             <h:message for="fechaI" showDetail="false" showSummary="true"/>                                    
                                         </h:panelGroup> 
-
                                     </h:panelGrid>  
-
                                     <br></br>
-
                                 </center>
-                                
-                               
-
+ 
                                 <h:panelGrid columns="3" cellpadding="1"  cellspacing="1"  width="15%">
                                     <h:panelGrid columns="2">
                                         <img  src="resources/imagenes/printer.png"/>
@@ -127,11 +116,11 @@ and open the template in the editor.
                                 </h:panelGrid> 
                                 <center>
                                     <h:panelGrid columns="2"  >
-                                        <h:outputText value="#{msg.labelNroE}" />
+                                        <h:outputText value="#{msg.LabelNumeroExpediente}" />
                                         <h:panelGroup>
-                                            <h:outputText value=" a Consultar "/>
+                                        
                                             <p:inputText  id="fechaI"
-                                                          required="true" requiredMessage="#{msg.labelObli}"
+                                                          required="true" requiredMessage="#{msg.labelObligatorio}"
                                                           maxlength="30" validatorMessage="#{msg.labelValidar}" 
                                                           value="#{Beans_DefensaCivil_Certificado.objBuscarCertificado.nro_expediente}"
                                                           >  
@@ -189,7 +178,8 @@ and open the template in the editor.
                                     <h:panelGrid columns="1"   cellpadding="0"  cellspacing="0" 
                                                  border="0"  styleClass="width-table"> 
 
-                                        <p:dataTable id="resListadoCertificado" value="#{Beans_DefensaCivil_Certificado.arrBusReporteResoluciones}" var="listarDocumento"  styleClass="order-table" paginator="true"
+                                        <p:dataTable id="resListadoCertificado" value="#{Beans_DefensaCivil_Certificado.arrBusReporteResoluciones}" 
+                                                     var="listarDocumento"  styleClass="order-table" paginator="true"
                                                      rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" paginatorPosition="both" paginatorAlwaysVisible="true">
 
 
@@ -204,21 +194,21 @@ and open the template in the editor.
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.LabelNombres}" />
                                                 </f:facet>
-                                                <h:outputText  value="#{listarDocumento.contribuyente}"/>
+                                                <h:outputText  value="#{listarDocumento.objPersona.nombres_apellidos}"/>
                                             </p:column>   
 
                                             <p:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.LabelNombres}" />
                                                 </f:facet>
-                                                <h:outputText  value="#{listarDocumento.nombres}"/>
+                                                <h:outputText  value="#{listarDocumento.objPersona.nombres_apellidos}"/>
                                             </p:column>  
 
 
 
                                             <p:column filterBy="#{listarDocumento.nro_expediente}" filterMatchMode="contains">
                                                 <f:facet name="header">
-                                                    <h:outputText value="#{msg.labelNroE}" />
+                                                    <h:outputText value="#{msg.LabelNumeroExpediente}" />
                                                 </f:facet>
                                                 <h:outputText value="#{listarDocumento.nro_expediente}"/>
                                             </p:column> 
@@ -401,7 +391,7 @@ and open the template in the editor.
 
                                     <h:panelGroup>
 
-                                        <p:inputText id="identificacion"  required="true" requiredMessage="#{msg.labelObli}" size="20" disabled="true" 
+                                        <p:inputText id="identificacion"  required="true" requiredMessage="#{msg.labelObligatorio}" size="20" disabled="true" 
                                                      maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.correlativo_expediente}"                       >  
                                             <f:validateLength minimum="0" maximum="30"/>
                                         </p:inputText>
@@ -418,7 +408,7 @@ and open the template in the editor.
                                                              filter="true"  filterMatchMode="contains"
                                                              required="true" id="estadodocumento"
                                                              validatorMessage="#{msg.labelValidar}"
-                                                             requiredMessage="#{msg.labelObli}" value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.estado_documento}">
+                                                             requiredMessage="#{msg.labelObligatorio}" value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.estado_documento}">
 
                                                 <f:selectItem itemLabel="#{msg.labelSeleccionar}" itemValue="O"/> 
 
@@ -437,7 +427,7 @@ and open the template in the editor.
 
                                         <p:inputTextarea rows="3" cols="41" counter="contador" maxlength="250"
 
-                                                         required="true" requiredMessage="#{msg.labelObli}" autoResize="true" id="anotacion"
+                                                         required="true" requiredMessage="#{msg.labelObligatorio}" autoResize="true" id="anotacion"
                                                          counterTemplate="{0} #{msg.LabelContador}" value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.anotacion}">
                                         </p:inputTextarea> 
                                         <br />
@@ -488,7 +478,7 @@ and open the template in the editor.
                                     <h:outputText value="#{msg.LabelUsuarioModificacion}"  style="margin-right:30px;"/>
                                     <h:panelGroup>
 
-                                        <p:inputText id="usuario_modificacion"  required="true" requiredMessage="#{msg.labelObli}" size="20" disabled="true"
+                                        <p:inputText id="usuario_modificacion"  required="true" requiredMessage="#{msg.labelObligatorio}" size="20" disabled="true"
                                                      maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.usuario_modificacion}"
                                                      >  
                                             <f:validateLength minimum="0" maximum="250"/>
@@ -502,7 +492,7 @@ and open the template in the editor.
                                     <h:outputText value="#{msg.LabelNumeroRegistro}"  style="margin-right:30px;"/>
                                     <h:panelGroup>
 
-                                        <p:inputText id="numero_registro"  required="true" requiredMessage="#{msg.labelObli}" size="20" disabled="false"
+                                        <p:inputText id="numero_registro"  required="true" requiredMessage="#{msg.labelObligatorio}" size="20" disabled="false"
                                                      maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.numero_registro}"
                                                      >  
                                             <f:validateLength minimum="0" maximum="250"/>
@@ -517,7 +507,7 @@ and open the template in the editor.
 
                                         <p:inputTextarea rows="3" cols="41" counter="contador_01" maxlength="300"
 
-                                                         required="true" requiredMessage="#{msg.labelObli}" autoResize="true" id="observaciones"
+                                                         required="true" requiredMessage="#{msg.labelObligatorio}" autoResize="true" id="observaciones"
                                                          counterTemplate="{0} #{msg.LabelContador}" value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.observaciones}">
                                         </p:inputTextarea> 
                                         <br />

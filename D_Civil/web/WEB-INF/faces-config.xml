@@ -220,4 +220,11 @@
         <managed-bean-class>Beans.Beans_Tramite_Asunto</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>Beans_Direcciones</managed-bean-name>
+        <managed-bean-class>Beans.Beans_Direcciones</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    
 </faces-config>

@@ -251,7 +251,7 @@ public class Prueba_SP {
         cer.setNro_expediente("41391-01-2017");
         cer.setArea("SUBG. DE DEFENSA CIVIL");
       //  cer.setContribuyente("322354");
-        cer.setNombres("TORRE QUISPE JORGE LUIS");
+        cer.ObjPersona.setNombres_apellidos("TORRE QUISPE JORGE LUIS");
         cer.setRazon_social("");
         cer.setRepresentante_legal("");
         cer.setDireccion("");
