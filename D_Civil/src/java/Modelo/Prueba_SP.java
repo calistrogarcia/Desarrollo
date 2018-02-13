@@ -153,29 +153,29 @@ public class Prueba_SP {
         }
     }
 
-    public static void asignarExpediente() {
-
-        Asignar objAsignar = new Asignar();
-
-        //private String tipo_asignar;
-        //private int id_turno;
-        //private String usuario_asigna;
-        //private int id_inspector;
-        //private String estado;
-        //private int expediente_id;
-        // objAsignar.setTipo_asignar("2");
-        objAsignar.setExpediente("41391-01-2017");
-        //objAsignar.setEstado("1");
-        // objAsignar.setId_inspector("Garcia Garcia Calistro");
-        // objAsignar.setId_turno(1);
-        objAsignar.setUsuario_asigna("Administrador");
-
-        if (Asignar.AsignarExpediente(objAsignar)) {
-            System.out.println("ok");
-        } else {
-            System.out.println("no");
-        }
-    }
+//    public static void asignarExpediente() {
+//
+//        Asignar objAsignar = new Asignar();
+//
+//        //private String tipo_asignar;
+//        //private int id_turno;
+//        //private String usuario_asigna;
+//        //private int id_inspector;
+//        //private String estado;
+//        //private int expediente_id;
+//        // objAsignar.setTipo_asignar("2");
+//        objAsignar.setExpediente("41391-01-2017");
+//        //objAsignar.setEstado("1");
+//        // objAsignar.setId_inspector("Garcia Garcia Calistro");
+//        // objAsignar.setId_turno(1);
+//        objAsignar.setUsuario_asigna("Administrador");
+//
+//        if (Asignar.AsignarExpediente(objAsignar)) {
+//            System.out.println("ok");
+//        } else {
+//            System.out.println("no");
+//        }
+//    }
 
 //    public static void registrardireccion() {
 //

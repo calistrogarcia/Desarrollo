@@ -50,7 +50,7 @@ import java.sql.ResultSet;
  *
  * @author Administrador
  */
-public class Beans_DefensaCivil_Certificado {
+public class Beans_DefensaCivil_Certificado implements Serializable{
 
     /**
      *
@@ -61,9 +61,13 @@ public class Beans_DefensaCivil_Certificado {
     private Certificado objCertificadoDetalle;
     private Certificado objEliminaCertificado;
     private Certificado objBuscarCertificado;
-    private Certificado objDocumentoResolverReg;  
+    private Certificado objBuscarGenerarResolucion;
+    private Certificado objFinalizarExpedienteIpse;
+    private Certificado objDocumentoResolverReg;
     private Certificado objRegistrarArchivoVirtual;
     private Certificado objBuscarArchivoVirtual;
+    
+
     private ArrayList<Certificado> arrCertificado = null;
     private ArrayList<Certificado> arrBusCertificado = null;
     private ArrayList<Certificado> arrArchivoVirtual = null;
@@ -72,104 +76,9 @@ public class Beans_DefensaCivil_Certificado {
     private ArrayList<Certificado> arrReporteResoluciones = null;
     private ArrayList<Certificado> arrBusReporteResoluciones = null;
 
- 
     private String numero_expediente;
     private String tipo;               // Tipo 1 para Certificado
     private String acto;
-    
-
-    private int id_legajo=1;
-    public int getId_legajo() {
-        return id_legajo;
-    }
-
-    public void setId_legajo(int id_legajo) {
-        this.id_legajo = id_legajo;
-    }
-
-    //---Seleccionar Informacion de Observacia----//
-    private List<String> observacion;
-
-    public List<String> getObservacion() {
-        return observacion;
-    }
-
-    public void setObservacion(List<String> observacion) {
-        this.observacion = observacion;
-    }
-
-    //-----------------Picklist----------------------//
-    private DualListModel<Certificado> PickListCertificado;
-    private ArrayList<Certificado> Piclist = null;
-
-    //-------------------------- Carga de PickList-------------------------------//
-    public DualListModel<Certificado> getPickListCertificado() throws Exception {
-
-        if (PickListCertificado == null) {
-            PickListCertificado = new DualListModel<Certificado>();
-        }
-        PickListCertificado.setSource(DoPickList());
-
-        return PickListCertificado;
-
-    }
-
-    public void setPickListCertificado(DualListModel<Certificado> PickListCertificado) {
-        this.PickListCertificado = PickListCertificado;
-    }
-
-    public ArrayList<Certificado> getPiclist() {
-        return Piclist;
-    }
-
-    public void setPiclist(ArrayList<Certificado> Piclist) {
-        this.Piclist = Piclist;
-    }
-
-    public ArrayList<Certificado> DoPickList() throws Exception {
-
-        //Lista Observancia    
-        this.Piclist = new ArrayList<Certificado>();
-        this.Piclist = Certificado.cargarObservanciaIpse();
-
-        return this.Piclist;
-    }
-
-    //-----------------------------------------------Fin
-    public void onTransfer(TransferEvent event) {
-        StringBuilder builder = new StringBuilder();
-        for (Object item : event.getItems()) {
-            builder.append(((Certificado) item).getObservancia_ipse()).append("<br />");
-        }
-
-        FacesMessage msg = new FacesMessage();
-        msg.setSeverity(FacesMessage.SEVERITY_INFO);
-        msg.setSummary("Items Transferred");
-        msg.setDetail(builder.toString());
-
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-
-    public void onSelect(SelectEvent event) {
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Item Selected", event.getObject().toString()));
-    }
-
-    public void onUnselect(UnselectEvent event) {
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Item Unselected", event.getObject().toString()));
-    }
-
-    public void onReorder() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "List Reordered", null));
-    }
-
-    public void showresultado() {
-
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "targetPicklist Size:" + PickListCertificado.getTarget().size() + "SourcePicklist Size:" + PickListCertificado.getSource(), null));
-    }
 
 //TabView
     private Integer activeTabIndex;
@@ -178,8 +87,6 @@ public class Beans_DefensaCivil_Certificado {
     private boolean bandEli = true;
     private boolean bandAsignar = true;
 
-    
-
     public String getActo() {
         return acto;
     }
@@ -187,7 +94,6 @@ public class Beans_DefensaCivil_Certificado {
     public void setActo(String acto) {
         this.acto = acto;
     }
-
 
     public String getTipo() {
         return tipo;
@@ -312,7 +218,6 @@ public class Beans_DefensaCivil_Certificado {
         this.objEliminaCertificado = objEliminaCertificado;
     }
 
-
     public ArrayList<Certificado> getArrCertificado() {
         return arrCertificado;
     }
@@ -344,7 +249,6 @@ public class Beans_DefensaCivil_Certificado {
     public void setObjDocumentoResolverReg(Certificado objDocumentoResolverReg) {
         this.objDocumentoResolverReg = objDocumentoResolverReg;
     }
-
 
     public Certificado getObjRegistrarArchivoVirtual() {
         return objRegistrarArchivoVirtual;
@@ -426,7 +330,6 @@ public class Beans_DefensaCivil_Certificado {
         this.bandAsignar = bandAsignar;
     }
 
-
     public String getNumero_expediente() {
         return numero_expediente;
     }
@@ -435,6 +338,25 @@ public class Beans_DefensaCivil_Certificado {
         this.numero_expediente = numero_expediente;
     }
 
+    public Certificado getObjBuscarGenerarResolucion() {
+        return objBuscarGenerarResolucion;
+    }
+
+    public void setObjBuscarGenerarResolucion(Certificado objBuscarGenerarResolucion) {
+        this.objBuscarGenerarResolucion = objBuscarGenerarResolucion;
+    }
+
+    public Certificado getObjFinalizarExpedienteIpse() {
+        return objFinalizarExpedienteIpse;
+    }
+
+    public void setObjFinalizarExpedienteIpse(Certificado objFinalizarExpedienteIpse) {
+        this.objFinalizarExpedienteIpse = objFinalizarExpedienteIpse;
+    }
+
+
+   
+    
     
     //-----------------Iniciallzaciones -----------------------------
     public void doiniciarListadoCertificado() {
@@ -447,7 +369,6 @@ public class Beans_DefensaCivil_Certificado {
 
     }
 
-  
     public void doiniciarObjBusArchivoVirtual() {
 
         this.objBuscarArchivoVirtual = new Certificado();
@@ -459,9 +380,21 @@ public class Beans_DefensaCivil_Certificado {
         this.objRegistrarArchivoVirtual = new Certificado();
     }
 
+  
+
+    public void doiniciarFinalizarExpedienteIpse() {
+
+        this.objFinalizarExpedienteIpse = new Certificado();
+    }
+
     public void doiniciarObjBusCertificado() {
 
         this.objBuscarCertificado = new Certificado();
+    }
+
+    public void doiniciarObjBusGerenerarResolucion() {
+
+        this.objBuscarGenerarResolucion = new Certificado();
     }
 
     public void doiniciarRegistroCertificado() {
@@ -490,14 +423,13 @@ public class Beans_DefensaCivil_Certificado {
 
     //Iniciallzaciones para arrays
     public void doiniciarBusquedaCertificado() {
-        
+
         this.arrBusCertificado = new ArrayList<Certificado>();
         this.objBuscarCertificado = new Certificado();
 
     }
 
-     // inicializaciones
-    
+    // inicializaciones
     public void doiniciarBusquedaArchivoVirtual() {
         this.arrBusArchivoVirtual = new ArrayList<Certificado>();
         this.objBuscarArchivoVirtual = new Certificado();
@@ -511,7 +443,6 @@ public class Beans_DefensaCivil_Certificado {
 
     }
 
- 
     public String getPuntAnt() {
         return puntAnt;
     }
@@ -527,14 +458,14 @@ public class Beans_DefensaCivil_Certificado {
             doiniciarRegistroResolverDocumento();
             doiniciarObjBusCertificado();
             doiniciarBusquedaArchivoVirtual();
-            
+            doiniciarObjBusGerenerarResolucion();
+      
+
         } catch (Exception e) {
             Mensaje.manejarError(e, "Error al Iniciar Proceso");
         }
 
     }
-
-
 
     public String doRegArchivoVirtual() {
         try {
@@ -593,11 +524,13 @@ public class Beans_DefensaCivil_Certificado {
 
     }
 
+    
+
     public String doResolverExpediente() {
 
         this.bandMod = true;
         try {
-            if (Certificado.ResolverExpediente(objCertificadoMod)) {
+            if (Certificado.ResolverExpediente(objFinalizarExpedienteIpse)) {
 
                 Mensaje.guardarMensajeExito("Resolver Documento", "Resuelto Correctamente");
             } else {
@@ -641,12 +574,11 @@ public class Beans_DefensaCivil_Certificado {
 
     }
 
-
     public ArrayList<Certificado> doBuscarReporteResoluciones() {
 
         //Lista Certificado
         this.arrBusReporteResoluciones = new ArrayList<Certificado>();
-        this.arrBusReporteResoluciones = Certificado.getBuscaReporteResoluciones(objBuscarCertificado);
+        this.arrBusReporteResoluciones = Certificado.getBuscaReporteResoluciones(objBuscarGenerarResolucion);
 
         return this.arrBusReporteResoluciones;
 
@@ -688,8 +620,6 @@ public class Beans_DefensaCivil_Certificado {
             return "" + this.arrBusCertificado.size();
         }
     }
-
-   
 
     public String getSizeRegistrosArchivoVirtual() {
 
@@ -757,20 +687,27 @@ public class Beans_DefensaCivil_Certificado {
         this.activeTabIndex = 1;  // Verifica la Posesion de la Pestaña para activarla. -- Ver Constantes       
         return null;
     }
-    
 
-       // para imprimir resoluciones ipse
+    // para imprimir resoluciones ipse
     public String Generar_resoluciones_ipse(Certificado ge) {
 
-        this.doiniciarBusquedaCertificado();
-        this.objBuscarCertificado= ge;
+        this.doiniciarBusquedaReporteResoluciones();
+        this.objBuscarGenerarResolucion = ge;
         this.bandMod = false;
         this.activeTabIndex = 2;  // Verifica la Posesion de la Pestaña para activarla. -- Ver Constantes       
         return null;
-    } 
-    
+    }
+
+    public String Finalizar_Expediente_Ipse(Certificado fi) {
+
+        this.doiniciarModificarCertificado();
+        this.objFinalizarExpedienteIpse = fi;
+        this.bandMod = false;
+        this.activeTabIndex = 3;  // Verifica la Posesion de la Pestaña para activarla. -- Ver Constantes       
+        return null;
+    }
+
     // para anexar archivos virtuales ipse
-    
     public String RegistrarArchivoVirtual(Certificado re) {
 
         this.doiniciarRegistroArchivoVirtual();
@@ -779,9 +716,8 @@ public class Beans_DefensaCivil_Certificado {
         this.activeTabIndex = 5;  // Verifica la Posesion de la Pestaña para activarla. -- Ver Constantes       
         return null;
     }
-    
-    
-     public String BuscarArchivoVirtual(Certificado bu) {
+
+    public String BuscarArchivoVirtual(Certificado bu) {
 
         this.doiniciarBusquedaArchivoVirtual();
         this.objBuscarArchivoVirtual = bu;
@@ -789,8 +725,6 @@ public class Beans_DefensaCivil_Certificado {
         this.activeTabIndex = 4;  // Verifica la Posesion de la Pestaña para activarla. -- Ver Constantes       
         return null;
     }
-     
-     
 
     public String ActuaizarDatos(Certificado actualizardatos) {
         this.doiniciarActualizarDatos();
@@ -800,22 +734,10 @@ public class Beans_DefensaCivil_Certificado {
         return null;
     }
 
-//
-//         public String desactivaTabVer(){               
-//               this.bandVer=true;
-//               //Pregunta si la Detalle Mostrada Proviene de una Busqueda Simple:2 o de un listado total:1 
-//               if(puntAnt.compareTo("1")==0){
-//                   this.activeTabIndex=Constantes.TAB_BUSQUEDA;
-//               }
-//               else{
-//                   if(puntAnt.compareTo("2")==0){
-//
-//                       this.activeTabIndex=Constantes.TAB_ELIMINAR;
-//                   }
-//               }
-//               return null;
-//
-//            }
+   
+
+
+    
     public String desactivaTabMod() {
 
         this.bandMod = true;
@@ -841,8 +763,6 @@ public class Beans_DefensaCivil_Certificado {
     }
 
     //--------------------Desactivar cuando se ejecuta evento de cancelar -------------------------------------------------
-    
-    
     public String desactivaTabModificarIpse() {
 
         this.bandMod = true;
@@ -869,11 +789,7 @@ public class Beans_DefensaCivil_Certificado {
         return null;
     }
 
-    
-   
-     //--------------------Desactivar cuando se ejecuta evento de cancelar -------------------------------------------------
-    
-    
+    //--------------------Desactivar cuando se ejecuta evento de cancelar -------------------------------------------------
     public String desactivaVistaConsultaArchivos() {
 
         this.bandMod = true;
@@ -900,7 +816,47 @@ public class Beans_DefensaCivil_Certificado {
         return null;
     }
 
-    
+    public String desactivaTabModAsignacionExpediente() {
+        this.bandMod = true;
+        //Pregunta si la Detalle Mostrada Proviene de una Busqueda Simple:2 o de un listado total:1 
+
+        if (puntAnt.compareTo("2") == 0) {
+
+            this.activeTabIndex = Constantes.TAB_BUSQUEDA;
+        } else {
+            if (puntAnt.compareTo("1") == 0) {
+
+                this.activeTabIndex = Constantes.TAB_MODIFICAR;
+            }
+        }
+        Mensaje.guardarMensajeExito("Cancelar la Modificación de Expediente !!!", "Asignacion");
+
+        return null;
+
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------
+    public String desactivaTabGenerarResolucionesIpse() {
+
+        this.bandMod = true;
+        //Pregunta si la Detalle Mostrada Proviene de una Busqueda Simple:2 o de un listado total:1 
+
+        if (puntAnt.compareTo("2") == 0) {
+
+            this.activeTabIndex = Constantes.TAB_BUSQUEDA;
+        } else {
+
+            if (puntAnt.compareTo("1") == 0) {
+
+                this.activeTabIndex = Constantes.TAB_MODIFICAR;
+
+            }
+        }
+        Mensaje.guardarMensajeExito("Cancelar, Generar Resolucion Ipse !!!", " Generar Resolucion Ipse ");
+
+        return null;
+    }
+
     //--------------------------------------------------------------------------------------------------------------------
     public String desactivaTabResolverIpse() {
 
@@ -1051,8 +1007,6 @@ public class Beans_DefensaCivil_Certificado {
         this.puntAnt = param.toString();
 
     }
-    
-
 
 //-----------------------Impresion de Resoluciones---------------------------//
     public void imprimir() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, JRException, IOException {
@@ -1197,6 +1151,100 @@ public class Beans_DefensaCivil_Certificado {
 
         }
 
+    }
+
+    private int id_legajo = 1;
+
+    public int getId_legajo() {
+        return id_legajo;
+    }
+
+    public void setId_legajo(int id_legajo) {
+        this.id_legajo = id_legajo;
+    }
+
+    //---Seleccionar Informacion de Observacia----//
+    private List<String> observacion;
+
+    public List<String> getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(List<String> observacion) {
+        this.observacion = observacion;
+    }
+
+    //-----------------Picklist----------------------//
+    private DualListModel<Certificado> PickListCertificado;
+    private ArrayList<Certificado> Piclist = null;
+
+    //-------------------------- Carga de PickList-------------------------------//
+    public DualListModel<Certificado> getPickListCertificado() throws Exception {
+
+        if (PickListCertificado == null) {
+            PickListCertificado = new DualListModel<Certificado>();
+        }
+        PickListCertificado.setSource(DoPickList());
+
+        return PickListCertificado;
+
+    }
+
+    public void setPickListCertificado(DualListModel<Certificado> PickListCertificado) {
+        this.PickListCertificado = PickListCertificado;
+    }
+
+    public ArrayList<Certificado> getPiclist() {
+        return Piclist;
+    }
+
+    public void setPiclist(ArrayList<Certificado> Piclist) {
+        this.Piclist = Piclist;
+    }
+
+    public ArrayList<Certificado> DoPickList() throws Exception {
+
+        //Lista Observancia    
+        this.Piclist = new ArrayList<Certificado>();
+        this.Piclist = Certificado.cargarObservanciaIpse();
+
+        return this.Piclist;
+    }
+
+    //-----------------------------------------------Fin
+    public void onTransfer(TransferEvent event) {
+        StringBuilder builder = new StringBuilder();
+        for (Object item : event.getItems()) {
+            builder.append(((Certificado) item).getObservancia_ipse()).append("<br />");
+        }
+
+        FacesMessage msg = new FacesMessage();
+        msg.setSeverity(FacesMessage.SEVERITY_INFO);
+        msg.setSummary("Items Transferred");
+        msg.setDetail(builder.toString());
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onSelect(SelectEvent event) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Item Selected", event.getObject().toString()));
+    }
+
+    public void onUnselect(UnselectEvent event) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Item Unselected", event.getObject().toString()));
+    }
+
+    public void onReorder() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "List Reordered", null));
+    }
+
+    public void showresultado() {
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "targetPicklist Size:" + PickListCertificado.getTarget().size() + "SourcePicklist Size:" + PickListCertificado.getSource(), null));
     }
 
 }

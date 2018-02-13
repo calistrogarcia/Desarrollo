@@ -25,13 +25,23 @@
                         <br>
                         </br>
 
-   
+                       <fieldset>
+                             
+                           <h:panelGrid columns="1"   >
+
+                                    <div id="day" style="tamaño_fuente" >
+                                        Usuario
+                                        <p:clock  pattern="dd MMMM yy HH:mm:ss" mode="client"  />                        
+                                    </div>
+                                </h:panelGrid> 
+                      
                         <center>
 
-                            <h:panelGrid columns="2"  >
-                                <h:outputText value="#{msg.labelNroE}"  styleClass="tamaño_fuente" />
+                            <h:panelGrid columns="3"  >
+                                   <img  src="resources/imagenes/agregar.png" style="text-align: center"  height="20px"/>
+                                <h:outputText value="#{msg.LabelNumeroExpediente}"  styleClass="tamaño_fuente" />
                                  <h:panelGroup>
-                                     <h:outputText value=" a Consultar " style=" font: small serif"/>
+                                    
                                      <p:inputText  id="buzon_entrada" value="#{Beans_DefensaCivil_AsignarExpedientes.objAsignarBusqBuzon.expediente_consultarBuzon}"
                                                              >
                                                          
@@ -46,6 +56,7 @@
                        <br>
                        </br>
                        
+                      </fieldset>
 
                        <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3"  width="17%" >
 
@@ -99,7 +110,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{msg.LabelEstadoExpediente}" />
                             </f:facet>
-                               <h:outputText  value="#{buzon_entrada.objCertificado.estado_expediente}" />
+                               <h:outputText  value="#{buzon_entrada.objCertificado.objExpediente.estado_expediente}" />
                           </p:column>  
                           
                           
@@ -195,7 +206,7 @@
                              <center><h:outputText value="Editar"/></center>
                                    </f:facet>
 
-                                 <img  src="resources/imagenes/editar.png" style="text-align: center"/>
+                                 <img  src="resources/imagenes/asignado.png" style="text-align: center" height="20"/>
 
                                  <p:commandLink  id="editar" title="editar" actionListener="#{Beans_DefensaCivil_AsignarExpedientes.onClickBusq}" 
                                                  value="Editar" action="#{Beans_DefensaCivil_AsignarExpedientes.modificarAsignacionExpediente(buzon_entrada)}"  
@@ -210,12 +221,15 @@
                              </h:panelGrid>  
                            </center>
                           </p:panel>  
-                        </h:form>       
+                        </h:form>   
+
                 </p:tab>
-                    
+          
+        
                     
  
-            <p:tab id="tab_derivar" title="Derivar Expedientes" titletip="Ruta"  disabled="#{Beans_DefensaCivil_AsignarExpedientes.bandMod}" titleStyleClass="tamaño_fuente_tab">
+            <p:tab id="tab_derivar" title="Derivar Expedientes" titletip="Ruta"  disabled="#{Beans_DefensaCivil_AsignarExpedientes.bandMod}" 
+                   titleStyleClass="tamaño_fuente_tab">
 
                         
                       <h:form  id="form_registrar_derivacion_expedientes" class="border_titulo2"  style="text-align : justify;" styleClass="tamaño_fuente">    
@@ -227,29 +241,20 @@
                           <center>
                                <p:graphicImage url="resources/imagenes/file.png" />
                           </center>
-
                           <h:panelGrid columns="1"   >
 
                                 <div id="day" style="font-size: 12px">
                                     Usuario
                                     <p:clock  pattern="dd MMMM yy HH:mm:ss" mode="client" />                        
-
                                 </div>
-
                             </h:panelGrid> 
-                             
-                             
-                             
-                             
                               <center>
-
-
                               <h:panelGrid columns="4"  cellpadding="5px" cellspacing="10px">
                                   
                                   
                                   <h:outputText value="Expediente"  style="margin-right:21px;"/>
                                         <h:panelGroup>
-                                            <p:inputText id="expediente_id"  required="true" requiredMessage="#{msg.labelObli}" disabled="false"  size="15"  
+                                            <p:inputText id="expediente_id"  required="true" requiredMessage="#{msg.labelObligatorio}" disabled="false"  size="15"  
                                                          maxlength="15" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_AsignarExpedientes.objAsignarReg.expediente}" >  
                                                 <f:validateLength minimum="0" maximum="15"/>
                                             </p:inputText>
@@ -271,11 +276,6 @@
                                                         <h:message for="estados" showDetail="false" showSummary="true"/>     
 
                                     </h:panelGroup>  
-                                 
-                                 
-       
-
-
                                  <h:outputText value="#{msg.LabelInspector}"  style="margin-right:25px;"/>
                                    <h:panelGroup>
                                                 <p:selectOneMenu effect="fade" filter="true"  filterMatchMode="contains" required="true" id="inspector"
@@ -288,13 +288,9 @@
                                                         <h:message for="inspector" showDetail="false" showSummary="true"/>     
 
                                     </h:panelGroup>  
-                                 
-  
-                                 
+
                                   <h:outputText value="#{msg.LabelTurnoAsignado}"  style="margin-right:70px;"/>
-
                                   <h:panelGroup>
-
 
                                                 <p:selectOneMenu effect="fade"
                                                          filter="true"  filterMatchMode="contains"

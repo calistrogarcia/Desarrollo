@@ -91,10 +91,9 @@ public class Certificado implements Serializable {
     Postal ObjPostal = new Postal();
     Persona ObjPersona = new Persona();
     Expediente ObjExpediente = new Expediente ();
-
     
-    
-    
+  
+ 
     public String getResultados_expediente_ipse() {
         return resultados_expediente_ipse;
     }
@@ -1420,5 +1419,12 @@ public class Certificado implements Serializable {
         }
         return arr;
     }
+    
+    
+    
+    
+    
+    
+    
 
 }

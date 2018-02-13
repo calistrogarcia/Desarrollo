@@ -45,8 +45,7 @@ public class Asignar implements Serializable{
     private String expediente_consultarBuzon;
     private String fecha_resuelto;
     
-    
-    Certificado ObjCertificado = new Certificado();
+    Certificado objCertificado= new Certificado();
     Supervisor objInspector = new Supervisor();
     Estado objestado = new Estado();
     Turno objTurno = new Turno();
@@ -62,7 +61,13 @@ public class Asignar implements Serializable{
         this.ObjExpediente = ObjExpediente;
     }
 
-   
+    public Certificado getObjCertificado() {
+        return objCertificado;
+    }
+
+    public void setObjCertificado(Certificado objCertificado) {
+        this.objCertificado = objCertificado;
+    }
 
     
     public String getFecha_resuelto() {
@@ -71,16 +76,6 @@ public class Asignar implements Serializable{
 
     public void setFecha_resuelto(String fecha_resuelto) {
         this.fecha_resuelto = fecha_resuelto;
-    }
-
-
-    
-    public Certificado getObjCertificado() {
-        return ObjCertificado;
-    }
-
-    public void setObjCertificado(Certificado ObjCertificado) {
-        this.ObjCertificado = ObjCertificado;
     }
 
     
@@ -502,13 +497,15 @@ public class Asignar implements Serializable{
                   
                     
                     Certificado c = new Certificado();
+                    
                     c.setFecha_expediente(rs.getString("fecha_expediente"));
                     
-                    obj.setObjCertificado(c);
+                    obj.setObjCertificado(c);  
                     
                     
                     Expediente ObjExpediente = new Expediente ();
                     ObjExpediente.setEstado_expediente(rs.getString("estado_expediente"));
+                    
                     obj.setObjExpediente(ObjExpediente);
                     
 

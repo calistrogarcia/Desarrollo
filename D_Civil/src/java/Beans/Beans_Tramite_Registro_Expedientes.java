@@ -44,10 +44,6 @@ public class Beans_Tramite_Registro_Expedientes implements Serializable {
     @ManagedProperty(value = "#{beans_Tramite_Asunto}")
     private Beans_Tramite_Asunto beans_Tramite_Asunto =  new Beans_Tramite_Asunto();
 
-  
-    
-    
-    
     
     public Expediente getObjRegistroExpediente() {
         return objRegistroExpediente;
