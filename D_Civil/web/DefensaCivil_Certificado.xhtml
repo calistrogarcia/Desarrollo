@@ -26,50 +26,50 @@ and open the template in the editor.
                         <h:form  id="Form_expediente_defensa_civil" class="border_titulo1"  styleClass="tamaño_fuente">    
                             <p:growl globalOnly="true"  id="Growl_Mensaje" sticky="false"  showDetail="true"  />    
                             <p:panel id="Panel_Expedientes_defensa_Civil" header="#{msg.LabelCertificado}"  style=" text-align:  left"  >         
-                                
+
                                 <fieldset>
-                                    
-                               
-                                <h:panelGrid columns="1"   >
 
-                                    <div id="day" style="tamaño_fuente" >
-                                        Usuario
-                                        <p:clock  pattern="dd MMMM yy HH:mm:ss" mode="client"  />                        
-                                    </div>
-                                </h:panelGrid> 
-                                    
-                                    
-                                    
 
-                                <center>
-                                    <h:panelGrid columns="3"  >
-                                        
-                                        <img  src="resources/imagenes/agregar.png" style="text-align: center"  height="20px"/>
-                                        <h:outputText value="#{msg.LabelIngreseExpediente}"  styleClass="tamaño_fuente" />                                                                            
-                                        <h:panelGroup>
-                                            <p:inputMask id="buscar_expediente"  
-                                                         mask="99999-99-9999"                                            
-                                                         size="15" 
-                                                         value="#{Beans_DefensaCivil_Certificado.objBuscarCertificado.nro_expediente}" >                                                   
-                                            </p:inputMask>
-                                            <h:message for="buscar_expedientes" showDetail="true" showSummary="true"/>                                                     
-                                        </h:panelGroup>
+                                    <h:panelGrid columns="1"   >
+
+                                        <div id="day" style="tamaño_fuente" >
+                                            Usuario
+                                            <p:clock  pattern="dd MMMM yy HH:mm:ss" mode="client"  />                        
+                                        </div>
                                     </h:panelGrid> 
 
-                                </center>
-                                <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3" style="text-align: center;" width="17%"  >
 
-                                    <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{Beans_DefensaCivil_Certificado.doiniciarBusquedaCertificado()}"  
-                                                     value="#{msg.labelNuevo}"  async="true" update="Panel_Expedientes_defensa_Civil"  />
 
-                                    <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{Beans_DefensaCivil_Certificado.doBuscarCertificado()}"  
-                                                     value="#{msg.btnConsultar}"  async="true" update="Panel_Expedientes_defensa_Civil" />  
 
-                                    <p:commandButton id="Actualizar" icon="ui-icon-gear" actionListener="#{Beans_DefensaCivil_Certificado.ActuaizarDatos(actualizardatos)}"  
-                                                     value="#{msg.BtnActualizarDatos}"  async="true" update="Panel_Expedientes_defensa_Civil"/> 
+                                    <center>
+                                        <h:panelGrid columns="3"  >
 
-                                </h:panelGrid>
-                             </fieldset>
+                                            <img  src="resources/imagenes/agregar.png" style="text-align: center"  height="20px"/>
+                                            <h:outputText value="#{msg.LabelIngreseExpediente}"  styleClass="tamaño_fuente" />                                                                            
+                                            <h:panelGroup>
+                                                <p:inputMask id="buscar_expediente"  
+                                                             mask="99999-99-9999"                                            
+                                                             size="15" 
+                                                             value="#{Beans_DefensaCivil_Certificado.objBuscarCertificado.nro_expediente}" >                                                   
+                                                </p:inputMask>
+                                                <h:message for="buscar_expedientes" showDetail="true" showSummary="true"/>                                                     
+                                            </h:panelGroup>
+                                        </h:panelGrid> 
+
+                                    </center>
+                                    <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3" style="text-align: center;" width="17%"  >
+
+                                        <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{Beans_DefensaCivil_Certificado.doiniciarBusquedaCertificado()}"  
+                                                         value="#{msg.labelNuevo}"  async="true" update="Panel_Expedientes_defensa_Civil"  />
+
+                                        <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{Beans_DefensaCivil_Certificado.doBuscarCertificado()}"  
+                                                         value="#{msg.btnConsultar}"  async="true" update="Panel_Expedientes_defensa_Civil" />  
+
+                                        <p:commandButton id="Actualizar" icon="ui-icon-gear" actionListener="#{Beans_DefensaCivil_Certificado.ActuaizarDatos(actualizardatos)}"  
+                                                         value="#{msg.BtnActualizarDatos}"  async="true" update="Panel_Expedientes_defensa_Civil"/> 
+
+                                    </h:panelGrid>
+                                </fieldset>
                                 <h:panelGrid columns="3" cellpadding="2"  cellspacing="2"  width="10%">
 
                                     <h:panelGrid columns="2">
@@ -87,9 +87,9 @@ and open the template in the editor.
                                 <p:blockUI block="Panel_Expedientes_defensa_Civil" trigger="saveBtn">   Buscando... <br />
                                     <p:graphicImage value="resources/imagenes/cargando1.gif" />   
                                 </p:blockUI>
-                            
-                                
-                                
+
+
+
 
                                 <center>
                                     <h:panelGrid columns="2" >
@@ -992,7 +992,16 @@ and open the template in the editor.
                                                      value="#{msg.btnConsultar}" async="true" update="Panel_busqueda_Expediente_defensa_Civil"/> 
 
                                     <p:commandButton id="btgenerar" icon="ui-icon-arrowrefresh-1-s" actionListener="#{Beans_DefensaCivil_Certificado.dogenerarResoluciones()}"  
-                                                     value="#{msg.BtnGenerarExpedientes}" async="true" update="Panel_busqueda_Expediente_defensa_Civil"/>  
+                                                     value="#{msg.BtnGenerarExpedientes}" async="true" update="Panel_busqueda_Expediente_defensa_Civil">  
+
+                                        <p:confirm message="Desea Generar Resolucion Ipse ?" header="Aviso"  icon="ui-icon-alert"/>
+                                    </p:commandButton>
+
+                                    <p:confirmDialog global="true" styleClass="tamaño_fuente">
+
+                                        <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
+                                        <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+                                    </p:confirmDialog>
 
 
 
@@ -1482,7 +1491,17 @@ and open the template in the editor.
 
                                         <p:commandButton id="btnresolver" icon="ui-icon-folder-open" 
                                                          actionListener="#{Beans_DefensaCivil_Certificado.doResolverExpediente()}"  
-                                                         value="#{msg.btnResolver}"  update=":CertificadoTabView,:CertificadoTabView:form_Resolver_Documento, estModDocumentos"/> 
+                                                         value="#{msg.btnResolver}"  
+                                                         update=":CertificadoTabView,:CertificadoTabView:form_Resolver_Documento, estModDocumentos"> 
+
+                                            <p:confirm message="Desea Finalizar Expediente Ipse?" header="Aviso"  icon="ui-icon-alert"/>
+                                        </p:commandButton>
+
+                                        <p:confirmDialog global="true" styleClass="tamaño_fuente">
+
+                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
+                                            <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+                                        </p:confirmDialog>
 
                                     </h:panelGrid>  
 

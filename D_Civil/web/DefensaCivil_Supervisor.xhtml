@@ -29,7 +29,7 @@
                             </h:panelGrid>
 
 
-                    <p:growl globalOnly="true" id="estRegSupervisor_01"   sticky="false"    showDetail="true"/>  <!--Habilitando Mensajes Por defecto-->
+                         <p:growl globalOnly="true" id="estRegSupervisor_01"   sticky="false"    showDetail="true"/>  <!--Habilitando Mensajes Por defecto-->
 
                             <p:dialog header="" widgetVar="dlg" resizable="false">
                                 <p:panel id="panel_registrar_inspector" header="#{msg.LabelRegistrosupervisor}" styleClass="tamaño_fuente" > 
@@ -79,15 +79,10 @@
 
 
                                         <h:outputText  value="#{msg.labelDni}"/>   
-                                        
-                                        
                                         <p:inputMask id="dni"  
 
                                                      mask="99999999"  value="#{Beans_DefensaCivil_Supervisor.objSupervisorReg.nro_dni}"> 
-                                        </p:inputMask>
-                                        
-                                        
-                                        
+                                        </p:inputMask> 
                                         <h:outputText value="#{msg.LabelDireccion}"/>
 
 
@@ -95,42 +90,32 @@
                                             <p:inputText id="direccion"
                                                          required="true" requiredMessage="#{msg.labelObli}"
 
-                                                         maxlength="30" validatorMessage="#{msg.labelValidar}" value="#{Beans_DefensaCivil_Supervisor.objSupervisorReg.direccion}"
-                                                         >  
+                                                         maxlength="30" validatorMessage="#{msg.labelValidar}" value="#{Beans_DefensaCivil_Supervisor.objSupervisorReg.direccion}">  
                                                 <f:validateLength minimum="0" maximum="30"/>
-
 
                                             </p:inputText>
                                             <h:message for="direccion" showDetail="false" showSummary="true"/>                                    
                                         </h:panelGroup>
 
-
-
                                         <h:outputText  value="#{msg.LabelTelefono}"/>           
                                         <p:inputMask id="telefono"  
-
                                                       mask="(999) 999-9999" value="#{Beans_DefensaCivil_Supervisor.objSupervisorReg.telefono}"> 
                                         </p:inputMask>
 
 
                                         <h:outputText value="#{msg.LabelEmail}"/>
-
-
                                         <h:panelGroup>                                                                                                                                                            
                                             <p:inputText id="correo"
-                                                         required="true" requiredMessage="#{msg.labelObli}"
+                                                         required="true" requiredMessage="#{msg.labelObligatorio}"
 
                                                          maxlength="30" validatorMessage="#{msg.labelValidar}" value="#{Beans_DefensaCivil_Supervisor.objSupervisorReg.correo}"
                                                          >  
                                                 <f:validateLength minimum="0" maximum="30"/>
-
                                             </p:inputText>
                                             <h:message for="correo" showDetail="false" showSummary="true"/>                                    
                                         </h:panelGroup>
-
                                         <p:commandButton actionListener="#{Beans_DefensaCivil_Supervisor.doRegSupervisor()}" 
                                                          value="#{msg.LabelRegistrar}" update="form_reg_Supervisor_01"/>                                
-
                                     </h:panelGrid>
                                 </p:panel>    
                             </p:dialog>   
@@ -154,6 +139,8 @@
                             <p:panel id="datBusCertificadoOfi" header="#{msg.LabelCertificado}" styleClass="border" style="text-align: center" >
                                 <!--Lista de Opciones de Ofina *25*04*17 **J**-->  
 
+                                <p:fieldset id="busqueda_inspector">
+       
                                 <h:panelGrid columns="1"   >
 
                                     <div id="day" style="font-size: 12px">
@@ -162,10 +149,7 @@
 
                                     </div>
 
-                                    <br>
-
-                                    </br>
-
+ 
                                 </h:panelGrid> 
                                 <center>
                                     <h:panelGrid columns="2"  >
@@ -174,8 +158,7 @@
                                             <h:outputText value=" a Consultar "/>
                                             <p:inputText  id="nro_dni"
 
-                                                          value="#{Beans_DefensaCivil_Supervisor.objBuscarSupervisor.nro_dni}"
-                                                          >  
+                                                          value="#{Beans_DefensaCivil_Supervisor.objBuscarSupervisor.nro_dni}">  
 
                                             </p:inputText>
                                             <h:message for="nro_dni" showDetail="false" showSummary="true"/>                                    
@@ -187,62 +170,42 @@
 
                                 </center>
                                 <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3" style="text-align: center;" width="17%">
-
                                     <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{Beans_DefensaCivil_Supervisor.doiniciarBusquedaSupervisor()}"  
                                                      value="#{msg.labelNuevo}" async="true" update="datBusCertificadoOfi"/>
 
                                     <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{Beans_DefensaCivil_Supervisor.doBuscarSupervisor()}"  
                                                      value="#{msg.btnConsultar}" async="true" update="datBusCertificadoOfi">  
-
-                                        <p:confirm message="Esta Seguro de Consultar ?" header="Aviso"  icon="ui-icon-alert"/>
-
                                     </p:commandButton>
-
-                                    <p:confirmDialog global="true" styleClass="tamaño_fuente">
-
-                                        <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
-                                        <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
-
-
-                                    </p:confirmDialog>
-
-
                                 </h:panelGrid>
+                                
+                               </p:fieldset>
+                                   
+                                
 
-                                <h:panelGrid columns="3" cellpadding="2"  cellspacing="2"  width="10%">
-
-                                    <h:panelGrid columns="2">
+                                <h:panelGrid columns="7" cellpadding="2"  cellspacing="2"  width="20%">
                                         <img src="resources/imagenes/printer.png"/>
                                         <h:commandLink id="reporte"  value="Imprimir" actionListener="#{BeanExpediente_Reporte.verReporteDefensaCivilCertificado()}" title="Certificados"/>
-                                    </h:panelGrid> 
+                                   
 
                                     <h:commandLink >
                                         <p:graphicImage url="resources/imagenes/xls.png"/>
                                         <p:dataExporter type="xls" target="resListadoCertificado" fileName="Informacion Certificado" />           
                                     </h:commandLink>
 
-                                </h:panelGrid> 
+                             
 
                                 <p:blockUI block="datBusCertificadoOfi" trigger="saveBtn">   Buscando... <br />
                                     <p:graphicImage value="resources/imagenes/cargando1.gif" />   
                                 </p:blockUI>
 
                                 <br />
-                                <center>
-                                    <h:panelGrid columns="2" >
+                          
+                            
                                         <h:outputText styleClass="etiqueta_resultBusq" value="#{msg.labelCantidad}"/>
                                         <h:outputText styleClass="etiqueta_resultBusq" value="#{Beans_DefensaCivil_Supervisor.arrBusSupervisor.size()}"/>               
-                                    </h:panelGrid> 
+                                
 
-                                </center>
-
-
-                                <style type="text/css">
-                                    .colored {
-                                        background-color: #FF0000;
-                                        color: #FFFFFF;
-                                    }
-                                </style>    
+                              </h:panelGrid> 
 
                                 <h:form id="form">
 
@@ -260,7 +223,11 @@
 
 
                                         <f:facet name="header">
+                                            <p:panelGrid columns="2">
                                             Inspectores de Defensa Civil
+                                              <p:commandButton process="resListadoCertificado"  update=":SupervisorTabView:form_busc_CertificadoOfi"
+                                                             icon="ui-icon-search"  value="Mostrar" oncomplete="PF('multiCarDialog').show()" />
+                                            </p:panelGrid>
                                         </f:facet>       
 
                                         <p:column style="width:100px;text-align: center"  >
@@ -270,7 +237,8 @@
                                             <h:outputText  value="#{listaInspector.nro_dni}"/>
                                         </p:column>  
 
-                                        <p:column style="width:300px;text-align: center"  filterBy="#{listaInspector.apellido_paterno}" filterMatchMode="contains" rendered="false">
+                                        <p:column style="width:300px;text-align: center"  filterBy="#{listaInspector.apellido_paterno}"
+                                                  filterMatchMode="contains" rendered="false">
                                             <f:facet name="header">
                                                 <h:outputText value="#{msg.LabelNombres}" />
                                             </f:facet>
@@ -278,7 +246,8 @@
                                         </p:column>   
 
 
-                                        <p:column style="width:300px;text-align: center"  filterBy="#{listaInspector.apellidos_nombres}" filterMatchMode="contains" rendered="false">
+                                        <p:column style="width:300px;text-align: center"  filterBy="#{listaInspector.apellidos_nombres}"
+                                                  filterMatchMode="contains" rendered="false">
                                             <f:facet name="header">
                                                 <h:outputText value="#{msg.LabelNombres}" />
                                             </f:facet>
@@ -286,7 +255,8 @@
                                         </p:column>   
 
 
-                                        <p:column style="width:300px;text-align: center"  filterBy="#{listaInspector.apellidos_nombres}" filterMatchMode="contains" rendered="false">
+                                        <p:column style="width:300px;text-align: center"  filterBy="#{listaInspector.apellidos_nombres}" 
+                                                  filterMatchMode="contains" rendered="false">
                                             <f:facet name="header">
                                                 <h:outputText value="#{msg.LabelNombres}" />
                                             </f:facet>
@@ -295,7 +265,8 @@
 
 
 
-                                        <p:column style="width:300px;text-align: center"  filterBy="#{listaInspector.apellidos_nombres}" filterMatchMode="contains">
+                                        <p:column style="width:300px;text-align: center"  filterBy="#{listaInspector.apellidos_nombres}" 
+                                                  filterMatchMode="contains">
                                             <f:facet name="header">
                                                 <h:outputText value="#{msg.LabelNombres}" />
                                             </f:facet>
@@ -338,73 +309,36 @@
                                         </p:column> 
 
 
-                                        <p:column style="width:32px;text-align: center">
-
-                                            <p:commandButton    oncomplete="PF('carDialog').show()" icon="ui-icon-search" title="View">
-                                                <f:setPropertyActionListener value="#{listaInspector}" target="#{Beans_DefensaCivil_Supervisor.inspector}" />
-                                            </p:commandButton>
-
-                                        </p:column>
-
-
-                                        <f:facet name="footer">
-                                            <p:commandButton process="resListadoCertificado"  
-                                                             icon="ui-icon-search"  value="Ver" oncomplete="PF('multiCarDialog').show()" />
-                                        </f:facet>
-
                                     </p:dataTable> 
 
                                 </h:form>
 
-                                
-                                <h:form id="mostrar">
-                                    <p:dialog header="Inspectores" widgetVar="carDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false">
-
-                                        <p:outputPanel id="carDetail" style="text-align:center;">
-
-                                            <h:panelGrid columns="2" rendered="#{not empty Beans_DefensaCivil_Supervisor.inspector}" columnClasses="label,value">
-
-                                                <f:facet name="header">
-                                                    <h:outputText value="Datos"/> 
-                                                </f:facet> 
-
-                                                <h:outputText value="#{msg.labelDni}"/>
-                                                <h:outputText value="#{Beans_DefensaCivil_Supervisor.inspector.nro_dni}" />
-
-                                                <h:outputText value="#{msg.LabelNombres}"/>
-                                                <h:outputText value="#{Beans_DefensaCivil_Supervisor.inspector.apellidos_nombres}" />
-
-                                                <h:outputText value="#{msg.LabelTelefono}"/>
-                                                <h:outputText value="#{Beans_DefensaCivil_Supervisor.inspector.telefono}" />
-
-                                                <h:outputText value="#{msg.LabelDireccion}"/>
-                                                <h:outputText value="#{Beans_DefensaCivil_Supervisor.inspector.direccion}" />
-
-                                            </h:panelGrid>
-
-                                        </p:outputPanel>
-
-                                    </p:dialog> 
-                                        
-                                        
-                                </h:form>
 
                                     <h:form id="seleccionados" >
-                                        
-                                 
-                                    <p:dialog header="Lista" widgetVar="multiCarDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false" width="220">
+                                        <p:dialog header="#{msg.LabelInspector}" widgetVar="multiCarDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false" width="220">
                                         <p:outputPanel id="multiCarDetail" style="text-align:center;">
                                             <ui:repeat value="#{Beans_DefensaCivil_Supervisor.listaInspectores}" var="lista">
+                                                
+                                                <p:panelGrid columns="2"  >
+   
+                                                <h:outputText value="#{msg.labelDni}"/>
+                                                <h:outputText value="#{lista.nro_dni}"  style="display:block"/>
 
-                                                <h:outputText value="#{lista.nro_dni} - #{lista.apellidos_nombres}" style="display:block"/>
+                                                <h:outputText value="#{msg.LabelNombres}"/>
+                                                <h:outputText value="#{lista.apellidos_nombres}" style="display:block" />
+
+                                                <h:outputText value="#{msg.LabelTelefono}"/>
+                                                <h:outputText value="#{lista.telefono}"  style="display:block"/>
+
+                                                <h:outputText value="#{msg.LabelDireccion}"/>
+                                                <h:outputText value="#{lista.direccion}"  style="display:block"/>
+
+                                                </p:panelGrid>
+                                                
                                             </ui:repeat>
                                         </p:outputPanel>
-                                    </p:dialog>
-                                        
+                                    </p:dialog>   
                                    </h:form>    
-                                        
-
-
                             </p:panel>
 
                         </h:form> 
@@ -412,6 +346,7 @@
 
 
 
+                    
 
                     <p:tab id="tab_Editar_inspector" title="Modificar" titletip="Modificar Inspector"  disabled="#{Beans_DefensaCivil_Supervisor.bandMod}" titleStyleClass="tamaño_fuente_tab" >
 

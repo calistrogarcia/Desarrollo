@@ -34,6 +34,7 @@ public class BeansRegistro_Informacion_Personal implements Serializable {
   
     private ArrayList<Persona> arrContribuyente = null;
     private ArrayList<Persona> arrBusContribuyente = null;
+    private ArrayList<Persona> ListaDirecciones=null;
 
     //TabView
     private Integer activeTabIndex;
@@ -43,8 +44,7 @@ public class BeansRegistro_Informacion_Personal implements Serializable {
 
     //Bandera que apunta si el usuario al realizar un clik sobre el link de busquedad o listado total
     private String puntAnt;
-    private Direccion ObjDireccion;
-    
+
 
     public Persona getObjContribuyenteReg() {
         return objContribuyenteReg;
@@ -126,12 +126,12 @@ public class BeansRegistro_Informacion_Personal implements Serializable {
         this.puntAnt = puntAnt;
     }
 
-    public Direccion getObjDireccion() {
-        return ObjDireccion;
+    public ArrayList<Persona> getListaDirecciones() {
+        return ListaDirecciones;
     }
 
-    public void setObjDireccion(Direccion ObjDireccion) {
-        this.ObjDireccion = ObjDireccion;
+    public void setListaDirecciones(ArrayList<Persona> ListaDirecciones) {
+        this.ListaDirecciones = ListaDirecciones;
     }
     
 
@@ -219,13 +219,7 @@ public class BeansRegistro_Informacion_Personal implements Serializable {
      
    //------------------------------------------------------------------------
 
-     
-     public void DireccionSeleccionada (SelectEvent event) {
-      
-         ObjDireccion  =   ((Direccion) event.getObject());
-         System.out.print(ObjDireccion.getCodigo_via());
-
-    } 
+    
      
      
 

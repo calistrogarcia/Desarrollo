@@ -31,21 +31,6 @@ public class Supervisor implements Serializable {
     private String correo;
     private String estado;
 
-    public Supervisor(String apellido_paterno, String apellido_materno, String nombres, String nro_dni, String direccion, String telefono, String correo) {
-
-        this.apellido_paterno = apellido_paterno;
-        this.apellido_materno = apellido_materno;
-        this.nombres = nombres;
-        this.nro_dni = nro_dni;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.correo = correo;
-
-    }
-
-    public Supervisor() {
-
-    }
 
     public String getApellido_paterno() {
         return apellido_paterno;

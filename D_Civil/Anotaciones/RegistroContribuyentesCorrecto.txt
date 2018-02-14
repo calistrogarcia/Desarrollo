@@ -1,0 +1,2021 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <head>
+    </head>
+    <body>
+        <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
+            <ui:define name="contenido">
+
+
+
+                <p:tab id="tab_contribuyente" title="#{msg.LabelSeccionContribuyentes}" titletip="#{msg.LabelSeccionContribuyentes}"  
+                       titleStyleClass="tamaño_fuente_tab">
+
+                    <p:growl globalOnly="true"  id="growl_contribuyente" sticky="false"  showDetail="true"  />   
+
+                    <h:form  id="form_contribuyente" class="border_titulo1"  styleClass="tamaño_fuente">  
+                        <p:fieldset  id="fieldsetBusqueda"  style="margin-bottom:20px;color: #5cb85c; text-align:  left" legend="Datos de Contribuyente"  >
+                            <center>
+                                <h:panelGrid columns="4" style="margin-bottom:20px" cellpadding="5" >
+                                    <h:panelGrid columns="4"  cellspacing="3" >
+                                        <p:graphicImage url="resources/imagenes/contribuyente.png" height="45px"   />    
+
+                                        <h:panelGrid columns="2"  style=" align-content: flex-start" cellpadding="5">
+                                            <p:outputLabel for="busqueda" value="Buscar Por:" />
+                                            <p:selectOneRadio id="busqueda" value="#{BeansRegistro_Informacion_Personal.objContribuyenteBusq.tipo_busqueda}"  layout="grid" columns="3" >
+
+                                                <f:selectItem itemLabel="Codigo" itemValue="1"  />
+                                                <f:selectItem itemLabel="Doc. Identidad" itemValue="2" />
+                                                <f:selectItem itemLabel="Nombre" itemValue="3" />  <!-- Validar Datos --> 
+                                            </p:selectOneRadio>
+
+                                        </h:panelGrid> 
+                                        <h:outputText value="#{msg.LabelCodigoRecurrente}" />
+                                        <h:panelGroup>
+                                            <p:inputText  id="buscar_codigo_recurrente" 
+                                                          value="#{BeansRegistro_Informacion_Personal.objContribuyenteBusq.consulta}"
+                                                          required="true" requiredMessage="#{msg.labelObli}"
+                                                          maxlength="30" validatorMessage="#{msg.labelValidar}" 
+                                                          >
+
+                                                <f:validateLength minimum="0" maximum="30"/>
+                                            </p:inputText>
+                                            <h:message for="buscar_codigo_recurrente" showDetail="false" showSummary="true"/>       
+                                        </h:panelGroup>
+                                    </h:panelGrid>  
+
+                                </h:panelGrid>
+                                <!--BLOC-->
+                            </center>
+                            <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3"  width="17%" >
+                                <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{BeansRegistro_Informacion_Personal.doiniciarBusquedaContribuyente()}"  
+                                                 value="#{msg.labelNuevo}"  async="true" update="form_contribuyente" />
+                                <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{BeansRegistro_Informacion_Personal.doBuscarContribuyente()}"  
+                                                 value="#{msg.btnConsultar}"  async="true" update="form_contribuyente" />  
+                            </h:panelGrid>
+                        </p:fieldset>
+
+                        <p:blockUI block="fieldsetBusqueda" trigger="saveBtn">   Buscando... <br />
+                            <p:graphicImage value="resources\imagenes\cargando.gif" />   
+                        </p:blockUI>
+
+
+
+
+                        <h:panelGrid columns="2" >
+                            <h:outputText styleClass="etiqueta_resultBusq" value="#{msg.labelCantidad}"/>
+                            <h:outputText styleClass="etiqueta_resultBusq" value="#{BeansRegistro_Informacion_Personal.arrBusContribuyente.size()}"/>               
+                        </h:panelGrid> 
+
+                        <p:growl id="msgs" showDetail="true" />
+
+                        <p:dataTable id="table_contribuyente" value="#{BeansRegistro_Informacion_Personal.arrBusContribuyente}" 
+                                     var="lista_contribuyente"  styleClass="order-table" paginator="true"
+                                     rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" 
+                                     paginatorPosition="both" paginatorAlwaysVisible="true" >
+
+
+                            <p:column style="width:3%;text-align: center">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.LabelCodigoContribuyente}" />
+                                </f:facet>
+                                <h:outputText  value="#{lista_contribuyente.codigo_contribuyente}"/>
+                            </p:column> 
+
+
+                            <p:column filterBy="#{lista_contribuyente.nombres_apellidos}" filterMatchMode="contains"   style="width:6%;text-align: center">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.LabelNombres}" />
+                                </f:facet>
+                                <h:outputText  value="#{lista_contribuyente.nombres_apellidos}"/>
+                            </p:column>  
+
+                            <p:column style="width:3%;text-align: center">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.LabelDocumetoIdentidad}" />
+                                </f:facet>
+                                <h:outputText  value="#{lista_contribuyente.numero_documento}"/>
+                            </p:column>
+
+                            <p:column style="width:5%;text-align: center">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.LabelFechaNacimiento}" />
+                                </f:facet>
+                                <h:outputText  value="#{lista_contribuyente.fecha_nacimiento}"/>
+                            </p:column>
+
+                            <p:column style="width:3%;text-align: center">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.LabelNumeroCelular}" />
+                                </f:facet>
+                                <h:outputText  value="#{lista_contribuyente.numero_celular}"/>
+                            </p:column>
+
+
+
+                            <p:column style="width:4%;text-align: center">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.LabelCorreo}" />
+                                </f:facet>
+                                <h:outputText  value="#{lista_contribuyente.correo_contribuyente}"/>
+                            </p:column>
+
+
+                            <p:column style="width:9%;text-align: center">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.LabelDireccionFiscal}" />
+                                </f:facet>
+                                <h:outputText  value="#{lista_contribuyente.direccion_fiscal}"/>
+                            </p:column>
+
+
+                            <p:column  style="width:4%;text-align: center">
+
+                                <p:commandButton  id="btnSeleccionar" update=":formUpdate"   oncomplete="PF('DialogoUsuario').show()" 
+                                                  icon="ui-icon-pencil"  title="Editar">
+
+                                    <f:setPropertyActionListener value="#{lista_contribuyente}" target="#{BeansRegistro_Informacion_Personal.objContribuyenteMod}" />
+
+                                </p:commandButton>
+
+                            </p:column>
+
+
+                        </p:dataTable> 
+
+
+
+                    </h:form>
+
+                    <h:form id="formUpdate">
+                        <p:dialog  id="carDlg" widgetVar="DialogoUsuario" modal="false" width="890"  height="550" styleClass="tamaño_fuente"
+                                   closable="true" minimizable="true"   maximizable="true"  showEffect="true"
+                                   draggable="true" resizable="true" responsive="true"
+                                   closeOnEscape="true" footer="Editar Contribuyente">  
+
+
+
+                            <center>
+                                <p:panelGrid columns="2">
+
+
+
+                                    <p:graphicImage url="resources/imagenes/contribuyente.png" height="25px"   />
+                                    <h:outputLabel value="#{msg.LabelSeccionContribuyentes}"  style=" margin-left: 0%;color: blue"  styleClass="tamaño_fuente" />
+
+                                </p:panelGrid>
+
+
+                            </center>
+
+
+                            <p:panelGrid style="margin-top:1px"  styleClass="tamaño_fuente">
+                                <f:facet name="header">
+                                    <p:row styleClass="tamaño_fuente">
+                                        <p:column colspan="2">Administrados</p:column>
+                                    </p:row>
+                                    <p:row  styleClass="tamaño_fuente">
+                                        <p:column colspan="1" width="30%">Datos Personales</p:column>
+                                        <p:column colspan="1">Direccion Fiscal</p:column>
+
+
+                                    </p:row>
+
+                                </f:facet>
+
+                                <p:row>
+
+                                    <p:column rowspan="6" style="font-weight: bold;"  styleClass="tamaño_fuente" >
+
+                                        <h:panelGrid columns="5" cellspacing="2" cellpadding="2"  width="98%"   >   
+
+
+                                            <h:panelGrid columns="1">
+
+                                                <h:outputText value="#{msg.LabelTipoPersona}" style="width: 100% "/>
+                                                <h:panelGroup>
+                                                    <p:selectOneMenu effect="fade" style=" width: 100%"  autoWidth="false"
+                                                                     filter="true"  filterMatchMode="contains"
+                                                                     required="true" id="EditarTipoPersona"
+                                                                     validatorMessage="#{msg.labelValidar}"
+                                                                     requiredMessage="#{msg.labelObli}"
+                                                                     value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.tipo_persona}">
+                                                        <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                      itemValue="O"/>
+                                                        <f:selectItems value="#{Grupo.cargarTipoPersona}"/>
+                                                    </p:selectOneMenu>
+                                                    <h:message for="EditarTipoPersona" showDetail="false" showSummary="true"/>
+                                                </h:panelGroup>
+                                            </h:panelGrid>
+
+
+                                            <h:panelGrid columns="1">
+
+                                                <h:outputText value="#{msg.LabelTipoDocumento}" style="width: 100% "/>
+                                                <h:panelGroup>
+                                                    <p:selectOneMenu effect="fade" style=" width: 100%"  autoWidth="false"
+                                                                     filter="true"  filterMatchMode="contains"
+                                                                     required="true" id="EditarTipoDocumento"
+                                                                     validatorMessage="#{msg.labelValidar}"
+                                                                     requiredMessage="#{msg.labelObli}"
+                                                                     value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.tipo_documento}">
+                                                        <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                      itemValue="O"/>
+                                                        <f:selectItems value="#{Grupo.cargarTipoDocumento}"/>
+                                                    </p:selectOneMenu>
+                                                    <h:message for="EditarTipoDocumento" showDetail="false" showSummary="true"/>
+                                                </h:panelGroup>
+                                            </h:panelGrid>
+
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroIdentidad}"  style="width: 100% "/>
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="EditarNumeroIdentidad" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="9" maxlength="9" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.numero_documento}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="9"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_numero_identidad" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+
+                                        </h:panelGrid>
+
+                                        <h:panelGrid columns="5" cellspacing="4" cellpadding="4"  width="95%"   >                                 
+
+                                            <h:panelGrid columns="1" >   
+                                                <h:outputLabel value="#{msg.LabelApellidoPaterno}" style="width: 100% "   />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="EditarApellidoPaterno" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="80" maxlength="9" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.apellido_paterno}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="9"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_apellido_paterno" showDetail="false" showSummary="true"/>      
+
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>  
+
+
+
+                                            <h:panelGrid columns="1" >
+
+                                                <h:outputLabel value="#{msg.LabelApellidoMaterno}" style="width: 100% "   />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="EditarApellidoMaterna" required="true" requiredMessage="#{msg.labelObli}"  style=" width: 100%"   size="95"
+                                                                 maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.apellido_materno}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_apellido_materno" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+                                        </h:panelGrid>
+
+
+
+                                        <h:panelGrid columns="4" cellspacing="1" cellpadding="1"  width="94%"  >
+
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelNombres}"  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_nombre" required="true" requiredMessage="#{msg.labelObli}"  style=" width: 100%" 
+                                                                 size="187" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.nombre_contribuyente}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_nombres" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+                                        </h:panelGrid>
+
+
+
+                                        <h:panelGrid columns="5" cellspacing="4" cellpadding="2"  width="95%" >
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroTelefono}"  style="width: 100% "/>
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_numero_telefono_recurrente" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.numero_telefono_contribuyente}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_numero_telefono_recurrente" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroFax}"  style="width: 100% "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_fax_contribuyente" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.numero_fax_contribuyente}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_fax_contribuyente" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroCelular}" style="width: 100% " />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_numero_celular_recurrente" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.numero_celular}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_numero_celular_recurrente" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+
+
+
+
+                                        </h:panelGrid>     
+
+
+
+                                        <h:panelGrid columns="4" cellspacing="2" cellpadding="2"  width="99%"  >
+
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelCorreo}"  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_correo" required="true" requiredMessage="#{msg.labelObli}"  style=" width: 100%" 
+                                                                 size="30" maxlength="35" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.correo_contribuyente}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editarr_correos" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+
+                                            <h:panelGrid columns="1"  >   
+                                                <h:outputText value="#{msg.LabelFechaNacimiento}" />
+
+
+
+                                                <h:panelGroup>
+
+
+                                                    <p:inputMask id="editar_fecha_nacimiento"  
+
+                                                                 mask="9999-99-99"  
+                                                                 required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}"
+                                                                 size="15" 
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.fecha_nacimiento}" > 
+
+                                                        <f:convertDateTime pattern="YYYY/MM/DD" />
+
+
+                                                    </p:inputMask>
+
+                                                    <h:message for="editar_fecha_nacimiento" showDetail="true" showSummary="true"/>      
+
+
+                                                    <p:watermark  value="YYYY/MM/DD" for="editar_fecha_nacimiento" />
+
+
+                                                </h:panelGroup>
+
+
+                                            </h:panelGrid>    
+
+
+                                        </h:panelGrid>
+
+
+
+                                        <h:panelGrid columns="5" cellspacing="4" cellpadding="2"  width="95%" >
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNombreRepresentanteLegal}"  style="width: 100% "/>
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_representante_legal" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.nombre_representante}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_representantes_legal" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+
+
+                                            <h:panelGrid columns="1">
+
+                                                <h:outputText value="#{msg.LabelTipoDocumento}" style="width: 100% "/>
+                                                <h:panelGroup>
+                                                    <p:selectOneMenu effect="fade" style=" width: 100%"  autoWidth="false"
+                                                                     filter="true"  filterMatchMode="contains"
+                                                                     required="true" id="Editar_tipo_documento"
+                                                                     validatorMessage="#{msg.labelValidar}"
+                                                                     requiredMessage="#{msg.labelObli}"
+                                                                     value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.tipo_documento_representante}">
+                                                        <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                      itemValue="O"/>
+                                                        <f:selectItems value="#{Grupo.cargarTipoDocumento}"/>
+                                                    </p:selectOneMenu>
+                                                    <h:message for="Editar_tipo_documento" showDetail="false" showSummary="true"/>
+                                                </h:panelGroup>
+                                            </h:panelGrid>   
+
+
+
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroDocumento}"  style="width: 100% "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_numero_documento_representante" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.numero_documento_representante}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_numero_documentos_representante" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+                                        </h:panelGrid>   
+
+
+                                        <h:panelGrid columns="5" cellspacing="4" cellpadding="2"  width="95%" >
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroTelefono}"  style="width: 100% "/>
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_numero_telefono_representante" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.numero_telefono_fijo_representante}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_numeros_telefono_representante" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroCelular}" style="width: 100% " />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_numero_celular_representante" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.numero_celular_representante}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_numeros_celular_representante" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelCorreoElectronico}"  style="width: 100% "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_correo_representante" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.correo_representante}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_correos_representante" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+                                        </h:panelGrid>     
+
+
+
+                                        <h:panelGrid columns="5" cellspacing="4" cellpadding="2"  width="95%" >
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNombreConyuge}"  style="width: 100% "/>
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_nombre_conyuge" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.nombre_conyuge}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_nombres_conyuge" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+
+
+
+
+                                            <h:panelGrid columns="1">
+
+                                                <h:outputText value="#{msg.LabelTipoDocumento}" style="width: 100% "/>
+                                                <h:panelGroup>
+                                                    <p:selectOneMenu effect="fade" style=" width: 100%"  autoWidth="false"
+                                                                     filter="true"  filterMatchMode="contains"
+                                                                     required="true" id="Editar_tipo_documento_conyuge"
+                                                                     validatorMessage="#{msg.labelValidar}"
+                                                                     requiredMessage="#{msg.labelObli}"
+                                                                     value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.tipo_documento_conjuge}">
+                                                        <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                      itemValue="O"/>
+                                                        <f:selectItems value="#{Grupo.cargarTipoDocumento}"/>
+                                                    </p:selectOneMenu>
+                                                    <h:message for="Editar_tipo_documento_conyuge" showDetail="false" showSummary="true"/>
+                                                </h:panelGroup>
+                                            </h:panelGrid>
+
+
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroDocumento}"  style="width: 100% "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_numero_documento_conyuge" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.numero_documento_conjuge}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_numero_documentos_conyuge" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+                                        </h:panelGrid>   
+
+
+                                        <h:panelGrid columns="5" cellspacing="4" cellpadding="2"  width="95%" >
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroTelefono}"  style="width: 100% "/>
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_numero_telefono_conyuge" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.numero_telefono_conjuge}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_numeros_telefono_conyuge" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroCelular}" style="width: 100% " />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_numero_celular_conyuge" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.numero_celular_conjuge}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_numeros_celular_conyuge" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelCorreoElectronico}"  style="width: 100% "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_correo_conyuge" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.correo_conyuge}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_correos_conyuge" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>                                  
+                                        </h:panelGrid>  
+
+
+
+                                    </p:column>
+
+
+
+                                    <p:column rowspan="6" style="font-weight: bold;" styleClass="tamaño_fuente"   >
+
+                                        <h:panelGrid columns="6" cellspacing="1" cellpadding="1"  width="98%"   >
+
+
+                                            <h:panelGrid columns="1">
+
+                                                <h:outputText value="#{msg.LabelDistrito}" style="width: 100% "/>
+                                                <h:panelGroup>
+                                                    <p:selectOneMenu effect="fade" style=" width: 100%"  autoWidth="false"
+                                                                     filter="true"  filterMatchMode="contains"
+                                                                     required="true" id="Editar_distrito"
+                                                                     validatorMessage="#{msg.labelValidar}"
+                                                                     requiredMessage="#{msg.labelObli}"
+                                                                     value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.objPostal.codigo_postal}">
+                                                        <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                      itemValue="O"/>
+                                                        <f:selectItems value="#{Postal.cargarPostal}"/>
+                                                    </p:selectOneMenu>
+                                                    <h:message for="Editar_distritos" showDetail="false" showSummary="true"/>
+                                                </h:panelGroup>
+                                            </h:panelGrid>
+
+                                        </h:panelGrid>
+
+                                        <h:panelGrid columns="6" cellspacing="1" cellpadding="1"  width="98%"   >
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelTipoVia}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_tipo_via" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="7" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.objDireccion.tipo_via}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_tipo_vias" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelNombreVia}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_nombre_via" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="38" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.objDireccion.nombre_via}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_nombre_vias" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>    
+
+
+                                        </h:panelGrid>  
+
+
+
+                                        <h:panelGrid columns="6" cellspacing="1" cellpadding="1"  width="98%"   >
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelCodigoHabilitaciones}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_codigo_habilitacion" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="7" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.objDireccion.codigo_habilitacion}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_codigo_habilitaciones" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelNombreHabilitacion}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_nombre_habilitacion" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="38" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.objDireccion.nombre_habilitacion}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_nombre_habilitaciones " showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>    
+
+
+
+                                        </h:panelGrid>  
+
+
+                                        <h:panelGrid columns="3" cellspacing="1" cellpadding="1"  width="98%"   >
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumero}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_numero" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="10" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.objDireccion.numero}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_numeros" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelDepartamento}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_departamento" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="10" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.objDireccion.numero_departamento}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_departamentos" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>    
+
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelInterior}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_interior" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="10" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.objDireccion.numero_interior}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_interiores" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid> 
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelLetra}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_letra" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="10" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.objDireccion.letra}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_letras" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid> 
+
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelBloque}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_block" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="10" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.objDireccion.bloque}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_blockes" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid> 
+
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelManzana}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_manzana" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="10" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.objDireccion.manzana}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_manzanas" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid> 
+
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelLote}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Editar_lote" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="10" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.objDireccion.lote}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Editar_lotees" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid> 
+
+
+
+
+                                        </h:panelGrid>       
+
+
+
+
+
+                                        <h:panelGrid columns="6" cellspacing="0" cellpadding="0"  width="60%"   >
+
+                                            <h:panelGrid columns="1"  >
+
+
+                                                <h:outputText value="#{msg.LabelReferencia}" style="margin-right:50px;" /> 
+
+
+                                                <h:panelGroup>
+                                                    <p:inputTextarea rows="8" cols="60" counter="referenciando" maxlength="650"                      
+
+                                                                     autoResize="true" id="Editar_referencia"
+                                                                     counterTemplate="{0} #{msg.LabelContador}" 
+                                                                     value="#{BeansRegistro_Informacion_Personal.objContribuyenteMod.objDireccion.referencia}">
+
+
+                                                    </p:inputTextarea> 
+
+                                                    <br />
+
+                                                    <h:outputText id="referenciando"/>    
+                                                    <h:message for="Editar_referencia" showDetail="false" showSummary="true"/>                                  
+                                                </h:panelGroup>   
+
+                                            </h:panelGrid>      
+
+                                        </h:panelGrid>
+
+                                        <br>
+
+                                        </br>
+
+
+                                        <p:commandButton id="btnsalir" icon="ui-icon-folder-open" actionListener="#{BeansRegistro_Informacion_Personal.doRegContribuyente()}"  
+                                                         value="#{msg.LabelBtnRegistrar}"  async="true"   update="growl_contribuyente" />  
+
+                                    </p:column>
+                                </p:row>
+
+                                <f:facet name="footer">
+                                    <p:row>
+                                        <p:column  colspan="2" style="text-align: right">
+                                            MDSMP
+                                        </p:column>
+
+                                    </p:row>
+
+
+                                </f:facet>
+                            </p:panelGrid>
+                        </p:dialog> 
+                    </h:form> 
+
+                    <h:form id="registrar_contribuyente" class="border_titulo2"  styleClass="tamaño_fuente">
+                        <p:growl globalOnly="true"  id="growl_registro_contribuyente" sticky="false"  showDetail="true"  />  
+
+
+                        <p:commandButton value="Registro" onclick="PF('dlg').show();" type="button" icon="ui-icon-extlink"  style=" text-align:  left"/>
+
+                        <p:dialog  widgetVar="dlg" closable="true" minimizable="true"  
+                                   draggable="true" resizable="true" responsive="true"
+                                   closeOnEscape="true" footer="Registro Contribuyente" 
+                                   width="900"  height="600" styleClass="tamaño_fuente" >  
+                            <center>
+                                <p:panelGrid columns="2">
+                                    <p:graphicImage url="resources/imagenes/contribuyente.png" height="25px"   />
+                                    <h:outputLabel value="#{msg.LabelSeccionContribuyentes}"  style=" margin-left: 0%;color: blue"  styleClass="tamaño_fuente" />
+
+                                </p:panelGrid>
+                            </center>
+
+                            <p:panelGrid style="margin-top:1px"  styleClass="tamaño_fuente">
+                                <f:facet name="header">
+                                    <p:row styleClass="tamaño_fuente">
+                                        <p:column colspan="2">Administrados</p:column>
+                                    </p:row>
+                                    <p:row  styleClass="tamaño_fuente">
+                                        <p:column colspan="1" width="30%">Datos Personales</p:column>
+                                        <p:column colspan="1">Direccion Fiscal</p:column>
+
+
+                                    </p:row>
+
+                                </f:facet>
+
+                                <p:row>
+
+                                    <p:column rowspan="6" style="font-weight: bold;"  styleClass="tamaño_fuente" >
+
+                                        <h:panelGrid columns="5" cellspacing="2" cellpadding="2"  width="98%"   >   
+
+
+                                            <h:panelGrid columns="1">
+
+                                                <h:outputText value="#{msg.LabelTipoPersona}" style="width: 100% "/>
+                                                <h:panelGroup>
+                                                    <p:selectOneMenu effect="fade" style=" width: 100%"  autoWidth="false"
+                                                                     filter="true"  filterMatchMode="contains"
+                                                                     required="true" id="RegistarTipoPersona"
+                                                                     validatorMessage="#{msg.labelValidar}"
+                                                                     requiredMessage="#{msg.labelObli}"
+                                                                     value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.tipo_persona}">
+                                                        <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                      itemValue="O"/>
+                                                        <f:selectItems value="#{Grupo.cargarTipoPersona}"/>
+                                                    </p:selectOneMenu>
+                                                    <h:message for="RegistarTipoPersona" showDetail="false" showSummary="true"/>
+                                                </h:panelGroup>
+                                            </h:panelGrid>
+
+
+                                            <h:panelGrid columns="1">
+
+                                                <h:outputText value="#{msg.LabelTipoDocumento}" style="width: 100% "/>
+                                                <h:panelGroup>
+                                                    <p:selectOneMenu effect="fade" style=" width: 100%"  autoWidth="false"
+                                                                     filter="true"  filterMatchMode="contains"
+                                                                     required="true" id="RegistarTipoDocumento"
+                                                                     validatorMessage="#{msg.labelValidar}"
+                                                                     requiredMessage="#{msg.labelObli}"
+                                                                     value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.tipo_documento}">
+                                                        <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                      itemValue="O"/>
+                                                        <f:selectItems value="#{Grupo.cargarTipoDocumento}"/>
+                                                    </p:selectOneMenu>
+                                                    <h:message for="RegistarTipoDocumento" showDetail="false" showSummary="true"/>
+                                                </h:panelGroup>
+                                            </h:panelGrid>
+
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroIdentidad}"  style="width: 100% "/>
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="RegistarNumeroIdentidad" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="9" maxlength="9" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.numero_documento}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="9"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_numero_identidad" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+
+                                        </h:panelGrid>
+
+                                        <h:panelGrid columns="5" cellspacing="4" cellpadding="4"  width="95%"   >                                 
+
+                                            <h:panelGrid columns="1" >   
+                                                <h:outputLabel value="#{msg.LabelApellidoPaterno}" style="width: 100% "   />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="RegistarApellidoPaterno" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="80" maxlength="9" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.apellido_paterno}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="9"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_apellido_paterno" showDetail="false" showSummary="true"/>      
+
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>  
+
+
+
+                                            <h:panelGrid columns="1" >
+
+                                                <h:outputLabel value="#{msg.LabelApellidoMaterno}" style="width: 100% "   />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="RegistarApellidoMaterna" required="true" requiredMessage="#{msg.labelObli}"  style=" width: 100%"   size="95"
+                                                                 maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.apellido_materno}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_apellido_materno" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+                                        </h:panelGrid>
+
+
+
+                                        <h:panelGrid columns="4" cellspacing="1" cellpadding="1"  width="94%"  >
+
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelNombres}"  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_nombre" required="true" requiredMessage="#{msg.labelObli}"  style=" width: 100%" 
+                                                                 size="187" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.nombre_contribuyente}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_nombres" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+                                        </h:panelGrid>
+
+
+                                        <h:panelGrid columns="5" cellspacing="4" cellpadding="2"  width="95%" >
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroTelefono}"  style="width: 100% "/>
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Registrar_numero_telefono_recurrente" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.numero_telefono_contribuyente}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Registrar_numero_telefono_recurrente" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroFax}"  style="width: 100% "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Registrar_fax_contribuyente" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.numero_fax_contribuyente}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Registrar_fax_contribuyente" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroCelular}" style="width: 100% " />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="Registrar_numero_celular_recurrente" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.numero_celular}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="Registrar_numero_celular_recurrente" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+
+
+
+
+                                        </h:panelGrid>       
+
+
+
+
+
+                                        <h:panelGrid columns="4" cellspacing="2" cellpadding="2"  width="99%"  >
+
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelCorreo}"  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_correo" required="true" requiredMessage="#{msg.labelObli}"  style=" width: 100%" 
+                                                                 size="30" maxlength="35" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.correo_contribuyente}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_correos" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+
+                                            <h:panelGrid columns="1"  >   
+                                                <h:outputText value="#{msg.LabelFechaNacimiento}" />
+
+                                                <h:panelGroup>
+
+
+                                                    <p:inputMask id="registro_fecha_nacimiento"  
+
+                                                                 mask="99/99/9999" 
+                                                                 required="true" validatorMessage="#{msg.labelValidar}" requiredMessage="#{msg.labelObli}"
+                                                                 size="15" 
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.fecha_nacimiento}" > 
+                                                    </p:inputMask>
+
+                                                    <h:message for="registro_fechas_nacimiento" showDetail="true" showSummary="true"/>      
+
+
+                                                </h:panelGroup>
+
+
+                                            </h:panelGrid>    
+
+
+                                        </h:panelGrid>
+
+
+
+                                        <h:panelGrid columns="5" cellspacing="4" cellpadding="2"  width="95%" >
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNombreRepresentanteLegal}"  style="width: 100% "/>
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_representante_legal" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.nombre_representante}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_representantes_legal" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+                                            <h:panelGrid columns="1">
+
+                                                <h:outputText value="#{msg.LabelTipoDocumento}" style="width: 100% "/>
+                                                <h:panelGroup>
+                                                    <p:selectOneMenu effect="fade" style=" width: 100%"  autoWidth="false"
+                                                                     filter="true"  filterMatchMode="contains"
+                                                                     required="true" id="registrar_tipos_documento"
+                                                                     validatorMessage="#{msg.labelValidar}"
+                                                                     requiredMessage="#{msg.labelObli}"
+                                                                     value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.tipo_documento_representante}">
+                                                        <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                      itemValue="O"/>
+                                                        <f:selectItems value="#{Grupo.cargarTipoDocumento}"/>
+                                                    </p:selectOneMenu>
+                                                    <h:message for="registrar_tipos_documento" showDetail="false" showSummary="true"/>
+                                                </h:panelGroup>
+                                            </h:panelGrid>
+
+
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroDocumento}"  style="width: 100% "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_numero_documento_representante" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.numero_documento_representante}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_numero_documentos_representante" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+                                        </h:panelGrid>   
+
+
+                                        <h:panelGrid columns="5" cellspacing="4" cellpadding="2"  width="95%" >
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroTelefono}"  style="width: 100% "/>
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_numero_telefono_representante" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.numero_telefono_fijo_representante}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_numeros_telefono_representante" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroCelular}" style="width: 100% " />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_numero_celular_representante" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.numero_celular_representante}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_numeros_celular_representante" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelCorreoElectronico}"  style="width: 100% "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_correo_representante" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.correo_representante}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_correos_representante" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+                                        </h:panelGrid>     
+
+
+
+                                        <h:panelGrid columns="5" cellspacing="4" cellpadding="2"  width="95%" >
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNombreConyuge}"  style="width: 100% "/>
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_nombre_conyuge" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.nombre_conyuge}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_nombres_conyuge" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+
+                                            <h:panelGrid columns="1">
+
+                                                <h:outputText value="#{msg.LabelTipoDocumento}" style="width: 100% "/>
+                                                <h:panelGroup>
+                                                    <p:selectOneMenu effect="fade" style=" width: 100%"  autoWidth="false"
+                                                                     filter="true"  filterMatchMode="contains"
+                                                                     required="true" id="registrar_tipos_documento_conyuge"
+                                                                     validatorMessage="#{msg.labelValidar}"
+                                                                     requiredMessage="#{msg.labelObli}"
+                                                                     value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.tipo_documento_conjuge}">
+                                                        <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                      itemValue="O"/>
+                                                        <f:selectItems value="#{Grupo.cargarTipoDocumento}"/>
+                                                    </p:selectOneMenu>
+                                                    <h:message for="registrar_tipos_documento_conyuge" showDetail="false" showSummary="true"/>
+                                                </h:panelGroup>
+                                            </h:panelGrid>
+
+
+
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroDocumento}"  style="width: 100% "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_numero_documento_conyuge" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.numero_documento_conjuge}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_numero_documentos_conyuge" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+                                        </h:panelGrid>   
+
+
+                                        <h:panelGrid columns="5" cellspacing="4" cellpadding="2"  width="95%" >
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroTelefono}"  style="width: 100% "/>
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_numero_telefono_conyuge" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.numero_telefono_conjuge}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_numeros_telefono_conyuge" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumeroCelular}" style="width: 100% " />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_numero_celular_conyuge" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.numero_celular_conjuge}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_numeros_celular_conyuge" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelCorreoElectronico}"  style="width: 100% "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_correo_conyuge" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="15" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.correo_conyuge}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="30"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_correos_conyuge" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>                                  
+                                        </h:panelGrid>  
+
+
+
+                                    </p:column>
+
+
+
+                                    <p:column rowspan="6" style="font-weight: bold;" styleClass="tamaño_fuente"   >
+
+                                        <h:panelGrid columns="6" cellspacing="1" cellpadding="1"  width="98%"   >
+
+
+                                            <h:panelGrid columns="1">
+
+                                                <h:outputText value="#{msg.LabelDistrito}" style="width: 100% "/>
+                                                <h:panelGroup>
+                                                    <p:selectOneMenu effect="fade" style=" width: 100%"  autoWidth="false"
+                                                                     filter="true"  filterMatchMode="contains"
+                                                                     required="true" id="registrar_distrito"
+                                                                     validatorMessage="#{msg.labelValidar}"
+                                                                     requiredMessage="#{msg.labelObli}"
+                                                                     value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.objPostal.codigo_postal}">
+                                                        <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                                      itemValue="O"/>
+                                                        <f:selectItems value="#{Postal.cargarPostal}"/>
+                                                    </p:selectOneMenu>
+                                                    <h:message for="registrar_distritos" showDetail="false" showSummary="true"/>
+                                                </h:panelGroup>
+                                            </h:panelGrid>
+
+
+                                            <h:panelGrid columns="2"  >
+                                                <h:outputLabel value="#{msg.LabelHabilitaciones}"  style="width: 100% " />
+                                                <div class="ui-g-12 ui-md-4">
+                                                    <div class="ui-inputgroup">
+                                                        <p:commandButton type="button" onclick="PF('dlgVias').show();" icon="ui-icon-location"  />
+                                                    </div>
+                                                </div>
+                                            </h:panelGrid>     
+
+                                        </h:panelGrid>
+
+
+
+
+                                        <h:panelGrid columns="6" cellspacing="1" cellpadding="1"  width="98%"   >
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelTipoVia}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_tipo_via" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="7" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.codigo_via}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_tipo_vias" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelNombreVia}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_nombre_via" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="38" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.nombre_via}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_nombre_vias" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>    
+
+
+                                        </h:panelGrid>  
+
+
+
+                                        <h:panelGrid columns="6" cellspacing="1" cellpadding="1"  width="98%"   >
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelCodigoHabilitaciones}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_codigo_habilitacion" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="7" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.tipo_habilitacion}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_codigo_habilitaciones" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelNombreHabilitacion}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_nombre_habilitacion" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="38" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.nombre_habilitacion}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_nombre_habilitaciones " showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>    
+
+
+
+                                        </h:panelGrid>  
+
+
+                                        <h:panelGrid columns="3" cellspacing="1" cellpadding="1"  width="98%"   >
+
+                                            <h:panelGrid columns="1"  >
+                                                <h:outputLabel value="#{msg.LabelNumero}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_numero" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="10" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.numero}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_numeros" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>
+
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelDepartamento}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_departamento" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="10" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.numero_departamento}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_departamentos" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid>    
+
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelInterior}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_interior" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="10" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.numero_interior}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_interiores" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid> 
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelLetra}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_letra" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="10" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.letra}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_letras" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid> 
+
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelBloque}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_block" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="10" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.bloque}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_blockes" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid> 
+
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelManzana}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_manzana" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="10" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.manzana}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_manzanas" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid> 
+
+
+                                            <h:panelGrid columns="1"  >
+
+                                                <h:outputLabel value="#{msg.LabelLote}"  style="width: 50%  "  />
+
+                                                <h:panelGroup> 
+
+                                                    <p:inputText id="registrar_lote" required="true" requiredMessage="#{msg.labelObli}" style=" width: 100%"
+                                                                 size="10" maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                                 value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.lote}"  
+                                                                 >  
+                                                        <f:validateLength minimum="0" maximum="7"/>
+                                                    </p:inputText>
+
+                                                    <h:message for="registrar_lotees" showDetail="false" showSummary="true"/>                                    
+                                                </h:panelGroup>  
+
+                                            </h:panelGrid> 
+
+
+
+
+                                        </h:panelGrid>       
+
+
+
+
+
+                                        <h:panelGrid columns="6" cellspacing="0" cellpadding="0"  width="60%"   >
+
+                                            <h:panelGrid columns="1"  >
+
+
+                                                <h:outputText value="#{msg.LabelReferencia}" style="margin-right:50px;" /> 
+
+
+                                                <h:panelGroup>
+                                                    <p:inputTextarea rows="4" cols="60" counter="referenciando" maxlength="650"                      
+
+                                                                     autoResize="true" id="referencia"
+                                                                     counterTemplate="{0} #{msg.LabelContador}" 
+                                                                     value="#{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.referencia}">
+
+
+                                                    </p:inputTextarea> 
+
+                                                    <br />
+
+                                                    <h:outputText id="referenciando"/>    
+                                                    <h:message for="referencia" showDetail="false" showSummary="true"/>                                  
+                                                </h:panelGroup>   
+
+                                            </h:panelGrid>      
+
+                                        </h:panelGrid>
+
+                                        <br>
+
+                                        </br>
+
+
+                                        <p:commandButton id="btnsalir" icon="ui-icon-folder-open" actionListener="#{BeansRegistro_Informacion_Personal.doRegContribuyente()}"  
+                                                         value="#{msg.LabelBtnRegistrar}"  async="true"   update="registrar_contribuyente" />  
+
+
+                                    </p:column>
+                                </p:row>
+
+                                <f:facet name="footer">
+                                    <p:row>
+                                        <p:column  colspan="2" style="text-align: right">
+                                            MDSMP
+                                        </p:column>
+
+                                    </p:row>
+
+
+                                </f:facet>
+                            </p:panelGrid>
+
+                        </p:dialog>
+                    </h:form>
+
+                    <h:form id="form_vias" styleClass="tamaño_fuente" >
+                        <p:growl id="growl" sticky="true" showDetail="true" />
+                        <p:dialog header="Vias" widgetVar="dlgVias" modal="false" height="505" width="700" responsive="true"
+                                  showEffect="clip" hideEffect="clip">
+
+                            <h:form  id="form_seleccion_vias" class="border_titulo1"  styleClass="tamaño_fuente">
+
+                                <p:growl globalOnly="true"  id="growl_seleccion_infraccion" sticky="false"  showDetail="true"  />                                   
+                                <p:panel id="panel_seleccion_vias" header="#{msg.LabelListadoVias}" styleClass="border" style="text-align: center" >
+
+                                    <h:panelGrid columns="1">
+
+                                        <h:outputText value="#{msg.LabelDistrito}" style="width: 100% "/>
+                                        <h:panelGroup>
+                                            <p:selectOneMenu effect="fade" style=" width: 100%"  autoWidth="false"
+                                                             filter="true"  filterMatchMode="contains"
+                                                             required="true" id="Editar_codigo_postal"
+                                                             validatorMessage="#{msg.labelValidar}"
+                                                             requiredMessage="#{msg.labelObli}"
+                                                             value="#{Beans_Direcciones.objBuscarDirecciones.objPostal.codigo_postal}">
+                                                <f:selectItem itemLabel="#{msg.labelSeleccionar}"
+                                                              itemValue="O"/>
+                                                <f:selectItems value="#{Postal.cargarPostal}"/>
+                                            </p:selectOneMenu>
+                                            <h:message for="Editar_codigo_postal" showDetail="false" showSummary="true"/>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+
+
+                                    <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3" style="text-align: center;" width="17%">
+                                        <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{Beans_Direcciones.doiniciarBusquedaDirecciones()}"  
+                                                         value="#{msg.labelNuevo}" async="true" update="panel_seleccion_vias"/>
+
+                                        <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{Beans_Direcciones.doBuscarDirecciones()}"  
+                                                         value="#{msg.btnConsultar}" async="true" update="panel_seleccion_vias" />  
+                                    </h:panelGrid>
+
+
+
+                                    <p:blockUI block="panel_seleccion_vias" trigger="saveBtn">   Buscando... <br />
+                                        <p:graphicImage value="resources/imagenes/cargando1.gif" />   
+                                    </p:blockUI>
+                                    <center>
+                                        <h:panelGrid columns="2" >
+                                            <h:outputText styleClass="etiqueta_resultBusqdireciones" value="#{msg.labelCantidad}"/>
+                                            <h:outputText styleClass="etiqueta_resultBusqdireccione" value="#{Beans_Direcciones.arrBusDirecciones.size()}"/>               
+                                        </h:panelGrid> 
+
+                                        <h:panelGrid columns="1"   cellpadding="0"  cellspacing="0" 
+                                                     border="0"  styleClass="width-table"> 
+
+
+
+                                            <h:form id="formulario_direcciones"  >
+                                                <p:dataTable id="table_direcciones" var="var_listadodirecciones" 
+                                                             value="#{Beans_Direcciones.arrBusDirecciones}" 
+                                                             selectionMode="multiple" 
+                                                             rowKey="#{var_listadodirecciones.codigo_via}" 
+                                                             selection="#{BeansRegistro_Informacion_Personal.listaDirecciones}" 
+                                                             styleClass="tamaño_fuente" paginator="true"  rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" 
+                                                             paginatorPosition="both" paginatorAlwaysVisible="true"
+                                                             scrollable="true" scrollHeight="170" scrollWidth="650" editable="true">
+
+
+                                                    <f:facet name="header">
+                                                        <p:panelGrid columns="2">
+                                                            Listado Direcciones
+                                                            <p:commandButton process="table_direcciones"  update=":tab_contribuyente"
+                                                                             icon="ui-icon-search"  value="Mostrar" oncomplete="PF('multiCarDialog').show()" />
+                                                        </p:panelGrid>
+                                                    </f:facet>  
+
+                                                    <p:column  style="width:60px;text-align: center">
+
+                                                        <f:facet name="header">
+                                                            <h:outputText value="#{msg.LabelCodigoHabilitaciones}" />
+                                                        </f:facet>
+                                                        <h:outputText  value="#{var_listadodirecciones.codigo_via}" />
+
+                                                    </p:column>  
+
+
+                                                    <p:column filterBy="#{var_listadodirecciones.tipo_via}"  style="width:100px;text-align: center">
+                                                        <f:facet name="header">
+
+                                                            <h:outputText value="#{msg.LabelTipoVia}" />
+                                                        </f:facet>   
+                                                        <h:outputText  value="#{var_listadodirecciones.tipo_via}" />
+
+                                                    </p:column>  
+
+
+                                                    <p:column  filterBy="#{var_listadodirecciones.nombre_via}" style="width:130px;text-align: center">
+                                                        <f:facet name="header">
+                                                            <h:outputText value="#{msg.LabelNombreVia}" />
+                                                        </f:facet>
+
+                                                        <h:outputText  value="#{var_listadodirecciones.nombre_via}"  />
+                                                    </p:column>  
+
+
+                                                    <p:column  filterBy="#{var_listadodirecciones.habilitacion}" style="width:130px;text-align: center">
+                                                        <f:facet name="header">
+                                                            <h:outputText value="#{msg.LabelHabilitaciones}" />
+                                                        </f:facet>
+
+                                                        <h:outputText  value="#{var_listadodirecciones.nombre_habilitacion}"  />
+
+                                                    </p:column>  
+
+
+                                                    <p:column  filterBy="#{var_listadodirecciones.tipo_habilitacion}" style="width:130px;text-align: center">
+                                                        <f:facet name="header">
+                                                            <h:outputText value="#{msg.LabelTipoHabilitaciones}" style="text-align: center"/>
+                                                        </f:facet>
+
+                                                        <h:outputText  value="#{var_listadodirecciones.tipo_habilitacion}"  />
+
+                                                    </p:column >
+
+
+
+                                                </p:dataTable>
+
+                                            </h:form> 
+
+
+                                            <h:form id="seleccionados" >
+                                                <p:dialog header="#{msg.LabelDireccion}" widgetVar="multiCarDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false" width="220">
+                                                    <p:outputPanel id="multiCarDetail" style="text-align:center;">
+                                                        <ui:repeat value="#{BeansRegistro_Informacion_Personal.listaDirecciones}" var="lista">
+
+                                                            <p:panelGrid columns="2"  >
+
+                                                                <h:outputText value="#{msg.LabelNombreVia}"/>
+                                                                <h:outputText value="#{lista.objDireccion.codigo_via}"  style="display:block"/>
+
+
+                                                            </p:panelGrid>
+
+                                                        </ui:repeat>
+                                                    </p:outputPanel>
+                                                </p:dialog>   
+                                            </h:form>     
+
+
+                                        </h:panelGrid>
+
+
+                                    </center>
+                                </p:panel>
+                            </h:form> 
+                        </p:dialog> 
+                    </h:form> 
+
+
+                </p:tab>
+
+
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

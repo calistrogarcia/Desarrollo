@@ -40,8 +40,8 @@ public class Beans_DefensaCivil_Supervisor  implements Serializable{
     private Supervisor objEliminaSupervisor;
     private Supervisor objBuscarSupervisor;
     private ArrayList<Supervisor> arrSupervisor=null;
-    private ArrayList<Supervisor> arrBusSupervisor=null;
-    
+    private ArrayList<Supervisor> arrBusSupervisor=null;  
+    private ArrayList<Supervisor> listaInspectores=null;
     
     //TabView
     private Integer activeTabIndex;
@@ -49,33 +49,7 @@ public class Beans_DefensaCivil_Supervisor  implements Serializable{
     private boolean bandMod=true;
     private boolean bandEli=true;
     
-    // Invocamos a la tabla de XHTML
-    
-   
-    
-    private  Supervisor Inspector;
-    private ArrayList<Supervisor> listaInspectores=null;
  
-
-    // Formulario Flotante 
-    private String value;
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public Supervisor getInspector() {
-        return Inspector;
-    }
-
-    public void setInspector(Supervisor Inspector) {
-        this.Inspector = Inspector;
-    }
-
     public ArrayList<Supervisor> getListaInspectores() {
         return listaInspectores;
     }
@@ -84,9 +58,6 @@ public class Beans_DefensaCivil_Supervisor  implements Serializable{
         this.listaInspectores = listaInspectores;
     }
 
-   
-    
-    
     
    //Bandera que apunta si el usuario al realizar un clik sobre el link de busquedad o listado total
     private String puntAnt;
@@ -223,11 +194,7 @@ public class Beans_DefensaCivil_Supervisor  implements Serializable{
 
 
     public Beans_DefensaCivil_Supervisor() {
-    
-       
-//    listaInspector = new ArrayList<Supervisor>();
-//    Supervisor n1= new Supervisor("xxx","xxx","xx","xx","xx","xx","xx");
-//    listaInspector.add(n1);
+   
        
      try
         {
@@ -379,22 +346,7 @@ public class Beans_DefensaCivil_Supervisor  implements Serializable{
              return null;
          }
          
-         
-    
-        public void onRowSelect(SelectEvent event) {
-            FacesMessage msg = new FacesMessage("Lista Selected", ((Supervisor) event.getObject()).getNro_dni());
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-
-        public void onRowUnselect(UnselectEvent event) {
-            FacesMessage msg = new FacesMessage("Lista Unselected", ((Supervisor) event.getObject()).getNro_dni());
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-           
           
-          
-          
-        
           public void onClickBusq(ActionEvent evt){ 
                 Object param=evt.getComponent().getAttributes().get("param");
                 this.puntAnt=param.toString();  
