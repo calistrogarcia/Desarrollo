@@ -85,7 +85,6 @@ public class Beans_Tramite_Registro_Expedientes implements Serializable {
         this.arrBusquedaRegistroExpediente = arrBusquedaRegistroExpediente;
     }
 
-    
 
     public Integer getActiveTabIndex() {
         return activeTabIndex;
@@ -200,8 +199,7 @@ public class Beans_Tramite_Registro_Expedientes implements Serializable {
             return "" + this.arrBusquedaRegistroExpediente.size();
         }
     }
-    
-    
+     
      // para cargar informacion en un combo.
      
     public ArrayList<SelectItem> getTipo_documento_expediente() {
@@ -237,9 +235,6 @@ public class Beans_Tramite_Registro_Expedientes implements Serializable {
         this.evento = parametro_evento.toString();
 
     }
-    
-    
-    
-    
+   
     
 }

@@ -108,6 +108,14 @@
         <managed-bean-scope>request</managed-bean-scope>
        </managed-bean>
        
+       
+       <managed-bean>
+        <managed-bean-name>Direccion</managed-bean-name>
+        <managed-bean-class>Modelo.Direccion</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+       </managed-bean>
+       
+       
    
        
    

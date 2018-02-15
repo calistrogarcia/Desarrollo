@@ -34,7 +34,7 @@ public class BeansRegistro_Informacion_Personal implements Serializable {
   
     private ArrayList<Persona> arrContribuyente = null;
     private ArrayList<Persona> arrBusContribuyente = null;
-    private ArrayList<Persona> ListaDirecciones=null;
+    private ArrayList<Direccion> ListaDirecciones=null;
 
     //TabView
     private Integer activeTabIndex;
@@ -46,6 +46,9 @@ public class BeansRegistro_Informacion_Personal implements Serializable {
     private String puntAnt;
 
 
+   
+    
+    
     public Persona getObjContribuyenteReg() {
         return objContribuyenteReg;
     }
@@ -126,14 +129,16 @@ public class BeansRegistro_Informacion_Personal implements Serializable {
         this.puntAnt = puntAnt;
     }
 
-    public ArrayList<Persona> getListaDirecciones() {
+    public ArrayList<Direccion> getListaDirecciones() {
         return ListaDirecciones;
     }
 
-    public void setListaDirecciones(ArrayList<Persona> ListaDirecciones) {
+    public void setListaDirecciones(ArrayList<Direccion> ListaDirecciones) {
         this.ListaDirecciones = ListaDirecciones;
     }
-    
+
+
+   
 
     //Inicializaciones
     public void doiniciarRegistroContribuyente() {
