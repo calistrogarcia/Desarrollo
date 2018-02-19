@@ -31,7 +31,7 @@ public class Beans_Tramite_Registro_Expedientes implements Serializable {
     private ArrayList<Expediente> arrayRegistoExpediente = null;
     private ArrayList<Expediente> arrBusquedaRegistroExpediente = null;
     
-    
+ 
     private String codigo_asunto;
     
     private Integer activeTabIndex;

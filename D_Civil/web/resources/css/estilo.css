@@ -13,139 +13,83 @@ and open the template in the editor.
   
   background: aquamarine;
 }
-
-.cabeceraTabla_1{
-  
+.cabeceraTabla_1{ 
   background: lightyellow;
 }
-
 .cabeceraTablarojo{
- 
-    background: #FA8072;
-          
+    background: #FA8072;          
 }
-
-
 .cabeceraTablamarillo{
- 
-    background: yellow;
-          
+    background: yellow;         
 }
-
-.cabeceraTablaplomo{
-    
-    background: darkgrey; 
-    
+.cabeceraTablaplomo{  
+    background: darkgrey;   
 }
-
-.tamaño_fuente{
-    
+.tamaño_fuente{  
     font-size: 11px;
-    font-family: 'Arial', 'Times New Roman'
-     
+    font-family: 'Arial', 'Times New Roman'   
 }
-
 .color_letra_licencia_cese{
-   
-     color: blue;
-     
+     color: blue;  
+}
+.color_letra_licencia_vigente{ 
+    color: #000000;     
+}
+.color_letra_licencia_anulado{  
+    color: #FF0000;   
+}
+.color_letra_licencia_revocatoria{ 
+    color: green;   
+}
+.color_letra_licencia_improcedente{   
+    color: maroon;   
 }
 
-.color_letra_licencia_vigente{
-   
-    color: #000000;
-     
+.color_multa_enviada{ 
+    color: darkgray;    
 }
-
-
-.color_letra_licencia_anulado{
-   
-    color: #FF0000;
-     
-}
-
-.color_letra_licencia_revocatoria{
-   
-    color: green;
-     
-}
-
-
-.color_letra_licencia_improcedente{
-   
-    color: maroon;
-     
-}
-
-
-
-
-.color_multa_enviada{
-   
-     color: darkgray;
-     
-}
-
 .color_multa_vigente{
-   
-    color: #000000;
-     
+    color: #000000;   
 }
-
-
-.color_multa_anulado{
-   
-    color: gold;
-     
+.color_multa_anulado{ 
+    color: gold;   
 }
-
-.color_multa_fraccionada{
-   
-    color: green;
-     
+.color_multa_fraccionada{  
+    color: green;   
 }
-
-
-.color_multa_pagada{
-   
-    color: #FF0000;
-     
+.color_multa_pagada{  
+    color: #FF0000;   
 }
-
-
-
 
 .tamaño_botones{
     font: small serif;
 }
 
-
-.tamaño_fuente_tab{
-    
+.tamaño_fuente_tab{   
     font-size: 13px;
-    font-family: 'Arial', 'Times New Roman'
-    
-    
+    font-family: 'Arial', 'Times New Roman'  
 }
 
-.tamaño_fuente_login{
-    
+.tamaño_fuente_login{  
     font-size: 13px;
     font-family: 'Arial', 'Times New Roman'   
 }
 
 #contenedor{
-  
   width: 100px;
-    
- /* display: inline-block;
-   min-width: 100%;*/
 }
+
+.tamaño_iconos_tab{  
+  
+    text-align:  center;
+    height: 20px;
+}
+
+
 
 .ui-selectonemenu-panel .ui-selectonemenu-list{
     font-size: 12px;
 }
-
 
 .white-button.ui-button.ui-state-default {
     background-color: #ffffff;

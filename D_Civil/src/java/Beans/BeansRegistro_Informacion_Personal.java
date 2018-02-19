@@ -9,6 +9,8 @@ import Modelo.Direccion;
 import Modelo.Persona;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -29,13 +31,13 @@ public class BeansRegistro_Informacion_Personal implements Serializable {
 
     private Persona objContribuyenteReg;
     private Persona objContribuyenteMod;
-    private Persona objContribuyenteBusq;
-
-  
+    private Persona objContribuyenteBusq;  
     private ArrayList<Persona> arrContribuyente = null;
     private ArrayList<Persona> arrBusContribuyente = null;
     private ArrayList<Direccion> ListaDirecciones=null;
+    List<String> Direcciones_Fiscales = new ArrayList();
 
+   
     //TabView
     private Integer activeTabIndex;
     private boolean bandVer = true;
@@ -45,9 +47,8 @@ public class BeansRegistro_Informacion_Personal implements Serializable {
     //Bandera que apunta si el usuario al realizar un clik sobre el link de busquedad o listado total
     private String puntAnt;
 
-
    
-    
+  
     
     public Persona getObjContribuyenteReg() {
         return objContribuyenteReg;
@@ -225,7 +226,7 @@ public class BeansRegistro_Informacion_Personal implements Serializable {
    //------------------------------------------------------------------------
 
     
-     
+ 
      
 
 }

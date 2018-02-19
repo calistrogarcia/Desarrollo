@@ -62,12 +62,11 @@ public class Multa implements Serializable {
     private String fecha_registro;
     private String hora_registro;
     private int valor_obra;
-    private String reincidente;
+    private boolean reincidente;
+    private boolean estado_registro;
+    
+    
    
-
-    
-    
-     
     Persona ObjPersona = new Persona();
     Direccion ObjDireccion = new Direccion();
     Area objArea = new Area();
@@ -80,6 +79,17 @@ public class Multa implements Serializable {
     Grupo ObjGrupo = new Grupo();
     Expediente ObjExpediente = new Expediente();
 
+   
+   
+    
+    public boolean isEstado_registro() {
+        return estado_registro;
+    }
+
+    public void setEstado_registro(boolean estado_registro) {
+        this.estado_registro = estado_registro;
+    }
+    
     public String getTipo_busqueda_sancion() {
         return tipo_busqueda_sancion;
     }
@@ -384,13 +394,14 @@ public class Multa implements Serializable {
         this.valor_obra = valor_obra;
     }
 
-    public String getReincidente() {
+    public boolean isReincidente() {
         return reincidente;
     }
 
-    public void setReincidente(String reincidente) {
+    public void setReincidente(boolean reincidente) {
         this.reincidente = reincidente;
     }
+
 
     public Persona getObjPersona() {
         return ObjPersona;
@@ -493,7 +504,7 @@ public class Multa implements Serializable {
             conexion.setAutoCommit(false);
             
             conexion = Controlador_Sql.darConexionBD();
-            CallableStatement st = conexion.prepareCall("{call sp_java_multas_administrativas(?,?)}");
+            CallableStatement st = conexion.prepareCall("{call sp_java_buscar_multas_administrativas(?,?)}");
 
             if (m.getTipo_busqueda() != null) {
                 if (m.getTipo_busqueda().length() > 0) {
@@ -516,6 +527,7 @@ public class Multa implements Serializable {
             } else {
                 st.setString(2, null);
             }
+
 
             rs = st.executeQuery();
             if (rs.next()) {
@@ -579,7 +591,7 @@ public class Multa implements Serializable {
                     
                     obj.setObjGrupo(ObjGrupo);                   
                     obj.setFecha_notificacion(rs.getString("dfecnot"));
-                    obj.setReincidente(rs.getString("nreinci"));
+                    obj.setReincidente(rs.getBoolean("nreinci"));
                     Cuenta Objcuenta = new Cuenta();
                     Objcuenta.setId_unico(rs.getString("id_unico"));
                     Objcuenta.setEstado_cuenta(rs.getString("cestado"));
@@ -607,6 +619,7 @@ public class Multa implements Serializable {
                     obj.ObjExpediente.setNumero_expediente(rs.getString("crecexp"));
                     obj.setResolucion_anulacion(rs.getString("cresanu"));                 
                     obj.setAnotacion_anulacion(rs.getString("mobsanu"));
+                    obj.setEstado_registro(rs.getBoolean("estado_registro"));
 
                     arr.add(obj);
 
@@ -995,11 +1008,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjEditarMulta.getReincidente()!= null) {
+            if (ObjEditarMulta.isReincidente()) {
 
-                if (ObjEditarMulta.getReincidente().length() > 0) {
+                if (ObjEditarMulta.isReincidente()) {
 
-                    st.setString(19, ObjEditarMulta.getReincidente());
+                    st.setBoolean(19, ObjEditarMulta.isReincidente());
                 } else {
                     st.setString(19, null);
                 }
@@ -1510,11 +1523,11 @@ public class Multa implements Serializable {
 
             }
 
-            if (ObjRegistrar != null) {
+            if (ObjRegistrar.isReincidente()) {
 
-                if (ObjRegistrar.getReincidente().length() > 0) {
+                if (ObjRegistrar.isReincidente()) {
 
-                    st.setString(20, ObjRegistrar.getReincidente());
+                    st.setBoolean(20, ObjRegistrar.isReincidente());
                 } else {
                     st.setString(20, null);
                 }

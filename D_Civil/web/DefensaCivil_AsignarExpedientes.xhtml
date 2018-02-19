@@ -20,31 +20,23 @@
      
                 <h:form  id="form_buscar_expdientesbuzon" class="border_titulo1"  styleClass="tamaño_fuente">    
                    <p:growl globalOnly="true"  id="growl_expedientesbuzon" sticky="false"  showDetail="true"  />    
-                   <p:panel id="panel_expedientesbuzon" header="#{msg.LabelCertificado}">
-                        
+                   <p:panel id="panel_expedientesbuzon" header="#{msg.LabelCertificado}">  
                         <br>
                         </br>
-
-                       <fieldset>
-                             
+                       <fieldset>       
                            <h:panelGrid columns="1"   >
-
                                     <div id="day" style="tamaño_fuente" >
                                         Usuario
                                         <p:clock  pattern="dd MMMM yy HH:mm:ss" mode="client"  />                        
                                     </div>
                                 </h:panelGrid> 
-                      
                         <center>
-
                             <h:panelGrid columns="3"  >
                                    <img  src="resources/imagenes/agregar.png" style="text-align: center"  height="20px"/>
                                 <h:outputText value="#{msg.LabelNumeroExpediente}"  styleClass="tamaño_fuente" />
-                                 <h:panelGroup>
-                                    
+                                 <h:panelGroup>     
                                      <p:inputText  id="buzon_entrada" value="#{Beans_DefensaCivil_AsignarExpedientes.objAsignarBusqBuzon.expediente_consultarBuzon}"
-                                                             >
-                                                         
+                                                             >                        
                                     </p:inputText>
                                     <h:message for="buzon_entrada" showDetail="false" showSummary="true"/>                                    
                                  </h:panelGroup>

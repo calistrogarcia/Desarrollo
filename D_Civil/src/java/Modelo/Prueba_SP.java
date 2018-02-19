@@ -8,12 +8,21 @@ package Modelo;
 //import Modelo.Expediente;
 import Modelo.Area;
 import Modelo.Grupo;
+import Modelo.Persona;
 
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Formatter;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 import javax.swing.JOptionPane;
 
 /**
@@ -220,7 +229,7 @@ public class Prueba_SP {
         m.setObservacion("PROBANDOyy");
         m.ObjCuenta.setId_unico("");
         m.setId_unico_multa("");
-        m.setReincidente("");
+        m.setReincidente(true);
         m.setManzana("");
         m.setLote("");
         m.setNumero_fiscal("");
@@ -469,7 +478,7 @@ public class Prueba_SP {
            Ob.setObservacion("NULL");
            Ob.ObjCuenta.setId_unico("121861529");
            Ob.setId_unico_multa("126134");
-           Ob.setReincidente("0");
+           Ob.setReincidente(true);
 //           Ob.setCorrelativo("03");
            Ob.setManzana("C");
            Ob.setLote("01");
@@ -550,6 +559,10 @@ public class Prueba_SP {
     //    System.out.print(Asunto.CargarAsunto_Expediente(a).size());
 
     }
+     
+     
+     
+     
 
      
     public static void main(String[] args) throws Exception {
@@ -589,13 +602,131 @@ public class Prueba_SP {
         // BuscarUsuarios();
         //  EditarMulta();
         //  AnularMulta();
-           RegistarExpediente();
-         
-         
+        // RegistarExpediente();
+
         // cargartipodocumento();
         // BuscarAsunto();
-    }
-    
-    
-    
+        
+   
+ //        Clase 02     
+        
+//        List <String> lista= new ArrayList(); 
+//        
+//        lista.add("supermercado");
+//        lista.add("tienda");
+//        lista.add("bodega");
+//        lista.add("mall");
+//        
+//        
+////        for (String s : lista){
+////            System.out.println(s);
+////        }
+////        
+//        Iterator<String> iterator = lista.iterator();
+//        while (iterator.hasNext()){
+//            
+//            System.out.println(iterator.next());
+//        }
+       
+   
+      // Clase 02:   Coleccion de Objetos
+
+        Persona per1 = new Persona(); 
+        per1.ObjDireccion.setCodigo_via("1");  
+        Persona per2 = new Persona();
+        per2.ObjDireccion.setCodigo_via("2");
+        
+        
+        List<Persona> listas= new ArrayList(); 
+        
+        listas.add(per1);
+        listas.add(per2);
+        
+        for (Persona p: listas){
+           System.out.println(p.ObjDireccion.getCodigo_via());
+            
+        }
+        
+       Iterator<Persona> iterator = listas.iterator();
+        while (iterator.hasNext()){
+            
+            System.out.println(iterator.next().ObjDireccion.getCodigo_via());
+        } 
+        
+        
+    //    Clase 03 ArrayList
+//        
+//        long inicio1 = System.currentTimeMillis();
+//        
+//        List<Integer> lista1 = new ArrayList();
+//        
+//        for (int i=0; i< 10000; i++)
+//        lista1.add(i);
+//        
+//        
+//        long final1 = System.currentTimeMillis();
+//        
+//        System.out.println(final1-inicio1);
+//        
+//        long inicio2 = System.currentTimeMillis();
+//        List<Integer> lista2 = new ArrayList(10000);
+//        
+//        for (int i=0; i< 10000; i++)
+//        lista2.add(i);
+//       
+//    
+//        long final2 = System.currentTimeMillis();
+//      
+//         System.out.println(final2-inicio2);
+//         int dato = lista2.get(5000);
+//         devuelve el dato de acuerdo el tipo de lista o array.
+//         
+//         System.out.println(dato);
+
+
+
+//       Clase 4 LinkedList 
+
+//      List lista = new LinkedList();
+//      LinkedList lista2 = new LinkedList();
+//      lista.add(1);
+//      lista.add(2);
+//      lista.add(3);
+//      
+//      System.out.println(lista.size()-1);
+//        
+
+
+//       Clase 5  Hashmap  de tipo Objeto.
+
+//        HashMap diccionario = new  HashMap();
+//        diccionario.put("USER", "CALISTRO");
+//        String contenido= (String) diccionario.get("USER");      // 
+//        boolean respuesta = diccionario.containsKey("USER");
+//        System.out.println(respuesta);
+//        
+        
+
+//    Clase 6  Hashmap  de tipo Objeto.
+
+//     Set <String> lista = new HashSet<String>();
+//             lista.add("a");
+//             lista.add("b");
+//             lista.add("c");
+//                     
+//          for (String dato: lista){
+//              
+//              System.out.println(dato);
+//          } 
+
+
+
+//   clase 6 :auttocompletar con ceros a la Izquierda.
+
+//          Formatter fmt = new Formatter();
+//          fmt.format("%06d",100);
+//          System.out.println(fmt);
+
+                 
+    }  
 }

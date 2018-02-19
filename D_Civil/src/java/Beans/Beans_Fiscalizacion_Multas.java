@@ -54,6 +54,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.model.UploadedFile;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Formatter;
 
 /**
  *
@@ -81,10 +82,14 @@ public class Beans_Fiscalizacion_Multas {
     private boolean bandVer = true;
     private boolean bandMod = true;
     private boolean bandEli = true;
+    
 
     //Bandera que apunta si el usuario al realizar un clik sobre el link de busquedad o listado total
     private String puntAnt;
 
+    
+    
+    
     public Multa getObjMultaAnular() {
         return objMultaAnular;
     }
@@ -173,6 +178,7 @@ public class Beans_Fiscalizacion_Multas {
         this.bandEli = bandEli;
     }
 
+  
     public String getPuntAnt() {
         return puntAnt;
     }
@@ -304,9 +310,7 @@ public class Beans_Fiscalizacion_Multas {
 
         } catch (Exception e) {
             Mensaje.manejarError(e, "Error al Iniciar Proceso");
-
         }
-
     }
 
     public String doRegMulta() {
@@ -327,6 +331,7 @@ public class Beans_Fiscalizacion_Multas {
 
     }
 
+    
     public String doEditarMulta() {
 
         this.bandMod = true;
@@ -384,8 +389,9 @@ public class Beans_Fiscalizacion_Multas {
         this.doiniciarModificarMulta();
         this.objMultaMod = so;
         this.bandMod = false;
-        this.activeTabIndex = 1;  // Verifica la Posesion de la Pestaña para activarla. -- Ver Constantes       
+        this.activeTabIndex = 1;  // Verifica la Posesion de la Pestaña para activarla. -- Ver Constantes     
         return null;
+        
 
     }
 
@@ -401,10 +407,12 @@ public class Beans_Fiscalizacion_Multas {
 
         this.arrBusMulta = new ArrayList<Multa>();
         this.arrBusMulta = Multa.BuscarMultaAdministrativa(objMultaBusq);
+       
         return this.arrBusMulta;
 
     }
 
+    
     public String getSizeRegistrosBusMulta() {
         if (this.arrBusMulta == null) {
             return "0";
@@ -472,26 +480,26 @@ public class Beans_Fiscalizacion_Multas {
     public String desactivarAnularMulta() {
       
         this.bandEli = true;
-        
-        
         if (puntAnt.compareTo("1") == 0) {
-
             this.activeTabIndex = Constantes.TAB_BUSQUEDA;
-
         } else {
-
             if (puntAnt.compareTo("2") == 0) {
-
                 this.activeTabIndex = Constantes.TAB_ELIMINAR;
             }
         }
         Mensaje.guardarMensajeExito("Cancelar Anulacion Multa !!!", "Multa");
-
         return null;
     }
 
-    // Metodo para autocompletar
+    
+    public void onClickBusq(ActionEvent evt) {
+        Object param = evt.getComponent().getAttributes().get("param");
+        this.puntAnt = param.toString();
+    }
+    
+  
     public List<String> autoCompletarBusqueda(String query) {
+        
         List<String> resultado = new ArrayList<String>();
         for (int i = 0; i < 10; i++) {
             resultado.add(query + i);
@@ -500,10 +508,14 @@ public class Beans_Fiscalizacion_Multas {
         return resultado;
     }
 
-    public void onClickBusq(ActionEvent evt) {
-        Object param = evt.getComponent().getAttributes().get("param");
-        this.puntAnt = param.toString();
+ 
+ 
+  
 
-    }
+
+
+  
+   
 
 }
+
