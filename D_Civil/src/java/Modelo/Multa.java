@@ -708,8 +708,7 @@ public class Multa implements Serializable {
         return arr;
     }
     
-    
-    
+  
     
      public static ArrayList<Multa> BuscarInfractor(Multa ObjBusquedaInfractor) {
 

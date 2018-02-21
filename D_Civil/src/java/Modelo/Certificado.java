@@ -41,8 +41,6 @@ import net.sf.jasperreports.engine.util.JRLoader;
  */
 public class Certificado implements Serializable {
 
-   
-
     private String nro_expediente;
     private String fecha_expediente;
     private Date fecha_expediente_Act;
@@ -77,8 +75,7 @@ public class Certificado implements Serializable {
     private String fecha_resuelto;
     private String observancia_ipse;
     private String area_verificada;
-
-    
+    private String[] observacion_Ipse;
 
     Giro Objgiros = new Giro();
     Supervisor supervisor = new Supervisor();
@@ -86,14 +83,30 @@ public class Certificado implements Serializable {
     Direccion objdireccion = new Direccion();
     Upload objUpload = new Upload();
     Download objDownload = new Download();
-    ObservacionIpse objObservacion = new ObservacionIpse();
     Boton objboton = new Boton();
     Postal ObjPostal = new Postal();
     Persona ObjPersona = new Persona();
-    Expediente ObjExpediente = new Expediente ();
-    
+    Expediente ObjExpediente = new Expediente();
+
   
- 
+    
+    
+    public String[] getObservacion_Ipse() {
+        return observacion_Ipse;
+    }
+
+    public void setObservacion_Ipse(String[] observacion_Ipse) {
+
+        this.observacion_Ipse = observacion_Ipse;
+        StringBuffer cadena = new StringBuffer();
+        for (int i = 0; i < observacion_Ipse.length; i++) {
+            cadena = cadena.append(observacion_Ipse[i]);
+        }
+
+        System.out.println(cadena);
+
+    }
+
     public String getResultados_expediente_ipse() {
         return resultados_expediente_ipse;
     }
@@ -101,7 +114,6 @@ public class Certificado implements Serializable {
     public void setResultados_expediente_ipse(String resultados_expediente_ipse) {
         this.resultados_expediente_ipse = resultados_expediente_ipse;
     }
-
 
     public Expediente getObjExpediente() {
         return ObjExpediente;
@@ -111,7 +123,6 @@ public class Certificado implements Serializable {
         this.ObjExpediente = ObjExpediente;
     }
 
-    
     public Certificado() {
 
     }
@@ -131,8 +142,7 @@ public class Certificado implements Serializable {
     public void setObjPersona(Persona ObjPersona) {
         this.ObjPersona = ObjPersona;
     }
-    
-    
+
     public Download getObjDownload() {
         return objDownload;
     }
@@ -164,8 +174,6 @@ public class Certificado implements Serializable {
     public void setObservaciones_seguridad(String observaciones_seguridad) {
         this.observaciones_seguridad = observaciones_seguridad;
     }
-
-
 
     public int getId_tipo_licencia() {
         return id_tipo_licencia;
@@ -273,8 +281,6 @@ public class Certificado implements Serializable {
         this.nro_expediente = nro_expediente;
     }
 
-  
-
     public String getAsunto() {
         return asunto;
     }
@@ -315,7 +321,6 @@ public class Certificado implements Serializable {
         this.fiscalizaciones = fiscalizaciones;
     }
 
-  
     public String getNumero_resolucion() {
         return numero_resolucion;
     }
@@ -412,8 +417,6 @@ public class Certificado implements Serializable {
         this.supervisor = supervisor;
     }
 
-  
-
     public Direccion getObjdireccion() {
         return objdireccion;
     }
@@ -428,15 +431,6 @@ public class Certificado implements Serializable {
 
     public void setDireccion_verificada(String direccion_verificada) {
         this.direccion_verificada = direccion_verificada;
-    }
-
-
-    public ObservacionIpse getObjObservacion() {
-        return objObservacion;
-    }
-
-    public void setObjObservacion(ObservacionIpse objObservacion) {
-        this.objObservacion = objObservacion;
     }
 
     public String getArea_verificada() {
@@ -462,8 +456,6 @@ public class Certificado implements Serializable {
     public void setObjPostal(Postal ObjPostal) {
         this.ObjPostal = ObjPostal;
     }
-
-  
 
     public ArrayList<SelectItem> getCargarComboGiros() {
 
@@ -502,7 +494,6 @@ public class Certificado implements Serializable {
     public ArrayList<SelectItem> getCargarObservacionesIpse() {
 
         ArrayList<SelectItem> arrayObservaciones = new ArrayList<SelectItem>();
-        ObservacionIpse obj = null;
         Connection conexion = null;
         ResultSet rs = null;
         try {
@@ -514,8 +505,8 @@ public class Certificado implements Serializable {
             if (rs.next()) {
                 do {
 
-                    arrayObservaciones.add(new SelectItem(rs.getString("id_observancia"), rs.getString("observancia")));
-
+                    // arrayObservaciones.add(new SelectItem(rs.getString("id_observancia"), rs.getString("observancia")));
+                    arrayObservaciones.add(new SelectItem(rs.getString("observancia")));
                 } while (rs.next());
 
             }
@@ -602,14 +593,13 @@ public class Certificado implements Serializable {
 
                     obj.setNro_expediente(rs.getString("expediente"));
                     obj.setFecha_expediente(rs.getString("fecha_expediente"));
-                   
+
                     Persona ObjPersona = new Persona();
                     ObjPersona.setCodigo_contribuyente(rs.getString("codigo"));
                     ObjPersona.setNombres_apellidos(rs.getString("nombres_apellidos"));
-                   
+
                     obj.setObjPersona(ObjPersona);
-                    
-                    
+
                     obj.setAsunto(rs.getString("asunto"));
                     obj.setArea_declarada(rs.getString("area_declarada"));
                     obj.setArea(rs.getString("area_final"));
@@ -631,15 +621,15 @@ public class Certificado implements Serializable {
                     obj.setObservaciones_seguridad(rs.getString("observaciones_seguridad"));
                     obj.setResultado(rs.getInt("resultado"));
                     obj.setAnotaciones(rs.getString("anotaciones"));
-                     Expediente ObjExpediente = new Expediente ();
-                    
+                    Expediente ObjExpediente = new Expediente();
+
                     ObjExpediente.setEstado_expediente(rs.getString("estado_expediente"));
-                    
+
                     obj.setObjExpediente(ObjExpediente);
-                    
+
                     obj.setDireccion_verificada(rs.getString("direccion_verificada"));
                     obj.setArea_verificada(rs.getString("area_verificada"));
-                    
+
                     Boton b = new Boton();
                     b.setEstado_boton(rs.getString("estado_editar"));
                     obj.setObjboton(b);
@@ -691,38 +681,34 @@ public class Certificado implements Serializable {
                     obj.setNro_expediente(rs.getString("expediente"));
                     obj.setFecha_expediente(rs.getString("fecha_expediente"));
                     obj.setNumero_resolucion(rs.getString("numero_resolucion"));
-                   
+
                     Persona ObjPersona = new Persona();
-                    
+
                     ObjPersona.setCodigo_contribuyente(rs.getString("codigo"));
                     ObjPersona.setNombres_apellidos(rs.getString("nombres_apellidos"));
-                    
+
                     obj.setObjPersona(ObjPersona);
-                    
-                    
-                    
 
                     Giro gr = new Giro();
 
                     gr.setGiro_detalle(rs.getString("giro_detalle"));
-                    
+
                     obj.setObjgiros(gr);
 
-                    obj.setDescripcion_tipo_licencia(rs.getString("descripcion_tipo_licencia"));       
-                
+                    obj.setDescripcion_tipo_licencia(rs.getString("descripcion_tipo_licencia"));
+
                     obj.setObservaciones_seguridad(rs.getString("observaciones_seguridad"));
-                    
+
                     obj.setResultados_expediente_ipse(rs.getString("resultado"));
 
                     obj.setCorrelativo_expediente(rs.getString("correlativo_expediente"));
-                    
-                    Expediente ObjExpediente = new Expediente() ;
-                    
+
+                    Expediente ObjExpediente = new Expediente();
+
                     ObjExpediente.setEstado_expediente(rs.getString("estado_expediente"));
-                    
+
                     obj.setObjExpediente(ObjExpediente);
-                    
-                    
+
                     obj.setAnotacion(rs.getString("anotacion"));
                     obj.setArea_final(rs.getString("area_final"));
                     obj.setTotal_folios(rs.getString("total_folios"));
@@ -777,19 +763,17 @@ public class Certificado implements Serializable {
                     obj.setNro_expediente(rs.getString("expediente"));
                     obj.setFecha_expediente(rs.getString("fecha_expediente"));
                     obj.setNumero_resolucion(rs.getString("numero_resolucion"));
-                          Persona ObjPersona = new Persona();
+                    Persona ObjPersona = new Persona();
                     ObjPersona.setCodigo_contribuyente(rs.getString("codigo"));
                     ObjPersona.setNombres_apellidos(rs.getString("nombres_apellidos"));
                     obj.setObjPersona(ObjPersona);
-                    
-                   
 
                     Giro gir = new Giro();
 
                     gir.setGiro_detalle("giro_detalle");
                     obj.setObjgiros(gir);
 
-                    obj.setDescripcion_tipo_licencia(rs.getString("descripcion_tipo_licencia"));                   
+                    obj.setDescripcion_tipo_licencia(rs.getString("descripcion_tipo_licencia"));
                     obj.setFiscalizaciones(rs.getString("estado_fiscalizacion"));
                     obj.setObservaciones_seguridad(rs.getString("observaciones_seguridad"));
                     obj.setResultados_expediente_ipse(rs.getString("resultado"));
@@ -1265,7 +1249,7 @@ public class Certificado implements Serializable {
         return arr;
     }
 
-    public  ArrayList<SelectItem> getCargarInpectores() {
+    public ArrayList<SelectItem> getCargarInpectores() {
 
         ArrayList<SelectItem> arraySupervisor = new ArrayList<SelectItem>();
         Supervisor obj = null;
@@ -1298,8 +1282,6 @@ public class Certificado implements Serializable {
 
     }
 
-
-   
     public static boolean subirArchivosDigitales(Certificado ObjSubir) {
 
         boolean a = false;
@@ -1419,12 +1401,5 @@ public class Certificado implements Serializable {
         }
         return arr;
     }
-    
-    
-    
-    
-    
-    
-    
 
 }

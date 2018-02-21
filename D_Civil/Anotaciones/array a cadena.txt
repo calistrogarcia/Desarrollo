@@ -1,0 +1,6 @@
+declare @objeto_1 varchar (max)
+set @objeto_1 =(select observaciones_seguridad from Expediente x where x.expediente='41402-01-2017')
+select STUFF((SELECT CAST(',' AS varchar(MAX)) + observancia from Observancia where 
+id_observancia in (SELECT *FROM fx_java_StringSplit(@objeto_1,','))
+ORDER BY observancia FOR XML PATH('')), 1, 1, '') as observancia
+select  @objeto_1

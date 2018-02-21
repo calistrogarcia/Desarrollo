@@ -44,6 +44,7 @@ import utils.Constantes;
 import utils.Mensaje;
 import org.primefaces.model.UploadedFile;
 import Modelo.Controlador_Sql;
+import Modelo.Persona;
 import java.io.IOException;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -77,18 +78,16 @@ public class Beans_Fiscalizacion_Multas {
     private ArrayList<Multa> arrMultaSancion = null;
     private ArrayList<Multa> arrBusMultaSancion = null;
 
+
     //TabView
     private Integer activeTabIndex;
     private boolean bandVer = true;
     private boolean bandMod = true;
     private boolean bandEli = true;
-    
 
     //Bandera que apunta si el usuario al realizar un clik sobre el link de busquedad o listado total
     private String puntAnt;
-
-    
-    
+   
     
     public Multa getObjMultaAnular() {
         return objMultaAnular;
@@ -178,7 +177,6 @@ public class Beans_Fiscalizacion_Multas {
         this.bandEli = bandEli;
     }
 
-  
     public String getPuntAnt() {
         return puntAnt;
     }
@@ -268,13 +266,11 @@ public class Beans_Fiscalizacion_Multas {
         this.ObjMultaBuqInfractor = new Multa();
 
     }
-    
-    
+
     //Iniciallzaciones  
     public void doiniciarObjAnularMulta() {
         this.objMultaAnular = new Multa();
     }
-    
 
     //Iniciallzaciones
     public void doiniciarListadoMulta() {
@@ -331,7 +327,6 @@ public class Beans_Fiscalizacion_Multas {
 
     }
 
-    
     public String doEditarMulta() {
 
         this.bandMod = true;
@@ -357,13 +352,13 @@ public class Beans_Fiscalizacion_Multas {
     }
 
     public String doAnularMulta() {
-       
+
         this.bandEli = true;
-        
+
         try {
 
             if (Multa.AnularMulta(objMultaAnular)) {
-                
+
                 Mensaje.guardarMensajeExito("Anular Multa", "Anulado Correctamente");
             } else {
                 Mensaje.manejarError("Revisar Multa", "Error de Anulacion");
@@ -372,11 +367,11 @@ public class Beans_Fiscalizacion_Multas {
             Mensaje.manejarError(e, "Revisar Multa");
         }
         if (puntAnt.compareTo("2") == 0) {
-           
+
             this.activeTabIndex = Constantes.TAB_BUSQUEDA;
         } else {
             if (puntAnt.compareTo("1") == 0) {
-         
+
                 this.activeTabIndex = Constantes.TAB_BUSQUEDA;
             }
         }
@@ -391,7 +386,6 @@ public class Beans_Fiscalizacion_Multas {
         this.bandMod = false;
         this.activeTabIndex = 1;  // Verifica la Posesion de la Pestaña para activarla. -- Ver Constantes     
         return null;
-        
 
     }
 
@@ -407,12 +401,12 @@ public class Beans_Fiscalizacion_Multas {
 
         this.arrBusMulta = new ArrayList<Multa>();
         this.arrBusMulta = Multa.BuscarMultaAdministrativa(objMultaBusq);
-       
+  
         return this.arrBusMulta;
-
     }
-
     
+ 
+ 
     public String getSizeRegistrosBusMulta() {
         if (this.arrBusMulta == null) {
             return "0";
@@ -426,6 +420,8 @@ public class Beans_Fiscalizacion_Multas {
 
         this.arrBusMultaInfractor = new ArrayList<Multa>();
         this.arrBusMultaInfractor = Multa.BuscarInfractor(ObjMultaBuqInfractor);
+     
+        
         return this.arrBusMultaInfractor;
 
     }
@@ -478,7 +474,7 @@ public class Beans_Fiscalizacion_Multas {
     }
 
     public String desactivarAnularMulta() {
-      
+
         this.bandEli = true;
         if (puntAnt.compareTo("1") == 0) {
             this.activeTabIndex = Constantes.TAB_BUSQUEDA;
@@ -491,15 +487,13 @@ public class Beans_Fiscalizacion_Multas {
         return null;
     }
 
-    
     public void onClickBusq(ActionEvent evt) {
         Object param = evt.getComponent().getAttributes().get("param");
         this.puntAnt = param.toString();
     }
-    
-  
+
     public List<String> autoCompletarBusqueda(String query) {
-        
+
         List<String> resultado = new ArrayList<String>();
         for (int i = 0; i < 10; i++) {
             resultado.add(query + i);
@@ -508,14 +502,4 @@ public class Beans_Fiscalizacion_Multas {
         return resultado;
     }
 
- 
- 
-  
-
-
-
-  
-   
-
 }
-

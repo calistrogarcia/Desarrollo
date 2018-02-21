@@ -1200,6 +1200,61 @@ public class Persona implements Serializable {
     }
     
    
+  public static ArrayList<Persona> DireccionFiscalContribuyente(Persona ObjPersona) {
+
+        ArrayList<Persona> arr = null;
+        ResultSet rs = null;
+        Persona obj = null;
+        Connection conexion = null;
+
+        try {
+            conexion = Controlador_Sql.darConexionBD();
+            conexion.setAutoCommit(false);
+            
+            conexion = Controlador_Sql.darConexionBD();
+            CallableStatement st = conexion.prepareCall("{call dbo.sp_java_direccion_fiscal_contribuyente(?)}");
+
+            if (ObjPersona.getCodigo_contribuyente() != null) {
+                if (ObjPersona.getCodigo_contribuyente().length() > 0) {
+                    st.setString(1, ObjPersona.getCodigo_contribuyente());
+
+                } else {
+                    st.setString(1, null);
+                }
+            } else {
+                st.setString(1, null);
+            }
+
+            rs = st.executeQuery();
+            if (rs.next()) {
+                arr = new ArrayList<Persona>();
+                do {
+
+                    obj = new Persona();
+                    
+                    
+                    obj.setCodigo_contribuyente(rs.getString("ccontri"));
+                    obj.setNombres_apellidos(rs.getString("cnombre"));
+                    obj.setDireccion_fiscal(rs.getString("dirfiscal"));
+     
+                    arr.add(obj);
+
+                } while (rs.next());
+            }
+            st.execute();
+            // st.close();
+            conexion.setAutoCommit(true);
+            conexion.close();
+        } catch (Exception error) {
+            System.out.println("Error en el metodo por: " + error.getMessage());
+            error.printStackTrace();
+        }
+        return arr;
+    }
+    
+    
+   
+    
     
     
 }

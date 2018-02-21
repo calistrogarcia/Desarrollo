@@ -630,29 +630,29 @@ public class Prueba_SP {
        
    
       // Clase 02:   Coleccion de Objetos
-
-        Persona per1 = new Persona(); 
-        per1.ObjDireccion.setCodigo_via("1");  
-        Persona per2 = new Persona();
-        per2.ObjDireccion.setCodigo_via("2");
-        
-        
-        List<Persona> listas= new ArrayList(); 
-        
-        listas.add(per1);
-        listas.add(per2);
-        
-        for (Persona p: listas){
-           System.out.println(p.ObjDireccion.getCodigo_via());
-            
-        }
-        
-       Iterator<Persona> iterator = listas.iterator();
-        while (iterator.hasNext()){
-            
-            System.out.println(iterator.next().ObjDireccion.getCodigo_via());
-        } 
-        
+//
+//        Persona per1 = new Persona(); 
+//        per1.ObjDireccion.setCodigo_via("1");  
+//        Persona per2 = new Persona();
+//        per2.ObjDireccion.setCodigo_via("2");
+//        
+//        
+//        List<Persona> listas= new ArrayList(); 
+//        
+//        listas.add(per1);
+//        listas.add(per2);
+//        
+//        for (Persona p: listas){
+//           System.out.println(p.ObjDireccion.getCodigo_via());
+//            
+//        }
+//        
+//       Iterator<Persona> iterator = listas.iterator();
+//        while (iterator.hasNext()){
+//            
+//            System.out.println(iterator.next().ObjDireccion.getCodigo_via());
+//        } 
+//        
         
     //    Clase 03 ArrayList
 //        
@@ -727,6 +727,35 @@ public class Prueba_SP {
 //          fmt.format("%06d",100);
 //          System.out.println(fmt);
 
-                 
-    }  
+   
+//  clase 7 volcando los datos de un array a un cadena
+
+     String[] array =  {"1.-Ingreso y/o salida del local no tiene un ancho libre minimo de 0.09 m ",
+         "2.-El local presenta Deterioro en sus elementos estructurales en techo(s), viga(s), columna (s)",
+         "3.-El material Electrico es de material Conmbustible.",
+         "4.-El local no cuenta con señalizacion de seguridad ; direccionales de salida ; Salida (Salidas), Extintore (s), Riesgo electrico, zona de seguridad en caso de sismo."};
+     StringBuffer cadena = new StringBuffer();
+     
+      for (int i=0; i< array.length; i++){
+          
+          cadena =  cadena.append(array[i]);  
+         
+         //  System.out.println(array[i]);
+      }
+      
+      System.out.println(cadena);
+      
+      
+      
+           String sCadena = "Esto es una cadena de texto";
+           char[] aCaracteres = sCadena.toCharArray();
+           for (int x=0;x<aCaracteres.length;x++)
+           System.out.println("[" + x + "] " + aCaracteres[x]);
+      
+      
+    } 
+    
+    
+    
+    
 }

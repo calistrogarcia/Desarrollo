@@ -12,32 +12,28 @@
     </head>
     <body>
         <ui:composition >
-            
-       
             <h:form>
-                
-               
-
                 <p:panelMenu style="width: auto;text-align: left; font: small serif"> 
                     
                     <p:submenu label="#{msg.LabelDatosPersonales}"  icon="ui-icon-extlink">   
+                        
                         <p:menuitem value="#{msg.LabelRegistrarContribuyente}"  style="margin-top:0"
                                     url="Registro_InformacionPersonal.jsf"  icon="ui-icon-zoomin">               
                         </p:menuitem>
                         
                     </p:submenu>
-                                   
+
                     <p:submenu label="#{msg.LabelTramiteDocumentario}"  icon="ui-icon-extlink">   
 
-                        
+
                         <p:menuitem value="#{msg.LabelRegistroExpedientes}"  style="margin-top:0"
                                     url="TramiteDocumentario_Registrar_Expedientes.jsf"  icon="ui-icon-zoomin">               
                         </p:menuitem>
-                        
+
                         <p:menuitem value="#{msg.LabelReporte}"  style="margin-top:0"
                                     url="TramiteDocumentario_Reporte_Actualizado.jsf"  icon="ui-icon-zoomin">               
                         </p:menuitem> 
-                       
+
 
                         <p:menuitem value="#{msg.LabelBusquedaExpedientes}"  style="margin-top:0" 
                                     url="Expediente_Busqueda.jsf"  icon="ui-icon-zoomin">               
@@ -75,7 +71,7 @@
 
                     </p:submenu>
 
-                   
+
                     <p:submenu label="#{msg.LabelTituloExpedientes}"  icon="ui-icon-extlink"> 
 
                         <p:menuitem value="#{msg.LabelInspector}"  style="margin-top:0"
@@ -90,7 +86,7 @@
                         <p:menuitem value="#{msg.LabelCertificado}"  style="margin-top:0"
                                     url="DefensaCivil_Certificado.jsf"  icon="ui-icon-zoomin">               
                         </p:menuitem>
-                       
+
                         <p:menuitem value="#{msg.LabelGraficos}" 
                                     url="ReportesGrafico_DefensaCivil.jsf"  icon="ui-icon-zoomin">               
                         </p:menuitem> 
@@ -101,10 +97,10 @@
                                     url="Fiscalizacion_Multa_Administrativa.jsf"  icon="ui-icon-zoomin">               
                         </p:menuitem> 
 
-                       
+
                     </p:submenu>
-                    
-                      <p:submenu label="#{msg.LabelLicencias}"  icon="ui-icon-extlink">   
+
+                    <p:submenu label="#{msg.LabelLicencias}"  icon="ui-icon-extlink">   
 
                         <p:menuitem value="#{msg.LabelLicenciaComercial}"  style="margin-top:0"
                                     url="Promocion_Empresarial_Licencias.jsf"  icon="ui-icon-zoomin">               
@@ -132,10 +128,9 @@
                     </p:submenu>
 
                 </p:panelMenu>
-                
-            
 
             </h:form> 
+
         </ui:composition>
     </body>
 </html>

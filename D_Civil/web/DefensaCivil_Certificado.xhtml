@@ -28,10 +28,7 @@ and open the template in the editor.
                             <p:panel id="Panel_Expedientes_defensa_Civil" header="#{msg.LabelCertificado}"  style=" text-align:  left"  >         
 
                                 <fieldset>
-
-
                                     <h:panelGrid columns="1"   >
-
                                         <div id="day" style="tamaño_fuente" >
                                             Usuario
                                             <p:clock  pattern="dd MMMM yy HH:mm:ss" mode="client"  />                        
@@ -482,25 +479,24 @@ and open the template in the editor.
 
 
 
-                                        <h:outputText value="#{msg.Observaciones}" style="margin-right:20px;" /> 
 
-
-                                        <h:panelGroup>
-                                            <p:inputTextarea rows="3" cols="50" counter="obser" maxlength="500"                      
-
-                                                             autoResize="true" id="editar_observaciones"
-                                                             counterTemplate="{0} #{msg.LabelContador}" 
-                                                             value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.observaciones_seguridad}">
-
-
-                                            </p:inputTextarea> 
-
-                                            <br />
-
-                                            <h:outputText id="obser"/>    
-                                            <h:message for="editar_observaciones" showDetail="false" showSummary="true"/>                                  
-                                        </h:panelGroup> 
-
+                                        <h:outputText value="#{msg.Observaciones}" style="margin-right:10px;" /> 
+                                     
+                                          <h:panelGroup>
+                                              <p:inputTextarea rows="3" cols="50" counter="obser" maxlength="500"                      
+  
+                                                               autoResize="true" id="editar_observaciones"
+                                                               counterTemplate="{0} #{msg.LabelContador}" 
+                                                               value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.observaciones_seguridad}">
+  
+  
+                                              </p:inputTextarea> 
+  
+                                              <br />
+  
+                                              <h:outputText id="obser"/>    
+                                              <h:message for="editar_observaciones" showDetail="false" showSummary="true"/>                                  
+                                          </h:panelGroup>  
 
 
 
@@ -630,6 +626,18 @@ and open the template in the editor.
 
                                         </h:panelGroup>
                                     </h:panelGrid> 
+                                    
+                                   
+                                    <h:panelGroup>
+                                            
+                                            <p:selectCheckboxMenu id="observaciones_ipse"  
+                                                                  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.observacion_Ipse}" 
+                                                                  label="."
+                                                                  filter="true" filterMatchMode="startsWith" panelStyle="width:20%">
+                                                <f:selectItems value="#{Certificado.cargarObservacionesIpse}" />
+
+                                            </p:selectCheckboxMenu>
+                                     </h:panelGroup>
 
 
 

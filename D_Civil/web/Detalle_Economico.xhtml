@@ -27,11 +27,11 @@ and open the template in the editor.
                             <p:growl globalOnly="true"  id="growldetalle_economico" sticky="false"  showDetail="true"  />    
                             <p:panel id="panel_detalle_economico" header="#{msg.LabelDetalleEconomico}" style=" text-align:  left" >
                                 <!--Lista de Opciones de Ofina *25*04*17 **J**-->  
-                 
+
                                 <p:fieldset   style="margin-bottom:20px;" >
-  
-                                       <h:panelGrid columns="2" cellpadding="5">
-                                              <h:outputText value="#{msg.LabelEstadoTributo}"  style="margin-right:0px;"/>
+
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="#{msg.LabelEstadoTributo}"  style="margin-right:0px;"/>
                                         <h:panelGroup>                            
                                             <p:selectOneMenu effect="fade"
                                                              filter="true"  filterMatchMode="contains"
@@ -44,97 +44,97 @@ and open the template in the editor.
 
                                                 <f:selectItem itemLabel="Deudas" itemValue="0" />
                                                 <f:selectItem itemLabel="Pagados" itemValue="1" />
-                                                 <f:selectItem itemLabel="Anulados" itemValue="2" />
+                                                <f:selectItem itemLabel="Anulados" itemValue="2" />
                                                 <f:selectItem itemLabel="Coactivos" itemValue="3" />
 
                                             </p:selectOneMenu>
                                             <h:message for="estado_tributo" showDetail="false" showSummary="true"/>     
                                         </h:panelGroup>
                                     </h:panelGrid>   
-  
-                                <center>
 
-                                    <h:panelGrid columns="12"  >
-                                     
-                                        <h:panelGroup>
-                                                 <h:outputText value="#{msg.LabelCodigoContribuyente}"  styleClass="tamaño_fuente" />
-                                            <p:inputText  id="codigo_contribuyente"
-                                                          value="#{BeansDetalle_Economico.objBuscarDetalle_economico.objpersona.codigo_contribuyente}" size="7"
-                                                          >
-                                                
-                                            </p:inputText>
-                                            
-                                            <h:message for="codigo_contribuyente" showDetail="false" showSummary="true"/>                                    
-                                        </h:panelGroup>
-                                        
-                                        
-                                        <h:panelGrid columns="2" style="margin-bottom:20px" cellpadding="5">
+                                    <center>
 
-                                            <p:outputLabel for="tipo_tributo" value="Elegir:" />
-                                            <p:selectOneRadio id="tipo_tributo" value="#{BeansDetalle_Economico.objBuscarDetalle_economico.tipo_tributo}"  layout="grid" columns="3" >
+                                        <h:panelGrid columns="12"  >
+
+                                            <h:panelGroup>
+                                                <h:outputText value="#{msg.LabelCodigoContribuyente}"  styleClass="tamaño_fuente" />
+                                                <p:inputText  id="codigo_contribuyente"
+                                                              value="#{BeansDetalle_Economico.objBuscarDetalle_economico.objpersona.codigo_contribuyente}" size="7"
+                                                              >
+
+                                                </p:inputText>
+
+                                                <h:message for="codigo_contribuyente" showDetail="false" showSummary="true"/>                                    
+                                            </h:panelGroup>
 
 
-                                                <f:selectItem itemLabel="Todo" itemValue="1"  />
-                                                <f:selectItem itemLabel="Imp. Predial" itemValue="IP" /> 
-                                                 <f:selectItem itemLabel="Costas" itemValue="CO"  />
-                                                <f:selectItem itemLabel="Gastos" itemValue="GA" />
-                                                <f:selectItem itemLabel="Arbitrios" itemValue="AR" />
-                                                <f:selectItem itemLabel="Multa Administrativa" itemValue="MA" />
+                                            <h:panelGrid columns="2" style="margin-bottom:20px" cellpadding="5">
+
+                                                <p:outputLabel for="tipo_tributo" value="Elegir:" />
+                                                <p:selectOneRadio id="tipo_tributo" value="#{BeansDetalle_Economico.objBuscarDetalle_economico.tipo_tributo}"  layout="grid" columns="3" >
 
 
-                                            </p:selectOneRadio>
-
-                                        </h:panelGrid> 
-                                        
-                                        
-                                        
-                                     <h:outputText value="#{msg.LabelDesde}"  styleClass="tamaño_fuente" /> 
-                                        <h:panelGroup>
-                                           
-                                            <p:inputText  id="desde"  placeholder="año"
-                                                          value="#{BeansDetalle_Economico.objBuscarDetalle_economico.perido_deuda_inicial}" size="4"
-                                                          >
-                                                
-                                            </p:inputText>
-                                            <h:message for="desde" showDetail="false" showSummary="true"/>   
-                                            
-                                             <p:slider for="desde" minValue="1999" maxValue="2030" step="1" />
-                                             
-                                        </h:panelGroup>
-                                    
-                                           
-                                             <h:outputText value="#{msg.LabelHasta}"  styleClass="tamaño_fuente" />
-                                        <h:panelGroup>
-                                            
-                                            <p:inputText  id="hasta"  placeholder="año"
-                                                          value="#{BeansDetalle_Economico.objBuscarDetalle_economico.periodo_deuda_final}" size="4"
-                                                          >
-                                                
-                                            </p:inputText>
-                                            
-                                            <h:message for="hasta" showDetail="false" showSummary="true"/>
-                                            
-                                             <p:slider for="hasta" minValue="1999" maxValue="2030" step="1" />
-                                        </h:panelGroup>
-
-                                    </h:panelGrid>  
-  
-                                    <!--BLOC-->
-                                </center>
+                                                    <f:selectItem itemLabel="Todo" itemValue="1"  />
+                                                    <f:selectItem itemLabel="Imp. Predial" itemValue="IP" /> 
+                                                    <f:selectItem itemLabel="Costas" itemValue="CO"  />
+                                                    <f:selectItem itemLabel="Gastos" itemValue="GA" />
+                                                    <f:selectItem itemLabel="Arbitrios" itemValue="AR" />
+                                                    <f:selectItem itemLabel="Multa Administrativa" itemValue="MA" />
 
 
-                                <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3" style="text-align: center;" width="17%">
+                                                </p:selectOneRadio>
 
-                                    <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{BeansDetalle_Economico.doiniciarBusquedaDetalle_economico()}"  
-                                                     value="#{msg.labelNuevo}"  async="true" update="panel_detalle_economico" />
-                          
-                                    <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{BeansDetalle_Economico.doBuscarDetalle_Economico()}"  
-                                                     value="#{msg.btnConsultar}"  async="true" update="panel_detalle_economico" />  
-                                  
-                                </h:panelGrid>
-                                    
-                               </p:fieldset>
-                                
+                                            </h:panelGrid> 
+
+
+
+                                            <h:outputText value="#{msg.LabelDesde}"  styleClass="tamaño_fuente" /> 
+                                            <h:panelGroup>
+
+                                                <p:inputText  id="desde"  placeholder="año"
+                                                              value="#{BeansDetalle_Economico.objBuscarDetalle_economico.perido_deuda_inicial}" size="4"
+                                                              >
+
+                                                </p:inputText>
+                                                <h:message for="desde" showDetail="false" showSummary="true"/>   
+
+                                                <p:slider for="desde" minValue="1999" maxValue="2030" step="1" />
+
+                                            </h:panelGroup>
+
+
+                                            <h:outputText value="#{msg.LabelHasta}"  styleClass="tamaño_fuente" />
+                                            <h:panelGroup>
+
+                                                <p:inputText  id="hasta"  placeholder="año"
+                                                              value="#{BeansDetalle_Economico.objBuscarDetalle_economico.periodo_deuda_final}" size="4"
+                                                              >
+
+                                                </p:inputText>
+
+                                                <h:message for="hasta" showDetail="false" showSummary="true"/>
+
+                                                <p:slider for="hasta" minValue="1999" maxValue="2030" step="1" />
+                                            </h:panelGroup>
+
+                                        </h:panelGrid>  
+
+                                        <!--BLOC-->
+                                    </center>
+
+
+                                    <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3" style="text-align: center;" width="17%">
+
+                                        <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{BeansDetalle_Economico.doiniciarBusquedaDetalle_economico()}"  
+                                                         value="#{msg.labelNuevo}"  async="true" update="panel_detalle_economico" />
+
+                                        <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{BeansDetalle_Economico.doBuscarDetalle_Economico()}"  
+                                                         value="#{msg.btnConsultar}"  async="true" update="panel_detalle_economico" />  
+
+                                    </h:panelGrid>
+
+                                </p:fieldset>
+
                                 <h:panelGrid columns="3" cellpadding="2"  cellspacing="2"  width="10%">
 
                                     <h:panelGrid columns="2">
@@ -170,7 +170,7 @@ and open the template in the editor.
                                                      style="tamaño_fuente" >
 
                                             <f:facet name="header" >
-                                             
+
                                                 <h:outputText value="#{msg.LabelDetalleEconomico}" />
                                                 <p:commandButton id="toggler" type="button" value="Columnas" style="float:right" icon="ui-icon-calculator"  styleClass="tamaño_fuente"/>
                                                 <p:columnToggler datasource="Detalle_Economico" trigger="toggler"    />
@@ -183,140 +183,129 @@ and open the template in the editor.
                                                 </f:facet>
                                                 <h:outputText  value="#{Estado_detalle_economico.objpersona.codigo_contribuyente}"/>
                                             </p:column> 
-                                            
-                                            
+
+
                                             <p:column  headerText="nombre" sortBy="#{Estado_detalle_economico.objpersona.nombre_contribuyente}" style="width:10%;text-align: center"> 
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.LabelNombres}" />
                                                 </f:facet>
                                                 <h:outputText  value="#{Estado_detalle_economico.objpersona.nombre_contribuyente}"/>
                                             </p:column>  
-                                            
-                                            
-                                            
+
+
+
                                             <p:column  headerText="codigo_predio" sortBy="#{Estado_detalle_economico.objpredio.codigo_predio} " style="width:4%;text-align: center">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.LabelCodigoPredio}" />
                                                 </f:facet>
                                                 <h:outputText  value="#{Estado_detalle_economico.objpredio.codigo_predio}"/>
                                             </p:column> 
-                                            
-                                            
-                                            
+
+
+
                                             <p:column  headerText="periodo" sortBy="#{Estado_detalle_economico.anio_deuda} " style="width:4%;text-align: center">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.LabelPeriodoDeuda}" />
                                                 </f:facet>
                                                 <h:outputText  value="#{Estado_detalle_economico.anio_deuda}"/>
                                             </p:column> 
-                                            
-                                            
+
+
                                             <p:column  headerText="insoluto" sortBy="#{Estado_detalle_economico.monto_insoluto}" style="width:4%;text-align: center">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.LabelInsoluto}" />
                                                 </f:facet>
                                                 <h:outputText  value="#{Estado_detalle_economico.monto_insoluto}">
-                                                        <f:convertNumber type="currency" currencySymbol="$" />
+                                                    <f:convertNumber type="currency" currencySymbol="$" />
                                                 </h:outputText>
-                                                        
-                                                               
-                                                 
+
+
+
                                             </p:column> 
-                                            
-                                           
+
+
                                             <p:column  headerText="gasto" sortBy="#{Estado_detalle_economico.gasto_administrativo}" style="width:4%;text-align: center">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.LabelGastoAdministrativo}" />
                                                 </f:facet>
                                                 <h:outputText  value="#{Estado_detalle_economico.gasto_administrativo}"/>
                                             </p:column> 
-                                            
+
                                             <p:column  headerText="reajuste" sortBy="#{Estado_detalle_economico.monto_reajuste}" style="width:4%;text-align: center">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.LabelReajuste}" />
                                                 </f:facet>
                                                 <h:outputText  value="#{Estado_detalle_economico.monto_reajuste}"/>
                                             </p:column> 
-                                            
-                                            
+
+
                                             <p:column  headerText="Interes" sortBy="#{Estado_detalle_economico.interes}" style="width:4%;text-align: center">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.LabelInteres}" />
                                                 </f:facet>
                                                 <h:outputText  value="#{Estado_detalle_economico.interes}"/>
                                             </p:column> 
-                                            
-                                            
-                                            
+
+
+
                                             <p:column  headerText="recibo" sortBy="#{Estado_detalle_economico.numero_recibo}" style="width:4%;text-align: center">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.LabelNumeroRecibo}" />
                                                 </f:facet>
                                                 <h:outputText  value="#{Estado_detalle_economico.numero_recibo}"/>
                                             </p:column> 
-                                            
-   
-                                             
+
+
+
                                             <p:column  headerText="numero_valor" sortBy="#{Estado_detalle_economico.numero_valor}" style="width:7%;text-align: center">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.LabelNumeroValor}" />
                                                 </f:facet>
                                                 <h:outputText  value="#{Estado_detalle_economico.numero_valor}"/>
                                             </p:column> 
-                                            
-                                            
+
+
                                             <p:column  headerText="numero_coactivo" sortBy="#{Estado_detalle_economico.numero_coactivo}" style="width:4%;text-align: center">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.LabelExpedienteCoactivo}" />
                                                 </f:facet>
                                                 <h:outputText  value="#{Estado_detalle_economico.numero_coactivo}"/>
                                             </p:column>
-                                            
-                                            
+
+
                                             <p:column  headerText="numero_expediente" sortBy="#{Estado_detalle_economico.numero_expediente}" style="width:4%;text-align: center">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.LabelNumeroExpediente}" />
                                                 </f:facet>
                                                 <h:outputText  value="#{Estado_detalle_economico.numero_expediente}"/>
                                             </p:column> 
-                                            
-                                           
+
                                             <p:column  headerText="numero_resolucion" sortBy="#{Estado_detalle_economico.numero_resolucion}" style="width:4%;text-align: center">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.LabelNumeroResolucion}" />
                                                 </f:facet>
                                                 <h:outputText  value="#{Estado_detalle_economico.numero_resolucion}"/>
                                             </p:column> 
-                                            
+
                                             <p:column  headerText="estado" sortBy="#{Estado_detalle_economico.estado_cuenta}" style="width:4%;text-align: center">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.labelEstado}" />
                                                 </f:facet>
                                                 <h:outputText  value="#{Estado_detalle_economico.estado_cuenta}"/>
                                             </p:column> 
-                                            
-                                            
-                                            
+
                                             <p:column  headerText="tipo" sortBy="#{Estado_detalle_economico.tipo_tributo}" style="width:4%;text-align: center">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.LabelTipoTributo}" />
                                                 </f:facet>
                                                 <h:outputText  value="#{Estado_detalle_economico.tipo_tributo}"/>
                                             </p:column>
-                                            
-                                            
-                                            
-
                                         </p:dataTable>    
                                     </h:panelGrid>  
                                 </center>
                             </p:panel>  
-
                             <p:resizable for="panel_detalle_economico" animate="true" effect="swing" effectDuration="normal"/>
-
                         </h:form>
-
-
                     </p:tab>
 
                 </p:tabView>
