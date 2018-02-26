@@ -8,7 +8,6 @@ package Beans;
 import Modelo.Grafico;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
-import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +19,11 @@ import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.BarChartSeries;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.ChartSeries;
-import org.primefaces.model.chart.LineChartSeries;
 import org.primefaces.model.chart.PieChartModel;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.ItemSelectEvent;
+ 
 
 /**
  *
@@ -147,7 +149,7 @@ public class Beans_DefensaCivil_GraficoExpedientes {
         pieModel.setLegendPosition("e");
         pieModel.setFill(false);
         pieModel.setShowDataLabels(true);
-        pieModel.setDiameter(170);
+        pieModel.setDiameter(100);
     }
     
     
@@ -206,26 +208,22 @@ public class Beans_DefensaCivil_GraficoExpedientes {
 
         barModel = new BarChartModel();
         
-        for(int i=0; i < carga.size(); i++){
-             
-            
-            ChartSeries serie= new BarChartSeries();
-            
+        for(int i=0; i < carga.size(); i++){ 
+            ChartSeries serie= new BarChartSeries(); 
+         
             serie.setLabel(carga.get(i).getEstado_resolucion());
-       
-            
-            serie.set("Enero", carga.get(i).getCantidad_expedientes()); 
-            serie.set("Febrero", carga.get(i).getCantidad_expedientes());
-            serie.set("Marzo", carga.get(i).getCantidad_expedientes());
-            serie.set("Abril", carga.get(i).getCantidad_expedientes());
-            serie.set("Mayo", carga.get(i).getCantidad_expedientes());
-            serie.set("Junio", carga.get(i).getCantidad_expedientes());
-            serie.set("Julio", carga.get(i).getCantidad_expedientes());
-            serie.set("Agosto", carga.get(i).getCantidad_expedientes());  
-            serie.set("Septiembre", carga.get(i).getCantidad_expedientes());
-            serie.set("Octubre", carga.get(i).getCantidad_expedientes());
-            serie.set("Noviembre", carga.get(i).getCantidad_expedientes());
-            serie.set("Diciembre", carga.get(i).getCantidad_expedientes());
+            serie.set("Enero", carga.get(i).getEnero()); 
+            serie.set("Febrero", carga.get(i).getFebrero());
+            serie.set("Marzo", carga.get(i).getMarzo());
+            serie.set("Abril", carga.get(i).getAbril());
+            serie.set("Mayo", carga.get(i).getMayo());
+            serie.set("Junio", carga.get(i).getJunio());
+            serie.set("Julio", carga.get(i).getJulio());
+            serie.set("Agosto", carga.get(i).getAgosto());  
+            serie.set("Septiembre", carga.get(i).getSeptiembre());
+            serie.set("Octubre", carga.get(i).getOctubre());
+            serie.set("Noviembre", carga.get(i).getNoviembre());
+            serie.set("Diciembre", carga.get(i).getDiciembre());
             
             barModel.addSeries(serie);
                  
@@ -233,6 +231,7 @@ public class Beans_DefensaCivil_GraficoExpedientes {
 
         
         barModel.setTitle("Personalizado");
+        //barModel.setLegendPosition("ne");
         barModel.setAnimate(true);
         barModel.setLegendPosition("ne");
         Axis xAxis = barModel.getAxis(AxisType.X);

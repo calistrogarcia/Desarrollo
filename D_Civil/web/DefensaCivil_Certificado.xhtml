@@ -80,10 +80,6 @@ and open the template in the editor.
                                 <p:blockUI block="Panel_Expedientes_defensa_Civil" trigger="saveBtn">   Buscando... <br />
                                     <p:graphicImage value="resources/imagenes/cargando1.gif" />   
                                 </p:blockUI>
-
-
-
-
                                 <center>
                                     <h:panelGrid columns="2" >
                                         <h:outputText styleClass="etiqueta_resultBusq" value="#{msg.labelCantidad}"/>
@@ -345,299 +341,351 @@ and open the template in the editor.
 
                                             </p:column>
 
-                                        </p:dataTable>    
+
+                                            <p:column  style="width:4%;text-align: center">
+                                                <p:commandButton  id="BtnSeleccionarArchivo"  
+                                                                  update=":CertificadoTabView:form_registro_informacion_virtual"  
+
+                                                                  oncomplete="PF('DialogoSubirArchivoVirtual').show()" 
+                                                                  icon="ui-icon-pencil"  title="Subir">   <!-- update=":formUpdate" -->
+
+                                                    <f:setPropertyActionListener value="#{listCertificado}" 
+                                                                                 target="#{Beans_DefensaCivil_Certificado.objRegistrarArchivoVirtual}" />
+
+                                                </p:commandButton>
+                                            </p:column>
+                                        </p:dataTable>
+
                                     </h:panelGrid>  
                                 </center>
                             </p:panel>  
-
                             <p:resizable for="Panel_Expedientes_defensa_Civil" animate="true" effect="swing" effectDuration="normal"/>
-
                         </h:form>
 
+                        <p:dialog  id="DialogoSubirAdchivo" widgetVar="DialogoSubirArchivoVirtual" 
+                                   modal="false" width="550" 
+                                   height="105" styleClass="tamaño_fuente"
+                                   responsive="true" resizable="false"
+                                   closeOnEscape="true"> 
+
+                            <h:form  id="form_registro_informacion_virtual"  enctype="multipart/form-data" 
+                                     class="border_titulo1" style="text-align: left" styleClass="tamaño_fuente">
+
+
+                                <p:growl globalOnly="true"  id="growl_informacion_virtual" 
+                                         sticky="true"  showDetail="true"  />         
+                                <p:panel id="panel_listado_expedientes_derivados" header="#{msg.LabelArchivosDigitales}" styleClass="border" style="text-align: center">
+                                    <center>
+                                        <h:panelGrid columns="4"  cellspacing="1" cellpadding="1" > 
+                                            <h:outputText value="#{msg.labelExpediente}"  styleClass="tamaño_fuente" style="font-weight:bold"  rendered="false"/>
+                                            <h:panelGroup>
+                                                <p:inputText  id="expediente_id_legajo" size="10" disabled="true"  
+                                                              value="#{Beans_DefensaCivil_Certificado.objRegistrarArchivoVirtual.objUpload.expediente_id}" 
+                                                              rendered="false" >
+                                                </p:inputText>
+                                                <h:message for="expediente_id_legajo" showDetail="false" showSummary="true"/>                                    
+                                            </h:panelGroup>
+                                            <h:outputText value="#{msg.LabelNombreArchvo}"  styleClass="tamaño_fuente" />
+                                            <h:panelGroup>
+                                                <p:inputText  id="nombre_archivo"  value="#{Beans_DefensaCivil_Certificado.objRegistrarArchivoVirtual.objUpload.nombre_archivo}"  >
+                                                </p:inputText>
+                                                <h:message for="nombre_archivo" showDetail="false" showSummary="true"/>                                    
+                                            </h:panelGroup>
+                                            <p:fileUpload  value="#{Beans_DefensaCivil_Certificado.objRegistrarArchivoVirtual.objUpload.file}" mode="simple"  /> 
+                                        </h:panelGrid> 
+                                    </center>
+                                    <h:panelGrid columns="4"  >
+                                        <p:commandButton value="Subir" actionListener="#{Beans_DefensaCivil_Certificado.doRegArchivoVirtual()}" ajax="false"  />  
+                                    </h:panelGrid>            
+                                </p:panel> 
+
+                            </h:form>
+                        </p:dialog>
 
                     </p:tab> 
-
-
                     <p:tab id="tab_Editar_Certificado" title="Editar Ipse" titletip="Modificar Certificado"  titleStyleClass="tamaño_fuente_tab"
                            disabled="#{Beans_DefensaCivil_Certificado.bandMod}">
 
                         <h:form  id="form_mod_Certificado" class="border_titulo1" style="text-align: left" styleClass="tamaño_fuente">
                             <p:growl globalOnly="true"  id="estModCertificado" sticky="false"  showDetail="true"  />                                
-                            <p:panel id="datGenCertificado" header="#{msg.labelDatosCertificado}" styleClass="tamaño_fuente">  <!--border-->
-                                <center>
-                                    <center>
-                                        <img  src="resources/imagenes/editar.png" style="text-align: center" height="20px"/>
-                                        <h:outputText value="#{msg.LabelInformacionDeclarada}"  style=" color: blue"  />
-                                    </center>
-                                    <h3 style="margin-top:0;" ></h3>
-                                    <p:separator /> 
+                            <p:panel id="datGenCertificado" header="#{msg.labelDatosCertificado}" styleClass="tamaño_fuente"
+                                     style=" border: solid activeborder"   >  <!--border-->
 
-                                    <br>
-                                    </br>
 
-                                    <h:panelGrid columns="4" cellpadding="2"   width="80%"  >
-
-                                        <h:outputText value="#{msg.labelExpediente}"  style="margin-right:20px;"/>
-                                        <h:panelGroup>
-                                            <p:inputText id="Exp_1"  required="true" requiredMessage="#{msg.labelObli}" size="20" disabled="true"  style=" color:  #FF0000" 
-                                                         maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.nro_expediente}"                       >  
-                                                <f:validateLength minimum="0" maximum="30"/>
-                                            </p:inputText>
-                                            <h:message for="Exp_1" showDetail="false" showSummary="true"/>                                    
-                                        </h:panelGroup>
-
-
-                                        <h:outputText value="#{msg.labelAreaFinal}"  style="margin-right:20px;"/>
-                                        <h:panelGroup>
-                                            <p:inputText id="Area"  required="true" requiredMessage="#{msg.labelObli}" size="50" disabled="true" style=" color:  #FF0000"
-                                                         maxlength="17" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.area}"  >  
-                                                <f:validateLength minimum="0" maximum="17"/>
-                                            </p:inputText>
-                                            <h:message for="Area" showDetail="false" showSummary="true"/>                                    
-                                        </h:panelGroup>
-
-
-                                        <h:outputText value="#{msg.LabelCodigoContribuyente}"  style="margin-right:0px;"/>
-                                        <h:panelGroup>
-                                            <p:inputText id="contr"  required="true" requiredMessage="#{msg.labelObli}" size="20" disabled="true" style=" color:  #FF0000"
-                                                         maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.objPersona.codigo_contribuyente}"                >  
-                                                <f:validateLength minimum="0" maximum="30"/>
-                                            </p:inputText>
-                                            <h:message for="contr" showDetail="false" showSummary="true"/>                                    
-                                        </h:panelGroup>
-
-
-                                        <h:outputText value="#{msg.LabelNombres}"  style="margin-right:40px;"/>
-                                        <h:panelGroup>
-                                            <p:inputText id="Exp"  required="true" requiredMessage="#{msg.labelObli}" size="50" disabled="true" style=" color:  #FF0000"
-                                                         maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.objPersona.nombres_apellidos}"
-                                                         >  
-                                                <f:validateLength minimum="0" maximum="250"/>
-                                            </p:inputText>
-                                            <h:message for="Exp" showDetail="false" showSummary="true"/>                                    
-                                        </h:panelGroup>
-
-
-
-                                        <h:outputText value="#{msg.labelRazonSocial}"  style="margin-right:0px;"/>
-                                        <h:panelGroup>
-                                            <p:inputText id="RazonSocial"  required="true" requiredMessage="#{msg.labelObli}" size="50" style=" align-content: center"
-                                                         maxlength="100" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.objPersona.nombres_apellidos}"
-                                                         >  
-                                                <f:validateLength minimum="0" maximum="100"/>
-                                            </p:inputText>
-                                            <h:message for="RazonSocial" showDetail="false" showSummary="true"/>                                    
-                                        </h:panelGroup>
-
-
-                                        <h:outputText value="#{msg.labelRepresentanteLegal}"  style="margin-right:60px;"/>
-
-                                        <h:panelGroup>
-                                            <p:inputText id="Representante_Legal" 
-
-                                                         requiredMessage="#{msg.labelObli}" size="50"
-                                                         maxlength="30" 
-
-                                                         value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.representante_legal}"
-                                                         >  
-                                                <f:validateLength minimum="0" maximum="30"/>
-                                            </p:inputText>
-                                            <h:message for="Representante_Legal" showDetail="false" showSummary="true"/>                                    
-                                        </h:panelGroup>
-
-
-                                        <h:outputText value="#{msg.LabelDireccion}"  style="margin-right:30px;"/>
-
-                                        <h:panelGroup>
-
-                                            <p:inputTextarea rows="3" cols="50" counter="direc" maxlength="500"   disabled="true" style=" color:  #FF0000"
-
-                                                             required="true" requiredMessage="#{msg.labelObli}" autoResize="true" id="direcciones"
-                                                             counterTemplate="{0} #{msg.LabelContador}" value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.direccion}">
-                                            </p:inputTextarea> 
-                                            <br />
-
-                                            <h:outputText id="direc"/>    
-                                            <h:message for="direccion" showDetail="false" showSummary="true"/>                                    
-                                        </h:panelGroup>
-
-
-
-                                        <h:outputText value="#{msg.LabelAsunto}"  style="margin-right:150px;"/>
-                                        <h:panelGroup>
-
-                                            <p:inputTextarea rows="3" cols="50" counter="asun" maxlength="500"  
-
-                                                             required="true" requiredMessage="#{msg.labelObli}" autoResize="true" id="asunto"
-                                                             counterTemplate="{0} #{msg.LabelContador}" value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.asunto}">
-                                            </p:inputTextarea> 
-                                            <br />
-
-                                            <h:outputText id="asun"/>    
-                                            <h:message for="asunto" showDetail="false" showSummary="true"/>                                    
-                                        </h:panelGroup>
-
-
-
-
-                                        <h:outputText value="#{msg.Observaciones}" style="margin-right:10px;" /> 
-                                     
-                                          <h:panelGroup>
-                                              <p:inputTextarea rows="3" cols="50" counter="obser" maxlength="500"                      
-  
-                                                               autoResize="true" id="editar_observaciones"
-                                                               counterTemplate="{0} #{msg.LabelContador}" 
-                                                               value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.observaciones_seguridad}">
-  
-  
-                                              </p:inputTextarea> 
-  
-                                              <br />
-  
-                                              <h:outputText id="obser"/>    
-                                              <h:message for="editar_observaciones" showDetail="false" showSummary="true"/>                                  
-                                          </h:panelGroup>  
-
-
-
-
-                                        <h:outputText value="#{msg.labelAreaDeclarada}"  style="margin-right:20px; margin-bottom: 10px"/>
-                                        <h:panelGroup>
-                                            <p:inputText id="areadeclarada"  required="true" requiredMessage="#{msg.labelObli}" size="5"
-                                                         maxlength="5" validatorMessage="#{msg.labelValidar}" 
-                                                         value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.area_declarada}"
-                                                         >  
-                                                <f:validateLength minimum="0" maximum="5"/>
-
-                                            </p:inputText>
-
-                                            <p:slider for="areadeclarada" minValue="1" maxValue="20000" step="1"  styleClass="ui-slider"/>
-
-
-
-
-                                            <h:message for="areadeclarada" showDetail="false" showSummary="true"/>                                    
-                                        </h:panelGroup> 
-
-
-                                        <h:outputText value="#{msg.LabelNombreInspector}"  style="margin-right:20px;"/>
-
-
-                                        <h:panelGroup>
-
-
-                                            <p:selectOneMenu effect="fade" filter="true"  filterMatchMode="contains" required="true" id="id_inspector"   
-                                                             validatorMessage="#{msg.labelValidar}"  requiredMessage="#{msg.labelObli}" 
-                                                             value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.nombre_inspector}">
-
-                                                <f:selectItem itemLabel="#{msg.labelSeleccionar}"   class="tamaño_fuente" itemValue="O"/> 
-                                                <f:selectItems value="#{Certificado.cargarInpectores}"  />
-
-
-                                            </p:selectOneMenu>
-                                            <h:message for="id_inspector" showDetail="false" showSummary="true"/>     
-
-                                        </h:panelGroup>
-
-
-
-
-                                        <h:outputText value="#{msg.labelaforo}"   style="margin-right:20px;"/>
-                                        <h:panelGroup>
-                                            <p:inputText id="aforo"  required="true" requiredMessage="#{msg.labelObli}" size="4"
-                                                         maxlength="5" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.aforo}"
-                                                         >  
-                                                <f:validateLength minimum="0" maximum="5"/>
-                                            </p:inputText>
-                                            <h:message for="aforo" showDetail="false" showSummary="true"/>      
-
-                                            <p:slider for="aforo" minValue="1" maxValue="20000" step="1"  styleClass="ui-slider" />
-
-                                        </h:panelGroup>  
-
-
-                                    </h:panelGrid>
-
-
-
-
-
-
-                                    <h:panelGrid columns="4" cellpadding="1"   width="80%" >
-
-                                        <h:outputText value="#{msg.LabelAnotaciones}" style="margin-right:38px;"  />  
-                                        <h:panelGroup>
-
-                                            <p:inputTextarea rows="4" cols="50" counter="asun" maxlength="500"  
-
-                                                             required="true" requiredMessage="#{msg.labelObli}" autoResize="true" id="anotaciones_mod"
-                                                             counterTemplate="{0} #{msg.LabelContador}" value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.anotaciones}">
-                                            </p:inputTextarea> 
-                                            <br />
-
-                                            <h:outputText id="mod_anotaciones"/>    
-                                            <h:message for="anotaciones_mod" showDetail="false" showSummary="true"/>                                    
-                                        </h:panelGroup>
-
-
-                                        <h:outputText value="#{msg.LabelGiro}"  style="margin-right:260px;"/> 
-                                        <h:panelGroup>
-
-                                            <p:selectOneMenu effect="fade" filter="true"  filterMatchMode="contains" required="true" id="GiroDeclarado" 
-                                                             style="width:280px"  height="200"  autoWidth="false"   
-                                                             validatorMessage="#{msg.labelValidar}"  requiredMessage="#{msg.labelObli}" 
-                                                             value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.objgiros.codigo_giro}">
-                                                <f:selectItem itemLabel="#{msg.labelSeleccionar}" 
-                                                              itemValue="O"/> 
-                                                <f:selectItems value="#{Certificado.cargarComboGiros}" />
-                                            </p:selectOneMenu>
-                                            <h:message for="GiroDeclarado" showDetail="false" showSummary="true"/>     
-
-                                        </h:panelGroup>
-
-
-                                    </h:panelGrid>
-
-
-
-
-                                    <h:panelGrid columns="2" cellpadding="1"   width="80%" >   
-
-                                        <h:outputText value="#{msg.LabelTipoIpse}"   style="margin-right:10%"/>
-
-                                        <h:panelGroup >
-
-
-                                            <p:selectOneMenu effect="fade"  style="width:180px" autoWidth="false"
-                                                             filter="true"  filterMatchMode="contains"
-                                                             required="true" id="ipse"
-                                                             validatorMessage="#{msg.labelValidar}"
-                                                             requiredMessage="#{msg.labelObli}" value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.id_tipo_licencia}">
-
-                                                <f:selectItem itemLabel="#{msg.labelSeleccionar}" itemValue="O"/> 
-
-                                                <f:selectItem itemLabel="BASICA EX POST" itemValue="1" />
-                                                <f:selectItem itemLabel="BASICA EX ANTE" itemValue="2" />
-                                                <f:selectItem itemLabel="DE DETALLE" itemValue="3" />
-
-                                            </p:selectOneMenu>
-
-                                            <h:message for="ipse" showDetail="false" showSummary="true"/>     
-
-                                        </h:panelGroup>
-                                    </h:panelGrid> 
-                                    
-                                   
+                                <h:panelGrid columns="1" style=" width:  10%; margin-left:  80%" >
+                                    <h:outputText value="#{msg.labelExpediente}"   />
                                     <h:panelGroup>
-                                            
-                                            <p:selectCheckboxMenu id="observaciones_ipse"  
-                                                                  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.observacion_Ipse}" 
-                                                                  label="."
-                                                                  filter="true" filterMatchMode="startsWith" panelStyle="width:20%">
-                                                <f:selectItems value="#{Certificado.cargarObservacionesIpse}" />
+                                        <p:inputText id="Exp_1"  required="true" requiredMessage="#{msg.labelObli}"
+                                                     disabled="true"  style=" color:  #FF0000" 
+                                                     maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                     value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.nro_expediente}"  >  
+                                            <f:validateLength minimum="0" maximum="30"/>
+                                        </p:inputText>
+                                        <h:message for="Exp_1" showDetail="false" showSummary="true"/>                                    
+                                    </h:panelGroup>
+                                </h:panelGrid>
 
-                                            </p:selectCheckboxMenu>
-                                     </h:panelGroup>
+
+                                <center>
+                                    <!--  
+                                   <h:panelGrid columns="2" cellpadding="2"   width="80%"  >
+                                      <h:panelGrid columns="1">              
+                                          <h:outputText value="{msg.labelAreaFinal}"  style="margin-right:20px;"/>
+                                          <h:panelGroup>
+                                              <p:inputText id="Area"  required="true" requiredMessage="{msg.labelObli}"  
+                                                           size="100" disabled="true" style=" color:  #FF0000"
+                                                           maxlength="17" validatorMessage="{msg.labelValidar}"  
+                                             value="{Beans_DefensaCivil_Certificado.objCertificadoMod.area}"  >  
+                                                  <f:validateLength minimum="0" maximum="17"/>
+                                              </p:inputText>
+                                              <h:message for="Area" showDetail="false" showSummary="true"/>                                    
+                                          </h:panelGroup>
+                                      </h:panelGrid> 
+
+                                   </h:panelGrid> -->
+
+                                    <h:panelGrid columns="2" cellpadding="2"   width="80%"  >
+                                        <h:panelGrid columns="1">   
+                                            <h:outputText value="#{msg.LabelCodigoContribuyente}"  style="margin-right:0px;"/>
+                                            <h:panelGroup>
+                                                <p:inputText id="contr"  required="true" requiredMessage="#{msg.labelObli}" 
+                                                             size="20" disabled="true" style=" color:  #FF0000"
+                                                             maxlength="30" validatorMessage="#{msg.labelValidar}" 
+                                                             value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.objPersona.codigo_contribuyente}"                >  
+                                                    <f:validateLength minimum="0" maximum="30"/>
+                                                </p:inputText>
+                                                <h:message for="contr" showDetail="false" showSummary="true"/>                                    
+                                            </h:panelGroup>
+                                        </h:panelGrid>
+
+                                        <h:panelGrid columns="1">  
+                                            <h:outputText value="#{msg.LabelNombres}"  style="margin-right:40px;"/>
+                                            <h:panelGroup>
+                                                <p:inputText id="Exp"  required="true" requiredMessage="#{msg.labelObli}" 
+                                                             size="100" disabled="true" style=" color:  #FF0000"
+                                                             maxlength="30" validatorMessage="#{msg.labelValidar}"  
+                                                             value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.objPersona.nombres_apellidos}">  
+                                                    <f:validateLength minimum="0" maximum="250"/>
+                                                </p:inputText>
+                                                <h:message for="Exp" showDetail="false" showSummary="true"/>                                    
+                                            </h:panelGroup>
+                                        </h:panelGrid>
+
+                                    </h:panelGrid>
+
+
+                                    <h:panelGrid columns="2" cellpadding="2"   width="80%"  >
+                                        <h:panelGrid columns="1">                        
+                                            <h:outputText value="#{msg.LabelDireccion}"  style="margin-right:0px;"/>
+                                            <h:panelGroup>
+                                                <p:inputTextarea rows="3" cols="100" counter="direc" maxlength="500"   disabled="true" style=" color:  #FF0000"
+
+                                                                 required="true" requiredMessage="#{msg.labelObli}" 
+                                                                 autoResize="true" id="direcciones"
+                                                                 counterTemplate="{0} #{msg.LabelContador}" 
+                                                                 value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.direccion}">
+                                                </p:inputTextarea> 
+                                                <br />
+                                                <h:outputText id="direc"/>    
+                                                <h:message for="direccion" showDetail="false" showSummary="true"/>                                    
+                                            </h:panelGroup>
+                                        </h:panelGrid>
+
+
+                                        <h:panelGrid columns="1">                            
+                                            <h:outputText value="#{msg.labelRepresentanteLegal}"  style="margin-right:40px;"/>
+                                            <h:panelGroup>
+                                                <p:inputText id="Representante_Legal" 
+                                                             requiredMessage="#{msg.labelObli}" size="50"
+                                                             maxlength="30" 
+                                                             value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.representante_legal}"
+                                                             >  
+                                                    <f:validateLength minimum="0" maximum="30"/>
+                                                </p:inputText>
+                                                <h:message for="Representante_Legal" showDetail="false" showSummary="true"/>                                    
+                                            </h:panelGroup>
+                                        </h:panelGrid>
+
+                                    </h:panelGrid>
+
+
+                                    <h:panelGrid columns="2" cellpadding="2"   width="80%"  > 
+
+                                        <h:panelGrid columns="1">        
+                                            <h:outputText value="#{msg.LabelAsunto}"  style="margin-right:150px;"/>
+                                            <h:panelGroup>
+                                                <p:inputTextarea rows="3" cols="100" counter="asun" maxlength="500"  
+
+                                                                 required="true" requiredMessage="#{msg.labelObli}" autoResize="true" id="asunto"
+                                                                 counterTemplate="{0} #{msg.LabelContador}" value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.asunto}">
+                                                </p:inputTextarea> 
+                                                <br />
+                                                <h:outputText id="asun"/>    
+                                                <h:message for="asunto" showDetail="false" showSummary="true"/>                                    
+                                            </h:panelGroup>
+                                        </h:panelGrid>
+
+
+                                        <h:panelGrid columns="1"> 
+                                            <h:outputText value="#{msg.LabelAnotaciones}" style="margin-right:38px;"  />  
+                                            <h:panelGroup>
+                                                <p:inputTextarea rows="3" cols="50" counter="asun" maxlength="500"  
+
+                                                                 required="true" requiredMessage="#{msg.labelObli}" autoResize="true" id="anotaciones_mod"
+                                                                 counterTemplate="{0} #{msg.LabelContador}" value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.anotaciones}">
+                                                </p:inputTextarea> 
+                                                <br />
+                                                <h:outputText id="mod_anotaciones"/>    
+                                                <h:message for="anotaciones_mod" showDetail="false" showSummary="true"/>                                    
+                                            </h:panelGroup>
+                                        </h:panelGrid>
+
+
+                                    </h:panelGrid>
+
+
+                                    <h:panelGrid columns="4" cellpadding="2"   width="80%"  > 
+
+
+                                        <h:panelGrid columns="1">  
+                                            <h:outputText value="#{msg.labelRazonSocial}"  style="margin-right:0px;"/>
+                                            <h:panelGroup>
+                                                <p:inputText id="RazonSocial"  required="true" requiredMessage="#{msg.labelObli}" size="50" style=" align-content: center"
+                                                             maxlength="100" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.objPersona.nombres_apellidos}"
+                                                             >  
+                                                    <f:validateLength minimum="0" maximum="100"/>
+                                                </p:inputText>
+                                                <h:message for="RazonSocial" showDetail="false" showSummary="true"/>                                    
+                                            </h:panelGroup>
+                                        </h:panelGrid>
+
+
+                                        <h:panelGrid columns="1">   
+                                            <h:outputText value="#{msg.LabelGiro}"  style="margin-right:260px;"/> 
+                                            <h:panelGroup>
+
+                                                <p:selectOneMenu effect="fade" filter="true"  filterMatchMode="contains" required="true" id="GiroDeclarado" 
+                                                                 style="width:280px"  height="200"  autoWidth="false"   
+                                                                 validatorMessage="#{msg.labelValidar}"  requiredMessage="#{msg.labelObli}" 
+                                                                 value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.objgiros.codigo_giro}">
+                                                    <f:selectItem itemLabel="#{msg.labelSeleccionar}" 
+                                                                  itemValue="O"/> 
+                                                    <f:selectItems value="#{Certificado.cargarComboGiros}" />
+                                                </p:selectOneMenu>
+                                                <h:message for="GiroDeclarado" showDetail="false" showSummary="true"/>     
+
+                                            </h:panelGroup>
+
+                                        </h:panelGrid>
+
+
+
+                                        <h:panelGrid columns="1">  
+
+
+                                            <h:outputText value="#{msg.labelAreaDeclarada}"  style="margin-right:20px; margin-bottom: 10px"/>
+                                            <h:panelGroup>
+                                                <p:inputText id="areadeclarada"  required="true" requiredMessage="#{msg.labelObli}" size="5"
+                                                             maxlength="5" validatorMessage="#{msg.labelValidar}" 
+                                                             value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.area_declarada}"
+                                                             >  
+                                                    <f:validateLength minimum="0" maximum="5"/>
+                                                </p:inputText>
+                                                <p:slider for="areadeclarada" minValue="1" maxValue="20000" step="1"  styleClass="ui-slider"/>
+                                                <h:message for="areadeclarada" showDetail="false" showSummary="true"/>                                    
+                                            </h:panelGroup> 
+
+                                        </h:panelGrid>
+
+
+                                        <h:panelGrid columns="1"> 
+
+                                            <h:outputText value="#{msg.labelaforo}"   style="margin-right:20px;"/>
+                                            <h:panelGroup>
+                                                <p:inputText id="aforo"  required="true" requiredMessage="#{msg.labelObli}" size="4"
+                                                             maxlength="5" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.aforo}"
+                                                             >  
+                                                    <f:validateLength minimum="0" maximum="5"/>
+                                                </p:inputText>
+                                                <h:message for="aforo" showDetail="false" showSummary="true"/>      
+
+                                                <p:slider for="aforo" minValue="1" maxValue="20000" step="1"  styleClass="ui-slider" />
+                                            </h:panelGroup>  
+                                        </h:panelGrid>                      
+                                    </h:panelGrid>
+
+
+                                    <h:panelGrid columns="4" cellpadding="2"   width="80%"  > 
+
+
+                                        <h:panelGrid columns="1" cellpadding="1"  >   
+                                            <h:outputText value="#{msg.LabelTipoIpse}"   style="margin-right:10%"/>
+                                            <h:panelGroup >
+                                                <p:selectOneMenu effect="fade"  style="width:180px" autoWidth="false"
+                                                                 filter="true"  filterMatchMode="contains"
+                                                                 required="true" id="ipse"
+                                                                 validatorMessage="#{msg.labelValidar}"
+                                                                 requiredMessage="#{msg.labelObli}" value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.id_tipo_licencia}">
+
+                                                    <f:selectItem itemLabel="#{msg.labelSeleccionar}" itemValue="O"/> 
+                                                    <f:selectItem itemLabel="BASICA EX POST" itemValue="1" />
+                                                    <f:selectItem itemLabel="BASICA EX ANTE" itemValue="2" />
+                                                    <f:selectItem itemLabel="DE DETALLE" itemValue="3" />
+
+                                                </p:selectOneMenu>
+                                                <h:message for="ipse" showDetail="false" showSummary="true"/>     
+                                            </h:panelGroup>
+                                        </h:panelGrid> 
+
+
+                                        <h:panelGrid columns="1">  
+
+                                            <h:outputText value="#{msg.LabelNombreInspector}"  style="margin-right:20px;"/>
+                                            <h:panelGroup>
+                                                <p:selectOneMenu effect="fade" filter="true"  filterMatchMode="contains" required="true" id="id_inspector"   
+                                                                 validatorMessage="#{msg.labelValidar}"  requiredMessage="#{msg.labelObli}" 
+                                                                 value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.nombre_inspector}">
+
+                                                    <f:selectItem itemLabel="#{msg.labelSeleccionar}"   class="tamaño_fuente" itemValue="O"/> 
+                                                    <f:selectItems value="#{Certificado.cargarInpectores}"  />
+
+
+                                                </p:selectOneMenu>
+                                                <h:message for="id_inspector" showDetail="false" showSummary="true"/>     
+                                            </h:panelGroup>
+                                        </h:panelGrid>
+
+
+                                        <!--
+                                           <h:panelGrid columns="1">  
+                                               <h:outputText value="{msg.Observaciones}" style="margin-right:10px;" /> 
+                                               <h:panelGroup>
+                                                   <p:inputTextarea rows="3" cols="50" counter="obser" maxlength="500"                      
+   
+                                                                    autoResize="true" id="editar_observaciones"
+                                                                    counterTemplate="{0} {msg.LabelContador}" 
+                                                                    value="{Beans_DefensaCivil_Certificado.objCertificadoMod.observaciones_seguridad}">
+   
+   
+                                                   </p:inputTextarea> 
+                                                   <br />
+   
+                                                   <h:outputText id="obser"/>    
+                                                   <h:message for="editar_observaciones" showDetail="false" showSummary="true"/>                                  
+                                               </h:panelGroup>  
+                                           </h:panelGrid>  -->
+                                    </h:panelGrid>
+
+
+                                    <h:panelGroup>
+                                        <p:selectCheckboxMenu id="observaciones_ipse"  
+                                                              value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.observacion_Ipse}" 
+                                                              label="Observacion Ipse"
+                                                              filter="true" filterMatchMode="startsWith" panelStyle="width:20%">
+                                            <f:selectItems value="#{Certificado.cargarObservacionesIpse}" />
+
+                                        </p:selectCheckboxMenu>
+                                    </h:panelGroup>
 
 
 
@@ -942,8 +990,6 @@ and open the template in the editor.
                         </h:form>
 
                     </p:tab>
-
-
                     <p:tab id="tab_certificados" title="Generar Resoluciones Ipse" titletip="Certificado" titleStyleClass="tamaño_fuente_tab" 
                            disabled="#{Beans_DefensaCivil_Certificado.bandMod}">
 
@@ -1064,7 +1110,7 @@ and open the template in the editor.
 
 
 
-                                            <p:column filterBy="#{listarDocumento.nro_expediente}" filterMatchMode="contains">
+                                            <p:column filterBy="#{listarDocumento.nro_expediente}" filterMatchMode="contains" style="width:8%;text-align: center"  >
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.LabelNumeroExpediente}" />
                                                 </f:facet>
@@ -1116,8 +1162,8 @@ and open the template in the editor.
 
 
 
-                                            <p:column  >
-                                                <f:facet name="header">
+                                            <p:column  style="width:20%;text-align: justify " >
+                                                <f:facet name="header"  >
                                                     <h:outputText value="#{msg.LabelObservaciones}" />
                                                 </f:facet>
                                                 <h:outputText  value="#{listarDocumento.observaciones_seguridad}"/>
@@ -1238,9 +1284,6 @@ and open the template in the editor.
                                        closeOnEscape="true" footer="Imprimir">  
 
 
-
-
-
                                 <p:panel id="datimprimirCertificados" header="#{msg.LabelCertificado}" 
                                          toggleable="true" closable="true" toggleSpeed="300" closeSpeed="300" widgetVar="panel_02" style="margin-bottom:20px; text-align:  left">
 
@@ -1316,9 +1359,7 @@ and open the template in the editor.
                             </p:dialog>           
                         </h:form>     
                     </p:tab>
-
                     <!-- Resolver Expediente-->
-
                     <p:tab id="tab_Resolver_Certificado" title="Resolver Ipse" titletip="Resolver Expediente Ipse" titleStyleClass="tamaño_fuente_tab"  
                            disabled="#{Beans_DefensaCivil_Certificado.bandMod}">
 
@@ -1528,58 +1569,9 @@ and open the template in the editor.
                                 </br>
                             </h:form>
                         </center>
-                    </p:tab>
-
-
+                    </p:tab>                  
                     <p:tab id="tab_informacion_virtual" title="Archivos Virtuales" titletip="Informacion_virtual" 
                            titleStyleClass="tamaño_fuente_tab" disabled="#{Beans_DefensaCivil_Certificado.bandMod}">
-
-                        <h:form  enctype="multipart/form-data" id="form_registro_informacion_virtual" class="border_titulo1" style="text-align: left" styleClass="tamaño_fuente">
-
-
-                            <p:growl globalOnly="true"  id="growl_informacion_virtual" sticky="false"  showDetail="true"  />                                
-                            <p:panel id="panel_listado_expedientes_derivados" header="#{msg.LabelArchivosDigitales}" styleClass="border" style="text-align: center">
-
-                                <center>
-
-                                    <h:panelGrid columns="6"  cellspacing="10" cellpadding="10" > 
-
-
-                                        <h:outputText value="#{msg.labelExpediente}"  styleClass="tamaño_fuente" style="font-weight:bold"  rendered="false"/>
-                                        <h:panelGroup>
-                                            <p:inputText  id="expediente_id_legajo" size="10" disabled="true"  
-                                                          value="#{Beans_DefensaCivil_Certificado.objRegistrarArchivoVirtual.objUpload.expediente_id}"  rendered="false" >
-
-                                            </p:inputText>
-                                            <h:message for="expediente_id_legajo" showDetail="false" showSummary="true"/>                                    
-                                        </h:panelGroup>
-
-
-                                        <h:outputText value="#{msg.LabelNombreArchvo}"  styleClass="tamaño_fuente" />
-                                        <h:panelGroup>
-                                            <p:inputText  id="nombre_archivo"  value="#{Beans_DefensaCivil_Certificado.objRegistrarArchivoVirtual.objUpload.nombre_archivo}"  >
-
-                                            </p:inputText>
-                                            <h:message for="nombre_archivo" showDetail="false" showSummary="true"/>                                    
-                                        </h:panelGroup>
-
-                                        <p:fileUpload  value="#{Beans_DefensaCivil_Certificado.objRegistrarArchivoVirtual.objUpload.file}" mode="simple"  /> 
-                                    </h:panelGrid> 
-
-                                </center>
-
-
-                                <h:panelGrid columns="4"  >
-
-                                    <p:commandButton value="Subir" actionListener="#{Beans_DefensaCivil_Certificado.doRegArchivoVirtual()}" ajax="false"  />  
-
-                                </h:panelGrid>            
-
-                            </p:panel> 
-
-
-                        </h:form>
-
 
                         <h:form  id="form_buscar_informacion_virtual" class="border_titulo1"  styleClass="tamaño_fuente">    
                             <p:growl globalOnly="true"  id="growl_informacion_virtual" sticky="false"  showDetail="true"  />    
@@ -1587,17 +1579,13 @@ and open the template in the editor.
 
                                 <br>
                                 </br>
-
-
                                 <center>
-
                                     <h:panelGrid columns="2"  >
                                         <h:outputText value="#{msg.LabelCodigoRecurrente}"  styleClass="tamaño_fuente" />
                                         <h:panelGroup>
 
                                             <p:inputText  id="codigo_recurrente" value="#{Beans_DefensaCivil_Certificado.objBuscarArchivoVirtual.objPersona.codigo_contribuyente}"
-                                                          >
-
+                                                          >  
                                             </p:inputText>
                                             <h:message for="codigo_recurrente" showDetail="false" showSummary="true"/>                                    
                                         </h:panelGroup>
@@ -1605,35 +1593,23 @@ and open the template in the editor.
                                     </h:panelGrid>               
                                     <!--BLOC-->
                                 </center>
-
                                 <br>
                                 </br>
-
-
                                 <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3"  width="17%" >
-
-
                                     <p:commandButton icon="ui-icon-triangle-1-w"  id="cancelar_editar"
                                                      actionListener="#{Beans_DefensaCivil_Certificado.desactivaVistaConsultaArchivos}" 
                                                      immediate="true"  value="#{msg.labelCancelar}"  
                                                      async="true" update=":CertificadoTabView, :CertificadoTabView:form_buscar_informacion_virtual" />
-
                                     <p:commandButton id="saveBtnINI" icon="ui-icon-document" actionListener="#{Beans_DefensaCivil_Certificado.doiniciarBusquedaArchivoVirtual()}"  
                                                      value="#{msg.labelNuevo}"  async="true" update="panel_informacion_virtual" />
 
                                     <p:commandButton id="saveBtn" icon="ui-icon-folder-open" actionListener="#{Beans_DefensaCivil_Certificado.doBuscarArchivoVirtual()}"  
                                                      value="#{msg.btnConsultar}"  async="true" update="panel_informacion_virtual" />  
 
-
                                 </h:panelGrid>
-
-
-
                                 <p:blockUI block="panel_informacion_virtual" trigger="saveBtn">   Buscando... <br />
                                     <p:graphicImage value="resources/imagenes/cargando1.gif" />   
                                 </p:blockUI>
-
-
                                 <center>
                                     <h:panelGrid columns="2" >
                                         <h:outputText styleClass="etiqueta_resultBusq" value="#{msg.labelCantidad}"/>
@@ -1645,16 +1621,28 @@ and open the template in the editor.
 
                                         <p:dataTable id="table_informacion_virtual" value="#{Beans_DefensaCivil_Certificado.arrBusArchivoVirtual}" 
                                                      var="Lista_Informacion_virtual"  styleClass="order-table" paginator="true"
-
-                                                     rowKey="#{Lista_Informacion_virtual.nro_expediente}" 
+                                                     selectionMode="multiple" 
+                                                     rowKey="#{Lista_Informacion_virtual.objDownload.id_legajo}" 
+                                                     selection="#{Beans_DefensaCivil_Certificado.variable_descarga}" 
                                                      rows="5"  rowsPerPageTemplate="5,10,15,20,25,30,50" 
                                                      paginatorPosition="both" paginatorAlwaysVisible="true"
                                                      rowStyleClass="tamaño_fuente" >
 
-                                            <!--  selection="{Beans_DefensaCivil_Certificado.legajo}"  Revisar   -->  
 
+                                            <f:facet name="header">
+                                                <p:panelGrid columns="2">
+                                                    Archivos Vistuales Guardados
+                                                    <p:column style="width:150px;text-align: center">
+                                                        <!-- <p:commandButton value="Visualizar" actionListener="{beans_DefensaCivil_Download.ver_download()}" ajax="false"/> -->
+                                                        <p:commandButton process="table_informacion_virtual" 
+                                                                         value="Descargar" 
+                                                                         actionListener="#{Beans_DefensaCivil_Certificado.descarga_Archivo_Virtual}" 
+                                                                         ajax="false"/> 
+                                                    </p:column> 
 
-                                            <p:column selectionMode="single" style="width:16px;text-align:center"/>
+                                                </p:panelGrid>
+                                            </f:facet>
+
 
                                             <p:column style="width:90px;text-align: center">
                                                 <f:facet name="header">
@@ -1663,13 +1651,6 @@ and open the template in the editor.
                                                 <h:outputText  value="#{Lista_Informacion_virtual.nro_expediente}"/>
                                             </p:column> 
 
-                                            <p:column style="width:90px;text-align: center" rendered="false">
-                                                <f:facet name="header">
-                                                    <h:outputText value="#{msg.labelFecDoc}" />
-                                                </f:facet>
-                                                <h:outputText  value="#{Lista_Informacion_virtual.objDownload.id_legajo}"/>
-                                            </p:column>   
-
                                             <p:column style="width:150px;text-align: center">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg.LabelArchivosDigitales}" />
@@ -1677,14 +1658,13 @@ and open the template in the editor.
                                                 <h:outputText  value="#{Lista_Informacion_virtual.objDownload.nombre_archivo}" />
                                             </p:column>  
 
+                                            <p:column style="width:90px;text-align: center" rendered="false">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.labelFecDoc}" />
+                                                </f:facet>
+                                                <h:outputText  value="#{Lista_Informacion_virtual.objDownload.id_legajo}"/>
+                                            </p:column> 
 
-                                            <p:column style="width:150px;text-align: center">
-
-                                                <!-- <p:commandButton value="Visualizar" actionListener="{beans_DefensaCivil_Download.ver_download()}" ajax="false"/> -->
-                                                <p:commandButton value="Descargar" actionListener="#{Beans_DefensaCivil_Certificado.descarga_Archivo_Virtual}" ajax="false"/> 
-
-
-                                            </p:column>  
 
                                         </p:dataTable>    
                                     </h:panelGrid>  
@@ -1692,6 +1672,7 @@ and open the template in the editor.
                             </p:panel>  
                         </h:form>       
                     </p:tab>
+
 
 
 

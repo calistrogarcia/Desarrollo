@@ -26,8 +26,6 @@ public class Grafico implements Serializable {
     private String codigocontribuyente;
     private String nombre_apellidos;
     private int area_declarada;
-    private int cantidad_expedientes;
-    private String estado_resolucion;
     private String periodo;
     private String resultadoexpedientes;
     private int total;
@@ -35,7 +33,22 @@ public class Grafico implements Serializable {
     private int totalipse;
     
     
-
+    
+    private String estado_resolucion;
+    private int enero;
+    private int febrero;
+    private int marzo;
+    private int abril;
+    private int mayo;
+    private int junio;
+    private int julio;
+    private int agosto;
+    private int septiembre;
+    private int octubre;
+    private int noviembre;
+    private int diciembre;
+    
+ 
 
     public String getCodigocontribuyente() {
         return codigocontribuyente;
@@ -78,22 +91,7 @@ public class Grafico implements Serializable {
         this.area_declarada = area_declarada;
     }
 
-    public int getCantidad_expedientes() {
-        return cantidad_expedientes;
-    }
-
-    public void setCantidad_expedientes(int cantidad_expedientes) {
-        this.cantidad_expedientes = cantidad_expedientes;
-    }
-
    
-    public String getEstado_resolucion() {
-        return estado_resolucion;
-    }
-
-    public void setEstado_resolucion(String estado_resolucion) {
-        this.estado_resolucion = estado_resolucion;
-    }
 
     public String getPeriodo() {
         return periodo;
@@ -134,6 +132,114 @@ public class Grafico implements Serializable {
     public void setTotalipse(int totalipse) {
         this.totalipse = totalipse;
     }
+
+    public String getEstado_resolucion() {
+        return estado_resolucion;
+    }
+
+    public void setEstado_resolucion(String estado_resolucion) {
+        this.estado_resolucion = estado_resolucion;
+    }
+
+    public int getEnero() {
+        return enero;
+    }
+
+    public void setEnero(int enero) {
+        this.enero = enero;
+    }
+
+    public int getFebrero() {
+        return febrero;
+    }
+
+    public void setFebrero(int febrero) {
+        this.febrero = febrero;
+    }
+
+    public int getMarzo() {
+        return marzo;
+    }
+
+    public void setMarzo(int marzo) {
+        this.marzo = marzo;
+    }
+
+    public int getAbril() {
+        return abril;
+    }
+
+    public void setAbril(int abril) {
+        this.abril = abril;
+    }
+
+    public int getMayo() {
+        return mayo;
+    }
+
+    public void setMayo(int mayo) {
+        this.mayo = mayo;
+    }
+
+    public int getJunio() {
+        return junio;
+    }
+
+    public void setJunio(int junio) {
+        this.junio = junio;
+    }
+
+    public int getJulio() {
+        return julio;
+    }
+
+    public void setJulio(int julio) {
+        this.julio = julio;
+    }
+
+    public int getAgosto() {
+        return agosto;
+    }
+
+    public void setAgosto(int agosto) {
+        this.agosto = agosto;
+    }
+
+    public int getSeptiembre() {
+        return septiembre;
+    }
+
+    public void setSeptiembre(int septiembre) {
+        this.septiembre = septiembre;
+    }
+
+    public int getOctubre() {
+        return octubre;
+    }
+
+    public void setOctubre(int octubre) {
+        this.octubre = octubre;
+    }
+
+    public int getNoviembre() {
+        return noviembre;
+    }
+
+    public void setNoviembre(int noviembre) {
+        this.noviembre = noviembre;
+    }
+
+    public int getDiciembre() {
+        return diciembre;
+    }
+
+    public void setDiciembre(int diciembre) {
+        this.diciembre = diciembre;
+    }
+
+    
+    
+    
     
     
     
@@ -233,15 +339,25 @@ public class Grafico implements Serializable {
             
             while (rs.next()) {
                 
-                Grafico pro = new Grafico();
+                Grafico Reporte_Anual = new Grafico();
               
-         
-               
-                pro.setCantidad_expedientes(rs.getInt("cantidad_expedientes"));
-                pro.setEstado_resolucion(rs.getString("estado_resolucion"));
-                pro.setPeriodo(rs.getString("periodo"));
+
+                Reporte_Anual.setEstado_resolucion(rs.getString("estado_resolucion"));
+                Reporte_Anual.setEnero(rs.getInt("enero"));
+                Reporte_Anual.setFebrero(rs.getInt("febrero"));
+                Reporte_Anual.setMarzo(rs.getInt("marzo"));
+                Reporte_Anual.setAbril(rs.getInt("abril"));
+                Reporte_Anual.setMayo(rs.getInt("mayo"));
+                Reporte_Anual.setJunio(rs.getInt("junio"));
+                Reporte_Anual.setJulio(rs.getInt("julio"));
+                Reporte_Anual.setAgosto(rs.getInt("agosto"));
+                Reporte_Anual.setSeptiembre(rs.getInt("septiembre"));
+                Reporte_Anual.setOctubre(rs.getInt("octubre"));
+                Reporte_Anual.setNoviembre(rs.getInt("noviembre"));
+                Reporte_Anual.setDiciembre(rs.getInt("diciembre"));
+
      
-                informacion.add(pro);
+                informacion.add(Reporte_Anual);
        
             }
 

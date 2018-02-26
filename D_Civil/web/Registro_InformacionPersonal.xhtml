@@ -138,12 +138,15 @@
 
 
                                     <p:column  style="width:4%;text-align: center">
-                                        <p:commandButton  id="btnSeleccionar" update=":PersonaTabView:formUpdate"   oncomplete="PF('DialogoUsuario').show()" 
+                                        <p:commandButton  id="btnSeleccionar" update=":PersonaTabView:formUpdate"   
+                                                          oncomplete="PF('DialogoUsuario').show()" 
                                                           icon="ui-icon-pencil"  title="Editar">   <!-- update=":formUpdate" -->
 
-                                            <f:setPropertyActionListener value="#{lista_contribuyente}" target="#{BeansRegistro_Informacion_Personal.objContribuyenteMod}" />
+                                            <f:setPropertyActionListener value="#{lista_contribuyente}" 
+                                                                         target="#{BeansRegistro_Informacion_Personal.objContribuyenteMod}" />
 
                                         </p:commandButton>
+                                        
                                     </p:column>
                                 </p:dataTable> 
                             </h:form>      

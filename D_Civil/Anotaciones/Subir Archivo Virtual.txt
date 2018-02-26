@@ -1,0 +1,28 @@
+<h:form  enctype="multipart/form-data" id="form_registro_informacion_virtual" class="border_titulo1" style="text-align: left" styleClass="tamaño_fuente">
+                          
+                            <p:growl globalOnly="true"  id="growl_informacion_virtual" sticky="false"  showDetail="true"  />                                
+                            <p:panel id="panel_listado_expedientes_derivados" header="#{msg.LabelArchivosDigitales}" styleClass="border" style="text-align: center">
+                                <center>
+                                    <h:panelGrid columns="6"  cellspacing="10" cellpadding="10" > 
+                                        <h:outputText value="#{msg.labelExpediente}"  styleClass="tamaño_fuente" style="font-weight:bold"  rendered="false"/>
+                                        <h:panelGroup>
+                                            <p:inputText  id="expediente_id_legajo" size="10" disabled="true"  
+                                                          value="#{Beans_DefensaCivil_Certificado.objRegistrarArchivoVirtual.objUpload.expediente_id}"  rendered="false" >
+                                            </p:inputText>
+                                            <h:message for="expediente_id_legajo" showDetail="false" showSummary="true"/>                                    
+                                        </h:panelGroup>
+                                        <h:outputText value="#{msg.LabelNombreArchvo}"  styleClass="tamaño_fuente" />
+                                        <h:panelGroup>
+                                            <p:inputText  id="nombre_archivo"  value="#{Beans_DefensaCivil_Certificado.objRegistrarArchivoVirtual.objUpload.nombre_archivo}"  >
+                                            </p:inputText>
+                                            <h:message for="nombre_archivo" showDetail="false" showSummary="true"/>                                    
+                                        </h:panelGroup>
+                                        <p:fileUpload  value="#{Beans_DefensaCivil_Certificado.objRegistrarArchivoVirtual.objUpload.file}" mode="simple"  /> 
+                                    </h:panelGrid> 
+                                </center>
+                                <h:panelGrid columns="4"  >
+                                   <p:commandButton value="Subir" actionListener="#{Beans_DefensaCivil_Certificado.doRegArchivoVirtual()}" ajax="false"  />  
+                                </h:panelGrid>            
+                            </p:panel> 
+                        </h:form>
+                        

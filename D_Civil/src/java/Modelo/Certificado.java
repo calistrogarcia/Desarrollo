@@ -87,24 +87,39 @@ public class Certificado implements Serializable {
     Postal ObjPostal = new Postal();
     Persona ObjPersona = new Persona();
     Expediente ObjExpediente = new Expediente();
-
-  
-    
-    
+    StringBuffer cadena = new StringBuffer();
+     
+//    String [] x;
+//     
+//     public StringBuffer cadena (){
+//     
+//     System.out.println(x);
+//     
+//     for (int i = 0; i < x.length; i++) {
+//           cadena = cadena.append(this.x[i]); }
+//          System.out.println(cadena);  
+//          return cadena;
+//     }
+ 
     public String[] getObservacion_Ipse() {
-        return observacion_Ipse;
+           
+        
+           return observacion_Ipse; 
+           
     }
 
     public void setObservacion_Ipse(String[] observacion_Ipse) {
-
         this.observacion_Ipse = observacion_Ipse;
-        StringBuffer cadena = new StringBuffer();
-        for (int i = 0; i < observacion_Ipse.length; i++) {
-            cadena = cadena.append(observacion_Ipse[i]);
-        }
+        
+    }
+ 
+    public StringBuffer getCadena() {
+        
+        return cadena;
+    }
 
-        System.out.println(cadena);
-
+    public void setCadena(StringBuffer cadena) {
+        this.cadena = cadena;
     }
 
     public String getResultados_expediente_ipse() {
@@ -505,8 +520,8 @@ public class Certificado implements Serializable {
             if (rs.next()) {
                 do {
 
-                    // arrayObservaciones.add(new SelectItem(rs.getString("id_observancia"), rs.getString("observancia")));
-                    arrayObservaciones.add(new SelectItem(rs.getString("observancia")));
+                    arrayObservaciones.add(new SelectItem(rs.getString("id_observancia"), rs.getString("observancia")));
+                   
                 } while (rs.next());
 
             }
@@ -935,19 +950,9 @@ public class Certificado implements Serializable {
                 st.setString(8, null);
 
             }
-            /* 
-                     if(obj.getRegobservaciones_seguridad()!=null){
-                     
-                          if(obj.getRegobservaciones_seguridad()!=null){
-                                  st.setObject(9, obj.getRegobservaciones_seguridad());
-                                
-                         }else{
-                            st.setString(9, null);
-                         }
-                      }else{
-                        st.setString(9, null);
-             
-                     }   */
+           
+            
+            /*
 
             if (obj.getObservaciones_seguridad() != null) {
 
@@ -960,7 +965,23 @@ public class Certificado implements Serializable {
             } else {
                 st.setString(9, null);
 
+            }  */
+            
+            
+             if (obj.getCadena() != null) {
+
+                if (obj.getCadena().length() > 0) {
+
+                    st.setObject(9, obj.getCadena());
+                } else {
+                    st.setString(9, null);
+                }
+            } else {
+                st.setString(9, null);
+
             }
+
+
 
             if (obj.getArea_declarada() != null) {
 
@@ -1350,7 +1371,7 @@ public class Certificado implements Serializable {
         return true;
     }
 
-    public static ArrayList<Certificado> descargarArchivosDigitales(Certificado ObjDescargar) {
+    public static ArrayList<Certificado> BusquedaArchivosDigitales(Certificado ObjDescargar) {
 
         ArrayList<Certificado> arr = null;
         ResultSet rs = null;
@@ -1380,10 +1401,9 @@ public class Certificado implements Serializable {
                     obj = new Certificado();
 
                     obj.setNro_expediente(rs.getString("expediente"));
-
                     Download d = new Download();
-                    d.setId_legajo(rs.getString("id_legajo"));
                     d.setNombre_archivo(rs.getString("nombre_archivo"));
+                    d.setId_legajo(rs.getString("id_legajo"));
 
                     obj.setObjDownload(d);
 
@@ -1401,5 +1421,11 @@ public class Certificado implements Serializable {
         }
         return arr;
     }
+    
+   
+ 
+    
+    
+    
 
 }

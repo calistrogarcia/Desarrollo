@@ -2,12 +2,19 @@ Crear Pool Conexiones
 
 en el asadmin de glasfish
 --crear el pool 
-create-jdbc-connection-pool --datasourceclassname com.sqlserver.jdbc.jdbc4.optional.SqlserverSource PollConexion
+create-jdbc-connection-pool --datasourceclassname com.sqlserver.jdbc.jdbc4.optional.SqlserverSource Sql_Conexion_Ejb
+
+Luego agregar propiedades
+user : sa
+url  : jdbc:sqlserver://192.168.0.11:1433;databaseName=Control_Interno
+password :
 --crear el resource
-create-jdbc-connection --connectionpoolid PollConexion jdbc/sqlservercom
+create-jdbc-resource --connectionpoolid Sql_Conexion_Ejb jdbc/SqlServerEjb
 
 jdbc:sqlserver://192.168.0.11:1433;databaseName=integralsmp
 jdbc:sqlserver://192.168.0.11:1433;databaseName=integralsmp
 
+
+--com.sqlserver.jdbc.jdbc4.optional.SqlserverSource  --- incorrecto cambiar a la linea de abajo
 
 DataSource Classname com.microsoft.sqlserver.jdbc.SQLServerConnectionPoolDataSource

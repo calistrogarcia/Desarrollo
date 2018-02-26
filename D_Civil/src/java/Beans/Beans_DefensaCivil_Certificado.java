@@ -76,6 +76,7 @@ public class Beans_DefensaCivil_Certificado implements Serializable{
     private ArrayList<Certificado> arrReporteResoluciones = null;
     private ArrayList<Certificado> arrBusReporteResoluciones = null;
 
+    private String id_legajo;
     private String numero_expediente;
     private String tipo;               // Tipo 1 para Certificado
     private String acto;
@@ -482,11 +483,24 @@ public class Beans_DefensaCivil_Certificado implements Serializable{
 
     }
 
+   
+ 
     public void descarga_Archivo_Virtual() {
-
+       
+        StringBuffer variable_id_legajo = new StringBuffer();
+        
+       
+        
         Connection conexion = null;
         ResultSet rs;
-
+        
+        for (Certificado c:  variable_descarga)
+        {      
+            variable_id_legajo = variable_id_legajo.append(c.getObjDownload().getId_legajo());
+         
+        }
+          id_legajo= variable_id_legajo.toString();
+        
         try {
 
             byte[] bytes = null;
@@ -496,8 +510,7 @@ public class Beans_DefensaCivil_Certificado implements Serializable{
             conexion = Controlador_Sql.darConexionBD();
 
             PreparedStatement st = conexion.prepareCall("{call dbo.sp_java_archivo_virtual(?)}");
-            st.setInt(1, id_legajo);
-
+            st.setString(1, id_legajo);
             rs = st.executeQuery();
             while (rs.next()) {
                 bytes = rs.getBytes("archivo");
@@ -588,7 +601,7 @@ public class Beans_DefensaCivil_Certificado implements Serializable{
 
         //Lista Certificado
         this.arrBusArchivoVirtual = new ArrayList<Certificado>();
-        this.arrBusArchivoVirtual = Certificado.descargarArchivosDigitales(objBuscarArchivoVirtual);
+        this.arrBusArchivoVirtual = Certificado.BusquedaArchivosDigitales(objBuscarArchivoVirtual);
 
         return this.arrBusArchivoVirtual;
 
@@ -704,16 +717,6 @@ public class Beans_DefensaCivil_Certificado implements Serializable{
         this.objFinalizarExpedienteIpse = fi;
         this.bandMod = false;
         this.activeTabIndex = 3;  // Verifica la Posesion de la Pestaña para activarla. -- Ver Constantes       
-        return null;
-    }
-
-    // para anexar archivos virtuales ipse
-    public String RegistrarArchivoVirtual(Certificado re) {
-
-        this.doiniciarRegistroArchivoVirtual();
-        this.objRegistrarArchivoVirtual = re;
-        this.bandMod = false;
-        this.activeTabIndex = 5;  // Verifica la Posesion de la Pestaña para activarla. -- Ver Constantes       
         return null;
     }
 
@@ -1153,16 +1156,27 @@ public class Beans_DefensaCivil_Certificado implements Serializable{
 
     }
 
-    private int id_legajo = 1;
+    
+     
 
-    public int getId_legajo() {
-        return id_legajo;
+    private ArrayList<Certificado> variable_descarga=null;
+
+    public ArrayList<Certificado> getVariable_descarga() {
+        return variable_descarga;
     }
 
-    public void setId_legajo(int id_legajo) {
-        this.id_legajo = id_legajo;
+    public void setVariable_descarga(ArrayList<Certificado> variable_descarga) {
+        this.variable_descarga = variable_descarga;
     }
 
+   
+   
+    
+    
+ 
+    
+  
+   
     //---Seleccionar Informacion de Observacia----//
     private List<String> observacion;
 

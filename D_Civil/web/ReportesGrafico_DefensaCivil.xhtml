@@ -17,29 +17,19 @@ and open the template in the editor.
         <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
             <ui:define name="contenido"><!---Agregando Etiqueta de Titulo-->
          
-                <p:tabView id="CertificadoTabView" dynamic="true" orientation="top"  >             
+                <p:tabView id="CertificadoTabView" dynamic="true" orientation="top"  style="text-align: left" >             
                     <p:tab id="tab_graficos" title="Graficos Visuales" titletip="Graficos"  titleStyleClass="tamaño_fuente_tab" >
                                <!-- Formulario que permite la Busqueda  -->    
       
                      <h:panelGrid columns="4" cellpadding="2"  cellspacing="2"  width="80%">               
                          <h:form  id="formulario_graficos" class="border_titulo1" style="text-align : justify;"   styleClass="tamaño_fuente" rendered="true" > 
                               <p:growl globalOnly="true"  id="Listargraficos" sticky="false"  showDetail="true"  />    
-                              <p:panel id="informacion" header="#{msg.LabelCertificado}" styleClass="border" style="text-align: center" >
-                                      
-                                
-                                  
-                                  
+                              <p:panel id="informacion" header="#{msg.LabelCertificado}" styleClass="border" style="text-align: center" toggleable="true"  >
                                          <h:panelGrid columns="4"  cellpadding="3"  cellspacing="3"   styleClass="panelColumns" columnClasses="labelOT, valueOT"  >
-                                             <p:commandButton value="Graficar!" icon="ui-icon-document"  style=" color: aquamarine" actionListener="#{beans_DefensaCivil_GraficoExpedientes.listar()}" update="torta_01" />
-
-                                           
-                                     
-                                        
-                                         </h:panelGrid>
-                                           
+                                             <p:commandButton value="Graficar!" icon="ui-icon-document"  style=" color: blue" actionListener="#{beans_DefensaCivil_GraficoExpedientes.listar()}" update="torta_01" />
+                                         </h:panelGrid> 
                                          <h:panelGroup id="torta_01" layout="block" >
-                                             <p:chart type="pie" model="#{beans_DefensaCivil_GraficoExpedientes.pieModel}" style="width:400px;height:300px" rendered="#{beans_DefensaCivil_GraficoExpedientes.pieModel != null}"/>
-          
+                                             <p:chart type="pie" model="#{beans_DefensaCivil_GraficoExpedientes.pieModel}" style="width:250px;height:200px" rendered="#{beans_DefensaCivil_GraficoExpedientes.pieModel != null}"/>
                                          </h:panelGroup>
                               </p:panel>
                              </h:form>
@@ -50,19 +40,14 @@ and open the template in the editor.
                                   
                               <h:form  id="formulario_graficosipse" class="border_titulo2" style="text-align : justify;"   styleClass="tamaño_fuente"  rendered="true"> 
                                <p:growl globalOnly="true"  id="Listargraficosipse" sticky="false"  showDetail="true"  />    
-                                  <p:panel id="informacion" header="#{msg.LabelExpedientesIpse}" styleClass="border" style="text-align: center">
+                                  <p:panel id="informacion" header="#{msg.LabelExpedientesIpse}" styleClass="border" style="text-align: center" toggleable="true" >
                                       
-                                         <h:panelGrid columns="4"  cellpadding="3"  cellspacing="6"   styleClass="panelColumns" columnClasses="labelOT1, valueOT1"  >
-                                         
-                                             
-                                             <p:commandButton value="Listar!" icon="ui-icon-document" style=" color: aquamarine" actionListener="#{beans_DefensaCivil_GraficoExpedientes.listaripse()}" update="torta_02" />
-
-                                             
+                                         <h:panelGrid columns="4"  cellpadding="3"  cellspacing="6"   styleClass="panelColumns" columnClasses="labelOT1, valueOT1"  >  
+                                             <p:commandButton value="Listar!" icon="ui-icon-document" style=" color: blue" actionListener="#{beans_DefensaCivil_GraficoExpedientes.listaripse()}" update="torta_02" />
                                          </h:panelGrid>
                                       
                                          <h:panelGroup id="torta_02" layout="block" >
-                                             <p:chart type="pie" model="#{beans_DefensaCivil_GraficoExpedientes.pieModel}" style="width:400px;height:300px" rendered="#{beans_DefensaCivil_GraficoExpedientes.pieModel != null}"/>
-
+                                             <p:chart type="pie" model="#{beans_DefensaCivil_GraficoExpedientes.pieModel}" style="width:250px;height:200px" rendered="#{beans_DefensaCivil_GraficoExpedientes.pieModel != null}"/>
                                         </h:panelGroup>
                                   </p:panel>
                               </h:form>
@@ -71,18 +56,13 @@ and open the template in the editor.
                                   
                               <h:form  id="formulario_graficosipse1" class="border_titulo2" style="text-align : justify;"   styleClass="tamaño_fuente"  rendered="true"> 
                                <p:growl globalOnly="true"  id="Listargraficosipse1" sticky="false"  showDetail="true"  />    
-                                  <p:panel id="informacion1" header="#{msg.LabelExpedientesIpse}" styleClass="border" style="text-align:  center">
-                                      
+                                  <p:panel id="informacion1" header="#{msg.LabelExpedientesIpse}" styleClass="border" style="text-align:  center" toggleable="true" >
                                          <h:panelGrid columns="4"  cellpadding="3"  cellspacing="6"   styleClass="panelColumns" columnClasses="labelOT1, valueOT1"  >
-                                         
-                                             <p:commandButton value="Listar!" icon="ui-icon-document" style=" color: aquamarine" actionListener="#{beans_DefensaCivil_GraficoExpedientes.listaripse()}" update="torta_03" />
-                                            
-                                             
+                                             <p:commandButton value="Listar!" icon="ui-icon-document" style=" color: blue" actionListener="#{beans_DefensaCivil_GraficoExpedientes.listaripse()}" update="torta_03" /> 
                                          </h:panelGrid>
                                       
                                          <h:panelGroup id="torta_03" layout="block" >
-                                             <p:chart type="pie" model="#{beans_DefensaCivil_GraficoExpedientes.pieModel}" style="width:400px;height:300px" rendered="#{beans_DefensaCivil_GraficoExpedientes.pieModel != null}"/>
-          
+                                             <p:chart type="pie" model="#{beans_DefensaCivil_GraficoExpedientes.pieModel}" style="width:250px;height:200px" rendered="#{beans_DefensaCivil_GraficoExpedientes.pieModel != null}"/> 
                                         </h:panelGroup>
                                   </p:panel>
                                </h:form>
@@ -95,26 +75,17 @@ and open the template in the editor.
                               
             
                             <h:form  id="Busquedapersonalizada" class="border_titulo2" style="text-align : justify;"  styleClass="tamaño_fuente"  rendered="true">    
-
                              <p:growl globalOnly="true"  id="buscar" sticky="false"  showDetail="true"  />    
-                               <p:panel id="infor" header="#{msg.LabelCertificado}" styleClass="border" style="text-align: center">
-                               
-                                     <h:panelGroup>
-                                         
-                                          <h:panelGrid columns="4"  cellpadding="3"  cellspacing="6"   styleClass="panelColumns" columnClasses="labelOT1, valueOT2"  >
-                                         
-                                              <p:commandButton value="Barras!" icon="ui-icon-document" style=" color: aquamarine"  actionListener="#{beans_DefensaCivil_GraficoExpedientes.personalizado()}" update="panel_01" />
-                                             
+                               <p:panel id="infor" header="#{msg.LabelReporteAnual}" styleClass="border" style="text-align: center" toggleable="true" >
+                                     <h:panelGroup>                                        
+                                          <h:panelGrid columns="4"  cellpadding="3"  cellspacing="6"   styleClass="panelColumns" columnClasses="labelOT1, valueOT2"  >                                         
+                                              <p:commandButton value="Barras!" icon="ui-icon-document" style=" color: blue"  actionListener="#{beans_DefensaCivil_GraficoExpedientes.personalizado()}" update="panel_01" />             
                                          </h:panelGrid>
-                                      
                                          <h:panelGroup id="panel_01" layout="block" >
-                                             <p:chart type="bar" model="#{beans_DefensaCivil_GraficoExpedientes.barModel}" style="width:1500px;height:500px" rendered="#{beans_DefensaCivil_GraficoExpedientes.barModel != null}"/>
-          
-                                        </h:panelGroup>
-                                         
+                                             <p:chart type="bar" model="#{beans_DefensaCivil_GraficoExpedientes.barModel}" style="width:1500px;height:500px"
+                                                      rendered="#{beans_DefensaCivil_GraficoExpedientes.barModel != null}"/>
+                                        </h:panelGroup> 
                                      </h:panelGroup>
-                                        
-                               
                                </p:panel>  
  
                             </h:form> 
@@ -122,21 +93,20 @@ and open the template in the editor.
                                <br>
                                </br>
                                
-                         <h:form  id="BusquedaIpse" class="border_titulo0" style="text-align : justify;"   styleClass="tamaño_fuente"  rendered="true">    
+                       
+                    <!--        
+                        <h:form  id="BusquedaIpse" class="border_titulo0" style="text-align : justify;"   styleClass="tamaño_fuente"  rendered="true">    
 
                              <p:growl globalOnly="true"  id="buscar_ipse" sticky="false"  showDetail="true"  />    
-                               <p:panel id="infor" header="#{msg.LabelEstadoExpedientesIpse}" styleClass="border"  style="max-width: 40%; min-height: 60%">
-                               
+                               <p:panel id="infor" header="{msg.LabelEstadoExpedientesIpse}" styleClass="border"  style="max-width: 40%; min-height: 60%">  
                                      <h:panelGrid columns="4" cellpadding="1" cellspacing="15"> 
-
-
                             <h:panelGrid columns="2">
 
                                  <h:panelGroup>
                                      <h:outputText value="Desde"/>
                                      <p:inputText  id="fecha_desde" size="9"
-                                                             required="true" requiredMessage="#{msg.labelObli}"
-                                                             maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{beanExpediente_Reporte.fecha_desde}"
+                                                   required="true" requiredMessage="{msg.labelObligatorio}"
+                                                             maxlength="30" validatorMessage="{msg.labelValidar}"  value="{beanExpediente_Reporte.fecha_desde}"
                                                              >  
                                     <f:validateLength minimum="0" maximum="30"/>
                                     </p:inputText>
@@ -146,12 +116,11 @@ and open the template in the editor.
 
 
                              <h:panelGrid columns="2">
-
                                  <h:panelGroup>
                                      <h:outputText value="Hasta"/>
                                      <p:inputText  id="fecha_hasta" size="9"
-                                                             required="true" requiredMessage="#{msg.labelObli}"
-                                                             maxlength="30" validatorMessage="#{msg.labelValidar}"  value="#{beanExpediente_Reporte.fecha_hasta}"
+                                                             required="true" requiredMessage="{msg.labelObli}"
+                                                             maxlength="30" validatorMessage="{msg.labelValidar}"  value="{beanExpediente_Reporte.fecha_hasta}"
                                                              >  
                                     <f:validateLength minimum="0" maximum="30"/>
                                     </p:inputText>
@@ -160,13 +129,13 @@ and open the template in the editor.
                             </h:panelGrid>  
 
                             <img src="resources/imagenes/printer.png"/>
-                                            <h:commandLink id="reporte"  value="Imprimir" actionListener="#{BeanExpediente_Reporte.imprimir()}" title="Reporte"/>  
+                                            <h:commandLink id="reporte"  value="Imprimir" actionListener="{BeanExpediente_Reporte.imprimir()}" title="Reporte"/>  
                                      
                              </h:panelGrid> 
   
                                </p:panel>  
  
-                       </h:form> 
+                       </h:form>  -->
                                  
                         </p:tab> 
                   </p:tabView>
