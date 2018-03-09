@@ -19,32 +19,19 @@ and open the template in the editor.
 
                 <p:tabView id="tab_view_expedientes" dynamic="true" orientation="top" activeIndex="#{Bean_Tramite_Expediente.activeTabIndex}"
                            styleClass="tamaño_fuente_tab" style="text-align: left" >              
-
-
                     <p:tab id="tab_registrar_expedientes" title="#{msg.LabelRegistroExpedientes}" titletip="Registrar Expedientes"  titleStyleClass="tamaño_fuente_tab" >                    
                         <h:form  id="form_registrar_expedientes" class="border_titulo1"  style="text-align : left;" styleClass="tamaño_fuente">    
                             <p:growl globalOnly="true"  id="growl_registrar_expedientes" sticky="false"  showDetail="true"  />    
                             <p:panel id="panel_registar_expedientes" header="#{msg.LabelSeccionTramiteDocumentario}" styleClass="border" >
-
-
                                <center> 
-                                <h:panelGrid  id="cabecera"  columns="2">
-                                    
+                                <h:panelGrid  id="cabecera"  columns="2">        
                                         <img  src="resources/imagenes/expediente.png" style="text-align: center" height="30px"/>
                                         <h:outputLabel value="#{msg.LabelRegistarExpediente}"  style=" margin-left: 0%;color: blue" />                               
                                 </h:panelGrid>
-
-                               </center>  
-    
+                               </center>      
                                 <center>
-
-
                                     <p:dataTable id="id_regustro_numero_expediente" value="#{Beans_Tramite_Registro_Expedientes.arrBusquedaRegistroExpediente}"   
-                                                 var="variable_numero_expediente"  style=" width:  10%; margin-left:  80%" 
-
-                                                 >
-
-
+                                                 var="variable_numero_expediente"  style=" width:  10%; margin-left:  80%" >
                                         <p:column style="width:9%;text-align: center">
                                             <f:facet name="header">
                                                 <h:outputText value="#{msg.LabelNumeroExpediente}" />
@@ -53,12 +40,7 @@ and open the template in the editor.
                                         </p:column>  
 
                                     </p:dataTable>
-
-
                                 </center>  
-
-
-
                                 <center> 
                                     <h:panelGrid columns="10" cellspacing="1" cellpadding="1"  width="80%"   > 
                                         <h:panelGrid columns="1"  >                                                
@@ -77,15 +59,9 @@ and open the template in the editor.
                                                                   itemValue="O"/>                                               
                                                     <f:selectItems value="#{Persona.buscarNombresContribuyente}" />
                                                 </p:selectOneMenu>
-
                                                 <h:message for="registar_codigo_contribuyentes" showDetail="false" showSummary="true"/>
-
                                             </h:panelGroup>
-
-
                                         </h:panelGrid>
-
-
 
                                         <h:panelGrid columns="1">
                                             <h:outputText value="#{msg.LabelTipoDocumento}"/>

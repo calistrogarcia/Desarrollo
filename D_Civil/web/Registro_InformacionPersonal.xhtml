@@ -783,18 +783,11 @@
                                         </f:facet>
                                     </p:panelGrid>
                                 </p:dialog> 
-
-
                             </h:form> 
-
                             <br>
-
                             </br>  
-
                             <h:form id="registrar_contribuyente" class="border_titulo2"  styleClass="tamaño_fuente">
                                 <p:growl globalOnly="true"  id="growl_registro_contribuyente" sticky="false"  showDetail="true"  />  
-
-
                                 <p:commandButton value="Registro" onclick="PF('dlg').show();" type="button" icon="ui-icon-extlink"  style=" text-align:  left"/>
 
                                 <p:dialog  widgetVar="dlg" closable="true" minimizable="true"  draggable="true" resizable="true" responsive="true" 
@@ -815,18 +808,10 @@
                                                 <p:column colspan="1" width="30%">Datos Personales</p:column>
                                                 <p:column colspan="1">Direccion Fiscal</p:column>
                                             </p:row>
-
-
-
                                         </f:facet>
-
                                         <p:row>
-
                                             <p:column rowspan="6" style="font-weight: bold;"  styleClass="tamaño_fuente" >
-
                                                 <h:panelGrid columns="5" cellspacing="2" cellpadding="2"  width="98%"   >   
-
-
                                                     <h:panelGrid columns="1">
 
                                                         <h:outputText value="#{msg.LabelTipoPersona}" style="width: 100% "/>
@@ -1274,16 +1259,15 @@
                                                 <h:panelGrid columns="6" cellspacing="1" cellpadding="1"  width="98%"   >
 
                                                     <ui:repeat value="#{BeansRegistro_Informacion_Personal.listaDirecciones}" var="lista" >
-                                                          
-                                                       
-                                                        
+                        
                                                         <h:panelGrid columns="1"  >
                                                             <h:outputLabel value="#{msg.LabelTipoVia}"  style="width: 50%  "  />
                                                             <h:panelGroup> 
                                                                 <p:inputText id="registrar_tipo_via" required="true" requiredMessage="#{msg.labelObli}" 
                                                                              size="7" maxlength="30" validatorMessage="#{msg.labelValidar}"  
-                                                                             value="#{lista.codigo_via}" style="width: 100%;display:block" >   
-                                                                    <!-- value="{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.codigo_via}" -->
+                                                                             value="#{lista.codigo_via}"
+                                                                             style="width: 100%;display:block" >   
+                                                                    <!-- value="{BeansRegistro_Informacion_Personal.objContribuyenteReg.objDireccion.codigo_via}"   value="{lista.codigo_via}"   -->
 
                                                                     <f:validateLength minimum="0" maximum="7"/>
                                                                 </p:inputText>
@@ -1537,8 +1521,7 @@
                                                         </p:panelGrid>
                                                     </f:facet>   
 
-                                                    <!--          
-                                                              <f:facet name="header">
+                                                         <!--  <f:facet name="header">
                                                                   <p:panelGrid columns="2">
                                                                       Listado Direcciones
                                                                       <p:commandButton  value="Mostrar" icon="ui-icon-search"  >
@@ -1548,9 +1531,7 @@
                                                                                        oncomplete="PF('Dialogo_Direcciones').show()" />  
                                                                       </p:commandButton>     
                                                                   </p:panelGrid>
-                                                              </f:facet>  
-                                                              
-                                                    -->         
+                                                              </f:facet>   -->     
 
                                                     <p:column  style="width:60px;text-align: center">
                                                         <f:facet name="header">
@@ -1599,16 +1580,17 @@
 
                         </p:panel>
 
-                        <p:dialog id="id_dialogo_direcciones" header="#{msg.LabelDireccion}" widgetVar="Dialogo_Direcciones" modal="false" showEffect="fade" 
+                       <!--
+                        <p:dialog id="id_dialogo_direcciones" header="{msg.LabelDireccion}" widgetVar="Dialogo_Direcciones" modal="false" showEffect="fade" 
                                   hideEffect="fade" resizable="false" width="220">  
                             <h:form id="form_direccion_seleccionado" >
 
                                 <p:outputPanel id="multiCarDetail" style="text-align:center;">
-                                    <ui:repeat value="#{BeansRegistro_Informacion_Personal.listaDirecciones}" var="lista">
+                                    <ui:repeat value="{BeansRegistro_Informacion_Personal.listaDirecciones}" var="lista">
                                         <p:panelGrid columns="2"  >
 
-                                            <h:outputText value="#{msg.LabelNombreVia}"/>
-                                            <h:outputText value="#{lista.codigo_via}"  style="display:block"/>
+                                            <h:outputText value="{msg.LabelNombreVia}"/>
+                                            <h:outputText value="{lista.codigo_via}"  style="display:block"/>
 
                                         </p:panelGrid>
                                     </ui:repeat>
@@ -1616,6 +1598,8 @@
                             </h:form>
                         </p:dialog> 
 
+                       -->
+                       
                     </p:tab>     
                 </p:tabView>
             </ui:define>

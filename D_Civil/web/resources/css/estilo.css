@@ -139,3 +139,27 @@ and open the template in the editor.
     text-align: left;
     width: 53px;
 }
+
+.ui-selectcheckboxmenu-panel {
+    padding: .2em;
+    position: absolute;
+    overflow: hidden;
+    font-family: 'Arial', 'Times New Roman';
+    font-size: 15px;
+    
+}
+
+
+
+/*  configuraciones de estilo de primefaces*/
+/*.ui-widget-content {
+    border: 1px solid #dddddd;
+    background: aliceblue;
+    color: black;
+}
+
+
+.ui-widget {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 1.1em;
+}  */

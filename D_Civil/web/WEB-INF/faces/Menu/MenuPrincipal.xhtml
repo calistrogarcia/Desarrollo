@@ -123,12 +123,13 @@
 
 
 
-                    <p:submenu   label="#{beanUsuario_Logeo.clase_usuario.nombre_usuario}"  icon="fa-user"> 
+                    <p:submenu   label="#{beanUsuario_Logeo.clase_usuario.nombre_usuario}"  icon="fa-user" > 
                         <p:menuitem value="#{msg.LabelCerrar}" actionListener="#{beanUsuario_Logeo.salirSistema()}"/>                                   
                     </p:submenu>
 
                 </p:panelMenu>
-
+ 
+                 <!--label="{beanUsuario_Logeo.clase_usuario.nombre_usuario}" -->
             </h:form> 
 
         </ui:composition>

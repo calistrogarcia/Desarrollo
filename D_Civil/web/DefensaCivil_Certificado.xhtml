@@ -12,8 +12,6 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>   
         <h:outputScript library="js" name="scrits.js"></h:outputScript>
-
-
     </h:head>
     <h:body>
         <ui:composition template="/WEB-INF/faces/templates/TemplatePagina.xhtml">
@@ -293,8 +291,14 @@ and open the template in the editor.
                                                 <h:outputText  value="#{listCertificado.area_verificada}"/>
 
                                             </p:column>
+                                            
+                                             <p:column rendered="false" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg.LabelAreaVerificada}" />
+                                                </f:facet>
+                                                 <h:outputText  value="#{listCertificado.estado_editar}"/>
 
-
+                                            </p:column>
 
                                             <p:column exportable="false" >
 
@@ -408,8 +412,7 @@ and open the template in the editor.
 
                         <h:form  id="form_mod_Certificado" class="border_titulo1" style="text-align: left" styleClass="tamaño_fuente">
                             <p:growl globalOnly="true"  id="estModCertificado" sticky="false"  showDetail="true"  />                                
-                            <p:panel id="datGenCertificado" header="#{msg.labelDatosCertificado}" styleClass="tamaño_fuente"
-                                     style=" border: solid activeborder"   >  <!--border-->
+                            <p:panel id="datGenCertificado" header="#{msg.labelDatosCertificado}" styleClass="tamaño_fuente" >  <!--border    style=" border: solid activeborder" -->
 
 
                                 <h:panelGrid columns="1" style=" width:  10%; margin-left:  80%" >
@@ -539,18 +542,14 @@ and open the template in the editor.
                                                 <h:message for="anotaciones_mod" showDetail="false" showSummary="true"/>                                    
                                             </h:panelGroup>
                                         </h:panelGrid>
-
-
                                     </h:panelGrid>
-
-
+                                    
                                     <h:panelGrid columns="4" cellpadding="2"   width="80%"  > 
-
-
                                         <h:panelGrid columns="1">  
                                             <h:outputText value="#{msg.labelRazonSocial}"  style="margin-right:0px;"/>
                                             <h:panelGroup>
-                                                <p:inputText id="RazonSocial"  required="true" requiredMessage="#{msg.labelObli}" size="50" style=" align-content: center"
+                                                <p:inputText id="RazonSocial"  required="true" requiredMessage="#{msg.labelObli}" 
+                                                             size="44" style=" align-content: center"
                                                              maxlength="100" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.objPersona.nombres_apellidos}"
                                                              >  
                                                     <f:validateLength minimum="0" maximum="100"/>
@@ -573,16 +572,10 @@ and open the template in the editor.
                                                     <f:selectItems value="#{Certificado.cargarComboGiros}" />
                                                 </p:selectOneMenu>
                                                 <h:message for="GiroDeclarado" showDetail="false" showSummary="true"/>     
-
                                             </h:panelGroup>
-
                                         </h:panelGrid>
 
-
-
                                         <h:panelGrid columns="1">  
-
-
                                             <h:outputText value="#{msg.labelAreaDeclarada}"  style="margin-right:20px; margin-bottom: 10px"/>
                                             <h:panelGroup>
                                                 <p:inputText id="areadeclarada"  required="true" requiredMessage="#{msg.labelObli}" size="5"
@@ -602,7 +595,7 @@ and open the template in the editor.
 
                                             <h:outputText value="#{msg.labelaforo}"   style="margin-right:20px;"/>
                                             <h:panelGroup>
-                                                <p:inputText id="aforo"  required="true" requiredMessage="#{msg.labelObli}" size="4"
+                                                <p:inputText id="aforo"  required="true" requiredMessage="#{msg.labelObli}" size="5"
                                                              maxlength="5" validatorMessage="#{msg.labelValidar}"  value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.aforo}"
                                                              >  
                                                     <f:validateLength minimum="0" maximum="5"/>
@@ -674,10 +667,9 @@ and open the template in the editor.
                                                    <h:message for="editar_observaciones" showDetail="false" showSummary="true"/>                                  
                                                </h:panelGroup>  
                                            </h:panelGrid>  -->
-                                    </h:panelGrid>
-
-
-                                    <h:panelGroup>
+                                    
+                                    
+                                     <h:panelGroup>
                                         <p:selectCheckboxMenu id="observaciones_ipse"  
                                                               value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.observacion_Ipse}" 
                                                               label="Observacion Ipse"
@@ -686,9 +678,9 @@ and open the template in the editor.
 
                                         </p:selectCheckboxMenu>
                                     </h:panelGroup>
-
-
-
+                                    </h:panelGrid>
+                                    
+                                    
 
                                     <center>
                                         <img  src="resources/imagenes/verificado.png" style="text-align: center" height="20px"/>
@@ -929,10 +921,6 @@ and open the template in the editor.
                                         </h:panelGroup>
 
 
-
-
-
-
                                         <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                                             <h:outputText value="CUMPLE ITPSE:" />
                                             <p:selectBooleanButton id="estado_fiscalizacion"
@@ -955,9 +943,6 @@ and open the template in the editor.
                                                 <f:selectItem itemLabel="EN PREOCESO" itemValue="2" />
                                             </p:selectOneRadio>
                                         </h:panelGrid>   
-
-
-
                                     </h:panelGrid>
 
 
@@ -967,7 +952,7 @@ and open the template in the editor.
                                                          actionListener="#{Beans_DefensaCivil_Certificado.desactivaTabModificarIpse()}"  immediate="true"  value="#{msg.labelCancelar}"  
                                                          async="true" update=":CertificadoTabView, :CertificadoTabView:form_mod_Certificado" />
 
-                                        <p:commandButton   id="btneditar" disabled="#{Beans_DefensaCivil_Certificado.objCertificadoMod.objboton.estado_boton}" 
+                                        <p:commandButton   id="btneditar" disabled="#{Beans_DefensaCivil_Certificado.objCertificadoMod.estado_editar}" 
                                                            actionListener="#{Beans_DefensaCivil_Certificado.doModCertificado()}" icon="ui-icon-arrowrefresh-1-s" async="true"  
                                                            value="#{msg.btnActualizar}"  update=":CertificadoTabView, :CertificadoTabView:form_mod_Certificado,  estModCertificado"  />  <!-- update=":CertificadoTabView, :CertificadoTabView:Form_expediente_defensa_civil,  estModCertificado"  -->
 

@@ -15,11 +15,7 @@ import javax.faces.model.SelectItem;
 
 public class Usuario implements Serializable {
 
-    
-    
- 
-    private String nombre_usuario= "CRGARCIA";
-    
+    private String nombre_usuario;
     private int id_tipo_usuario;
     private String descripcion;
 

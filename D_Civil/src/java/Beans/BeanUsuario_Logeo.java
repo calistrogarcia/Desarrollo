@@ -24,7 +24,6 @@ import utils.Constantes;
 import utils.Mensaje;
 
 /**
- *
  * @author Administrador
  */
 
@@ -40,15 +39,11 @@ public class BeanUsuario_Logeo implements Serializable {
 
 //   
    private Usuario clase_usuario = new Usuario();
-   
    private boolean usuarioLogeado;
-   private boolean flagPassIguales;  
-   
+   private boolean flagPassIguales;   
    private String  nombre_usuario;
    private String clave_usuario;
 
-   
-   
    
    public String getClave_usuario() {
         return clave_usuario;
@@ -91,7 +86,7 @@ public class BeanUsuario_Logeo implements Serializable {
         this.nombre_usuario = nombre_usuario;
     }
 
- 
+    
     
     public String loginUsuario() throws Exception{
       
@@ -101,19 +96,16 @@ public class BeanUsuario_Logeo implements Serializable {
         FacesContext contex = FacesContext.getCurrentInstance();                                        
          
         
-        if(clase_usuario!=null){
-                
+        if(clase_usuario!=null){   
                 clase_usuario=this.validar(this.nombre_usuario, encriptaCadenas.getStringMessageDigest(this.clave_usuario,encriptaCadenas.MD5));                
-               
-                
-                
-                if(clase_usuario != null){          //  
-  
+             
+                if(clase_usuario != null){    //  
                     Mensaje.addMensajeInfo("Usuario logeado correctamente"); usuarioLogeado = true; 
-                    
                     contex.getExternalContext().getSessionMap().put("usuario",clase_usuario);                       
                     contex.getExternalContext().getSessionMap().put("isSesionAlive", usuarioLogeado);                                                                                         
-                    outcome=Constantes.PAGE_INGRESO_JSF;                    
+                    outcome=Constantes.PAGE_INGRESO_JSF;    
+  
+                    
                }
                 
                else{
@@ -205,8 +197,9 @@ public void validarSesion() {
         try {
             if (contex.getExternalContext().getSessionMap().get("isSesionAlive") == null | contex.getExternalContext().getSessionMap().get("isSesionAlive").
                     toString().trim().equals("false")) {
-                contex.getExternalContext().redirect("login.jsf");
-                contex.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,  "Autenticacion", "El usuario No existe !!"));
+                 
+               contex.getExternalContext().redirect("login.jsf");
+               contex.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,  "Autenticacion", "El usuario No existe !!"));
 
             }
         } catch (Exception e) {

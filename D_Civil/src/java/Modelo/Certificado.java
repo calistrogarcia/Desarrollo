@@ -75,53 +75,50 @@ public class Certificado implements Serializable {
     private String fecha_resuelto;
     private String observancia_ipse;
     private String area_verificada;
+    private boolean estado_editar;
+    
     private String[] observacion_Ipse;
-
+    StringBuffer cadena = new StringBuffer();
+ 
+    
+    
     Giro Objgiros = new Giro();
     Supervisor supervisor = new Supervisor();
-
     Direccion objdireccion = new Direccion();
     Upload objUpload = new Upload();
     Download objDownload = new Download();
-    Boton objboton = new Boton();
     Postal ObjPostal = new Postal();
     Persona ObjPersona = new Persona();
     Expediente ObjExpediente = new Expediente();
-    StringBuffer cadena = new StringBuffer();
-     
-//    String [] x;
-//     
-//     public StringBuffer cadena (){
-//     
-//     System.out.println(x);
-//     
-//     for (int i = 0; i < x.length; i++) {
-//           cadena = cadena.append(this.x[i]); }
-//          System.out.println(cadena);  
-//          return cadena;
-//     }
+    
  
-    public String[] getObservacion_Ipse() {
-           
-        
-           return observacion_Ipse; 
-           
-    }
-
-    public void setObservacion_Ipse(String[] observacion_Ipse) {
-        this.observacion_Ipse = observacion_Ipse;
-        
-    }
- 
+  
     public StringBuffer getCadena() {
-        
         return cadena;
     }
 
     public void setCadena(StringBuffer cadena) {
         this.cadena = cadena;
     }
+    
+    public String[] getObservacion_Ipse() {
+           return observacion_Ipse;         
+    }
 
+    public void setObservacion_Ipse(String[] observacion_Ipse) {
+        this.observacion_Ipse = observacion_Ipse;      
+    }
+    
+    
+    public boolean isEstado_editar() {
+        return estado_editar;
+    }
+
+    public void setEstado_editar(boolean estado_editar) {
+        this.estado_editar = estado_editar;
+    }
+    
+    
     public String getResultados_expediente_ipse() {
         return resultados_expediente_ipse;
     }
@@ -137,19 +134,7 @@ public class Certificado implements Serializable {
     public void setObjExpediente(Expediente ObjExpediente) {
         this.ObjExpediente = ObjExpediente;
     }
-
-    public Certificado() {
-
-    }
-
-    public Boton getObjboton() {
-        return objboton;
-    }
-
-    public void setObjboton(Boton objboton) {
-        this.objboton = objboton;
-    }
-
+    
     public Persona getObjPersona() {
         return ObjPersona;
     }
@@ -599,22 +584,15 @@ public class Certificado implements Serializable {
                 do {
 
                     obj = new Certificado();
-
                     Upload U = new Upload();
-
                     U.setExpediente_id(rs.getString("expediente_id"));
-
                     obj.setObjUpload(U);
-
                     obj.setNro_expediente(rs.getString("expediente"));
                     obj.setFecha_expediente(rs.getString("fecha_expediente"));
-
                     Persona ObjPersona = new Persona();
                     ObjPersona.setCodigo_contribuyente(rs.getString("codigo"));
                     ObjPersona.setNombres_apellidos(rs.getString("nombres_apellidos"));
-
                     obj.setObjPersona(ObjPersona);
-
                     obj.setAsunto(rs.getString("asunto"));
                     obj.setArea_declarada(rs.getString("area_declarada"));
                     obj.setArea(rs.getString("area_final"));
@@ -623,12 +601,9 @@ public class Certificado implements Serializable {
                     obj.setDireccion(rs.getString("direccion"));
                     obj.setNombre_inspector(rs.getString("nombre_Inspector"));
                     obj.setAforo(rs.getInt("aforo"));
-
                     Giro G = new Giro();
-
                     G.setCodigo_giro(rs.getString("codigo_giro"));
                     obj.setObjgiros(G);
-
                     obj.setId_tipo_licencia(rs.getInt("id_tipo_licencia"));
                     obj.setDescripcion_tipo_licencia(rs.getString("descripcion_tipo_licencia"));
                     obj.setNumero_identificacion(rs.getString("numero_identidad"));
@@ -637,17 +612,12 @@ public class Certificado implements Serializable {
                     obj.setResultado(rs.getInt("resultado"));
                     obj.setAnotaciones(rs.getString("anotaciones"));
                     Expediente ObjExpediente = new Expediente();
-
                     ObjExpediente.setEstado_expediente(rs.getString("estado_expediente"));
-
                     obj.setObjExpediente(ObjExpediente);
-
                     obj.setDireccion_verificada(rs.getString("direccion_verificada"));
                     obj.setArea_verificada(rs.getString("area_verificada"));
-
-                    Boton b = new Boton();
-                    b.setEstado_boton(rs.getString("estado_editar"));
-                    obj.setObjboton(b);
+                    obj.setEstado_editar(rs.getBoolean("estado_editar"));
+                    
 
                     arr.add(obj);
 
@@ -844,15 +814,20 @@ public class Certificado implements Serializable {
         return a;
 
     }
+    
+ 
 
     public static boolean MoficardatosParaCertificado(Certificado obj) {
+       
         boolean a = false;
         Connection conexion = null;
-
+        
+   
         try {
             conexion = Controlador_Sql.darConexionBD();
 
             conexion.setAutoCommit(false);
+            
 
             CallableStatement st = conexion.prepareCall("{call sp_java_actualizar_expediente_por_contribuyente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 

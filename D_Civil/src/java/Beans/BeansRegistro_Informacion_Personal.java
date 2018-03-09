@@ -50,6 +50,14 @@ public class BeansRegistro_Informacion_Personal implements Serializable {
    
   
     
+     public List<String> getDirecciones_Fiscales() {
+        return Direcciones_Fiscales;
+    }
+
+    public void setDirecciones_Fiscales(List<String> Direcciones_Fiscales) {
+        this.Direcciones_Fiscales = Direcciones_Fiscales;
+    }
+    
     public Persona getObjContribuyenteReg() {
         return objContribuyenteReg;
     }
@@ -169,9 +177,12 @@ public class BeansRegistro_Informacion_Personal implements Serializable {
         doiniciarBusquedaContribuyente();
 
     }
-
+ 
+    
+    
     public String doRegContribuyente() {
-
+         
+   
         try {
 
             if (Persona.RegistrarPersona(objContribuyenteReg)) {
@@ -185,7 +196,7 @@ public class BeansRegistro_Informacion_Personal implements Serializable {
             Mensaje.manejarError(e, "Registrar Contribuyente");
         }
         return null;
-
+        
     }
     
     
