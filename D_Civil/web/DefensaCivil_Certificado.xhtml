@@ -658,8 +658,6 @@ and open the template in the editor.
                                                                     autoResize="true" id="editar_observaciones"
                                                                     counterTemplate="{0} {msg.LabelContador}" 
                                                                     value="{Beans_DefensaCivil_Certificado.objCertificadoMod.observaciones_seguridad}">
-   
-   
                                                    </p:inputTextarea> 
                                                    <br />
    
@@ -667,11 +665,10 @@ and open the template in the editor.
                                                    <h:message for="editar_observaciones" showDetail="false" showSummary="true"/>                                  
                                                </h:panelGroup>  
                                            </h:panelGrid>  -->
-                                    
-                                    
+   
                                      <h:panelGroup>
                                         <p:selectCheckboxMenu id="observaciones_ipse"  
-                                                              value="#{Beans_DefensaCivil_Certificado.objCertificadoMod.observacion_Ipse}" 
+                                                              value="#{Beans_DefensaCivil_Certificado.observacion_Ipse}" 
                                                               label="Observacion Ipse"
                                                               filter="true" filterMatchMode="startsWith" panelStyle="width:20%">
                                             <f:selectItems value="#{Certificado.cargarObservacionesIpse}" />

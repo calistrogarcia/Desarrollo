@@ -80,14 +80,41 @@ public class Beans_DefensaCivil_Certificado implements Serializable{
     private String numero_expediente;
     private String tipo;               // Tipo 1 para Certificado
     private String acto;
+    private String[] observacion_Ipse;
+    StringBuffer cadena = new StringBuffer();
 
-//TabView
+   //TabView
     private Integer activeTabIndex;
     private boolean bandVer = true;
     private boolean bandMod = true;
     private boolean bandEli = true;
     private boolean bandAsignar = true;
 
+   
+    public String getId_legajo() {
+        return id_legajo;
+    }
+
+    public void setId_legajo(String id_legajo) {
+        this.id_legajo = id_legajo;
+    }
+
+    public String[] getObservacion_Ipse() {
+        return observacion_Ipse;
+    }
+
+    public void setObservacion_Ipse(String[] observacion_Ipse) {
+        this.observacion_Ipse = observacion_Ipse;
+    }
+
+    public StringBuffer getCadena() {
+        return cadena;
+    }
+
+    public void setCadena(StringBuffer cadena) {
+        this.cadena = cadena;
+    }
+ 
     public String getActo() {
         return acto;
     }
